@@ -75,7 +75,9 @@ int init_parameters( void )
 		ww_mv_reg_tn = 		    WW_MV_REG_Tn;
 		ww_tww_tvl_faktor =   	WW_Tww_Tvl_Faktor;
 		ww_tz_sw = 				WW_Tz_SW;
-	}
+        
+        hour_offset =           1;
+    }
 	else {
 #ifdef __DEBUG__
     printf( "DEBUG: Ini Datei einlesen:\n" );
@@ -381,6 +383,13 @@ int init_zeitprogramm( void )
                          printf( "DEBUG: DUSCH AUSSCHALTZEIT[%d] = %d\n",
                         i, DUSCH_Aus_Schaltzeiten[i] );
                     }
+                    #endif
+                }
+                else if( strncmp( parameter, "HOUR_OFFSET", 11 ) == 0 ) {
+                    value = strtok( NULL, ";" );
+                    sscanf( value, "%d", &hour_offset );
+                    #ifdef __DEBUG__
+                    printf( "DEBUG: hour_offset = %d\n", hour_offset );
                     #endif
                 }
             }
