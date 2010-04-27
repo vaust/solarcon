@@ -102,6 +102,8 @@ _EXT_ float ww_mv_reg_tn;        /* WW Hzg-VL-Temperatur-Regelung (Mischer) Nach
 _EXT_ float ww_tww_tvl_faktor;   /* Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.     */
 _EXT_ float ww_tz_sw;            /* Temperatursollwert des Zirkulationswassers in °C         */
 
+_EXT_ int   hour_offset;         /* Workaround fuer localtime() Fehler */
+
 #endif
 
 

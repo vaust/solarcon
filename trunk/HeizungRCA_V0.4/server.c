@@ -101,9 +101,9 @@ void *server_thread( void *arg )
     arglist = (int *) arg;
     fdesc = arglist[0];
 
-    sprintf( bufout, "RCA Heizungssteuerung Version 0.4\n" );
+    sprintf( bufout, "RCA Heizungssteuerung Version 0.4.1\n" );
     write( fdesc, bufout, strlen( bufout ) );
-    sprintf( bufout, "Verantwortlich: Andreas und Volker Stegmann\n\n" );
+    sprintf( bufout, "Andreas und Volker Stegmann\n\n" );
     write( fdesc, bufout, strlen( bufout ) );
 
     sprintf( bufout, "Server Prozess %d\n\n", arglist[1]+1 );

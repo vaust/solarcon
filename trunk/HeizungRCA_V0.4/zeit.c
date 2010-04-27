@@ -16,7 +16,7 @@ void cntrl_zeitprogramm( void )
     time( &aktZeit );
     aktZeitElemente_p = localtime( &aktZeit );
     aktWday           = aktZeitElemente_p->tm_wday;
-    aktHour           = aktZeitElemente_p->tm_hour + 2;  // Workaround fuer Problem mit localtime()
+    aktHour           = aktZeitElemente_p->tm_hour + hour_offset;  // Workaround fuer Problem mit localtime()
     aktMin            = aktZeitElemente_p->tm_min;
     aktSec            = aktZeitElemente_p->tm_sec;
 
