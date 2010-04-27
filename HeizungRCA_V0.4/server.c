@@ -129,6 +129,8 @@ void *server_thread( void *arg )
     write( fdesc, bufout, strlen( bufout ) );
     sprintf( bufout, "\t GET HK    (Daten zu Heizkörper-Heizkreis)\n" );
     write( fdesc, bufout, strlen( bufout ) );
+    sprintf( bufout, "\t INIT      (Initialisierungsdateien neu einlesen)\n" );
+    write( fdesc, bufout, strlen( bufout ) );
     sprintf( bufout, "\t END       (Datenabfrage beenden)\n" );
     write( fdesc, bufout, strlen( bufout ) );
 
@@ -152,12 +154,28 @@ void *server_thread( void *arg )
 #ifdef __DEBUG__
                 printf( "GET Befehl erhalten\n" );
 #endif
+                pthread_mutex_lock( &mutex );
+
                 parseGet( fdesc, bufout );
+
+                pthread_mutex_unlock( &mutex );
             }
             else if( strncasecmp( "PUT", token, 3 ) == 0 ) {
 #ifdef __DEBUG__
                 printf( "PUT Befehl erhalten\n" );
 #endif
+            }
+            else if( strncasecmp( "INIT", token, 4 ) == 0 ) {
+#ifdef __DEBUG__
+                printf( "INIT Befehl erhalten\n" );
+#endif
+                pthread_mutex_lock( &mutex );
+    
+                init_parameters();
+                init_variables();
+                init_zeitprogramm();
+    
+                pthread_mutex_unlock( &mutex );               
             }
         }
     }
@@ -166,7 +184,7 @@ void *server_thread( void *arg )
 int parseGet( int fdesc, char *bufout )
 {
     char *token;
-
+        
     token = strtok( NULL, "\n\r " );
     if( strncasecmp( token, "T", 1 ) == 0 ) {
         sprintf( bufout, "ALL_Tau_MW     = %5.1f °C\n", ALL_Tau_MW );
@@ -403,11 +421,11 @@ int main( void )
         exit( -1 );
     }
 
-/* Ein Mutex Objekt erzeugen */
-//    if( pthread_mutex_init( &rs232th_mutex, NULL ) != 0 ) {
-//        perror( "Mutex konnte nicht initialisiert werden" );
-//        exit( -1 );
-//    }
+/* Ein Mutex erzeugen */
+    if( pthread_mutex_init( &mutex, NULL ) != 0 ) {
+        perror( "Mutex konnte nicht initialisiert werden" );
+        exit( -1 );
+    }
 
     /* Main Thread erzeugen */
     if( (pthread_create( &(threadlist[next_thread]), &threadattr,
