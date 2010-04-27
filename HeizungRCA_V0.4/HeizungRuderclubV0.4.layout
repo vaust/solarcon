@@ -11,7 +11,7 @@
 		<Cursor position="291" topLine="10" />
 	</File>
 	<File name="init_var.c" open="1" top="0" tabpos="8">
-		<Cursor position="15798" topLine="400" />
+		<Cursor position="18733" topLine="484" />
 	</File>
 	<File name="io.h" open="0" top="0" tabpos="14">
 		<Cursor position="2013" topLine="19" />
@@ -22,11 +22,14 @@
 	<File name="log.c" open="0" top="0" tabpos="4">
 		<Cursor position="123" topLine="0" />
 	</File>
-	<File name="main.c" open="0" top="0" tabpos="1">
-		<Cursor position="428" topLine="4" />
+	<File name="main.c" open="1" top="0" tabpos="13">
+		<Cursor position="1397" topLine="38" />
 	</File>
-	<File name="server.c" open="1" top="1" tabpos="5">
+	<File name="server.c" open="1" top="0" tabpos="5">
 		<Cursor position="9148" topLine="206" />
+	</File>
+	<File name="server.h" open="1" top="0" tabpos="12">
+		<Cursor position="666" topLine="12" />
 	</File>
 	<File name="solar.c" open="0" top="0" tabpos="6">
 		<Cursor position="60" topLine="0" />
@@ -38,10 +41,10 @@
 		<Cursor position="145" topLine="0" />
 	</File>
 	<File name="variablen.h" open="1" top="0" tabpos="2">
-		<Cursor position="3187" topLine="43" />
+		<Cursor position="3237" topLine="43" />
 	</File>
 	<File name="vorgabe.h" open="1" top="0" tabpos="6">
-		<Cursor position="3312" topLine="4" />
+		<Cursor position="8080" topLine="80" />
 	</File>
 	<File name="vorgaben.ini" open="0" top="0" tabpos="2">
 		<Cursor position="2529" topLine="45" />
@@ -55,8 +58,8 @@
 	<File name="ww.c" open="1" top="0" tabpos="3">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="zeit.c" open="1" top="0" tabpos="10">
-		<Cursor position="913" topLine="1" />
+	<File name="zeit.c" open="1" top="1" tabpos="10">
+		<Cursor position="2054" topLine="41" />
 	</File>
 	<File name="zeitprogramm.h" open="0" top="0" tabpos="3">
 		<Cursor position="1038" topLine="18" />

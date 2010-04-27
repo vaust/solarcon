@@ -18,6 +18,8 @@ void init_variables( void );
 void cntrl_task( void );
 void cntrl_initAverageTau( float currTau );
 
+extern pthread_mutex_t	mutex;
+
 #ifdef _REENTRANT
 void *main_thread( void *arg )
 #else
@@ -26,16 +28,16 @@ void main( void )
 {
     int prog_state_toggle = IO_AUS;
     int cnt;
-    
+
     pthread_mutex_lock( &mutex );
-    
+
     init_parameters();
     init_variables();
     init_zeitprogramm();
-    
+
     pthread_mutex_unlock( &mutex );
-   
-    #ifdef __WAGO__
+
+#ifdef __WAGO__
     KbusOpen();
     KbusUpdate();
 #endif
@@ -49,9 +51,9 @@ void main( void )
 
         /* Sammeltask mit allen Reglerfunktionen aufrufen */
         pthread_mutex_lock( &mutex );
-        
+
         cntrl_task();
-        
+
         pthread_mutex_unlock( &mutex );
         #ifdef __DEBUG__
         printf( "DEBUG: Hauptschleifenzaehler = %d\n", cnt++ );
