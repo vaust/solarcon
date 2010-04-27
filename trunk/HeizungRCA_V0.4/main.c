@@ -26,11 +26,16 @@ void main( void )
 {
     int prog_state_toggle = IO_AUS;
     int cnt;
-
+    
+    pthread_mutex_lock( &mutex );
+    
     init_parameters();
     init_variables();
     init_zeitprogramm();
-#ifdef __WAGO__
+    
+    pthread_mutex_unlock( &mutex );
+   
+    #ifdef __WAGO__
     KbusOpen();
     KbusUpdate();
 #endif
@@ -43,8 +48,12 @@ void main( void )
         CONTROL_AKTIV = prog_state_toggle;
 
         /* Sammeltask mit allen Reglerfunktionen aufrufen */
+        pthread_mutex_lock( &mutex );
+        
         cntrl_task();
-#ifdef __DEBUG__
+        
+        pthread_mutex_unlock( &mutex );
+        #ifdef __DEBUG__
         printf( "DEBUG: Hauptschleifenzaehler = %d\n", cnt++ );
 #endif
         /* Sleep() funktioniert nur unter UNIX/Linux, nicht unter Windows */
