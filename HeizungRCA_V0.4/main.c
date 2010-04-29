@@ -57,7 +57,7 @@ void main( void )
         pthread_mutex_unlock( &mutex );
         #ifdef __DEBUG__
         printf( "DEBUG: Hauptschleifenzaehler = %d\n", cnt++ );
-#endif
+        #endif
         /* Sleep() funktioniert nur unter UNIX/Linux, nicht unter Windows */
         sleep(1);
     }
