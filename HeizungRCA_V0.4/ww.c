@@ -10,6 +10,7 @@ void cntrl_WW_Heizkreis( void )
 {
 //  static int      old_ww_wz_mw = IO_AUS; /* Merker fuer vorhergehenden Status Wasserzaehlerimpuls */
 //  static long     old_ww_Zaehler_l = 0;  /* Merker für vorhergehenden Wasserzaehlerstand */
+
     float           xd_pu;                 /* Regelabweichung Soll - Ist */
     static float    xd_pu_alt = 0;
     float           xd_mv;                 /* Regelabw. fuer Mischer */
@@ -21,6 +22,9 @@ void cntrl_WW_Heizkreis( void )
     static float    ww_hzg_pu_y_alt_f = 11.0; /* 11% ist Zirkulationsgrundwert */
     float           q0, q1;
     const float     TA = 1.0;    /* Abtastzeit in sec                          */
+
+    static int      schwachlastzeit=0;
+
 
     /* WW Heizungspumpe immer ein! */
     WW_HZG_PU_SB = IO_EIN;
@@ -42,6 +46,11 @@ void cntrl_WW_Heizkreis( void )
     xd_pu_alt = xd_pu;
     ww_hzg_pu_y_alt_f = ww_hzg_pu_y_f;
 
+    if( ww_hzg_pu_y_f <= 11 ) {  /* Pumpe während Duschbetrieb nicht abschalten, wegen Schwingung */
+        schwachlastzeit ++;
+        if( schwachlastzeit < 30 ) ww_hzg_pu_y_f = 11.0;        
+    else  zirk_betrieb = 0; 
+                
     if( ww_hzg_pu_y_f <= MIN_Y_PCT ) {
         ww_hzg_pu_y_f = MIN_Y_PCT;
         ww_hzg_pu_y_alt_f = MIN_Y_PCT;
@@ -84,10 +93,10 @@ void cntrl_WW_Heizkreis( void )
     /************************************************
      * Kriterium für Warmwasser Heizungsverteilventil
      ************************************************/
-    if( WW_HZG_Trl_MW < 30.0 ) {
+    if( WW_HZG_Trl_MW < SOL_SP2_Tu_MW ) {
         WW_HZG_VV_SB = IO_VV_SP2;  // MAKRO muss stimmen! Was ist Richtung Sp1 ?? An oder Aus ?
     }
-    else if( WW_HZG_Trl_MW >= (30.0+kes_sp_dt_sw) ) {
+    else if( SOL_SP2_To_MW < SOL_SP1_Tu_MW ) {
         WW_HZG_VV_SB = IO_VV_SP1;
     }
 }
