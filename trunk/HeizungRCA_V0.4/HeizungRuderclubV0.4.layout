@@ -34,8 +34,8 @@
 	<File name="solar.c" open="0" top="0" tabpos="6">
 		<Cursor position="60" topLine="0" />
 	</File>
-	<File name="speicher.c" open="1" top="0" tabpos="11">
-		<Cursor position="0" topLine="0" />
+	<File name="speicher.c" open="1" top="1" tabpos="11">
+		<Cursor position="1296" topLine="13" />
 	</File>
 	<File name="task.c" open="1" top="0" tabpos="4">
 		<Cursor position="145" topLine="0" />
@@ -58,8 +58,8 @@
 	<File name="ww.c" open="1" top="0" tabpos="3">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="zeit.c" open="1" top="1" tabpos="10">
-		<Cursor position="2054" topLine="41" />
+	<File name="zeit.c" open="1" top="0" tabpos="10">
+		<Cursor position="2396" topLine="58" />
 	</File>
 	<File name="zeitprogramm.h" open="0" top="0" tabpos="3">
 		<Cursor position="1038" topLine="18" />
