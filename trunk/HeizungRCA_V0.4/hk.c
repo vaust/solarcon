@@ -49,18 +49,12 @@ void cntrl_HK_Heizkreis( void )
     /* Mischventil mit 0-10V ansteuern */
     ProzentToAnalogOut( hk_mv_y_f , (ao_0_10V_t*) &HK_MV_Y );
 
-    if( ( (Tau_36h_mittel_f <  all_at_start    ) ||
-          /* Die mittlere Aussentemperatur liegt unter der Betriebsschwelle */
-          (ALL_Tau_MW       <  all_frostschutz ) ||
-          /* Die Aussentemperatur liegt unter der Frostschutzmarke          */
-          (partytime_flg    == SET             )
-        ) && (hk_mv_y_f > 5.0) ) {
-        HK_PU_SB = IO_EIN; /* Heizkreis Pumpe einschalten */
-    }
-    else if( Tau_36h_mittel_f > (all_at_start+1.0) ) {
-        HK_PU_SB = IO_AUS;     /* Heizkreis Pumpe ausschalten */
-    }
-    else {
-        HK_PU_SB = IO_EIN; /* Heizkreis Pumpe einschalten */
-    }
+    if( Tau_36h_mittel_f < all_at_start   &&        /* mittlere AT unter Betriebsschwelle */          
+        hk_Tvl_SW_f > 30.0                   )      /* VL-Temp. ab der HK wirklich heizt */ 
+        HK_PU_SB = IO_EIN;                          /* Heizkreis Pumpe einschalten */
+    else if( Tau_36h_mittel_f > (all_at_start+1.0) )
+        HK_PU_SB = IO_AUS;                          /* Heizkreis Pumpe ausschalten */
+    else if (ALL_Tau_MW <  all_frostschutz )        /* AT unter Frostschutzmarke */
+        HK_PU_SB = IO_EIN;                          /* Heizkreis Pumpe einschalten */
+
 }
