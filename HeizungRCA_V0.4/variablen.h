@@ -21,7 +21,7 @@ _EXT_ float     hk_mv_y_f;              /* Heizkörper Mischventil Stellsignal *
 
 _EXT_ float     fb_Tvl_SW_f;            /* Fußbodenheizkreis Vorlauftemperatursollwert in °C */
 _EXT_ int       hk_Aufheizzeit_i;       /* Zeit von Heizbeginn bis zum Erreichen der Raumtemperatur in Minuten */
-_EXT_ float     ww_HZG_Tvl_SW_f;        /* Heizungs-Vorlauftemperatur-Sollwert NICHT BENUTZT */
+_EXT_ float     ww_HZG_Tvl_SW_f;        /* Heizungs-Vorlauftemperatur-Sollwert */
 _EXT_ long      ww_Zaehler_l;           /* Zähler für Warmwasser */
 _EXT_ int       ww_Durchfluss_i;        /* Durchfluss in Pulse / sec entspr. 1 liter/sec */
 
