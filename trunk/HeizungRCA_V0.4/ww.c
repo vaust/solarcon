@@ -23,7 +23,7 @@ void cntrl_WW_Heizkreis( void )
     float           q0, q1;
     const float     TA = 1.0;    /* Abtastzeit in sec                          */
 
-    static int      schwachlastzeit=0;
+    static int      schwachlastzeit = 0;
 
 
     /* WW Heizungspumpe immer ein! */
@@ -46,13 +46,17 @@ void cntrl_WW_Heizkreis( void )
     xd_pu_alt = xd_pu;
     ww_hzg_pu_y_alt_f = ww_hzg_pu_y_f;
 
-    if( ww_hzg_pu_y_f <= 11 ) {  /* Pumpe während Duschbetrieb nicht abschalten, wegen Schwingung */
+    /* Pumpe waehrend Duschbetrieb nicht abschalten, wegen Schwingung */
+    if( ww_hzg_pu_y_f < 11.0 ) {
         schwachlastzeit ++;
-        if( schwachlastzeit < 30 ) ww_hzg_pu_y_f = 11.0;
-        /* nach 30s ununterbrochener Schwachlast darf die Pumpe abschalten */        
+        if( schwachlastzeit < 30 ) {
+            ww_hzg_pu_y_f = 11.0;
+        }
+    } /* nach 30s ununterbrochener Schwachlast darf die Pumpe abschalten */
+    else {
+        schwachlastzeit = 0;
     }
-    else  schwachlastzeit = 0; 
-                
+
     if( ww_hzg_pu_y_f <= MIN_Y_PCT ) {
         ww_hzg_pu_y_f = MIN_Y_PCT;
         ww_hzg_pu_y_alt_f = MIN_Y_PCT;
@@ -65,24 +69,14 @@ void cntrl_WW_Heizkreis( void )
     ProzentToAnalogOut( ww_hzg_pu_y_f, (ao_0_10V_t *) &WW_HZG_PU_Y );
 
 
-    /* PI-Regler fuer WW Mischventil funktioniert nicht
-    
-    xd_mv = ww_HZG_Tvl_SW_f - WW_HZG_Tvl_MW;
-    Berechnung von q0 und q1:
-    q0 =  ww_mv_reg_kp + TA/ww_mv_reg_tn;
-    q1 = -ww_mv_reg_kp;
-    ww_hzg_mv_y_f = ww_hzg_mv_y_alt_f + q0*xd_mv + q1*xd_mv_alt;
-    xd_mv_alt = xd_mv;
-    ww_hzg_mv_y_alt_f = ww_hzg_mv_y_f;
-    */
-
     /* Berechnung von WW_HZG_MV_Y aus den Temperaturen von Speicher und Rücklauf */
-    
+
     ww_HZG_Tvl_SW_f = ww_tww_sw + kes_sp_dt_sw/2.0;
     if( SOL_SP1_To_MW > WW_HZG_Trl_MW )
-        WW_HZG_MV_Y = (ww_HZG_Tvl_SW_f - WW_HZG_Trl_MW) / (SOL_SP1_To_MW - WW_HZG_Trl_MW) * 100.0;
-    else 
-        WW_HZG_MV_Y = 100.0;  /* dann stimmt was nicht -> Ventil voll auf */
+        ww_hzg_mv_y_f =
+            (ww_HZG_Tvl_SW_f - WW_HZG_Trl_MW) / (SOL_SP1_To_MW - WW_HZG_Trl_MW) * 100.0;
+    else
+        ww_hzg_mv_y_f = 100.0;  /* dann stimmt was nicht -> Ventil voll auf */
 
     if( ww_hzg_mv_y_f <= MIN_Y_PCT ) {
         ww_hzg_mv_y_f = MIN_Y_PCT;
@@ -104,7 +98,7 @@ void cntrl_WW_Heizkreis( void )
      ************************************************/
     if( Tau_36h_mittel_f > all_at_start ) {
         if( WW_HZG_Trl_MW < SOL_SP2_Tu_MW )     WW_HZG_VV_SB = IO_VV_SP2;
-        else                                    WW_HZG_VV_SB = IO_VV_SP1; 
+        else                                    WW_HZG_VV_SB = IO_VV_SP1;
     }
     else {
         if( WW_HZG_Trl_MW < hk_Tvl_SW_f )       WW_HZG_VV_SB = IO_VV_SP2;
