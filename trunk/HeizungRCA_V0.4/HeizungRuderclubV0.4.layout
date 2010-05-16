@@ -8,10 +8,10 @@
 		<Cursor position="898" topLine="10" />
 	</File>
 	<File name="hk.c" open="1" top="0" tabpos="7">
-		<Cursor position="291" topLine="10" />
+		<Cursor position="2145" topLine="31" />
 	</File>
 	<File name="init_var.c" open="1" top="0" tabpos="8">
-		<Cursor position="18733" topLine="484" />
+		<Cursor position="0" topLine="0" />
 	</File>
 	<File name="io.h" open="0" top="0" tabpos="14">
 		<Cursor position="2013" topLine="19" />
@@ -19,29 +19,29 @@
 	<File name="kessel.c" open="0" top="0" tabpos="9">
 		<Cursor position="650" topLine="0" />
 	</File>
-	<File name="log.c" open="0" top="0" tabpos="4">
-		<Cursor position="123" topLine="0" />
+	<File name="log.c" open="1" top="1" tabpos="11">
+		<Cursor position="79" topLine="0" />
 	</File>
-	<File name="main.c" open="1" top="0" tabpos="13">
+	<File name="main.c" open="0" top="0" tabpos="13">
 		<Cursor position="1397" topLine="38" />
 	</File>
 	<File name="server.c" open="1" top="0" tabpos="5">
 		<Cursor position="9148" topLine="206" />
 	</File>
-	<File name="server.h" open="1" top="0" tabpos="12">
-		<Cursor position="666" topLine="12" />
+	<File name="server.h" open="0" top="0" tabpos="12">
+		<Cursor position="732" topLine="12" />
 	</File>
 	<File name="solar.c" open="0" top="0" tabpos="6">
 		<Cursor position="60" topLine="0" />
 	</File>
-	<File name="speicher.c" open="1" top="1" tabpos="11">
-		<Cursor position="1296" topLine="13" />
+	<File name="speicher.c" open="0" top="0" tabpos="11">
+		<Cursor position="2113" topLine="33" />
 	</File>
 	<File name="task.c" open="1" top="0" tabpos="4">
 		<Cursor position="145" topLine="0" />
 	</File>
 	<File name="variablen.h" open="1" top="0" tabpos="2">
-		<Cursor position="3237" topLine="43" />
+		<Cursor position="3223" topLine="43" />
 	</File>
 	<File name="vorgabe.h" open="1" top="0" tabpos="6">
 		<Cursor position="8080" topLine="80" />
@@ -56,10 +56,10 @@
 		<Cursor position="816" topLine="0" />
 	</File>
 	<File name="ww.c" open="1" top="0" tabpos="3">
-		<Cursor position="0" topLine="0" />
+		<Cursor position="1707" topLine="37" />
 	</File>
 	<File name="zeit.c" open="1" top="0" tabpos="10">
-		<Cursor position="2396" topLine="58" />
+		<Cursor position="2396" topLine="55" />
 	</File>
 	<File name="zeitprogramm.h" open="0" top="0" tabpos="3">
 		<Cursor position="1038" topLine="18" />

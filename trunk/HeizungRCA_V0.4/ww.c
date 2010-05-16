@@ -49,7 +49,7 @@ void cntrl_WW_Heizkreis( void )
     /* Pumpe waehrend Duschbetrieb nicht abschalten, wegen Schwingung */
     if( ww_hzg_pu_y_f < 11.0 ) {
         schwachlastzeit ++;
-        if( schwachlastzeit < 30 ) {
+        if( schwachlastzeit < 300 ) {
             ww_hzg_pu_y_f = 11.0;
         }
     } /* nach 30s ununterbrochener Schwachlast darf die Pumpe abschalten */
@@ -94,7 +94,7 @@ void cntrl_WW_Heizkreis( void )
    #define IO_VV_SP2       0x01
 */
     /************************************************
-     * Kriterium für Warmwasser Heizungsverteilventil
+     * Kriterium fuer Warmwasser Heizungsverteilventil
      ************************************************/
     if( Tau_36h_mittel_f > all_at_start ) {
         if( WW_HZG_Trl_MW < SOL_SP2_Tu_MW )     WW_HZG_VV_SB = IO_VV_SP2;
