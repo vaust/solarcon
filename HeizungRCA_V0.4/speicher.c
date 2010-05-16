@@ -20,7 +20,7 @@ void cntrl_Speicher( void )
 
 
     /********************************************
-     * Schaltkriterium für Speicherladepumpe 1
+     * Schaltkriterium fuer Speicherladepumpe 1
      ********************************************/
     if( SOL_SP1_To_MW < sol_SP1_To_SW_f ) {
         kes_Tvl_SW_Sp1_f = sol_SP1_To_SW_f + kes_sp_dt_sw;
@@ -35,7 +35,7 @@ void cntrl_Speicher( void )
 
 
     /********************************************
-     * Schaltkriterium für Speicherladepumpe 2
+     * Schaltkriterium fuer Speicherladepumpe 2
      ********************************************/
     if( KES_PU_SP1_SB == IO_AUS ) {
         /* Sp.-pumpe 2 nur einschalten, wenn Sp.-pumpe 1 aus ist! */
