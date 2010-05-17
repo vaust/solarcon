@@ -74,8 +74,9 @@ void cntrl_WW_Heizkreis( void )
     ww_HZG_Tvl_SW_f = ww_tww_sw + kes_sp_dt_sw/2.0;
     if( SOL_SP1_To_MW > WW_HZG_Trl_MW )
         ww_hzg_mv_y_f =
-            (ww_HZG_Tvl_SW_f - WW_HZG_Trl_MW) / (SOL_SP1_To_MW - WW_HZG_Trl_MW) * 100.0 +
-            10.0;
+            (ww_HZG_Tvl_SW_f - WW_HZG_Trl_MW) / (SOL_SP1_To_MW - WW_HZG_Trl_MW) * 100.0 
+            + ( ww_HZG_Tvl_SW_f - WW_HZG_Tvl_MW) * ww_mv_korr;
+            
     else
         ww_hzg_mv_y_f = 100.0;  /* dann stimmt was nicht -> Ventil voll auf */
 
