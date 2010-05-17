@@ -236,13 +236,9 @@ int read_vorgaben( FILE *handle )
                 value = strtok( NULL, "\n" );
                 sscanf( value, "%f", &ww_pu_reg_tn );
             }
-            else if( strncmp( parameter, "WW_MV_REG_Kp", 12 ) == 0 ) {
+            else if( strncmp( parameter, "WW_MV_KORR", 10 ) == 0 ) {
                 value = strtok( NULL, "\n" );
-                sscanf( value, "%f", &ww_mv_reg_kp );
-            }
-            else if( strncmp( parameter, "WW_MV_REG_Tn", 12 ) == 0 ) {
-                value = strtok( NULL, "\n" );
-                sscanf( value, "%f", &ww_mv_reg_tn );
+                sscanf( value, "%f", &ww_mv_korr );
             }
             else if( strncmp( parameter, "WW_Tww_Tvl_Faktor", 17 ) == 0 ) {
                 value = strtok( NULL, "\n" );
