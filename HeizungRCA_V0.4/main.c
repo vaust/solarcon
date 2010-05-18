@@ -29,12 +29,11 @@ void main( void )
     int prog_state_toggle = IO_AUS;
     int cnt;
 
+    /* Parameter, Variablen und Zeitprogramm initialisieren */
     pthread_mutex_lock( &mutex );
-
     init_parameters();
     init_variables();
     init_zeitprogramm();
-
     pthread_mutex_unlock( &mutex );
 
 #ifdef __WAGO__
@@ -45,21 +44,21 @@ void main( void )
 
     /*  Hauptschleife (endlos) */
     while( 1 ) {
+        /* Betriebslampe auf Fronttuer blinken lassen */
         if( prog_state_toggle == IO_AUS ) prog_state_toggle = IO_EIN;
         else                              prog_state_toggle = IO_AUS;
         CONTROL_AKTIV = prog_state_toggle;
 
         /* Sammeltask mit allen Reglerfunktionen aufrufen */
         pthread_mutex_lock( &mutex );
-
         cntrl_task();
-
         pthread_mutex_unlock( &mutex );
+
         #ifdef __DEBUG__
         printf( "DEBUG: Hauptschleifenzaehler = %d\n", cnt++ );
         #endif
-        /* Sleep() funktioniert nur unter UNIX/Linux, nicht unter Windows */
-        sleep(1);
+        /* Sleep() funktioniert nur unter UNIX/Linux, nicht unter Windows! */
+        sleep(1); /* Eine Sekunde schlafen */
     }
 #ifdef __WAGO__
     KbusClose();
