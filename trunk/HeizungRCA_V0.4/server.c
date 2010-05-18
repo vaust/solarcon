@@ -101,7 +101,7 @@ void *server_thread( void *arg )
     arglist = (int *) arg;
     fdesc = arglist[0];
 
-    sprintf( bufout, "RCA Heizungssteuerung Version 0.4.1\n" );
+    sprintf( bufout, "RCA Heizungssteuerung Version 0.4.3\n" );
     write( fdesc, bufout, strlen( bufout ) );
     sprintf( bufout, "Andreas und Volker Stegmann\n\n" );
     write( fdesc, bufout, strlen( bufout ) );
@@ -155,9 +155,7 @@ void *server_thread( void *arg )
                 printf( "GET Befehl erhalten\n" );
 #endif
                 pthread_mutex_lock( &mutex );
-
                 parseGet( fdesc, bufout );
-
                 pthread_mutex_unlock( &mutex );
             }
             else if( strncasecmp( "PUT", token, 3 ) == 0 ) {
@@ -170,12 +168,13 @@ void *server_thread( void *arg )
                 printf( "INIT Befehl erhalten\n" );
 #endif
                 pthread_mutex_lock( &mutex );
-    
                 init_parameters();
                 init_variables();
                 init_zeitprogramm();
-    
                 pthread_mutex_unlock( &mutex );               
+                
+                sprintf( bufout, "Parameter, Variablen und Zeitprogramm initialisiert!\n\n" );
+                write( fdesc, bufout, strlen( bufout ) );
             }
         }
     }
