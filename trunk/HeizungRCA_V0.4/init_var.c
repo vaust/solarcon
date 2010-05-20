@@ -71,11 +71,11 @@ int init_parameters( void )
 
 		ww_pu_reg_kp = 		    WW_PU_REG_Kp;
 		ww_pu_reg_tn = 		    WW_PU_REG_Tn;
-		ww_mv_reg_kp = 		    WW_MV_REG_Kp;
-		ww_mv_reg_tn = 		    WW_MV_REG_Tn;
+//		ww_mv_reg_kp = 		    WW_MV_REG_Kp;
+//		ww_mv_reg_tn = 		    WW_MV_REG_Tn;
 		ww_tww_tvl_faktor =   	WW_Tww_Tvl_Faktor;
 		ww_tz_sw = 				WW_Tz_SW;
-        
+
         hour_offset =           1;
     }
 	else {
