@@ -169,10 +169,9 @@ void *server_thread( void *arg )
 #endif
                 pthread_mutex_lock( &mutex );
                 init_parameters();
-                init_variables();
                 init_zeitprogramm();
-                pthread_mutex_unlock( &mutex );               
-                
+                pthread_mutex_unlock( &mutex );
+
                 sprintf( bufout, "Parameter, Variablen und Zeitprogramm initialisiert!\n\n" );
                 write( fdesc, bufout, strlen( bufout ) );
             }
@@ -183,7 +182,7 @@ void *server_thread( void *arg )
 int parseGet( int fdesc, char *bufout )
 {
     char *token;
-        
+
     token = strtok( NULL, "\n\r " );
     if( strncasecmp( token, "T", 1 ) == 0 ) {
         sprintf( bufout, "ALL_Tau_MW     = %5.1f °C\n", ALL_Tau_MW );
