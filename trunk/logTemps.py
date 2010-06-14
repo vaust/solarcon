@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 # -*- coding: utf-8 -*-
 import telnetlib
 import datetime
@@ -29,7 +31,6 @@ for n in range(MAX_N):
     buffer = tn.read_very_eager()
     bufdecode = buffer.decode('utf8')
     lines = bufdecode.splitlines()
-    print (lines)
 
     # alle Temperaturen auf unplausible Werte initialisieren
     all_tau_mw = -100.0
