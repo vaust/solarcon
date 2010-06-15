@@ -1,15 +1,15 @@
 #!/usr/bin/python3
-
 # -*- coding: utf-8 -*-
+
 import telnetlib
 import datetime
 import time
 
 FRMSTR = "; {0:5.1f}; {1:5.1f}; {2:5.1f}; {3:5.1f}; {4:5.1f}; {5:5.1f}; {6:5.1f}; {7:5.1f}; {8:5.1f}; {9:5.1f}; \
-{10:5.1f}; {11:5.1f}; {12:5.1f}; {13:5.1f}; {14:5.1f}; {15:6.2f}; {16:6.2f}; \n"
+{10:5.1f}; {11:5.1f}; {12:5.1f}; {13:5.1f}; {14:5.1f}; {15:6.2f}; {16:6.2f};"
     
 #Anzahl der Messreihen
-MAX_N = 20
+MAX_N = 100
 
 # HOST = "192.168.3.33"
 HOST = "localhost"
@@ -100,7 +100,18 @@ for n in range(MAX_N):
                                             ww_hzg_tvl_mw, ww_hzg_trl_mw,
                                             ww_tww_mw,
                                             tau_1h_mittel_f, tau_36h_mittel_f
+                                           )+"\n" )
+    print( now.isoformat(' ')+FRMSTR.format( all_tau_mw, sol_koll_t_mw,
+                                            sol_sp1_to_mw, sol_sp1_tu_mw,
+                                            sol_sp2_to_mw, sol_sp2_tu_mw,
+                                            kes_tvl_mw, kes_trl_mw,
+                                            hk_tvl_mw, hk_trl_mw,
+                                            fb_prim_trl_mw, fb_sek_tvl_mw,
+                                            ww_hzg_tvl_mw, ww_hzg_trl_mw,
+                                            ww_tww_mw,
+                                            tau_1h_mittel_f, tau_36h_mittel_f
                                            ) )
+
     n += 1
     
 tn.close()
