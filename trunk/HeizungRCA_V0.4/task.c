@@ -28,8 +28,7 @@ void log_variables( FILE *fp );
 
 /* Digitale Regler */
 void cntrl_Solarbeheizung( void );
-void cntrl_Speicher1( void );
-void cntrl_Speicher2( void );
+void cntrl_Speicher( void );
 void cntrl_Kessel( void );
 void cntrl_FB_Heizkreis( void );
 void cntrl_HK_Heizkreis( void );
