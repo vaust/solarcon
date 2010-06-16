@@ -27,7 +27,7 @@ void main( void )
 #endif
 {
     int prog_state_toggle = IO_AUS;
-    int cnt;
+    int cnt = 0;
 
     /* Parameter, Variablen und Zeitprogramm initialisieren */
     pthread_mutex_lock( &mutex );
@@ -54,9 +54,9 @@ void main( void )
         cntrl_task();
         pthread_mutex_unlock( &mutex );
 
-        #ifdef __DEBUG__
+#ifdef __DEBUG__
         printf( "DEBUG: Hauptschleifenzaehler = %d\n", cnt++ );
-        #endif
+#endif
         /* Sleep() funktioniert nur unter UNIX/Linux, nicht unter Windows! */
         sleep(1); /* Eine Sekunde schlafen */
     }
