@@ -20,7 +20,7 @@ tn.open(HOST, 1969)
 # lese Ueberschriftenblock
 tn.read_very_eager()
 
-fd = open( "data.csv", "w" )
+fd = open( "Temperaturen.csv", "w" )
 fd.write( "Zeit; ALL_Tau_MW; SOL_KOLL_T_MW; SOL_SP1_To_MW; SOL_SP1_Tu_MW; SOL_SP2_To_MW; SOL_SP2_Tu_MW; \
 KES_Tvl_MW; KES_Trl_MW; HK_Tvl_MW; HK_Trl_MW; FB_PRIM_Trl_MW; FB_SEK_Tvl_MW; WW_HZG_Tvl_MW; WW_HZG_Trl_MW;\
 WW_Tww_MW; Tau_1h_mittel_f; Tau_36h_mittel_f;\n" )
@@ -91,27 +91,18 @@ for n in range(MAX_N):
     now = datetime.datetime.now()
     # Mikrosekundenteil auf 0 setzen, damit Excel den ISO Zeitstring versteht
     now = datetime.datetime( now.year, now.month, now.day, now.hour, now.minute, now.second )
-    fd.write( now.isoformat(' ')+FRMSTR.format( all_tau_mw, sol_koll_t_mw,
-                                            sol_sp1_to_mw, sol_sp1_tu_mw,
-                                            sol_sp2_to_mw, sol_sp2_tu_mw,
-                                            kes_tvl_mw, kes_trl_mw,
-                                            hk_tvl_mw, hk_trl_mw,
-                                            fb_prim_trl_mw, fb_sek_tvl_mw,
-                                            ww_hzg_tvl_mw, ww_hzg_trl_mw,
-                                            ww_tww_mw,
-                                            tau_1h_mittel_f, tau_36h_mittel_f
-                                           )+"\n" )
-    print( now.isoformat(' ')+FRMSTR.format( all_tau_mw, sol_koll_t_mw,
-                                            sol_sp1_to_mw, sol_sp1_tu_mw,
-                                            sol_sp2_to_mw, sol_sp2_tu_mw,
-                                            kes_tvl_mw, kes_trl_mw,
-                                            hk_tvl_mw, hk_trl_mw,
-                                            fb_prim_trl_mw, fb_sek_tvl_mw,
-                                            ww_hzg_tvl_mw, ww_hzg_trl_mw,
-                                            ww_tww_mw,
-                                            tau_1h_mittel_f, tau_36h_mittel_f
-                                           ) )
-
+    csvstr = now.isoformat(' ') + FRMSTR.format( 	all_tau_mw, sol_koll_t_mw,
+													sol_sp1_to_mw, sol_sp1_tu_mw,
+													sol_sp2_to_mw, sol_sp2_tu_mw,
+													kes_tvl_mw, kes_trl_mw,
+													hk_tvl_mw, hk_trl_mw,
+													fb_prim_trl_mw, fb_sek_tvl_mw,
+													ww_hzg_tvl_mw, ww_hzg_trl_mw,
+													ww_tww_mw,
+													tau_1h_mittel_f, tau_36h_mittel_f
+												)
+	fd.write( csvstr + "\n" ) 
+    print( csvstr )
     n += 1
     
 tn.close()
