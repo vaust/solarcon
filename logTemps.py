@@ -1,21 +1,32 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+import sys
 import telnetlib
 import datetime
 import time
 
 FRMSTR = "; {0:5.1f}; {1:5.1f}; {2:5.1f}; {3:5.1f}; {4:5.1f}; {5:5.1f}; {6:5.1f}; {7:5.1f}; {8:5.1f}; {9:5.1f}; \
 {10:5.1f}; {11:5.1f}; {12:5.1f}; {13:5.1f}; {14:5.1f}; {15:6.2f}; {16:6.2f};"
-    
-#Anzahl der Messreihen
-MAX_N = 100
 
-# HOST = "192.168.3.33"
-HOST = "localhost"
+if (len(sys.argv) > 1):
+    HOST = str(sys.argv[1])
+    if (len(sys.argv) > 2):
+        PORT = int(sys.argv[2])
+        if (len(sys.argv) > 3):
+            MAX_N = int(sys.argv[3])
+        else:
+            MAX_N = 100
+    else:
+        PORT = 1969
+        MAX_N = 100
+else:
+    HOST = "localhost"
+    PORT = 1969
+    MAX_N = 100
 
 tn = telnetlib.Telnet()
-tn.open(HOST, 1969)
+tn.open(HOST, PORT)
 
 # lese Ueberschriftenblock
 tn.read_very_eager()
