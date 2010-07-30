@@ -16,14 +16,14 @@ if (len(sys.argv) > 1):
         if (len(sys.argv) > 3):
             MAX_N = int(sys.argv[3])
         else:
-            MAX_N = 100
+            MAX_N = 10
     else:
         PORT = 1969
-        MAX_N = 100
+        MAX_N = 10
 else:
     HOST = "localhost"
     PORT = 1969
-    MAX_N = 100
+    MAX_N = 10
 
 tn = telnetlib.Telnet()
 tn.open(HOST, PORT)
@@ -35,6 +35,7 @@ fd = open( "Temperaturen.csv", "w" )
 fd.write( "Zeit; ALL_Tau_MW; SOL_KOLL_T_MW; SOL_SP1_To_MW; SOL_SP1_Tu_MW; SOL_SP2_To_MW; SOL_SP2_Tu_MW; \
 KES_Tvl_MW; KES_Trl_MW; HK_Tvl_MW; HK_Trl_MW; FB_PRIM_Trl_MW; FB_SEK_Tvl_MW; WW_HZG_Tvl_MW; WW_HZG_Trl_MW;\
 WW_Tww_MW; Tau_1h_mittel_f; Tau_36h_mittel_f;\n" )
+fd.close()
 
 for n in range(MAX_N):
     tn.write(b"GET T\n")
@@ -112,12 +113,14 @@ for n in range(MAX_N):
                                                     ww_tww_mw,
                                                     tau_1h_mittel_f, tau_36h_mittel_f
                                                 )
+    fd = open( "Temperaturen.csv", "a" )
     fd.write( csvstr + "\n" )
+    fd.close()
     print( csvstr )
     n += 1
+    time.sleep(4)
     
 tn.close()
-fd.close()
 
 
 
