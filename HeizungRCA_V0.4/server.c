@@ -101,7 +101,7 @@ void *server_thread( void *arg )
     arglist = (int *) arg;
     fdesc = arglist[0];
 
-    sprintf( bufout, "RCA Heizungssteuerung Version 0.4.3\n" );
+    sprintf( bufout, "RCA Heizungssteuerung Version 0.4.9\n" );
     write( fdesc, bufout, strlen( bufout ) );
     sprintf( bufout, "Andreas und Volker Stegmann\n\n" );
     write( fdesc, bufout, strlen( bufout ) );
