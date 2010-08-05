@@ -40,19 +40,19 @@ tn.read_very_eager()
 fd = open( "Temperaturen.csv", "w" )
 
 # Kopfzeile der Tabelle schreiben
-kopfstr = "Zeit; "
+kopfstr = "Zeit;"
 for name in TEMPNAMES:
-    kopfstr += name+"; "
+    kopfstr += name+";"
 for name in DINAMES:
-    kopfstr += name+"; "
+    kopfstr += name+";"
 for name in DONAMES:
-    kopfstr += name+"; "
+    kopfstr += name+";"
 for name in AONAMES:
-    kopfstr += name+"; "
+    kopfstr += name+";"
     
 kopfstr += "\n"
 
-# fd.write( kopfstr )
+fd.write( kopfstr )
 print( kopfstr )
 
 fd.close()
@@ -90,7 +90,7 @@ for cnt in range(MAX_N):
         i = 0
         for name in DINAMES:
             if (line.startswith(name)):
-                din[i] = line.split('=')[1]
+                din[i] = line.split('= ')[1]
             i += 1
 
     lines = getValues( b"GET DO\n" )
@@ -103,7 +103,7 @@ for cnt in range(MAX_N):
         i = 0
         for name in DONAMES:
             if (line.startswith(name)):
-                dout[i] = line.split('=')[1]
+                dout[i] = line.split('= ')[1]
             i += 1
 
     lines = getValues( b"GET AO\n" )
@@ -125,14 +125,13 @@ for cnt in range(MAX_N):
     csvstr = now.isoformat(' ') + ";";
 
     for i in range(len(TEMPNAMES)):
-        csvstr += " {0:5.1f};".format( temp[i] )
-    csvstr += " "
+        csvstr += "{0:.1f};".format( temp[i] )
     for i in range(len(DINAMES)):
-        csvstr += din[i]+"; "
+        csvstr += din[i]+";"
     for i in range(len(DONAMES)):
-        csvstr += dout[i]+"; "
+        csvstr += dout[i]+";"
     for i in range(len(AONAMES)):
-        csvstr += " {0:4};".format( ao[i] )
+        csvstr += "{0};".format( ao[i] )
                    
     fd = open( "Temperaturen.csv", "a" )
     fd.write( csvstr + "\n" )
