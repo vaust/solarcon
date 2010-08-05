@@ -15,6 +15,8 @@ DONAMES = ( "SOL_PU_SB", "SOL_SP1_AV_SB", "SOL_SP2_AV_SB", "KES_PU_SP1_SB", "KES
             "HK_PU_SB", "FB_PRIM_PU_SB", "FB_SEK_PU_SB", "WW_HZG_VV_SB", "WW_HZG_PU_SB", "WW_ZIRK_PU_SB" )
 AONAMES = ( "KES_Tvl_Y", "HK_MV_Y", "FB_PRIM_MV_Y", "WW_HZG_MV_Y", "WW_HZG_PU_Y" )
 
+Filename_Prefix = str(int(time.time()))
+
 if (len(sys.argv) > 1):
     HOST = str(sys.argv[1])
     if (len(sys.argv) > 2):
@@ -37,7 +39,7 @@ tn.open(HOST, PORT)
 # lese Ueberschriftenblock
 tn.read_very_eager()
           
-fd = open( "Temperaturen.csv", "w" )
+fd = open( Filename_Prefix+"_IO.csv", "w" )
 
 # Kopfzeile der Tabelle schreiben
 kopfstr = "Zeit;"
@@ -133,7 +135,7 @@ for cnt in range(MAX_N):
     for i in range(len(AONAMES)):
         csvstr += "{0};".format( ao[i] )
                    
-    fd = open( "Temperaturen.csv", "a" )
+    fd = open( Filename_Prefix+"_IO.csv", "a" )
     fd.write( csvstr + "\n" )
     fd.close()
     print( csvstr )
