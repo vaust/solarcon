@@ -22,22 +22,23 @@ if (len(sys.argv) > 1):
     if (len(sys.argv) > 2):
         PORT = int(sys.argv[2])
         if (len(sys.argv) > 3):
-            MAX_N = int(sys.argv[3])
+            runTime = int(sys.argv[3])
         else:
-            MAX_N = 10
+            logTime = 10 # min
     else:
         PORT = 1969
-        MAX_N = 10
+        logTime = 10 # min
 else:
     HOST = "localhost"
     PORT = 1969
-    MAX_N = 10
+    logTime = 10 # min
 
+startTime = time.time()  # Ermittle Programmstart in sec
+logTime   *= 60.0        # logTime in Sekunden umrechnen
 tn = telnetlib.Telnet()
 tn.open(HOST, PORT)
 
-# lese Ueberschriftenblock
-tn.read_very_eager()
+tn.read_very_eager()     # lese Ueberschriftenblock
           
 fd = open( Filename_Prefix+"_IO.csv", "w" )
 
@@ -52,9 +53,7 @@ for name in DONAMES:
 for name in AONAMES:
     kopfstr += name+";"
     
-kopfstr += "\n"
-
-fd.write( kopfstr )
+fd.write( kopfstr+"\n" )
 print( kopfstr )
 
 fd.close()
@@ -67,7 +66,7 @@ def getValues( cmdstr ):
     lines = bufdecode.splitlines()
     return lines
 
-for cnt in range(MAX_N):
+while (time.time() < (startTime+logTime)):
 
     lines = getValues( b"GET T\n" )
     # alle Temperaturen auf unplausible Werte initialisieren
@@ -109,7 +108,7 @@ for cnt in range(MAX_N):
             i += 1
 
     lines = getValues( b"GET AO\n" )
-    # alle DO auf unplausible Strings initialisieren
+    # alle AO auf unplausible Strings initialisieren
     ao = []
     for i in range(len(AONAMES)):
         ao.append( -99 )
@@ -139,9 +138,9 @@ for cnt in range(MAX_N):
     fd.write( csvstr + "\n" )
     fd.close()
     print( csvstr )
-    cnt += 1
     time.sleep(1)
-    
+
+# Logzeit abgelaufen:    
 tn.close()
 
 
