@@ -22,7 +22,7 @@ if (len(sys.argv) > 1):
     if (len(sys.argv) > 2):
         PORT = int(sys.argv[2])
         if (len(sys.argv) > 3):
-            runTime = int(sys.argv[3])
+            logTime = int(sys.argv[3])
         else:
             logTime = 10 # min
     else:
