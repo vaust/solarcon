@@ -43,9 +43,9 @@ _EXT_ int       schedule_hour_flg;
 
 /* Partyflag */
 _EXT_ int       partytime_flg;
-_EXT_ int       minutes_since_party_pressed;
+_EXT_ int       all_party_restzeit_min;
 _EXT_ int       ww_partytime_flg;
-_EXT_ int       ww_minutes_since_party_pressed;
+_EXT_ int       ww_party_restzeit_min;
 
 /* Arrays für Berechnung des gleitenden Mittelwerts der Aussentemperatur */
 _EXT_ float     Tau_1min_Intervall[60];

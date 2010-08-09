@@ -251,7 +251,7 @@ int parseGet( int fdesc, char *bufout )
         write( fdesc, bufout, strlen( bufout ) );
         if (ALL_PARTY != 0x00) {
             sprintf( bufout, "\t seit %d min, noch %d min aktiv\n",
-            minutes_since_party_pressed, all_partydauer - minutes_since_party_pressed);
+            all_partydauer - all_party_restzeit_min, all_party_restzeit_min );
             write( fdesc, bufout, strlen( bufout ) );
         }
         /* Warmwasser Partyschalter */
@@ -259,7 +259,7 @@ int parseGet( int fdesc, char *bufout )
         write( fdesc, bufout, strlen( bufout ) );
         if (WW_PARTY != 0x00) {
             sprintf( bufout, "\t seit %d min, noch %d min aktiv\n",
-            ww_minutes_since_party_pressed, all_partydauer - ww_minutes_since_party_pressed);
+            all_partydauer - ww_party_restzeit_min, ww_party_restzeit_min );
             write( fdesc, bufout, strlen( bufout ) );
         }
         /* Kesselstörmeldung */
@@ -334,7 +334,7 @@ int parseGet( int fdesc, char *bufout )
         write( fdesc, bufout, strlen( bufout ) );
         if (ALL_PARTY != 0x00) {
             sprintf( bufout, "\t seit %d min, noch %d min aktiv\n",
-            minutes_since_party_pressed, all_partydauer - minutes_since_party_pressed);
+            all_partydauer - all_party_restzeit_min, all_party_restzeit_min );
             write( fdesc, bufout, strlen( bufout ) );
         }
     }
@@ -369,7 +369,7 @@ int parseGet( int fdesc, char *bufout )
         write( fdesc, bufout, strlen( bufout ) );
         if (WW_PARTY != 0x00) {
             sprintf( bufout, "\t seit %d min, noch %d min aktiv\n",
-            ww_minutes_since_party_pressed, all_partydauer - ww_minutes_since_party_pressed);
+            all_partydauer - ww_party_restzeit_min, ww_party_restzeit_min );
             write( fdesc, bufout, strlen( bufout ) );
         }
     }
