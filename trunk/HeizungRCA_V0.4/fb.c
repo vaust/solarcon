@@ -50,10 +50,9 @@ void cntrl_FB_Heizkreis( void )
 
     ProzentToAnalogOut( fb_prim_mv_y_f , (ao_0_10V_t*) &FB_PRIM_MV_Y );
 
-    if( ( (Tau_36h_mittel_f <  all_at_start    ) || /* Die mittlere Aussentemperatur liegt unter der Betriebsschwelle */
-          (ALL_Tau_MW       <  all_frostschutz ) || /* Die Aussentemperatur liegt unter der Frostschutzmarke          */
-          (partytime_flg    == SET)
-        ) ) {
+    if(   (Tau_36h_mittel_f <  all_at_start ) && /* Die mittlere Aussentemperatur liegt unter der Betriebsschwelle */
+          (fb_Tvl_SW_f      >  20.0         )
+        ) {
         FB_PRIM_PU_SB = IO_EIN;
         FB_SEK_PU_SB  = IO_EIN;
     }
@@ -61,7 +60,7 @@ void cntrl_FB_Heizkreis( void )
         FB_PRIM_PU_SB = IO_AUS;
         FB_SEK_PU_SB  = IO_AUS;
     }
-    else {
+    else if( ALL_Tau_MW <  all_frostschutz ) {
         FB_PRIM_PU_SB = IO_EIN;
         FB_SEK_PU_SB  = IO_EIN;
     }

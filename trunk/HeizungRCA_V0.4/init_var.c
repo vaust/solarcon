@@ -404,7 +404,8 @@ void init_variables( void )
 	schedule_min_flg  = RESET;
 	schedule_hour_flg = RESET;
 	partytime_flg     = RESET;
-    minutes_since_party_pressed = 0;
+    all_party_restzeit_min = 0;
+    ww_party_restzeit_min  = 0;
 
 	for( i=0; i<60; i++ ) {
 		Tau_1min_Intervall[i] = 0.0;

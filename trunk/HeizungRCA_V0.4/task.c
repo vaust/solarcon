@@ -64,14 +64,14 @@ void cntrl_task( void )
     /* ALL_Party Flag ermitteln */
     if( ( ALL_PARTY >= IO_EIN ) && ( old_ALL_PARTY == IO_AUS ) ) {
         partytime_flg = SET;  /* Ruecksetzen in cntrl_min_task() */
-        minutes_since_party_pressed = all_partydauer;
+        all_party_restzeit_min = all_partydauer;
     }
     old_ALL_PARTY = ALL_PARTY;
 
     /* WW_Party Flag ermitteln */
     if( ( WW_PARTY >= IO_EIN ) && ( old_WW_PARTY == IO_AUS ) ) {
         ww_partytime_flg = SET;  /* Ruecksetzen in cntrl_min_task() */
-        ww_minutes_since_party_pressed = all_partydauer;
+        ww_party_restzeit_min = all_partydauer;
     }
     old_WW_PARTY = WW_PARTY;
 
@@ -108,8 +108,8 @@ void cntrl_min_task( void )
     FILE *fp;
 
     /* Partyflag Ruecksetzzeitpunkt ermitteln */
-    if(  minutes_since_party_pressed > 0 ) {
-        minutes_since_party_pressed --;
+    if(  all_party_restzeit_min > 0 ) {
+        all_party_restzeit_min --;
     }
     else {
         partytime_flg = RESET;
@@ -120,8 +120,8 @@ void cntrl_min_task( void )
     }
 
     /* Warmwasser Partyflag Ruecksetzzeitpunkt ermitteln */
-    if(  ww_minutes_since_party_pressed > 0 ) {
-        ww_minutes_since_party_pressed --;
+    if(  ww_party_restzeit_min > 0 ) {
+        ww_party_restzeit_min --;
     }
     else {
         ww_partytime_flg = RESET;
