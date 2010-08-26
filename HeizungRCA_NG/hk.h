@@ -19,15 +19,15 @@ typedef struct {
     float tau_avg;
     float tr_sw;
     float tvl_mw;
-    xx_t  zustand;
-    xx_t  partytime_flg; 
+    char  zustand;
+    char  partytime_flg;
 } hk_in_t;
 
 typedef struct {
     float tvl_sw;
     float mv_y;
     float mv_y_alt;
-    unsigned char pu_sb;  
+    unsigned char pu_sb;
 } hk_out_t;
 /* <Typen/> */
 
