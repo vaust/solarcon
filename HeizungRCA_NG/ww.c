@@ -3,6 +3,14 @@
 #include "variablen.h"
 #include "sup.h"
 
+void ww_Init( hk_param_t *par_p, sup_digreg_coeff_t *q_p, hk_out_t *out_p )
+{
+    q_p->q0 =  par_p->pu_reg_kp + par_p->TA/par_p->pu_reg_tn;
+    q_p->q1 = -par_p->pu_reg_kp;
+    q_p->lower_limit = MIN_Y_PCT;
+    q_p->upper_limit = MAX_Y_PCT;
+}    
+
 void cntrl_WW_Heizkreis( void )
 {
 //  static int      old_ww_wz_mw = IO_AUS; /* Merker fuer vorhergehenden Status Wasserzaehlerimpuls */
@@ -33,15 +41,9 @@ void cntrl_WW_Heizkreis( void )
     else {
         WW_ZIRK_PU_SB = IO_AUS;
     }
-
+    
     /* PI-Regler fuer WW Heizungspumpe */
-    xd_pu = ww_tww_sw - WW_Tww_MW;
-    /* Berechnung von q0 und q1:*/
-    q0 =  ww_pu_reg_kp + TA/ww_pu_reg_tn;
-    q1 = -ww_pu_reg_kp;
-    ww_hzg_pu_y_f = ww_hzg_pu_y_alt_f + q0*xd_pu + q1*xd_pu_alt;
-    xd_pu_alt = xd_pu;
-    ww_hzg_pu_y_alt_f = ww_hzg_pu_y_f;
+    sup_DigRegler( q_p, ww_tww_sw, WW_Tww_MW, &ww_hzg_pu_y_f );
 
     /* Pumpe waehrend Duschbetrieb nicht abschalten, wegen Schwingung */
     if( ww_hzg_pu_y_f < 11.0 ) {
