@@ -1,6 +1,6 @@
 #include "sup.h"
 
-void sup_Limit( float *value, const float lower_limit, const float upper_limit )
+float sup_Limit( float *value, const float lower_limit, const float upper_limit )
 {
     if( *value <= lower_limit ) {
         *value = lower_limit;
@@ -8,6 +8,7 @@ void sup_Limit( float *value, const float lower_limit, const float upper_limit )
     else if( *value >= upper_limit ) {
         *value = upper_limit;
     }
+    return( *value );
 }
 
 float sup_DigRegler( const sup_digreg_coeff_t *q_p, const float soll, const float ist, float *y )
@@ -22,5 +23,5 @@ float sup_DigRegler( const sup_digreg_coeff_t *q_p, const float soll, const floa
     xd_1 = xd;    
     limit( &y,   q_p->lower_limit, q_p->upper_limit );
     limit( &y_1, q_p->lower_limit, q_p->upper_limit );
-    return( y );
+    return( *y );
 }

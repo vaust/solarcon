@@ -1,5 +1,5 @@
-#ifndef FB_H
-#define FB_H
+#ifndef _FB_H_
+#define _FB_H_
 
 /* <Typen> */
 typedef struct {
@@ -37,4 +37,4 @@ void fb_Init( fb_param_t *par_p, digreg_coeff_t *q, fb_out_t *out_p );
 void fb_Run( const fb_param_t *par_p, const sup_digreg_coeff_t *q_p, const fb_in_t *in_p, fb_out_t *out_p );
 /* <Prototypen/> */
 
-#endif /* FB_H */
+#endif /* _FB_H_ */

@@ -1,3 +1,6 @@
+#ifndef _SOLAR_H_
+#define _SOLAR_H_
+
 /* <Defines> */
 #define SOLAR_NORMAL           0
 #define SOLAR_UEBERTEMPERATUR -1
@@ -24,3 +27,5 @@ int solar_Run(  const sol_in_t  *in_Sp1_p,
                 const int       *sp2_av_sb_p,
                       sol_out_t *out_p );
 /* <Prototypen/> */
+
+#endif /* _SOLAR_H_ */
