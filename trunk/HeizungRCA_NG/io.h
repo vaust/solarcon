@@ -1,5 +1,5 @@
-#ifndef IO_H
-#define IO_H
+#ifndef _IO_H_
+#define _IO_H_
 
 #undef _EXT_
 #ifdef _MAIN_C_
@@ -178,4 +178,6 @@ extern volatile Control_Input_t     *pabIn_p;
 #define MAX_Y_PCT       99.9
 #define MIN_Y_PCT        0.1
 
-#endif
+#endif /* _IO_H_ */
+
+

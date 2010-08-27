@@ -1,4 +1,5 @@
-#include <solar.h>
+#include "solar.h"
+#include "io.h"
 
 void solar_Init( void )
 {
@@ -37,22 +38,23 @@ void solar_Pumpe( const int *sp1_av_sb_p, const int *sp2_av_sb_p, int *sol_pu_sb
     if( ( *sp1_av_sb_p == IO_ZU ) && 
         ( *sp2_av_sb_p == IO_ZU )    ) {
         *sol_pu_sb_p = IO_AUS;
-    } else
+    } 
+    else {
         *sol_pu_sb_p = IO_EIN;
     }
 }    
         
 int solar_Run(  const sol_in_t  *in_Sp1_p, 
                 const sol_in_t  *in_Sp2_p, 
-                const int       *sp1_av_sb_p, 
-                const int       *sp2_av_sb_p,
-                      sol_out_t *out_p )
+                      int       *sp1_av_sb_p, 
+                      int       *sp2_av_sb_p,
+                      int       *sol_pu_sb_p )
 {
     int errorcode;
     
     errorcode = solar_Speicherabsperrventil( in_Sp1_p, sp1_av_sb_p ); /* Absperrventil Speicher 1 */
     errorcode = solar_Speicherabsperrventil( in_Sp2_p, sp2_av_sb_p ); /* Absperrventil Speicher 2 */
-    solar_Pumpe( sp1_av_sb_p, sp2_av_sb_p, out_p );
+    solar_Pumpe( sp1_av_sb_p, sp2_av_sb_p, sol_pu_sb_p );
     return( errorcode );
 }
 

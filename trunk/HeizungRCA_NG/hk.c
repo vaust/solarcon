@@ -1,16 +1,22 @@
 #include "hk.h"
 #include "sup.h"
+#include "vorgabe.h"
+#include "variablen.h"
+#include "io.h"
 
 void hk_Init( hk_param_t *par_p, sup_digreg_coeff_t *q_p, hk_out_t *out_p )
 {
     q_p->q0 =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
     q_p->q1 = -par_p->reg_kp;
-    q->lower_limit = MIN_Y_PCT;
-    q->upper_limit = MAX_Y_PCT;
+    q_p->lower_limit = MIN_Y_PCT;
+    q_p->upper_limit = MAX_Y_PCT;
 }    
 
 /* Regler fuer den Waermetauscher, der den Heizkoerperheizkreis beheizt */
-void hk_Run( const hk_param_t *par_p, const sup_digreg_coeff_t *q_p, const hk_int_t *in_p, hk_out_t *out_p )
+void hk_Run( const hk_param_t         *par_p, 
+             const sup_digreg_coeff_t *q_p, 
+             const hk_in_t            *in_p, 
+                   hk_out_t           *out_p )
 {
     /* Vorlauftemperatursollwert im Floatformat berechnen   */
     out_p->tvl_sw = (in_p->tr_sw - in_p->tau_mw) * par_p->tvl_steigung + in_p->tr_sw + par_p->tvl_niveau;

@@ -4,7 +4,7 @@
 #include "io.h"
 #include "sup.h"
 
-void fb_Init( fb_param_t *par_p, digreg_coeff_t *q_p, fb_out_t *out_p )
+void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )
 {
     q_p->q0          =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
     q_p->q1          = -par_p->reg_kp;
