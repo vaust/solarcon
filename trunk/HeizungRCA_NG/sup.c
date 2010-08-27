@@ -1,4 +1,5 @@
 #include "sup.h"
+#include "gen_types.h"
 
 float sup_Limit( float *value, const float lower_limit, const float upper_limit )
 {
@@ -24,5 +25,10 @@ float sup_DigRegler( const sup_digreg_coeff_t *q_p, const float soll, const floa
     limit(  y,   q_p->lower_limit, q_p->upper_limit );
     limit( &y_1, q_p->lower_limit, q_p->upper_limit );
     return( *y );
+}
+
+void ProzentToAnalogOut( float scale ,ao_0_10V_t *out_p )
+{
+    *out_p = (ao_0_10V_t) ((scale*VFULLSCALE)/100);
 }
 

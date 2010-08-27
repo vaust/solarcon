@@ -1,6 +1,8 @@
 #ifndef _IO_H_
 #define _IO_H_
 
+#include "gen_types.h"
+
 #undef _EXT_
 #ifdef _MAIN_C_
     #define _EXT_
@@ -61,9 +63,6 @@
  * 0°C entspricht 0x0000 mit 0.1K entsprechend einem Bit                                        */
 
 /* Eingangsgroessen */
-typedef signed short temp10_pt1000_t;
-typedef unsigned char di_bitbyte_t;
-
 typedef struct {
     struct {
         temp10_pt1000_t     all_tau_mw;     /* Aussentemperatur, AI, Pt1000                                     Slot 2, R1 */
@@ -99,9 +98,6 @@ typedef struct {
 } Control_Input_t;
 
 /* Ausgangsgroessen */
-typedef signed short ao_0_10V_t;
-typedef unsigned char do_bitbyte_t;
-
 typedef struct {
     struct {
         ao_0_10V_t      kes_tvl_y;          /* Kesselvorlauftemperaturvorgabe, AO, 0-10V                        Slot  9, O1 */
