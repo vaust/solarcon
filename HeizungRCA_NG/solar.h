@@ -18,14 +18,14 @@ typedef struct {
 /* <Typen/> */
 
 /* <Prototypen> */
-int solar_Init( void );
+void solar_Init( void );
 int solar_Speicherabsperrventil( const sol_in_t *in_p, int *sp_av_sb_p );
 void solar_Pumpe( const int *sp1_av_sb_p, const int *sp2_av_sb_p, int *sol_pu_sb_p );
 int solar_Run(  const sol_in_t  *in_Sp1_p, 
                 const sol_in_t  *in_Sp2_p, 
-                const int       *sp1_av_sb_p, 
-                const int       *sp2_av_sb_p,
-                      sol_out_t *out_p );
+                      int       *sp1_av_sb_p, 
+                      int       *sp2_av_sb_p,
+                      int       *sol_pu_sb_p );
 /* <Prototypen/> */
 
 #endif /* _SOLAR_H_ */

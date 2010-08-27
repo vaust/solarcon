@@ -1,5 +1,5 @@
-#ifndef SUP_H
-#define SUP_H
+#ifndef _SUP_H_
+#define _SUP_H_
 
 /* <Typen> */
 typedef struct {
@@ -11,8 +11,9 @@ typedef struct {
 /* <Typen> */
 
 /* <Prototypen> */
-void sup_Limit( float *value, const float lower_limit, const float upper_limit );
+float sup_Limit( float *value, const float lower_limit, const float upper_limit );
 float sup_DigRegler( const sup_digreg_coeff_t *q_p, const float soll, const float ist, float *y );
 /* <Prototypen/> */
 
-#endif /* SUP_H */
+#endif /* _SUP_H_ */
+
