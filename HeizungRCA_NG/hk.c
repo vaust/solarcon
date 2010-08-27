@@ -12,9 +12,6 @@ void hk_Init( hk_param_t *par_p, sup_digreg_coeff_t *q_p, hk_out_t *out_p )
 /* Regler fuer den Waermetauscher, der den Heizkoerperheizkreis beheizt */
 void hk_Run( const hk_param_t *par_p, const sup_digreg_coeff_t *q_p, const hk_int_t *in_p, hk_out_t *out_p )
 {
-    float           xd;             /* Regelabweichung      */
-    static float    xd_alt = 0.0;
-
     /* Vorlauftemperatursollwert im Floatformat berechnen   */
     out_p->tvl_sw = (in_p->tr_sw - in_p->tau_mw) * par_p->tvl_steigung + in_p->tr_sw + par_p->tvl_niveau;
     if( (in_p->zustand == zAbgesenkt) && (in_p->partytime_flg == RESET) ) {

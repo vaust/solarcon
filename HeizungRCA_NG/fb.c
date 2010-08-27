@@ -4,12 +4,12 @@
 #include "io.h"
 #include "sup.h"
 
-void fb_Init( fb_param_t *par_p, digreg_coeff_t *q, fb_out_t *out_p )
+void fb_Init( fb_param_t *par_p, digreg_coeff_t *q_p, fb_out_t *out_p )
 {
-    q->q0 =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
-    q->q1 = -par_p->reg_kp;
-    q->lower_limit = MIN_Y_PCT;
-    q->upper_limit = MAX_Y_PCT;
+    q_p->q0          =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
+    q_p->q1          = -par_p->reg_kp;
+    q_p->lower_limit = MIN_Y_PCT;
+    q_p->upper_limit = MAX_Y_PCT;
 }
 
 void fb_Run( const fb_param_t *par_p, const sup_digreg_coeff_t *q_p, const fb_in_t *in_p, fb_out_t *out_p )

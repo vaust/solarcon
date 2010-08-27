@@ -1,5 +1,5 @@
-#ifndef HK_H
-#define HK_H
+#ifndef _HK_H_
+#define _HK_H_
 
 /* <Typen> */
 typedef struct {
@@ -38,4 +38,4 @@ void hk_Init( hk_param_t *par_p, sup_digreg_coeff_t *q_p, hk_out_t *out_p );
 void hk_Run( const hk_param_t *par_p, const sup_digreg_coeff_t *q_p, const hk_int_t *in_p, hk_out_t *out_p );
 /* <Prototypen/> */
 
-#endif /* HK_H */
+#endif /* _HK_H_ */
