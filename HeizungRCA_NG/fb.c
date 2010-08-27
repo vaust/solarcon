@@ -2,46 +2,28 @@
 #include "vorgabe.h"
 #include "variablen.h"
 #include "io.h"
+#include "sup.h"
 
-void limit( float *value, const float lower_limit, const float upper_limit )
+void fb_Init( fb_param_t *par_p, digreg_coeff_t *q, fb_out_t *out_p )
 {
-    if( *value <= lower_limit ) {
-        *value = lower_limit;
-    }
-    else if( *value >= upper_limit ) {
-        *value = upper_limit;
-    }
+    q->q0 =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
+    q->q1 = -par_p->reg_kp;
+    q->lower_limit = MIN_Y_PCT;
+    q->upper_limit = MAX_Y_PCT;
 }
 
-void fb_Init( fb_param_t *par_p, fb_out_t *out_p )
+void fb_Run( const fb_param_t *par_p, const sup_digreg_coeff_t *q_p, const fb_in_t *in_p, fb_out_t *out_p )
 {
-    par_p->q0 =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
-    par_p->q1 = -par_p->reg_kp;
-    out_p->prim_mv_y_alt = 50.0;
-}
-
-void fb_Run( const fb_param_t *par_p, const fb_in_t *in_p, fb_out_t *out_p )
-{
-    float        xd;                  /* Regelabweichung               */
-    static float xd_alt = 0.0;        /* vorhergehende Regelabweichung */
-
     /* Vorlauftemperatursollwert im Floatformat berechnen  */
     out_p->tvl_sw =  (in_p->tr_sw - in_p->tau_mw) * par_p->tvl_steigung
                     + in_p->tr_sw + par_p->tvl_niveau;
     if( (in_p->zustand == zAbgesenkt) && (in_p->partytime_flg == RESET) ) {
         out_p->tvl_sw -= par_p->tvl_absenk;
     }
-    limit( &(out_p->tvl_sw), par_p->tvl_min, par_p->tvl_max );
+    sup_Limit( &(out_p->tvl_sw), par_p->tvl_min, par_p->tvl_max );
 
     /* Mischventil PI-Regleralgorithmus */
-    xd                   = out_p->tvl_sw - in_p->sek_tvl_mw;
-    out_p->prim_mv_y     = out_p->prim_mv_y_alt + par_p->q0*xd + par_p->q1*xd_alt ;
-    out_p->prim_mv_y_alt = out_p->prim_mv_y;
-    xd_alt               = xd;
-
-    /* Mischventil mit 0-10V ansteuern */
-    limit( &(out_p->prim_mv_y),     MIN_Y_PCT, MAX_Y_PCT );
-    limit( &(out_p->prim_mv_y_alt), MIN_Y_PCT, MAX_Y_PCT );
+    sup_DigRegler( q_p, out_p->tvl_sw, in_p->sek_tvl_mw, &(out_p->prim_mv_y) );
 
     if(   (in_p->tau_avg <  par_p->at_start) && /* Die mittlere Aussentemperatur liegt unter der Betriebsschwelle */
           (out_p->tvl_sw >  20.0           )    /* Der berechnete Vorlauftemperatursollwert liegt unter 20°C      */
