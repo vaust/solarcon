@@ -162,7 +162,6 @@ extern volatile Control_Input_t     *pabIn_p;
 #endif
 #endif
 
-#define VFULLSCALE      0x7FFF
 #define IO_EIN          0x01
 #define IO_AUS          0x00
 #define IO_AUF          0x01
