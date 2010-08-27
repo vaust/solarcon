@@ -1,6 +1,10 @@
 #ifndef _SUP_H_
 #define _SUP_H_
 
+/* <Konstanten> */
+#define VFULLSCALE 0x8000
+/* <Konstanten/> */
+
 /* <Typen> */
 typedef struct {
     float q0;
@@ -16,4 +20,7 @@ float sup_DigRegler( const sup_digreg_coeff_t *q_p, const float soll, const floa
 /* <Prototypen/> */
 
 #endif /* _SUP_H_ */
+
+
+
 

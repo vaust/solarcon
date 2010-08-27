@@ -21,7 +21,6 @@
 #include "zeitprogramm.h"
 
 /* Prototypen */
-void ProzentToAnalogOut( float scale ,ao_0_10V_t *ausgang );
 void cntrl_initAverageTau( float currTau );
 void cntrl_zeitprogramm( void );
 void log_variables( FILE *fp );
@@ -42,14 +41,6 @@ void cntrl_hour_task( void );
 int init_parameters( void );
 int init_zeitprogramm( void );
 void init_variables( void );
-
-/* Hilfsfunktionen              */
-
-/* %-Wert in 0-10V Stellgroesse umrechnen */
-void ProzentToAnalogOut( float scale ,ao_0_10V_t *ausgang )
-{
-    *ausgang = (ao_0_10V_t) ((scale*VFULLSCALE)/100);
-}
 
 void cntrl_task( void )
 {
