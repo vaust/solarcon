@@ -2,7 +2,7 @@
 #define _WW_H_
 
 #include "sup.h"
-#include "gen_tpyes.h"
+#include "gen_types.h"
 
 /* <Typen> */
 typedef struct {
