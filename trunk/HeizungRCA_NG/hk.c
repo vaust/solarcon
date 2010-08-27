@@ -1,14 +1,16 @@
-#include <hk.h>
+#include "hk.h"
+#include "sup.h"
 
-void hk_Init( hk_param_t *par_p, hk_out_t *out_p )
+void hk_Init( hk_param_t *par_p, sup_digreg_coeff_t *q_p, hk_out_t *out_p )
 {
-    par_p->q0 =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
-    par_p->q1 = -par_p->reg_kp;
-    out_p->prim_mv_y_alt = 50.0;
+    q_p->q0 =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
+    q_p->q1 = -par_p->reg_kp;
+    q->lower_limit = MIN_Y_PCT;
+    q->upper_limit = MAX_Y_PCT;
 }    
 
 /* Regler fuer den Waermetauscher, der den Heizkoerperheizkreis beheizt */
-void hk_Run( const hk_param_t *par_p, const hk_int_t *in_p, hk_out_t *out_p )
+void hk_Run( const hk_param_t *par_p, const sup_digreg_coeff_t *q_p, const hk_int_t *in_p, hk_out_t *out_p )
 {
     float           xd;             /* Regelabweichung      */
     static float    xd_alt = 0.0;
@@ -18,17 +20,9 @@ void hk_Run( const hk_param_t *par_p, const hk_int_t *in_p, hk_out_t *out_p )
     if( (in_p->zustand == zAbgesenkt) && (in_p->partytime_flg == RESET) ) {
         out_p->tvl_sw -= par_p->tvl_absenk;
     }
-    limit( &(out_p->tvl_sw), par_p->tvl_min, par_p->tvl_max );
 
-    /* Regelabweichung Soll - Ist */
-    xd = out_p->tvl_sw - in_p->tvl_mw;
-    /* Mischventil ueber PI-Regler ansteuern */
-    out_p->mv_y = out_p->mv_y_alt + q0*xd + q1*xd_alt ;
-    out_p->mv_y_alt = out_p->mv_y;
-    xd_alt = xd;
-
-    limit( &(out_p->prim_mv_y),     MIN_Y_PCT, MAX_Y_PCT );
-    limit( &(out_p->prim_mv_y_alt), MIN_Y_PCT, MAX_Y_PCT );
+    sup_Limit( &(out_p->tvl_sw), par_p->tvl_min, par_p->tvl_max );
+    sup_DigRegler( q_p, out_p->tvl_sw, in_p->tvl_mw, &(out_p->mv_y) );
 
     if( (in_p->tau_avg < par_p->at_start) &&            /* mittlere AT unter Betriebsschwelle */          
         (out_p->tvl_sw > 30.0           )    )          /* VL-Temp. ab der HK wirklich heizt */ 

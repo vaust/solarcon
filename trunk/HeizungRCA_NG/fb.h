@@ -1,3 +1,6 @@
+#ifndef FB_H
+#define FB_H
+
 /* <Typen> */
 typedef struct {
     float reg_kp;
@@ -9,8 +12,6 @@ typedef struct {
     float tvl_min;
     float tvl_max;
     float at_start;
-    float q0;
-    float q1;
     float frostschutz;
 } fb_param_t;
 
@@ -26,14 +27,14 @@ typedef struct {
 typedef struct {
     float tvl_sw;
     float prim_mv_y;
-    float prim_mv_y_alt;
     unsigned char prim_pu_sb;
     unsigned char sek_pu_sb;
 } fb_out_t;
 /* <Typen/> */
 
 /* <Prototypen> */
-void limit( float *value, const float lower_limit, const float upper_limit );
-void fb_Init( fb_param_t *par_p, fb_out_t *out_p );
-void fb_Run( const fb_param_t *par_p, const fb_in_t *in_p, fb_out_t *out_p );
+void fb_Init( fb_param_t *par_p, digreg_coeff_t *q, fb_out_t *out_p );
+void fb_Run( const fb_param_t *par_p, const sup_digreg_coeff_t *q_p, const fb_in_t *in_p, fb_out_t *out_p );
 /* <Prototypen/> */
+
+#endif /* FB_H */

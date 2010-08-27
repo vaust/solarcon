@@ -50,8 +50,8 @@ int solar_Run(  const sol_in_t  *in_Sp1_p,
 {
     int errorcode;
     
-    errorcode = solar_Speicherabsperrventil( in_Sp1_p, sp1_av_sb_p );
-    errorcode = solar_Speicherabsperrventil( in_Sp2_p, sp2_av_sb_p );
+    errorcode = solar_Speicherabsperrventil( in_Sp1_p, sp1_av_sb_p ); /* Absperrventil Speicher 1 */
+    errorcode = solar_Speicherabsperrventil( in_Sp2_p, sp2_av_sb_p ); /* Absperrventil Speicher 2 */
     solar_Pumpe( sp1_av_sb_p, sp2_av_sb_p, out_p );
     return( errorcode );
 }
