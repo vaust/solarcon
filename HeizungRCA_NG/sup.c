@@ -19,7 +19,7 @@ float sup_DigRegler( const sup_digreg_coeff_t *q_p, const float soll, const floa
     static float y_1  = 0.0;   /* y(t-1)  */
     
     xd   = soll-ist;
-    *y    = y_1 * q_p->q0*xd + q_p->q1*xd_1;
+    *y   = y_1 * q_p->q0*xd + q_p->q1*xd_1;
     y_1  = *y;
     xd_1 = xd;    
     limit(  y,   q_p->lower_limit, q_p->upper_limit );
