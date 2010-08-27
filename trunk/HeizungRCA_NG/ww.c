@@ -1,10 +1,7 @@
-#include <stdio.h>
 #include "io.h"
 #include "vorgabe.h"
 #include "variablen.h"
-
-/* Prototypen */
-void ProzentToAnalogOut( float scale ,ao_0_10V_t *ausgang );
+#include "sup.h"
 
 void cntrl_WW_Heizkreis( void )
 {
@@ -57,16 +54,11 @@ void cntrl_WW_Heizkreis( void )
         schwachlastzeit = 0;
     }
 
-    if( ww_hzg_pu_y_f <= MIN_Y_PCT ) {
-        ww_hzg_pu_y_f = MIN_Y_PCT;
-        ww_hzg_pu_y_alt_f = MIN_Y_PCT;
-    }
-    else if( ww_hzg_pu_y_f >= MAX_Y_PCT ) {
-        ww_hzg_pu_y_f = MAX_Y_PCT;
-        ww_hzg_pu_y_alt_f = MAX_Y_PCT;
-    }
+    sup_Limit( &(ww_hzg_pu_y_f),     MIN_Y_PCT, MAX_Y_PCT );
+    sup_Limit( &(ww_hzg_pu_y_alt_f), MIN_Y_PCT, MAX_Y_PCT );
+    
 
-    ProzentToAnalogOut( ww_hzg_pu_y_f, (ao_0_10V_t *) &WW_HZG_PU_Y );
+    // ProzentToAnalogOut( ww_hzg_pu_y_f, (ao_0_10V_t *) &WW_HZG_PU_Y );
 
 
     /* Berechnung von WW_HZG_MV_Y aus den Temperaturen von Speicher und Rücklauf */
@@ -80,16 +72,11 @@ void cntrl_WW_Heizkreis( void )
     else
         ww_hzg_mv_y_f = 100.0;  /* dann stimmt was nicht -> Ventil voll auf */
 
-    if( ww_hzg_mv_y_f <= MIN_Y_PCT ) {
-        ww_hzg_mv_y_f = MIN_Y_PCT;
-        ww_hzg_mv_y_alt_f = MIN_Y_PCT;
-    }
-    else if( ww_hzg_mv_y_f >= MAX_Y_PCT ) {
-        ww_hzg_mv_y_f = MAX_Y_PCT;
-        ww_hzg_mv_y_alt_f = MAX_Y_PCT;
-    }
+    sup_Limit( &(ww_hzg_mv_y_f),     MIN_Y_PCT, MAX_Y_PCT );
+    sup_Limit( &(ww_hzg_mv_y_alt_f), MIN_Y_PCT, MAX_Y_PCT );
 
-    ProzentToAnalogOut( ww_hzg_mv_y_f, (ao_0_10V_t *) &WW_HZG_MV_Y );
+
+    // ProzentToAnalogOut( ww_hzg_mv_y_f, (ao_0_10V_t *) &WW_HZG_MV_Y );
 
 
 /* #define IO_VV_SP1       0x00
