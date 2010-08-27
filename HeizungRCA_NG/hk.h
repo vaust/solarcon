@@ -14,8 +14,6 @@ typedef struct {
     float tvl_min;
     float tvl_max;
     float at_start;
-    float q0;
-    float q1;
     float frostschutz;
 } hk_param_t;
 
