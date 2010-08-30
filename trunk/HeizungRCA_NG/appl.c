@@ -4,6 +4,8 @@
 #define __IO_MASTER__
 #endif 
 
+#include <stdio.h>
+
 #include "solar.h"
 #include "fb.h"
 #include "hk.h"
@@ -35,5 +37,7 @@ int main( void )
                 &sol_sp1_av_sb, &sol_sp2_av_sb,
                 &sol_pu_sb );
 
+    printf( "sp1_av_sb=%d\n sp2_av_sb=%d\n sol_pu_sb=%d\n",
+            sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb );   
     return( 0 );
 }
