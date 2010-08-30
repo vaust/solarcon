@@ -1,7 +1,9 @@
+#ifndef _FB_C_
+#define _FB_C_
+#endif
+
+#include "gen_types.h"
 #include "fb.h"
-#include "vorgabe.h"
-#include "variablen.h"
-#include "io.h"
 #include "sup.h"
 
 void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )

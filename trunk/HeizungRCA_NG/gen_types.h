@@ -7,6 +7,9 @@
 #define IO_AUF          0x01
 #define IO_ZU           0x00
 
+#define RESET           0x00
+#define SET             0x01
+
 #define MAX_Y_PCT       99.9
 #define MIN_Y_PCT        0.1
 /* <Defines/> */
@@ -24,6 +27,13 @@ typedef u8_t    di_bitbyte_t;
 
 typedef s16_t   ao_0_10V_t;
 typedef u8_t    do_bitbyte_t;
+
+/* Betriebszustände, die sich für die einzelnen Heizkreise aus dem Zeitprogramm ergeben */
+typedef enum { zAbgesenkt, zNormal } abgesenkt_t;
+typedef enum { zAus, zEin } ein_aus_t;
+typedef enum { zGesperrt, zFreigegeben } freigabe_t;
+typedef enum { zNein, zJa } nutzzeit_t;
+
 /* <Typen/> */
 
 #endif /* _GEN_TYPES_H_ */

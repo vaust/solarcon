@@ -8,6 +8,8 @@
     #define _EXT_ extern
 #endif
 
+#include "gen_types.h"
+
 _EXT_ float     all_Tau_mittel_f;       /* Mittlere Außentemperatur */
 _EXT_ int       all_Partyzeit_i;        /* Fußbodenheizkreis Betriebszeitverlängerung aktiv */
 _EXT_ int       sol_SP1_Vorrang_i;      /* Vorrang für Speicher 1 */
@@ -54,12 +56,6 @@ _EXT_ float     Tau_1h_Summe_f;
 _EXT_ float     Tau_1h_mittel_f;
 _EXT_ float     Tau_36h_Summe_f;
 _EXT_ float     Tau_36h_mittel_f;
-
-/* Betriebszustände, die sich für die einzelnen Heizkreise aus dem Zeitprogramm ergeben */
-typedef enum { zAbgesenkt, zNormal } zustand_hk_t;
-typedef enum { zAus, zEin } ein_aus_t;
-typedef enum { zGesperrt, zFreigegeben } freigabe_t;
-typedef enum { zNein, zJa } nutzzeit_t;
 
 _EXT_ zustand_hk_t  z_HK_Zustand;           /* HK-Heizkreis Zeitprogramm normal / abgesenkt / abgeschaltet */
 _EXT_ zustand_hk_t  z_FB_Zustand;           /* Zustand Fußbodenheizung */

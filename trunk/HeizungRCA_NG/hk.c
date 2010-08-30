@@ -1,8 +1,10 @@
+#ifndef _HK_C_
+#define _HK_C_
+#endif
+
+#include "gen_types.h"
 #include "hk.h"
 #include "sup.h"
-#include "vorgabe.h"
-#include "variablen.h"
-#include "io.h"
 
 void hk_Init( hk_param_t *par_p, sup_digreg_coeff_t *q_p, hk_out_t *out_p )
 {
@@ -32,7 +34,7 @@ void hk_Run( const hk_param_t         *par_p,
         out_p->pu_sb = IO_EIN;                          /* Heizkreis Pumpe einschalten */
     else if( in_p->tau_avg > (par_p->at_start+1.0) )
         out_p->pu_sb = IO_AUS;                          /* Heizkreis Pumpe ausschalten */
-    else if (in_p->tau_mw <  all_frostschutz )          /* AT unter Frostschutzmarke */
+    else if (in_p->tau_mw < par_p->frostschutz )        /* AT unter Frostschutzmarke */
         out_p->pu_sb = IO_EIN;                          /* Heizkreis Pumpe einschalten */
 }
 
