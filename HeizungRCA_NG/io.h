@@ -1,52 +1,46 @@
 #ifndef _IO_H_
 #define _IO_H_
 
-#include "gen_types.h"
 
-#undef _EXT_
-#ifdef _MAIN_C_
-    #define _EXT_
-#else
-    #define _EXT_ extern
-#endif
+/* Integer Temperaturwert in Float wandeln */
+#define TF(x)           ((float)(x)/10.0) 
 
 /* Klartextnamen fuer die Klemmenvariablen */
-
-#define ALL_Tau_MW      ((float)(pabIn_p->ain.all_tau_mw)/10.0)    /* Aussentemperatur, AI, Pt1000     */
+#define ALL_Tau_MW      TF(pabIn_p->ain.all_tau_mw)     /* Aussentemperatur, AI, Pt1000     */
 #define ALL_PARTY       (pabIn_p->din.all_party)        /* FBH, Partyschalter, DI, Taster   */
 
-#define SOL_KOLL_T_MW   ((float)(pabIn_p->ain.sol_koll_t_mw)/10.0) /* Kollektortemperatur, AI, Pt1000  */
-#define SOL_SP1_Tu_MW   ((float)(pabIn_p->ain.sol_sp1_tu_mw)/10.0) /* Temperatur im Speicher 1 unten, AI, Pt1000 */
-#define SOL_SP1_To_MW   ((float)(pabIn_p->ain.sol_sp1_to_mw)/10.0) /* Temperatur im Speicher 1 oben, AI, Pt1000  */
-#define SOL_SP2_Tu_MW   ((float)(pabIn_p->ain.sol_sp2_tu_mw)/10.0) /* Temperatur im Speicher 2 unten, AI, Pt1000 */
-#define SOL_SP2_To_MW   ((float)(pabIn_p->ain.sol_sp2_to_mw)/10.0) /* Temperatur im Speicher 2 oben, AI, Pt1000  */
+#define SOL_KOLL_T_MW   TF(pabIn_p->ain.sol_koll_t_mw)  /* Kollektortemperatur, AI, Pt1000  */
+#define SOL_SP1_Tu_MW   TF(pabIn_p->ain.sol_sp1_tu_mw)  /* Temperatur im Speicher 1 unten, AI, Pt1000 */
+#define SOL_SP1_To_MW   TF(pabIn_p->ain.sol_sp1_to_mw)  /* Temperatur im Speicher 1 oben, AI, Pt1000  */
+#define SOL_SP2_Tu_MW   TF(pabIn_p->ain.sol_sp2_tu_mw)  /* Temperatur im Speicher 2 unten, AI, Pt1000 */
+#define SOL_SP2_To_MW   TF(pabIn_p->ain.sol_sp2_to_mw)  /* Temperatur im Speicher 2 oben, AI, Pt1000  */
 #define SOL_PU_SB       (pabOut_p->dout.sol_pu_sb)      /* Solarkreislaufpumpe (ein/aus), DO, 24V Ausgang auf Relais */
 #define SOL_SP1_AV_SB   (pabOut_p->dout.sol_sp1_av_sb)  /* Solar-Absperrventil, Speicher 1 (auf/zu), DO, 24V Ausgang auf Relais */
 #define SOL_SP2_AV_SB   (pabOut_p->dout.sol_sp2_av_sb)  /* Solar-Absperrventil, Speicher 2 (auf/zu), DO, 24V Ausgang auf Relais */
 
-#define KES_Tvl_MW      ((float)(pabIn_p->ain.kes_tvl_mw)/10.0)    /* Kesselvorlauftemperatur, AI, Pt1000   */
-#define KES_Trl_MW      ((float)(pabIn_p->ain.kes_trl_mw)/10.0)    /* Kesselruecklauftemperatur, AI, Pt1000 */
+#define KES_Tvl_MW      TF(pabIn_p->ain.kes_tvl_mw)     /* Kesselvorlauftemperatur, AI, Pt1000   */
+#define KES_Trl_MW      TF(pabIn_p->ain.kes_trl_mw)     /* Kesselruecklauftemperatur, AI, Pt1000 */
 #define KES_Tvl_Y       (pabOut_p->aout.kes_tvl_y)      /* Kesselvorlauftemperaturvorgabe, AO, 0-10V */
 #define KES_PU_SP1_SB   (pabOut_p->dout.kes_pu_sp1_sb)  /* Ladepumpe fuer Speicher 1 (ein, aus), DO, 24V Ausgang auf Relais */
 #define KES_PU_SP2_SB   (pabOut_p->dout.kes_pu_sp2_sb)  /* Ladepumpe fuer Speicher 2 (ein, aus), DO, 24V Ausgang auf Relais */
 #define KES_SSM         (pabIn_p->din.kes_ssm)          /* Heizkessel Sammelstoermeldung, DI, 24V */
 #define KES_BR_BM       (pabIn_p->din.kes_br_bm)        /* Heizkessel Brennerbetriebsmeldung, DI, 24V */
 
-#define HK_Tvl_MW       ((float)(pabIn_p->ain.hk_tvl_mw)/10.0)     /* Heizkoerper-Heizkreis Vorlauftemperatur, AI, Pt1000 */
-#define HK_Trl_MW       ((float)(pabIn_p->ain.hk_trl_mw)/10.0)     /* Heizkoerper-Heizkreis Ruecklauftemperatur, AI, Pt1000 */
+#define HK_Tvl_MW       TF(pabIn_p->ain.hk_tvl_mw)      /* Heizkoerper-Heizkreis Vorlauftemperatur, AI, Pt1000 */
+#define HK_Trl_MW       TF(pabIn_p->ain.hk_trl_mw)      /* Heizkoerper-Heizkreis Ruecklauftemperatur, AI, Pt1000 */
 #define HK_MV_Y         (pabOut_p->aout.hk_mv_y)        /* Heizkoerper-Heizkreis Mischventil-Ansteuerung, AO, 0-10V */
 #define HK_PU_SB        (pabOut_p->dout.hk_pu_sb)       /* Heizkoerper-Heizkreis Pumpe (ein/aus), DO, 24V Ausgang auf Relais */
 
-#define FB_PRIM_Trl_MW  ((float)(pabIn_p->ain.fb_prim_trl_mw)/10.0) /* Fussbodenheizung, Primaerseite, Ruecklauftemperatur, AI, Pt1000 */
-#define FB_SEK_Tvl_MW   ((float)(pabIn_p->ain.fb_sek_tvl_mw)/10.0)  /* Fussbodenheizung, Sekundaerseite, Vorlauftemperatur, AI, Pt1000 */
+#define FB_PRIM_Trl_MW  TF(pabIn_p->ain.fb_prim_trl_mw) /* Fussbodenheizung, Primaerseite, Ruecklauftemperatur, AI, Pt1000 */
+#define FB_SEK_Tvl_MW   TF(pabIn_p->ain.fb_sek_tvl_mw)  /* Fussbodenheizung, Sekundaerseite, Vorlauftemperatur, AI, Pt1000 */
 #define FB_PRIM_MV_Y    (pabOut_p->aout.fb_prim_mv_y)   /* Fussbodenheizung, Primaerseite, Mischerventilansteuerung, AO, 0-10V */
 #define FB_PRIM_PU_SB   (pabOut_p->dout.fb_prim_pu_sb)  /* Fussbodenheizung, Primaerseite, Pumpe (ein/aus), DO, 24V Ausgang auf Relais */
 #define FB_SEK_PU_SB    (pabOut_p->dout.fb_sek_pu_sb)   /* Fussbodenheizung, Sekundaerseite, Pumpe (ein/aus), DO, 24V Ausgang auf Relais */
 #define FB_SEK_TW       (pabIn_p->din.fb_sek_tw)        /* Fussbodenheizung, Sicherheitstemperaturwaechter, DI, 24V */
 
-#define WW_HZG_Tvl_MW   ((float)(pabIn_p->ain.ww_hzg_tvl_mw)/10.0)  /* Warmwasser, Heizungsvorlauftemperatur, AI, Pt1000 */
-#define WW_HZG_Trl_MW   ((float)(pabIn_p->ain.ww_hzg_trl_mw)/10.0)  /* Warmwasser, Heizungsruecklauftemperatur, AI, Pt1000 */
-#define WW_Tww_MW       ((float)(pabIn_p->ain.ww_tww_mw)/10.0)      /* Warmwasser-Temperatur, AI, Pt1000 */
+#define WW_HZG_Tvl_MW   TF(pabIn_p->ain.ww_hzg_tvl_mw)  /* Warmwasser, Heizungsvorlauftemperatur, AI, Pt1000 */
+#define WW_HZG_Trl_MW   TF(pabIn_p->ain.ww_hzg_trl_mw)  /* Warmwasser, Heizungsruecklauftemperatur, AI, Pt1000 */
+#define WW_Tww_MW       TF(pabIn_p->ain.ww_tww_mw)      /* Warmwasser-Temperatur, AI, Pt1000 */
 #define WW_WZ_MW        (pabIn_p->din.ww_wz_mw)         /* Warmwasserzaehler, Impulse, DI, 24V */
 #define WW_HZG_MV_Y     (pabOut_p->aout.ww_hzg_mv_y)    /* Warmwasser, Heizungsmischventil, Vorlauf, AO, 0-10V */
 #define WW_HZG_VV_SB    (pabOut_p->dout.ww_hzg_vv_sb)   /* Warmwasser, Heizungsverteilventil, Ruecklauf, (auf/zu), DO, 24V Ausgang auf Relais */
@@ -62,6 +56,8 @@
 /* Temperaturen werden ueber Pt1000 Klemmen gemessen, die einen 16bit mit Vorzeichen ausgeben.  *
  * 0°C entspricht 0x0000 mit 0.1K entsprechend einem Bit                                        */
 
+#include "gen_types.h"
+ 
 /* Eingangsgroessen */
 typedef struct {
     struct {
@@ -143,32 +139,31 @@ typedef struct {
 #define PAB_OUT ((volatile Control_Output_t *) 0xFFE858)
 
 #ifdef __WAGO__
+
 #ifdef _MAIN_C_
 volatile Control_Output_t    *pabOut_p = PAB_OUT;
 volatile Control_Input_t     *pabIn_p  = PAB_IN;
-#else
+#else /* _MAIN_C */
 extern volatile Control_Output_t    *pabOut_p;
 extern volatile Control_Input_t     *pabIn_p;
-#endif
-#else
-_EXT_ volatile Control_Output_t    pab_Dbg_Out;
-_EXT_ volatile Control_Input_t     pab_Dbg_In;
+#endif /* _MAIN_C */
+
+#else /* __WAGO__ */
+
 #ifdef _MAIN_C_
+volatile Control_Output_t    pab_Dbg_Out;
+volatile Control_Input_t     pab_Dbg_In;
 volatile Control_Output_t    *pabOut_p = &pab_Dbg_Out;
 volatile Control_Input_t     *pabIn_p  = &pab_Dbg_In;
-#else
+#else /* _MAIN_C */
 extern volatile Control_Output_t    *pabOut_p;
 extern volatile Control_Input_t     *pabIn_p;
-#endif
-#endif
+#endif /* _MAIN_C */
 
-
-/* Verteilventilstellungen (noch zu testen !) */
-#define IO_VV_SP1       0x00
-#define IO_VV_SP2       0x01
-
-
+#endif /* __WAGO__ */
 
 #endif /* _IO_H_ */
+
+
 
 

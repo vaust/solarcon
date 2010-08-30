@@ -1,3 +1,7 @@
+#ifndef _SOLAR_C_
+#define _SOLAR_C_
+#endif
+
 #include "solar.h"
 #include "io.h"
 

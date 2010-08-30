@@ -1,3 +1,7 @@
+#ifndef
+#define _SUP_C_
+#endif
+
 #include "sup.h"
 #include "gen_types.h"
 

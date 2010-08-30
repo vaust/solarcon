@@ -1,7 +1,10 @@
-#include "io.h"
-#include "vorgabe.h"
-#include "variablen.h"
+#ifndef _WW_C_
+#define _WW_C_
+#endif
+
+#include "gen_types.h"
 #include "ww.h"
+#include "hk.h"
 #include "sup.h"
 
 void ww_MV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_out_t *out_p )
@@ -19,13 +22,41 @@ void ww_MV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_out_t *ou
     sup_Limit( &(out_p->hzg_mv_y), MIN_Y_PCT, MAX_Y_PCT );
 }
 
+void ww_VV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_out_t *out_p )
+{
+    if( in_p->tau_36h_mittel > par_p->at_start ) {
+        if( in_p->hzg_trl_mw < in_p->sol_sp2_tu_mw ) out_p->hzg_vv_sb = WW_VV_SP2;
+        else                                         out_p->hzg_vv_sb = WW_VV_SP1;
+    }
+    else {
+        if( in_p->hzg_trl_mw < par_p->hk_tvl_sw )    out_p->hzg_vv_sb = WW_VV_SP2;
+        else                                         out_p->hzg_vv_sb = WW_VV_SP1;
+    }
+}   
+ 
+void ww_Schwachlast_Steuerung( const ww_param_t *par_p, ww_out_t *out_p )
+{
+    static u16_t    schwachlastzeit = 0;
+
+    /* Pumpe waehrend Duschbetrieb nicht abschalten, wegen Schwingung */
+    if( out_p->hzg_pu_y < par_p->hzg_pu_y_min ) {
+        schwachlastzeit ++;
+        if( schwachlastzeit < par_p->schwachlastzeit_max ) {
+            out_p->hzg_pu_y = par_p->hzg_pu_y_min;
+        }
+    } /* nach 30s ununterbrochener Schwachlast darf die Pumpe abschalten */
+    else {
+        schwachlastzeit = 0;
+    }
+}
     
-void ww_Init( const ww_param_t *par_p, const sup_digreg_coeff_t *q_hzg_pu_p, ww_out_t *out_p )
+void ww_Init( ww_param_t *par_p, sup_digreg_coeff_t *q_hzg_pu_p, ww_out_t *out_p )
 {
     q_hzg_pu_p->q0 =  par_p->pu_reg_kp + par_p->TA/par_p->pu_reg_tn;
     q_hzg_pu_p->q1 = -par_p->pu_reg_kp;
-    q_hzg_pu_p->lower_limit = 11.0;
+    q_hzg_pu_p->lower_limit = MIN_Y_PCT;
     q_hzg_pu_p->upper_limit = MAX_Y_PCT;
+    par_p->hzg_pu_y_min = 11.0;
 }    
 
 void ww_Run( const ww_param_t         *par_p, 
@@ -33,51 +64,24 @@ void ww_Run( const ww_param_t         *par_p,
              const ww_in_t            *in_p, 
                    ww_out_t           *out_p )
 {
-    static int      schwachlastzeit = 0;
 
     /* WW Heizungspumpe immer ein! */
     out_p->hzg_pu_sb = IO_EIN;
 
     /* Zirkulationspumpe ansteuern */
-    if( (z_Zirk_Zustand == zEin) || (ALL_Tau_MW < all_frostschutz) ) {
+    if( (in_p->zirkzustand == zEin) || (in_p->tau_mw < par_p->frostschutz) ) 
         out_p->zirk_pu_sb = IO_EIN;
-    }
-    else {
+    else 
         out_p->zirk_pu_sb = IO_AUS;
-    }
     
     /* PI-Regler fuer WW Heizungspumpe */
     sup_DigRegler( q_hzg_pu_p, in_p->tww_sw, in_p->tww_mw, &(out_p->hzg_pu_y) );
 
-    /* Pumpe waehrend Duschbetrieb nicht abschalten, wegen Schwingung */
-    if( out_p->hzg_pu_y < 11.0 ) {
-        schwachlastzeit ++;
-        if( schwachlastzeit < 300 ) {
-            out_p->hzg_pu_y = 11.0;
-        }
-    } /* nach 30s ununterbrochener Schwachlast darf die Pumpe abschalten */
-    else {
-        schwachlastzeit = 0;
-    }
-
     /* Berechnung von WW_HZG_MV_Y aus den Temperaturen von Speicher und Rücklauf */
     ww_MV_Steuerung( par_p, in_p, out_p );
     
-/* #define IO_VV_SP1       0x00
-   #define IO_VV_SP2       0x01
-*/
-    /************************************************
-     * Kriterium fuer Warmwasser Heizungsverteilventil
-     ************************************************/
-    /* TODO: Wohin mit diesem Code ???
-
-    if( Tau_36h_mittel_f > all_at_start ) {
-        if( in_p->hzg_trl_mw < SOL_SP2_Tu_MW )     WW_HZG_VV_SB = IO_VV_SP2;
-        else                                    WW_HZG_VV_SB = IO_VV_SP1;
-    }
-    else {
-        if( in_p->hzg_trl_mw < hk_Tvl_SW_f )       WW_HZG_VV_SB = IO_VV_SP2;
-        else                                    WW_HZG_VV_SB = IO_VV_SP1;
-    }
-    */
+    /* Kriterium fuer Warmwasser Heizungsverteilventil */
+    ww_VV_Steuerung( par_p, in_p, out_p );
 }
+
+
