@@ -106,17 +106,17 @@ typedef struct {
         ao_0_10V_t      res3;
     } aout;
     struct {
-        do_bitbyte_t sol_pu_sb      :1;     /* Solarkreislaufpumpe (ein/aus), DO, 24V +                         Slot 6, O1 */
-        do_bitbyte_t sol_sp1_av_sb  :1;     /* Solar-Absperrventil, Speicher 1 (auf/zu), DO, 24V +              Slot 6, O2 */
+        do_bitbyte_t sol_pu_sb      :1;     /* Solarkreislaufpumpe (ein/aus), DO, 24V+                          Slot 6, O1 */
+        do_bitbyte_t sol_sp1_av_sb  :1;     /* Solar-Absperrventil, Speicher 1 (auf/zu), DO, 24V+               Slot 6, O2 */
         do_bitbyte_t sol_sp2_av_sb  :1;     /* Solar-Absperrventil, Speicher 2 (auf/zu), DO, 24V +              Slot 6, O3 */
         do_bitbyte_t kes_pu_sp1_sb  :1;     /* Ladepumpe fuer Speicher 1 (ein, aus), DO, 24V +                  Slot 6, O4 */
 
         do_bitbyte_t kes_pu_sp2_sb  :1;     /* Ladepumpe fuer Speicher 2 (ein, aus), DO, 24V +                  Slot 7, O1 */
         do_bitbyte_t hk_pu_sb       :1;     /* Heizkoerper-Heizkreis Pumpe (ein/aus), DO, 24V +                 Slot 7, O2 */
         do_bitbyte_t fb_prim_pu_sb  :1;     /* Fussbodenheizung, Primaerseite, Pumpe (ein/aus), DO, 24V         Slot 7, O3 */
-        do_bitbyte_t fb_sek_pu_sb   :1;     /* Fussbodenheizung, Sekundaerseite, Pumpe (ein/aus), DO, 24V +     Slot 7, O4 */
+        do_bitbyte_t fb_sek_pu_sb   :1;     /* Fussbodenheizung, Sekundaerseite, Pumpe (ein/aus), DO, 24V+      Slot 7, O4 */
 
-        do_bitbyte_t ww_hzg_vv_sb   :1;     /* Warmwasser, Heizungsverteilventil, Ruecklauf, (auf/zu), DO, 24V + Slot 8, O1 */
+        do_bitbyte_t ww_hzg_vv_sb   :1;     /* Warmwasser, Heizungsverteilventil, Ruecklauf, (auf/zu), DO, 24V+ Slot 8, O1 */
         do_bitbyte_t ww_hzg_pu_sb   :1;     /* Warmwasser, Heizungspumpe, (ein/aus), D0, 24V +                  Slot 8, O2 */
         do_bitbyte_t ww_zirk_pu_sb  :1;     /* Warmwasser, Zirkulationspumpe, (ein/aus), D0, 24V +              Slot 8, O3 */
         do_bitbyte_t res1           :1;     /* reserviert fuer HK Heizkreis Mischventil                                    */
