@@ -140,25 +140,25 @@ typedef struct {
 
 #ifdef __WAGO__
 
-#ifdef _MAIN_C_
+#ifdef __IO_MASTER__
 volatile Control_Output_t    *pabOut_p = PAB_OUT;
 volatile Control_Input_t     *pabIn_p  = PAB_IN;
-#else /* _MAIN_C */
+#else /* __IO_MASTER__ */
 extern volatile Control_Output_t    *pabOut_p;
 extern volatile Control_Input_t     *pabIn_p;
-#endif /* _MAIN_C */
+#endif /* __IO_MASTER__ */
 
 #else /* __WAGO__ */
 
-#ifdef _MAIN_C_
+#ifdef __IO_MASTER__
 volatile Control_Output_t    pab_Dbg_Out;
 volatile Control_Input_t     pab_Dbg_In;
 volatile Control_Output_t    *pabOut_p = &pab_Dbg_Out;
 volatile Control_Input_t     *pabIn_p  = &pab_Dbg_In;
-#else /* _MAIN_C */
+#else /* __IO_MASTER__ */
 extern volatile Control_Output_t    *pabOut_p;
 extern volatile Control_Input_t     *pabIn_p;
-#endif /* _MAIN_C */
+#endif /* __IO_MASTER__ */
 
 #endif /* __WAGO__ */
 
