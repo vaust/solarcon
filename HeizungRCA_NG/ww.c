@@ -4,7 +4,23 @@
 #include "ww.h"
 #include "sup.h"
 
-void ww_Init( ww_param_t *par_p, sup_digreg_coeff_t *q_hzg_pu_p, ww_out_t *out_p )
+void ww_MV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_out_t *out_p )
+{
+    out_p->hzg_tvl_sw = in_p->tww_sw + par_p->kes_sp_dt_sw/2.0;
+    if( in_p->sol_sp1_to_mw > in_p->hzg_trl_mw ) {
+        out_p->hzg_mv_y =
+            (out_p->hzg_tvl_sw - in_p->hzg_trl_mw) * 100.0 / 
+                (in_p->sol_sp1_to_mw - in_p->hzg_trl_mw)  
+          + (out_p->hzg_tvl_sw - out_p->hzg_tvl_sw) * par_p->mv_korr;            
+    } else
+    {
+        out_p->hzg_mv_y = MAX_Y_PCT;  /* dann stimmt was nicht -> Ventil voll auf */
+    }
+    sup_Limit( &(out_p->hzg_mv_y), MIN_Y_PCT, MAX_Y_PCT );
+}
+
+    
+void ww_Init( const ww_param_t *par_p, const sup_digreg_coeff_t *q_hzg_pu_p, ww_out_t *out_p )
 {
     q_hzg_pu_p->q0 =  par_p->pu_reg_kp + par_p->TA/par_p->pu_reg_tn;
     q_hzg_pu_p->q1 = -par_p->pu_reg_kp;
@@ -17,10 +33,7 @@ void ww_Run( const ww_param_t         *par_p,
              const ww_in_t            *in_p, 
                    ww_out_t           *out_p )
 {
-//  static int      old_ww_wz_mw = IO_AUS; /* Merker fuer vorhergehenden Status Wasserzaehlerimpuls */
-//  static long     old_ww_Zaehler_l = 0;  /* Merker für vorhergehenden Wasserzaehlerstand */
     static int      schwachlastzeit = 0;
-
 
     /* WW Heizungspumpe immer ein! */
     out_p->hzg_pu_sb = IO_EIN;
@@ -48,19 +61,7 @@ void ww_Run( const ww_param_t         *par_p,
     }
 
     /* Berechnung von WW_HZG_MV_Y aus den Temperaturen von Speicher und Rücklauf */
-
-    out_p->hzg_tvl_sw = in_p->tww_sw + par_p->kes_sp_dt_sw/2.0;
-    if( SOL_SP1_To_MW > WW_HZG_Trl_MW ) {
-        out_p->hzg_mv_y =
-            (out_p->hzg_tvl_sw - in_p->hzg_trl_mw) * 100.0 / 
-                (in_p->sol_sp1_to_mw - in_p->hzg_trl_mw)  
-          + (out_p->hzg_tvl_sw - out_p->hzg_tvl_sw) * par_p->mv_korr;            
-    } else
-    {
-        out_p->hzg_mv_y = MAX_Y_PCT;  /* dann stimmt was nicht -> Ventil voll auf */
-    }
-    sup_Limit( &(out_p->hzg_mv_y), MIN_Y_PCT, MAX_Y_PCT );
-
+    ww_MV_Steuerung( par_p, in_p, out_p );
     
 /* #define IO_VV_SP1       0x00
    #define IO_VV_SP2       0x01

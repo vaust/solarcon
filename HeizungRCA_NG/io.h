@@ -162,16 +162,12 @@ extern volatile Control_Input_t     *pabIn_p;
 #endif
 #endif
 
-#define IO_EIN          0x01
-#define IO_AUS          0x00
-#define IO_AUF          0x01
-#define IO_ZU           0x00
+
 /* Verteilventilstellungen (noch zu testen !) */
 #define IO_VV_SP1       0x00
 #define IO_VV_SP2       0x01
 
-#define MAX_Y_PCT       99.9
-#define MIN_Y_PCT        0.1
+
 
 #endif /* _IO_H_ */
 
