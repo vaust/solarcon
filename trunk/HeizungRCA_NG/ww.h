@@ -4,6 +4,7 @@
 #include "sup.h"
 #include "gen_types.h"
 
+
 /* <Typen> */
 typedef struct {
     float pu_reg_kp;
@@ -35,7 +36,14 @@ typedef struct {
 /* <Typen/> */
 
 /* <Prototypen> */
-void ww_Init( ww_param_t *par_p, sup_digreg_coeff_t *q_hzg_pu_p, ww_out_t *out_p );
+void ww_MV_Steuerung( const ww_param_t *par_p, 
+                      const ww_in_t    *in_p, 
+                            ww_out_t   *out_p );
+                            
+void ww_Init( const ww_param_t         *par_p, 
+              const sup_digreg_coeff_t *q_hzg_pu_p, 
+                    ww_out_t           *out_p );
+                    
 void ww_Run( const ww_param_t         *par_p, 
              const sup_digreg_coeff_t *q_p, 
              const ww_in_t            *in_p, 

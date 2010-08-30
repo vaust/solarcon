@@ -1,6 +1,16 @@
 #ifndef _GEN_TYPES_H_
 #define _GEN_TYPES_H_
 
+/* <Defines> */
+#define IO_EIN          0x01
+#define IO_AUS          0x00
+#define IO_AUF          0x01
+#define IO_ZU           0x00
+
+#define MAX_Y_PCT       99.9
+#define MIN_Y_PCT        0.1
+/* <Defines/> */
+
 /* <Typen> */
 typedef unsigned char   u8_t;
 typedef signed char     s8_t;
