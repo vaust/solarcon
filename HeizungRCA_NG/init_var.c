@@ -11,6 +11,8 @@
 #include <string.h>
 #include <time.h>
 
+#include "gen_types.h"
+
 #include "vorgabe.h"
 #include "variablen.h"
 #include "zeitprogramm.h"
@@ -26,7 +28,7 @@ int init_parameters( void )
 {
 	FILE 	*handle;
 
-	handle = fopen( "/home/vorgaben04.ini", "r" );
+	handle = fopen( "/home/vorgaben.ini", "r" );
 	if( handle == NULL ) {
     /* Die Datei vorgaben.ini scheint nicht vorhanden zu sein:
      * Defaultwerte aus #defines in vorgabe.h initialisieren
@@ -71,8 +73,6 @@ int init_parameters( void )
 
 		ww_pu_reg_kp = 		    WW_PU_REG_Kp;
 		ww_pu_reg_tn = 		    WW_PU_REG_Tn;
-//		ww_mv_reg_kp = 		    WW_MV_REG_Kp;
-//		ww_mv_reg_tn = 		    WW_MV_REG_Tn;
 		ww_tww_tvl_faktor =   	WW_Tww_Tvl_Faktor;
 		ww_tz_sw = 				WW_Tz_SW;
 
@@ -88,6 +88,23 @@ int init_parameters( void )
     return( -1 );
 }
 
+typedef struct {
+    char *VarName;
+    void *VarPointer;
+    char *format;
+} parse_set_t;
+
+const parse_set_t Vorgaben[] = {
+    { "ALL_Tau_mittel_Zeit", &all_tau_mittel_zeit, "%d" },
+    { "ALL_Partydauer",      &all_partydauer,      "%d" },
+    { "ALL_Frostschutz",     &all_frostschutz,     "%f" },
+    { "ALL_AT_Start",        &all_at_start,        "%f" },
+    
+    
+};
+
+    
+
 int read_vorgaben( FILE *handle )
 {
 	char	linestr[128];
@@ -96,14 +113,8 @@ int read_vorgaben( FILE *handle )
 	while( !feof( handle ) )  {
         fgets( linestr, 127, handle );
 
-#ifdef __DEBUG__
-        printf( "DEBUG: %s \n", linestr );
-#endif
         if( linestr[0] != '%' ) {
             parameter = strtok( linestr, "=" );
-#ifdef __DEBUG__
-            printf( "DEBUG: parameter = \"%s\" \n", parameter );
-#endif
             if( strncmp( parameter, "ALL_Tau_mittel_Zeit", 18 ) == 0 ) {
                 value = strtok( NULL, "\n" );
                 sscanf( value, "%d", &all_tau_mittel_zeit );
@@ -303,90 +314,31 @@ int init_zeitprogramm( void )
                 parameter = strtok( linestr, "=" );
                 if( strncmp( parameter, "HK_EIN", 6 ) == 0 ) {
                     hk_states = zeit_einlesen(HK_STATES_MAX, HK_Ein_Schaltzeiten);
-                    #ifdef __DEBUG__
-                    printf( "DEBUG: hk_states = %d\n", hk_states );
-                    for( i=0; i<hk_states; i++ ) {
-                        printf( "DEBUG: HK EINSCHALTZEIT[%d] = %d\n",
-                        i, HK_Ein_Schaltzeiten[i] );
-                    }
-                    #endif
                 }
                 else if( strncmp( parameter, "HK_AUS", 6 ) == 0 ) {
                     hk_states = zeit_einlesen(HK_STATES_MAX, HK_Aus_Schaltzeiten);
-                    #ifdef __DEBUG__
-                    printf( "DEBUG: hk_states = %d\n", hk_states );
-                    for( i=0; i<hk_states; i++ ) {
-                        printf( "DEBUG: HK AUSSCHALTZEIT[%d] = %d\n",
-                        i, HK_Aus_Schaltzeiten[i] );
-                    }
-                    #endif
                 }
                 else if( strncmp( parameter, "FB_EIN", 6 ) == 0 ) {
                     fb_states = zeit_einlesen(FB_STATES_MAX, FB_Ein_Schaltzeiten);
-                    #ifdef __DEBUG__
-                    printf( "DEBUG: fb_states = %d\n", fb_states );
-                    for( i=0; i<fb_states; i++ ) {
-                        printf( "DEBUG: FB EINSCHALTZEIT[%d] = %d\n",
-                        i, FB_Ein_Schaltzeiten[i] );
-                    }
-                    #endif
                 }
                 else if( strncmp( parameter, "FB_AUS", 6 ) == 0 ) {
                     fb_states = zeit_einlesen(FB_STATES_MAX, FB_Aus_Schaltzeiten);
-                    #ifdef __DEBUG__
-                    printf( "DEBUG: fb_states = %d\n", fb_states );
-                    for( i=0; i<fb_states; i++ ) {
-                        printf( "DEBUG: FB AUSSCHALTZEIT[%d] = %d\n",
-                        i, FB_Aus_Schaltzeiten[i] );
-                    }
-                    #endif
                 }
                 else if( strncmp( parameter, "ZIRK_EIN", 8 ) == 0 ) {
                     zirk_states = zeit_einlesen(ZIRK_STATES_MAX, ZIRK_Ein_Schaltzeiten);
-                    #ifdef __DEBUG__
-                    printf( "DEBUG: zirk_states = %d\n", zirk_states );
-                    for( i=0; i<zirk_states; i++ ) {
-                        printf( "DEBUG: ZIRK EINSCHALTZEIT[%d] = %d\n",
-                        i, ZIRK_Ein_Schaltzeiten[i] );
-                    }
-                    #endif
                 }
                 else if( strncmp( parameter, "ZIRK_AUS", 8 ) == 0 ) {
                     zirk_states = zeit_einlesen(ZIRK_STATES_MAX, ZIRK_Aus_Schaltzeiten);
-                    #ifdef __DEBUG__
-                    printf( "DEBUG: zirk_states = %d\n", zirk_states );
-                    for( i=0; i<zirk_states; i++ ) {
-                        printf( "DEBUG: ZIRK AUSSCHALTZEIT[%d] = %d\n",
-                        i, ZIRK_Aus_Schaltzeiten[i] );
-                    }
-                    #endif
                 }
                 else if( strncmp( parameter, "DUSCH_EIN", 9 ) == 0 ) {
                     dusch_states = zeit_einlesen(DUSCH_STATES_MAX, DUSCH_Ein_Schaltzeiten);
-                    #ifdef __DEBUG__
-                    printf( "DEBUG: dusch_states = %d\n", dusch_states );
-                    for( i=0; i<dusch_states; i++ ) {
-                        printf( "DEBUG: DUSCH EINSCHALTZEIT[%d] = %d\n",
-                        i, DUSCH_Ein_Schaltzeiten[i] );
-                    }
-                    #endif
                 }
                 else if( strncmp( parameter, "DUSCH_AUS", 9 ) == 0 ) {
                     dusch_states = zeit_einlesen(DUSCH_STATES_MAX, DUSCH_Aus_Schaltzeiten);
-                    #ifdef __DEBUG__
-                    printf( "DEBUG: dusch_states = %d\n", dusch_states );
-                    for( i=0; i<dusch_states; i++ ) {
-                         printf( "DEBUG: DUSCH AUSSCHALTZEIT[%d] = %d\n",
-                        i, DUSCH_Aus_Schaltzeiten[i] );
-                    }
-                    #endif
                 }
                 else if( strncmp( parameter, "HOUR_OFFSET", 11 ) == 0 ) {
                     value = strtok( NULL, ";" );
                     sscanf( value, "%d", &hour_offset );
-                    #ifdef __DEBUG__
-                    printf( "DEBUG: hour_offset = %d\n", hour_offset );
-                    #endif
                 }
             }
         }
