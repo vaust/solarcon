@@ -1,21 +1,19 @@
-/* Debug Schalter:   */
-// #define __MODULTEST__
-// #define TEST 1
-
-#define _INIT_VAR_C_
+#define _INIT_C_
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
 
 #include <string.h>
-#include <time.h>
 
 #include "gen_types.h"
+
 
 #include "vorgabe.h"
 #include "variablen.h"
 #include "zeitprogramm.h"
+
+#include "init.h"
 
 /* Prototypen */
 int init_Parameters( void );
@@ -88,53 +86,6 @@ int init_Parameters( void )
     return( -1 );
 }
 
-typedef struct {
-    char *VarName;
-    void *VarPointer;
-    char *format;
-} parse_set_t;
-
-#define PARSESETNO 35
-
-static const parse_set_t Vorgaben[35] = {
-    { "ALL_Tau_mittel_Zeit", &all_tau_mittel_zeit, "%d" }, //  0
-    { "ALL_Partydauer",      &all_partydauer,      "%d" }, //  1
-    { "ALL_Frostschutz",     &all_frostschutz,     "%f" }, //  2
-    { "ALL_AT_Start",        &all_at_start,        "%f" }, //  3
-    { "SOL_dT_ein_SW",       &sol_dt_ein_sw,       "%f" }, //  4
-    { "SOL_dT_aus_SW",       &sol_dt_aus_sw,       "%f" }, //  5
-    { "SOL_KOLL_T_max",      &sol_koll_t_max,      "%f" }, //  6
-    { "SOL_SP_T_max",        &sol_sp_t_max,        "%f" }, //  7
-    { "SOL_SP1_T_min",       &sol_sp1_t_min,       "%f" }, //  8
-    { "SOL_SP1_T_min",       &sol_sp1_t_min,       "%f" }, //  9
-    { "KES_SP_dT_SW",        &kes_sp_dt_sw,        "%f" }, // 10
-    { "HK_Tvl_Steigung",     &hk_tvl_steigung,     "%f" }, // 11
-    { "HK_Tvl_Niveau",       &hk_tvl_niveau,       "%f" }, // 12
-    { "HK_Tvl_Absenk",       &hk_tvl_absenk,       "%f" }, // 13
-    { "HK_Tvl_Min",          &hk_tvl_min,          "%f" }, // 14
-    { "HK_Tvl_Max",          &hk_tvl_max,          "%f" }, // 15  
-    { "HK_Frostschutz",      &hk_frostschutz,      "%f" }, // 16
-    { "HK_REG_Kp",           &hk_reg_kp,           "%f" }, // 17
-    { "HK_REG_Tn",           &hk_reg_tn,           "%f" }, // 18
-    { "HK_Tr_SW",            &hk_tr_sw,            "%f" }, // 19 
-    { "FB_Tvl_Steigung",     &fb_tvl_steigung,     "%f" }, // 20
-    { "FB_Tvl_Niveau",       &fb_tvl_niveau,       "%f" }, // 21
-    { "FB_Tr_SW",            &fb_tr_sw,            "%f" }, // 22
-    { "FB_Tvl_Absenk",       &fb_tvl_absenk,       "%f" }, // 23
-    { "FB_Tvl_Max",          &fb_tvl_max,          "%f" }, // 24
-    { "FB_REG_Kp",           &fb_reg_kp,           "%f" }, // 25
-    { "FB_REG_Tn",           &fb_reg_tn,           "%f" }, // 26
-    { "WW_Tww_SW",           &ww_tww_sw,           "%f" }, // 27
-    { "WZ_Faktor",           &wz_faktor,           "%f" }, // 28
-    { "WZ_Max",              &wz_max,              "%f" }, // 29  
-    { "WW_PU_REG_Kp",        &ww_pu_reg_kp,        "%f" }, // 30
-    { "WW_PU_REG_Tn",        &ww_pu_reg_tn,        "%f" }, // 31
-    { "WW_MV_KORR",          &ww_mv_korr,          "%f" }, // 32
-    { "WW_Tww_Tvl_Faktor",   &ww_tww_tvl_faktor,   "%f" }, // 33
-    { "WW_Tz_SW",            &ww_tz_sw,            "%f" }  // 34
-};
-
-    
 
 int init_Vorgaben( FILE *handle )
 {
@@ -147,7 +98,7 @@ int init_Vorgaben( FILE *handle )
 
         if( linestr[0] != '%' ) {
             parameter = strtok( linestr, "=" );
-            for( n=0; n<PARSESETNO; n++ ) {
+            for( n=0; n<PARSE_SET_N; n++ ) {
                 if( strncmp( parameter, Vorgaben[n].VarName, strlen(Vorgaben[n].VarName) ) == 0 ) {
                     value = strtok( NULL, "\n" );
                     sscanf( value, Vorgaben[n].format, Vorgaben[n].VarPointer );

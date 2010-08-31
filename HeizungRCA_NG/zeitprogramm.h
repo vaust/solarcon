@@ -1,7 +1,5 @@
-#ifndef ZEITPROGRAMM_H
-#define ZEITPROGRAMM_H
-
-#include <time.h>
+#ifndef _ZEITPROGRAMM_H_
+#define _ZEITPROGRAMM_H_
 
 typedef long schaltpunkt_t;
 
@@ -9,7 +7,7 @@ typedef long schaltpunkt_t;
 #define TAGESZEIT(H, M) 		((M)+60*(H))          /* Tageszeit in Minuten                              */
 
 
-#ifdef _INIT_VAR_C_
+#ifdef _INIT_C_
 /* Zeitprogramm_Heizkörperheizkreis   */
 #define HK_STATES_MAX 10
 schaltpunkt_t HK_Ein_Schaltzeiten[HK_STATES_MAX];
@@ -41,7 +39,7 @@ extern schaltpunkt_t ZIRK_Aus_Schaltzeiten[];
 
 extern schaltpunkt_t DUSCH_Ein_Schaltzeiten[];
 extern schaltpunkt_t DUSCH_Aus_Schaltzeiten[];
-#endif /* _INIT_VAR_C_ */
+#endif /* _INIT_C_ */
 
-#endif /* ZEITPROGRAMM_H */
+#endif /* _ZEITPROGRAMM_H_ */
 
