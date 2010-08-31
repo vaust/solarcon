@@ -1,5 +1,5 @@
-#ifndef VARIABLEN_H
-#define VARIABLEN_H
+#ifndef _VARIABLEN_H_
+#define _VARIABLEN_H_
 
 #undef _EXT_
 #ifdef _MAIN_C_
@@ -65,3 +65,5 @@ _EXT_ nutzzeit_t    z_Bootshausnutzung;     /* Bootshausnutzung */
 _EXT_ nutzzeit_t    z_Duschzeit;            /* wird gerade geduscht ? */
 
 #endif
+
+
