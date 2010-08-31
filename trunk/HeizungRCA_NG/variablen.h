@@ -37,8 +37,7 @@ _EXT_ int       haus_states;
 _EXT_ int       dusch_states;
 
 /* Flags für zyklische Tasks */
-#define SET     1
-#define RESET   0
+
 _EXT_ int       schedule_sec_flg;
 _EXT_ int       schedule_min_flg;
 _EXT_ int       schedule_hour_flg;
@@ -57,8 +56,8 @@ _EXT_ float     Tau_1h_mittel_f;
 _EXT_ float     Tau_36h_Summe_f;
 _EXT_ float     Tau_36h_mittel_f;
 
-_EXT_ zustand_hk_t  z_HK_Zustand;           /* HK-Heizkreis Zeitprogramm normal / abgesenkt / abgeschaltet */
-_EXT_ zustand_hk_t  z_FB_Zustand;           /* Zustand Fußbodenheizung */
+_EXT_ abgesenkt_t   z_HK_Zustand;           /* HK-Heizkreis Zeitprogramm normal / abgesenkt / abgeschaltet */
+_EXT_ abgesenkt_t   z_FB_Zustand;           /* Zustand Fußbodenheizung */
 _EXT_ ein_aus_t     z_Zirk_Zustand;         /* Einschaltzustand Zirkulationspumpe */
 _EXT_ freigabe_t    z_SP1_Freigabe;         /* Freigabe des Speichers 1 über Kessel */
 _EXT_ freigabe_t    z_SP2_Freigabe;         /* Freigabe des Speichers 2 über Kessel */

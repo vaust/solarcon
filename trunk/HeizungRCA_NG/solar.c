@@ -3,7 +3,6 @@
 #endif
 
 #include "solar.h"
-#include "io.h"
 
 void solar_Init( sol_param_t *par_p )
 {

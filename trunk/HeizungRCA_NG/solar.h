@@ -1,6 +1,8 @@
 #ifndef _SOLAR_H_
 #define _SOLAR_H_
 
+#include "gen_types.h"
+
 /* <Defines> */
 #define SOLAR_NORMAL           0
 #define SOLAR_UEBERTEMPERATUR -1
