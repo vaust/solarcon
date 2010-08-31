@@ -3,11 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
-
 #include <string.h>
 
 #include "gen_types.h"
-
 
 #include "vorgabe.h"
 #include "variablen.h"
@@ -95,7 +93,6 @@ int init_Vorgaben( FILE *handle )
     
 	while( !feof( handle ) )  {
         fgets( linestr, 127, handle );
-
         if( linestr[0] != '%' ) {
             parameter = strtok( linestr, "=" );
             for( n=0; n<PARSE_SET_N; n++ ) {
