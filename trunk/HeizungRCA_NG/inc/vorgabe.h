@@ -41,7 +41,7 @@
 #define WZ_Faktor                1.0    /* Waermezaehler auf Pumpenstellbefehl                          */
 #define Wz_Max                  25.0    /* Max. Warmwasserdurchfluss in l/min                           */
 #define WW_PU_REG_Kp            20.0    /* WW-Temperatur-Regelung (Pumpe) Verstaerkung Kp               */
-#define WW_PU_REG_Tn            0.6     /* WW-Temperatur-Regelung (Pumpe) Nachlaufzeit Tn               */
+#define WW_PU_REG_Tn             0.6    /* WW-Temperatur-Regelung (Pumpe) Nachlaufzeit Tn               */
 #define WW_MV_REG_Kp            10.0    /* WW Hzg-VL-Temperatur-Regelung (Mischer) Verstaerkung Kp      */
 #define WW_MV_REG_Tn            15.0    /* WW Hzg-VL-Temperatur-Regelung (Mischer) Nachlaufzeit Tn      */
 #define WW_Tww_Tvl_Faktor        1.0    /* Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.         */
@@ -50,7 +50,7 @@
 /* Variablendefinitionen fuer Vorgabe Variablen, initialisiert in init_variables() */
 
 #undef _EXT_
-#ifdef _MAIN_C_
+#ifdef _INIT_C_
     #define _EXT_
 #else
     #define _EXT_ extern
@@ -58,7 +58,7 @@
 
 _EXT_ int all_tau_mittel_zeit;   /* Zeit ueber die die Aussentemperatur gemittelt wird (in Stunden)    */
 _EXT_ int all_partydauer;        /* Fussbodenheizkreis Dauer der Betriebsverlaengerung (in Minuten)    */
-_EXT_ float all_frostschutz;     /* Aussentemperatur unter der Heizkreis immer in Betrieb in ° C    */
+_EXT_ float all_frostschutz;     /* Aussentemperatur unter der Heizkreis immer in Betrieb in ° C   */
 _EXT_ float all_at_start;        /* Aussentemperatur unter der Heizung startet in ° C              */
 
 _EXT_ float sol_dt_ein_sw;       /* Einschalt-Differenztemperatur fuer Solarpumpe und Speicherabsperrventile  in °C */
@@ -89,7 +89,7 @@ _EXT_ float fb_reg_kp;           /* Fussbodenheizkreis Verstaerkung PI-Regler in
 _EXT_ float fb_reg_tn;           /* Fussbodenheizkreis Nachstellzeit PI-Regler in Minuten    */
 
 _EXT_ float ww_tww_sw;           /* Warmwasser-Temperatur-Sollwert in °C                     */
-_EXT_ float ww_tww_max;          /* Warmwasser-Maximaltemperatur	in °C                    */
+_EXT_ float ww_tww_max;          /* Warmwasser-Maximaltemperatur in °C                       */
 _EXT_ float wz_faktor;           /* Waermezaehler auf Pumpenstellbefehl                      */
 _EXT_ float wz_max;              /* Max. Warmwasserdurchfluss in l/min                       */
 
@@ -100,7 +100,7 @@ _EXT_ float ww_mv_korr;          /* WW Hzg-VL-Temperatur-Steurung (Mischer) Korr
 _EXT_ float ww_tww_tvl_faktor;   /* Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.     */
 _EXT_ float ww_tz_sw;            /* Temperatursollwert des Zirkulationswassers in °C         */
 
-_EXT_ int   hour_offset;         /* Workaround fuer localtime() Fehler */
+_EXT_ int   hour_offset;         /* Workaround fuer localtime() Fehler                       */
 
 #endif
 
