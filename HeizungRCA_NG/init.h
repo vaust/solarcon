@@ -1,7 +1,7 @@
 #ifndef _INIT_H_
 #define _INIT_H_
 
-#include "vorgaben.h"
+#include "vorgabe.h"
 
 /* <Defines> */
 #define PARSE_SET_N 35
