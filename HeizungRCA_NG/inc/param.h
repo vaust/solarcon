@@ -1,5 +1,5 @@
-#ifndef _INIT_H_
-#define _INIT_H_
+#ifndef _PARAM_H_
+#define _PARAM_H_
 
 /* <Defines> */
 
@@ -45,7 +45,7 @@
 #define WW_MV_KORR               3.0    /* Korrekturfaktor fuer MV-Kennlinie                                      */
 
 #define PARSE_SET_N         36
-#define VORGABENDATEI       "/home/vorgaben.ini"
+#define VORGABENDATEI       "vorgaben.ini"
 
 /* <Defines/> */
 
@@ -113,7 +113,8 @@ PUBLIC int   param_hour_offset;         /* Workaround fuer localtime() Fehler   
 /* <Variablen/> */
 
 /* <Konstanten> */
-static const parse_set_t Vorgaben[PARSE_SET_N] = {
+#ifdef _PARAM_C_
+const parse_set_t Vorgaben[PARSE_SET_N] = {
     { "ALL_Tau_mittel_Zeit", &param_all_tau_mittel_zeit, "%d" }, //  0
     { "ALL_Partydauer",      &param_all_partydauer,      "%d" }, //  1
     { "ALL_Frostschutz",     &param_all_frostschutz,     "%f" }, //  2
@@ -151,7 +152,14 @@ static const parse_set_t Vorgaben[PARSE_SET_N] = {
     { "WW_Tww_Tvl_Faktor",   &param_ww_tww_tvl_faktor,   "%f" }, // 34
     { "WW_Tz_SW",            &param_ww_tz_sw,            "%f" }  // 35
 };                                                         
+#else 
+extern parse_set_t Vorgaben[];
+#endif
 /* <Konstanten/> */
+
+/* <Prototypen> */
+int param_Init( void );
+/* <Prototypen/> */
 
 #endif
 

@@ -33,6 +33,7 @@ int solar_Run(  const sol_param_t *par_p,
 /* <Prototypen/> */
 
 /* <lokale Protypen>  */
+/*
 static int solar_Speicherabsperrventil( const sol_param_t *par_p, 
                                  const sol_in_t    *in_p, 
                                        int         *sp_av_sb_p );
@@ -40,6 +41,7 @@ static void solar_Pumpe( const sol_param_t *par_p,
                   const int *sp1_av_sb_p, 
                   const int *sp2_av_sb_p, 
                         int *sol_pu_sb_p );
+*/
 /* <lokale Protypen/> */ 
 
 #endif /* _SOLAR_H_ */

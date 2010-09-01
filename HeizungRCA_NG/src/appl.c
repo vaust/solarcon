@@ -1,24 +1,34 @@
-#ifndef __IO_MASTER__
 #define __IO_MASTER__
-#endif 
+
 
 #include <stdio.h>
 
+#include "param.h"
 #include "solar.h"
-#include "fb.h"
-#include "hk.h"
-#include "ww.h"
-#include "io.h"
+// #include "fb.h"
+// #include "hk.h"
+// #include "ww.h"
+// #include "io.h"
 
 int main( void )
 {
+    int n;
+    
     sol_in_t sol_in_Sp1, sol_in_Sp2;
     int sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb;
     sol_param_t sol_par;
     
-    sol_par.sp_t_max = 120.0;
-    sol_par.dt_ein_sw = 2.0;
-    sol_par.dt_aus_sw = 2.0;
+    param_Init();
+    for( n=2; n<PARSE_SET_N; n++ ) {
+        printf( Vorgaben[n].VarName );
+        printf( "= " );
+        printf( Vorgaben[n].format, *(float *)Vorgaben[n].VarPointer );
+        printf( "\n" );
+    }
+    
+    sol_par.sp_t_max = param_sol_sp_t_max;
+    sol_par.dt_ein_sw = param_sol_dt_ein_sw;
+    sol_par.dt_aus_sw = param_sol_dt_aus_sw;
     
     solar_Init( &sol_par );
 /*    
