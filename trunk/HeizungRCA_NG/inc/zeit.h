@@ -6,6 +6,7 @@ typedef long schaltpunkt_t;
 #define WOCHENZEIT(D, H, M) 	((M)+60*((H)+24*(D))) /* Wochentag, Stunde und Minute in Minuten umrechnen */
 #define TAGESZEIT(H, M) 		((M)+60*(H))          /* Tageszeit in Minuten                              */
 
+#define ZEITPROGRAMMDATEI       "/home/wochenzeitprogramm.ini"
 
 #ifdef _ZEIT_C_
 /* Zeitprogramm_Heizkörperheizkreis   */
