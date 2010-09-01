@@ -1,6 +1,4 @@
-#ifndef _SOLAR_C_
 #define _SOLAR_C_
-#endif
 
 #include "solar.h"
 
@@ -9,7 +7,7 @@ void solar_Init( sol_param_t *par_p )
     /* nichts zu initialisieren */
 }
 
-int solar_Speicherabsperrventil( const sol_param_t *par_p, const sol_in_t *in_p, int *sp_av_sb_p )
+static int solar_Speicherabsperrventil( const sol_param_t *par_p, const sol_in_t *in_p, int *sp_av_sb_p )
 {
     int errorcode;
     
@@ -36,7 +34,7 @@ int solar_Speicherabsperrventil( const sol_param_t *par_p, const sol_in_t *in_p,
     return( errorcode );
 }
 
-void solar_Pumpe( const sol_param_t *par_p, const int *sp1_av_sb_p, const int *sp2_av_sb_p, int *sol_pu_sb_p )
+static void solar_Pumpe( const sol_param_t *par_p, const int *sp1_av_sb_p, const int *sp2_av_sb_p, int *sol_pu_sb_p )
 {
     if( ( *sp1_av_sb_p == IO_ZU ) && 
         ( *sp2_av_sb_p == IO_ZU )    ) {

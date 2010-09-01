@@ -1,6 +1,4 @@
-#ifndef _FB_C_
 #define _FB_C_
-#endif
 
 #include "gen_types.h"
 #include "fb.h"
