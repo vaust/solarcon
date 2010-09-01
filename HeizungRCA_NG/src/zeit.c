@@ -2,16 +2,13 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 
 #include "gen_types.h"
 
-#include "vorgabe.h"
+#include "param.h"
 #include "variablen.h"
-#include "zeitprogramm.h"
-
-#include "init.h"
-
-
+#include "zeit.h"
 
 int zeit_einlesen( int states_max, schaltpunkt_t schaltzeiten[])
 {   int     states = 0;
@@ -51,10 +48,10 @@ int init_zeitprogramm( void )
     int     wday, hour, min;
     int     i;
 
-	handle = fopen( "/home/wochenzeitprogramm.ini", "r" );
+	handle = fopen( ZEITPROGRAMMDATEI, "r" );
 	if( handle == NULL ) {
         /* todo */
-        printf( "Datei wochenzeitprogramm.ini konnte nicht geöffnet werden!\n" );
+        printf( "DEBUG: Datei wochenzeitprogramm.ini konnte nicht geöffnet werden!\n" );
     }
     else {
 		while( !feof( handle ) )  {
@@ -87,7 +84,7 @@ int init_zeitprogramm( void )
                 }
                 else if( strncmp( parameter, "HOUR_OFFSET", 11 ) == 0 ) {
                     value = strtok( NULL, ";" );
-                    sscanf( value, "%d", &hour_offset );
+                    sscanf( value, "%d", &param_hour_offset );
                 }
             }
         }
@@ -105,28 +102,26 @@ void cntrl_zeitprogramm( void )
     time( &aktZeit );
     aktZeitElemente_p = localtime( &aktZeit );
     aktWday           = aktZeitElemente_p->tm_wday;
-    aktHour           = aktZeitElemente_p->tm_hour + hour_offset;  // Workaround fuer Problem mit localtime()
+    aktHour           = aktZeitElemente_p->tm_hour + param_hour_offset;  // Workaround fuer Problem mit localtime()
     aktMin            = aktZeitElemente_p->tm_min;
     aktSec            = aktZeitElemente_p->tm_sec;
 
     aktUhrzeit  = WOCHENZEIT(aktWday, aktHour, aktMin);
 
     /* Flags fuer nur alle Sekunden, Minuten bzw. einmal pro Stunde auszufuehrende Tasks nach Ablauf setzen */
-    if( oldSec != aktSec ) {
+    if( oldSec != aktSec ) 
         schedule_sec_flg = SET;
-    }
     oldSec = aktSec;
 
-    if( oldMin != aktMin ) {
+    if( oldMin != aktMin ) 
         schedule_min_flg = SET;
-    }
     oldMin = aktMin;
 
-    if( oldHour != aktHour ) {
+    if( oldHour != aktHour ) 
         schedule_hour_flg = SET;
-    }
     oldHour = aktHour;
 
+    
     /* Betriebszustand Heizkoerperheizkreis */
     for( i=0; i<hk_states; i++ ) {
         if( aktUhrzeit <= HK_Aus_Schaltzeiten[i] ) break;
@@ -172,6 +167,7 @@ void cntrl_zeitprogramm( void )
     }
 }
 
+// VERSCHIEBEN nach woanders !! 
 void init_variables( void )
 {
 	int i;
