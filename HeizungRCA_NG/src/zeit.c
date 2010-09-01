@@ -7,10 +7,10 @@
 #include "gen_types.h"
 
 #include "param.h"
-#include "variablen.h"
+// #include "variablen.h"
 #include "zeit.h"
 
-int zeit_einlesen( int states_max, schaltpunkt_t schaltzeiten[])
+int zeit_einlesen( int states_max, zeit_schaltpunkt_t schaltzeiten[] )
 {   int     states = 0;
     int     wday, hour, min;
     char    *value;
@@ -40,7 +40,7 @@ int zeit_einlesen( int states_max, schaltpunkt_t schaltzeiten[])
     return( states );
 }
 
-int init_zeitprogramm( void )
+int zeit_Init( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
 {
 	FILE 	*handle;
    	char	linestr[128];
@@ -50,7 +50,6 @@ int init_zeitprogramm( void )
 
 	handle = fopen( ZEITPROGRAMMDATEI, "r" );
 	if( handle == NULL ) {
-        /* todo */
         printf( "DEBUG: Datei wochenzeitprogramm.ini konnte nicht geöffnet werden!\n" );
     }
     else {
@@ -89,9 +88,22 @@ int init_zeitprogramm( void )
             }
         }
     }
+
+    schedule->hour_flg = RESET;
+    schedule->min_flg  = RESET;
+    schedule->sec_flg  = RESET;
+
+    absenkung->Bootshausnutzung = zJa;
+    absenkung->Duschzeit        = zJa;
+    absenkung->FB_Zustand       = zAbgesenkt;
+    absenkung->HK_Zustand       = zAbgesenkt;
+    absenkung->SP1_Freigabe     = zFreigegeben;
+    absenkung->SP2_Freigabe     = zFreigegeben;
+    absenkung->Zirk_Zustand     = zEin;
 }
 
-void cntrl_zeitprogramm( void )
+
+void zeit_Run( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
 {
     time_t      aktZeit;
     struct tm   *aktZeitElemente_p;
@@ -106,69 +118,69 @@ void cntrl_zeitprogramm( void )
     aktMin            = aktZeitElemente_p->tm_min;
     aktSec            = aktZeitElemente_p->tm_sec;
 
-    aktUhrzeit  = WOCHENZEIT(aktWday, aktHour, aktMin);
+    aktUhrzeit = WOCHENZEIT(aktWday, aktHour, aktMin);
 
     /* Flags fuer nur alle Sekunden, Minuten bzw. einmal pro Stunde auszufuehrende Tasks nach Ablauf setzen */
-    if( oldSec != aktSec ) 
-        schedule_sec_flg = SET;
+    if( oldSec != aktSec )
+        schedule->sec_flg = SET;
     oldSec = aktSec;
 
-    if( oldMin != aktMin ) 
-        schedule_min_flg = SET;
+    if( oldMin != aktMin )
+        schedule->min_flg = SET;
     oldMin = aktMin;
 
-    if( oldHour != aktHour ) 
-        schedule_hour_flg = SET;
+    if( oldHour != aktHour )
+        schedule->hour_flg = SET;
     oldHour = aktHour;
 
-    
     /* Betriebszustand Heizkoerperheizkreis */
     for( i=0; i<hk_states; i++ ) {
         if( aktUhrzeit <= HK_Aus_Schaltzeiten[i] ) break;
     }
-    if( (aktUhrzeit > HK_Ein_Schaltzeiten[i]) && (aktUhrzeit <= HK_Aus_Schaltzeiten[i]) ) {
-        z_HK_Zustand = zNormal;
+    if( aktUhrzeit > HK_Ein_Schaltzeiten[i] )  {
+        absenkung->HK_Zustand = zNormal;
     }
     else {
-        z_HK_Zustand = zAbgesenkt;
+        absenkung->HK_Zustand = zAbgesenkt;
     }
 
     /* Betriebszustand Fussbodenheizkreis */
     for( i=0; i<fb_states; i++ ) {
         if( aktUhrzeit <= FB_Aus_Schaltzeiten[i] ) break;
     }
-    if( (aktUhrzeit > FB_Ein_Schaltzeiten[i]) && (aktUhrzeit <= FB_Aus_Schaltzeiten[i]) ) {
-        z_FB_Zustand = zNormal;
+    if( aktUhrzeit > FB_Ein_Schaltzeiten[i] ) {
+        absenkung->FB_Zustand = zNormal;
     }
     else {
-        z_FB_Zustand = zAbgesenkt;
+        absenkung->FB_Zustand = zAbgesenkt;
     }
 
     /* Betriebszustand Zirkulationspumpe */
     for( i=0; i<zirk_states; i++ ) {
         if( aktUhrzeit <= ZIRK_Aus_Schaltzeiten[i] ) break;
     }
-    if( (aktUhrzeit > ZIRK_Ein_Schaltzeiten[i]) && (aktUhrzeit <= ZIRK_Aus_Schaltzeiten[i]) ) {
-        z_Zirk_Zustand = zEin;
+    if( aktUhrzeit > ZIRK_Ein_Schaltzeiten[i] ) {
+        absenkung->Zirk_Zustand = zEin;
     }
     else {
-        z_Zirk_Zustand = zAus;
+        absenkung->Zirk_Zustand = zAus;
     }
 
     /* Duschzeit */
     for( i=0; i<dusch_states; i++ ) {
         if( aktUhrzeit <= DUSCH_Aus_Schaltzeiten[i] ) break;
     }
-    if( (aktUhrzeit > DUSCH_Ein_Schaltzeiten[i]) && (aktUhrzeit <= DUSCH_Aus_Schaltzeiten[i]) ) {
-        z_Duschzeit = zJa;
+    if( aktUhrzeit > DUSCH_Ein_Schaltzeiten[i] ) {
+        absenkung->Duschzeit = zJa;
     }
     else {
-        z_Duschzeit = zNein;
+        absenkung->Duschzeit = zNein;
     }
 }
 
-// VERSCHIEBEN nach woanders !! 
-void init_variables( void )
+
+/*
+void zeit__variables( void )
 {
 	int i;
 
@@ -176,11 +188,6 @@ void init_variables( void )
 	Tau_1h_mittel_f   = 0.0;
 	Tau_36h_Summe_f   = 0.0;
 	Tau_36h_mittel_f  = 0.0;
-	schedule_min_flg  = RESET;
-	schedule_hour_flg = RESET;
-	partytime_flg     = RESET;
-    all_party_restzeit_min = 0;
-    ww_party_restzeit_min  = 0;
 
 	for( i=0; i<60; i++ ) {
 		Tau_1min_Intervall[i] = 0.0;
@@ -189,5 +196,6 @@ void init_variables( void )
 		Tau_1h_mittel_36h_Intervall[i] = 0.0;
 	}
 }
+*/
 
 

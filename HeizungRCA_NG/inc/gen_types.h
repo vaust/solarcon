@@ -28,6 +28,8 @@ typedef u8_t    di_bitbyte_t;
 typedef s16_t   ao_0_10V_t;
 typedef u8_t    do_bitbyte_t;
 
+typedef s32_t   zeit_schaltpunkt_t;
+
 /* Betriebszustände, die sich für die einzelnen Heizkreise aus dem Zeitprogramm ergeben */
 typedef enum { zAbgesenkt, zNormal } abgesenkt_t;
 typedef enum { zAus, zEin } ein_aus_t;

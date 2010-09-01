@@ -87,7 +87,7 @@ PUBLIC float param_hk_frostschutz;      /* Aussentemperatur ab der Heizkreis in 
 PUBLIC float param_hk_reg_kp;           /* Heizkoerperheizkreis Verstaerkung PI-Regler in %/K                              */
 PUBLIC float param_hk_reg_tn;           /* Heizkoerperheizkreis Nachstellzeit PI-Regler in Minuten                         */
 PUBLIC float param_hk_tr_sw;            /* Heizkoerperheizkreis Raumtemperatur Sollwert                                    */
- 
+
 PUBLIC float param_fb_tvl_steigung;     /* Fussbodenheizkreis Heizkurvensteigung                                           */
 PUBLIC float param_fb_tvl_niveau;       /* Fussbodenheizkreis Heizkurven Parallelverschiebung                              */
 PUBLIC float param_fb_tr_sw;            /* Fussbodenheizkreis Raumtemperatursollwert in °C                                 */
@@ -96,16 +96,16 @@ PUBLIC float param_fb_tvl_min;          /* Fussbodenheizkreis Frostschutztempera
 PUBLIC float param_fb_tvl_max;          /* Fussbodenheizkreis max. Vorlauftemperatur in °C                                 */
 PUBLIC float param_fb_reg_kp;           /* Fussbodenheizkreis Verstaerkung PI-Regler in %/K                                */
 PUBLIC float param_fb_reg_tn;           /* Fussbodenheizkreis Nachstellzeit PI-Regler in Minuten                           */
-                                     
+
 PUBLIC float param_ww_tww_sw;           /* Warmwasser-Temperatur-Sollwert in °C                                            */
 PUBLIC float param_ww_tww_max;          /* Warmwasser-Maximaltemperatur in °C                                              */
 PUBLIC float param_wz_faktor;           /* Waermezaehler auf Pumpenstellbefehl                                             */
 PUBLIC float param_wz_max;              /* Max. Warmwasserdurchfluss in l/min                                              */
-                                     
+
 PUBLIC float param_ww_pu_reg_kp;        /* WW-Temperatur-Regelung (Pumpe) Verstaerkung Kp                                  */
 PUBLIC float param_ww_pu_reg_tn;        /* WW-Temperatur-Regelung (Pumpe) Nachlaufzeit Tn                                  */
 PUBLIC float param_ww_mv_korr;          /* WW Hzg-VL-Temperatur-Steurung (Mischer) Korrekturfaktor                         */
-                                     
+
 PUBLIC float param_ww_tww_tvl_faktor;   /* Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                            */
 PUBLIC float param_ww_tz_sw;            /* Temperatursollwert des Zirkulationswassers in °C                                */
 
@@ -126,7 +126,7 @@ const parse_set_t Vorgaben[PARSE_SET_N] = {
     { "SOL_SP1_T_min",       &param_sol_sp1_t_min,       "%f" }, //  8
     { "KES_SP_dT_SW",        &param_kes_sp_dt_sw,        "%f" }, //  9
     { "HK_Tvl_Steigung",     &param_hk_tvl_steigung,     "%f" }, // 10
-    { "HK_Tvl_Niveau",       &param_hk_tvl_niveau,       "%f" }, // 11 
+    { "HK_Tvl_Niveau",       &param_hk_tvl_niveau,       "%f" }, // 11
     { "HK_Tvl_Absenk",       &param_hk_tvl_absenk,       "%f" }, // 12
     { "HK_Tvl_Min",          &param_hk_tvl_min,          "%f" }, // 13
     { "HK_Tvl_Max",          &param_hk_tvl_max,          "%f" }, // 14
@@ -145,14 +145,14 @@ const parse_set_t Vorgaben[PARSE_SET_N] = {
     { "WW_Tww_SW",           &param_ww_tww_sw,           "%f" }, // 27
     { "WW_Tww_Max",          &param_ww_tww_max,          "%f" }, // 28
     { "WZ_Faktor",           &param_wz_faktor,           "%f" }, // 29
-    { "WZ_Max",              &param_wz_max,              "%f" }, // 30  
+    { "WZ_Max",              &param_wz_max,              "%f" }, // 30
     { "WW_PU_REG_Kp",        &param_ww_pu_reg_kp,        "%f" }, // 31
     { "WW_PU_REG_Tn",        &param_ww_pu_reg_tn,        "%f" }, // 32
     { "WW_MV_KORR",          &param_ww_mv_korr,          "%f" }, // 33
     { "WW_Tww_Tvl_Faktor",   &param_ww_tww_tvl_faktor,   "%f" }, // 34
     { "WW_Tz_SW",            &param_ww_tz_sw,            "%f" }  // 35
-};                                                         
-#else 
+};
+#else
 extern parse_set_t Vorgaben[];
 #endif
 /* <Konstanten/> */
