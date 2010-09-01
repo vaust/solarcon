@@ -1,6 +1,4 @@
-#ifndef _KES_C_
 #define _KES_C_
-#endif
 
 #include "kes.h"
 
@@ -25,7 +23,7 @@ void kes_Run( const kes_param_t *par_p,
     /* Berechne Solltemperatur Speicher 2: */
     out_p->sp2_to_sw = in_p->fb_tvl_sw + par_p->sp_dt_sw;
 
-     /* Schaltkriterium fuer Speicherladepumpe 1 */
+    /* Schaltkriterium fuer Speicherladepumpe 1 */
     if( in_p->sp1_to_mw < out_p->sp1_to_sw ) {
         out_p->tvl_sw_sp1 = out_p->sp1_to_sw + par_p->sp_dt_sw;
         if( (in_p->br_bm == IO_EIN) || (in_p->tvl_mw > in_p->sp1_to_mw) ) 

@@ -18,18 +18,18 @@ typedef struct {
 } hk_param_t;
 
 typedef struct {
-    float tau_mw;
-    float tau_avg;
-    float tr_sw;
-    float tvl_mw;
-    char  zustand;
-    char  partytime_flg;
+    float        tau_mw;
+    float        tau_avg;
+    float        tr_sw;
+    float        tvl_mw;
+    abgesenkt_t  zustand;
+    char         partytime_flg;
 } hk_in_t;
 
 typedef struct {
-    float tvl_sw;
-    float mv_y;
-    unsigned char pu_sb;
+    float        tvl_sw;
+    float        mv_y;
+    do_bitbyte_t pu_sb;
 } hk_out_t;
 /* <Typen/> */
 

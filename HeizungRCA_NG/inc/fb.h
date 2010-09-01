@@ -1,6 +1,7 @@
 #ifndef _FB_H_
 #define _FB_H_
 
+#include "gen_types.h"
 #include "sup.h"
 
 /* <Typen> */
@@ -18,19 +19,19 @@ typedef struct {
 } fb_param_t;
 
 typedef struct {
-    float  tau_mw;
-    float  tau_avg;
-    float  tr_sw;
-    float  sek_tvl_mw;
-    char   zustand;
-    char   partytime_flg;
+    float       tau_mw;
+    float       tau_avg;
+    float       tr_sw;
+    float       sek_tvl_mw;
+    abgesenkt_t zustand;
+    char        partytime_flg;
 } fb_in_t;
 
 typedef struct {
-    float tvl_sw;
-    float prim_mv_y;
-    unsigned char prim_pu_sb;
-    unsigned char sek_pu_sb;
+    float        tvl_sw;
+    float        prim_mv_y;
+    do_bitbyte_t prim_pu_sb;
+    do_bitbyte_t sek_pu_sb;
 } fb_out_t;
 /* <Typen/> */
 
