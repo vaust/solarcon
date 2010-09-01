@@ -16,9 +16,9 @@
 #include <time.h>
 
 #include "io.h"
-#include "vorgabe.h"
+#include "param.h"
 #include "variablen.h"
-#include "zeitprogramm.h"
+#include "zeit.h"
 
 /* Prototypen */
 void cntrl_initAverageTau( float currTau );
