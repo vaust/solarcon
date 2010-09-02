@@ -60,13 +60,13 @@ zeit_schaltpunkt_t DUSCH_Ein_Schaltzeiten[DUSCH_STATES_MAX];
 zeit_schaltpunkt_t DUSCH_Aus_Schaltzeiten[DUSCH_STATES_MAX];
 
 /* Variablen für Anzahl der Schaltpunkte der einzelnen Zeitprogramme */
-u8_t       hk_states;
-u8_t       fb_states;
-u8_t       zirk_states;
-u8_t       sp1_states;
-u8_t       sp2_states;
-u8_t       haus_states;
-u8_t       dusch_states;
+u8_t    hk_states;
+u8_t    fb_states;
+u8_t    zirk_states;
+u8_t    sp1_states;
+u8_t    sp2_states;
+u8_t    haus_states;
+u8_t    dusch_states;
 #endif /* _ZEIT_C_ */
 
 #undef PUBLIC
