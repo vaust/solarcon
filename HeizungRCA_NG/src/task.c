@@ -1,163 +1,158 @@
 /* Modul mit allen Methoden, die in einem bestimmten Zeitraster aufgerufen 
  * werden muessen.
  */
- 
  #define _TASK_C_
 
-
+/*
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
 #include <unistd.h>
+#include <string.h>
+*/
 
 #ifdef __WAGO__
 #include <asm/types.h>
 #include "kbusapi.h"
 #endif
 
-#include <string.h>
-
+#include "gen_types.h"
 #include "io.h"
 #include "param.h"
 #include "zeit.h"
+#include "task.h"
 
-/* Prototypen */
-void task_main( void );
-void task_minute( void );
-void task_hour( void );
+void task_partytime_1s( const int          all_partydauer, 
+                        const di_bitbyte_t all_party, 
+                        const di_bitbyte_t ww_party,  
+                              zeit_party_t *partytime )
+                     {
+    static di_bitbyte_t  old_all_party = IO_AUS;
+    static di_bitbyte_t  old_ww_party = IO_AUS;
 
-/* externe Funktionsprototypen, die in diesem Modul verwendet werden  */
-int init_parameters( void );
-int init_zeitprogramm( void );
-void init_variables( void );
+    
+    if( ( all_party >= IO_EIN ) && ( old_all_party == IO_AUS ) ) {
+        partytime->all_partytime_flg = SET;  /* Ruecksetzen in task_min() */
+        partytime->all_party_restzeit_min = all_partydauer;
+    }
+    old_all_party = all_party;
 
-void cntrl_task( void )
+    /* WW_Party Flag ermitteln */
+    if( ( ww_party >= IO_EIN ) && ( old_ww_party == IO_AUS ) ) {
+        partytime->ww_partytime_flg = SET;  /* Ruecksetzen in task_min() */
+        partytime->ww_party_restzeit_min = all_partydauer;
+    }
+    old_ww_party = ww_party;
+}
+
+void task_event_1s( const di_bitbyte_t all_party, 
+                    const di_bitbyte_t ww_party,
+                    const float        all_tau_mw,
+                          task_tau_t   *tau,
+                          zeit_event_t *schedule,
+                          zeit_party_t *partytime ) 
 {
-    static int  old_ALL_PARTY = IO_AUS;
-    static int  old_WW_PARTY = IO_AUS;
+    if( schedule->min_flg == SET ) {
+        task_minute( all_party, ww_party, all_tau_mw, partytime, tau );
+        schedule->min_flg = RESET;
+    }
+    if( schedule->hour_flg == SET ) {
+        task_hour( tau );
+        schedule->hour_flg = RESET;
+    }
+}
+       
+void task_minute( const di_bitbyte_t all_party, 
+                  const di_bitbyte_t ww_party, 
+                  const float        all_tau_mw,
+                        zeit_party_t *partytime,
+                        task_tau_t   *tau       )
+{
+    static int		index = 0;
 
+    /* Partyflag Ruecksetzzeitpunkt ermitteln */
+    if(  partytime->all_party_restzeit_min > 0 ) {
+        partytime->all_party_restzeit_min --;
+    }
+    else {
+        partytime->all_partytime_flg = RESET;
+    }
+    /* Partyflag auf jeden Fall zuruecksetzen, 
+     * wenn Partyschalter wieder ausgeschaltet wird */
+    if( all_party == IO_AUS ) {
+        partytime->all_partytime_flg = RESET;
+    }
+
+    /* Warmwasser Partyflag Ruecksetzzeitpunkt ermitteln */
+    if( partytime->ww_party_restzeit_min > 0 ) {
+        partytime->ww_party_restzeit_min --;
+    }
+    else {
+        partytime->ww_partytime_flg = RESET;
+    }
+    /* Partyflag auf jeden Fall zuruecksetzen, 
+     * wenn Partyschalter wieder ausgeschaltet wird */
+    if( ww_party == IO_AUS ) {
+        partytime->ww_partytime_flg = RESET;
+    }
+
+    /* Berechnung des 1 Stundenmittelwerts der Aussentemperatur 
+     * aus 60 Werten alle Minuten */
+
+    tau->t_1h_summe += all_tau_mw - tau->t_1min_Intervall[index];
+    tau->t_1min_Intervall[index] = all_tau_mw; 
+    index ++;
+    if( index > 59 ) 
+        index = 0;
+    tau->t_1h_mittel = tau->t_1h_summe/60.0;
+ }
+
+void task_hour( task_tau_t *tau )
+{
+	static int index = 0;
+
+	/* Berechnung des 36h (default) Mittelwerts der Aussentemperatur aus 36 1h Mittelwerten */
+	tau->t_36h_summe += tau->t_1h_mittel - tau->t_1h_mittel_36h_Intervall[index];
+    tau->t_1h_mittel_36h_Intervall[index] = tau->t_1h_mittel;
+    index ++;
+	if( index >= param_all_tau_mittel_zeit ) 
+        index = 0;
+	tau->t_36h_mittel = tau->t_36h_summe / param_all_tau_mittel_zeit;
+}
+
+void task_Init_Tau( task_tau_t *tau, float all_tau_mw )
+{
+	int i;
+
+	for( i=0; i<60; i++ ) {
+        tau->t_1min_Intervall[i] = all_tau_mw;
+	}
+	for( i=0; i<param_all_tau_mittel_zeit; i++ ) {
+        tau->t_1h_mittel_36h_Intervall[i] = all_tau_mw;
+	}
+	tau->t_1h_summe = all_tau_mw * 60;
+	tau->t_36h_summe = all_tau_mw * param_all_tau_mittel_zeit;
+}
+
+/** MAIN TASK **/ 
+#ifdef __TEST__
+void task_main( void )
+{
+    zeit_party_t zeit_party;
+    zeit_event_t zeit_event;
+    task_tau_t   tau;
+    
 #ifdef __WAGO__
  	KbusUpdate();
 #endif
-	cntrl_zeitprogramm();
+    task_partytime_1s( param_all_partydauer, ALL_PARTY, WW_PARTY, &zeit_party );
+    task_event_1s( ALL_PARTY, WW_PARTY, ALL_Tau_MW, &tau, &zeit_event, &zeit_party );    
 
-    /* ALL_Party Flag ermitteln */
-    if( ( ALL_PARTY >= IO_EIN ) && ( old_ALL_PARTY == IO_AUS ) ) {
-        partytime_flg = SET;  /* Ruecksetzen in cntrl_min_task() */
-        all_party_restzeit_min = all_partydauer;
-    }
-    old_ALL_PARTY = ALL_PARTY;
-
-    /* WW_Party Flag ermitteln */
-    if( ( WW_PARTY >= IO_EIN ) && ( old_WW_PARTY == IO_AUS ) ) {
-        ww_partytime_flg = SET;  /* Ruecksetzen in cntrl_min_task() */
-        ww_party_restzeit_min = all_partydauer;
-    }
-    old_WW_PARTY = WW_PARTY;
-
-    if( schedule_min_flg == SET ) {
-        cntrl_min_task();
-        schedule_min_flg = RESET;
-    }
-    if( schedule_hour_flg == SET ) {
-        cntrl_hour_task();
-        schedule_hour_flg = RESET;
-    }
-
-    cntrl_Solarbeheizung();
-    cntrl_FB_Heizkreis();
-    cntrl_HK_Heizkreis();
-    cntrl_WW_Heizkreis();
-
-    /* Ansteuerung der Speicher unbedingt nach FB und HK,
-     * da abhaengig von berechneten Sollwerten
-     */
-    cntrl_Speicher();
-    /* Kesselansteuerung ist abhaengig von Speicherbeschickung */
-    cntrl_Kessel();
 
 #ifdef __WAGO__
 	KbusUpdate();
 #endif
 }
-
-void cntrl_min_task( void )
-{
-    static int		index = 0;
-
-    FILE *fp;
-
-    /* Partyflag Ruecksetzzeitpunkt ermitteln */
-    if(  all_party_restzeit_min > 0 ) {
-        all_party_restzeit_min --;
-    }
-    else {
-        partytime_flg = RESET;
-    }
-    /* Partyflag auf jeden Fall zuruecksetzen, wenn Partyschalter wieder ausgeschaltet wird */
-    if( ALL_PARTY == IO_AUS ) {
-        partytime_flg = RESET;
-    }
-
-    /* Warmwasser Partyflag Ruecksetzzeitpunkt ermitteln */
-    if(  ww_party_restzeit_min > 0 ) {
-        ww_party_restzeit_min --;
-    }
-    else {
-        ww_partytime_flg = RESET;
-    }
-    /* Partyflag auf jeden Fall zuruecksetzen, wenn Partyschalter wieder ausgeschaltet wird */
-    if( WW_PARTY == IO_AUS ) {
-        ww_partytime_flg = RESET;
-    }
-
-    /* Berechnung des 1 Stundenmittelwerts der Aussentemperatur aus 60 Werten alle Minuten */
-    Tau_1h_Summe_f += ALL_Tau_MW - Tau_1min_Intervall[index];
-    Tau_1min_Intervall[index] = ALL_Tau_MW;
-    index ++;
-    if( index > 59 ) {
-        index = 0;
-    }
-    Tau_1h_mittel_f = Tau_1h_Summe_f / 60.0;
-
-#ifdef __LOGFILE__
-    /* Logfile Eintraege schreiben */
-    fp = fopen( "/home/RCA.log", "a" );
-    if( fp != NULL ) {
-        log_variables( fp );
-        fclose( fp );
-    }
-#endif
-
-}
-
-void cntrl_hour_task( void )
-{
-	static int		index = 0;
-
-	/* Berechnung des 36h (default) Mittelwerts der Aussentemperatur aus 36 1h Mittelwerten */
-	Tau_36h_Summe_f += Tau_1h_mittel_f - Tau_1h_mittel_36h_Intervall[index];
-    Tau_1h_mittel_36h_Intervall[index] = Tau_1h_mittel_f;
-    index ++;
-	if( index >= all_tau_mittel_zeit ) {
-		index = 0;
-	}
-	Tau_36h_mittel_f = Tau_36h_Summe_f / all_tau_mittel_zeit;
-}
-
-void cntrl_initAverageTau( float currTau )
-{
-	int i;
-
-	for( i=0; i<60; i++ ) {
-        Tau_1min_Intervall[i] = currTau;
-	}
-	for( i=0; i<all_tau_mittel_zeit; i++ ) {
-        Tau_1h_mittel_36h_Intervall[i] = currTau;
-	}
-	Tau_1h_Summe_f = currTau * 60;
-	Tau_36h_Summe_f = currTau * all_tau_mittel_zeit;
-}
-
+#endif /* __TEST__ */
 
 
