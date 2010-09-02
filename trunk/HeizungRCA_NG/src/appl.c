@@ -6,7 +6,7 @@
 #include "param.h"
 #include "zeit.h"
 #include "solar.h"
-// #include "fb.h"
+#include "fb.h"
 // #include "hk.h"
 // #include "ww.h"
 // #include "io.h"
@@ -40,7 +40,18 @@ int main( void )
     sol_par.dt_aus_sw = param_sol_dt_aus_sw;
     solar_Init( &sol_par );
 
+    fb_par.frostschutz  = param_all_frostschutz;
+    fb_par.at_start     = param_all_at_start;
+    fb_par.reg_kp       = param_fb_reg_kp;
+    fb_par.reg_tn       = param_fb_reg_tn;
+    fb_par.TA           = 1.0;
+    fb_par.tvl_absenk   = param_fb_tvl_absenk;
+    fb_par.tvl_max      = param_fb_tvl_max;
+    fb_par.tvl_min      = param_fb_tvl_min;
+    fb_par.tvl_niveau   = param_fb_tvl_niveau;
+    fb_par.tvl_steigung = param_fb_tvl_steigung;
 
+    fb_Init( &fb_par, &fb_q, &fb_out );
 /*
     sol_in_Sp1.koll_t_mw = ALL_Tau_MW;
     sol_in_Sp1.sp_to_mw = SOL_SP1_To_MW;
@@ -51,8 +62,8 @@ int main( void )
     sol_in_Sp2.sp_tu_mw = SOL_SP2_Tu_MW;
 */
     sol_in_Sp1.koll_t_mw = 85.0;
-    sol_in_Sp1.sp_to_mw = 38;
-    sol_in_Sp1.sp_tu_mw = 34;
+    sol_in_Sp1.sp_to_mw = 38.0;
+    sol_in_Sp1.sp_tu_mw = 34.0;
 
     sol_in_Sp2.koll_t_mw = 85.0;
     sol_in_Sp2.sp_to_mw = 57.0;
@@ -68,5 +79,8 @@ int main( void )
 
     printf( "sp1_av_sb=%d\nsp2_av_sb=%d\nsol_pu_sb=%d\n",
             sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb );
+
+    fb_Run( &fb_par, &fb_q, &fb_in, &fb_out );
+
     return( 0 );
 }
