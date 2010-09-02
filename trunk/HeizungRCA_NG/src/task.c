@@ -1,6 +1,9 @@
-/* Debugeinstellungen */
+/* Modul mit allen Methoden, die in einem bestimmten Zeitraster aufgerufen 
+ * werden muessen.
+ */
+ 
+ #define _TASK_C_
 
-//#define __LOGFILE__
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,29 +16,15 @@
 #endif
 
 #include <string.h>
-#include <time.h>
 
 #include "io.h"
 #include "param.h"
-#include "variablen.h"
 #include "zeit.h"
 
 /* Prototypen */
-void cntrl_initAverageTau( float currTau );
-void cntrl_zeitprogramm( void );
-void log_variables( FILE *fp );
-
-/* Digitale Regler */
-void cntrl_Solarbeheizung( void );
-void cntrl_Speicher( void );
-void cntrl_Kessel( void );
-void cntrl_FB_Heizkreis( void );
-void cntrl_HK_Heizkreis( void );
-void cntrl_WW_Heizkreis( void );
-
-void cntrl_task( void );
-void cntrl_min_task( void );
-void cntrl_hour_task( void );
+void task_main( void );
+void task_minute( void );
+void task_hour( void );
 
 /* externe Funktionsprototypen, die in diesem Modul verwendet werden  */
 int init_parameters( void );
