@@ -76,8 +76,6 @@ u8_t    dusch_states;
     #define PUBLIC extern
 #endif
 
-PUBLIC zeit_party_t zeit_party;
-
 /* <Variablen/> */
 
 /* <Prototypen> */
