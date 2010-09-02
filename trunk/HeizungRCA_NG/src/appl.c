@@ -1,10 +1,10 @@
 #define __IO_MASTER__
 
-
 #include <stdio.h>
 
 #include "gen_types.h"
 #include "param.h"
+#include "zeit.h"
 #include "solar.h"
 // #include "fb.h"
 // #include "hk.h"
@@ -15,13 +15,18 @@ int main( void )
 {
     int n;
 
+    /* Variablen fuer Zeit */
+    zeit_Betriebszustand_t zeit_absenkung;
+    zeit_event_t           zeit_schedule;
+    
     /* Variablen fuer Solarkollektorsteuerung */
     sol_in_t     sol_in_Sp1, sol_in_Sp2;
     do_bitbyte_t sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb;
     sol_param_t  sol_par;
 
-    /* Variablen fuer F */
-
+    zeit_Init( &zeit_absenkung, &zeit_schedule );
+    zeit_TEST_Schaltzeiten();
+    
     param_Init();
     for( n=0; n<PARSE_SET_N; n++ ) {
         printf( Vorgaben[n].VarName );
@@ -34,8 +39,6 @@ int main( void )
     sol_par.dt_ein_sw = param_sol_dt_ein_sw;
     sol_par.dt_aus_sw = param_sol_dt_aus_sw;
     solar_Init( &sol_par );
-
-
 
 
 /*
@@ -55,6 +58,9 @@ int main( void )
     sol_in_Sp2.sp_to_mw = 57.0;
     sol_in_Sp2.sp_tu_mw = 44.0;
 
+    zeit_Run( &zeit_absenkung, &zeit_schedule );
+    printf( "Zeit: Absenkung Fußbodenheizung: %d\n", zeit_absenkung.FB_Zustand );
+    
     solar_Run(  &sol_par,
                 &sol_in_Sp1,    &sol_in_Sp2,
                 &sol_sp1_av_sb, &sol_sp2_av_sb,
