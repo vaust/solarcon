@@ -40,13 +40,11 @@ static int zeit_einlesen( int states_max, zeit_schaltpunkt_t schaltzeiten[] )
     return( states );
 }
 
-int zeit_Init( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
+void zeit_Init( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
 {
 	FILE 	*handle;
    	char	linestr[128];
  	char	*parameter, *value;
-    int     wday, hour, min;
-    int     i;
 
 	handle = fopen( ZEITPROGRAMMDATEI, "r" );
 	if( handle == NULL ) {
@@ -177,47 +175,27 @@ void zeit_Run( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
     }
 }
 
-
-/*
-void zeit__variables( void )
-{
-	int i;
-
-	Tau_1h_Summe_f    = 0.0;
-	Tau_1h_mittel_f   = 0.0;
-	Tau_36h_Summe_f   = 0.0;
-	Tau_36h_mittel_f  = 0.0;
-
-	for( i=0; i<60; i++ ) {
-		Tau_1min_Intervall[i] = 0.0;
-	}
-	for( i=0; i<MAX_ALL_Tau_mittel_Zeit; i++ ) {
-		Tau_1h_mittel_36h_Intervall[i] = 0.0;
-	}
-}
-*/
-
 /********* TESTCODE *********/
 #ifdef __TEST__
 
 void zeit_TEST_Schaltzeiten( void )
 {
     int n;
-    for( n=0; n<fb_states; n++ ) 
-        printf( "FB_Ein_Schaltzeiten[%d] = %d, FB_Aus_Schaltzeiten[%d] = %d\n", 
+    for( n=0; n<fb_states; n++ )
+        printf( "FB_Ein_Schaltzeiten[%d] = %d, FB_Aus_Schaltzeiten[%d] = %d\n",
                 n, FB_Ein_Schaltzeiten[n], n, FB_Aus_Schaltzeiten[n] );
 
-    for( n=0; n<hk_states; n++ ) 
-        printf( "HK_Ein_Schaltzeiten[%d] = %d, HK_Aus_Schaltzeiten[%d] = %d\n", 
+    for( n=0; n<hk_states; n++ )
+        printf( "HK_Ein_Schaltzeiten[%d] = %d, HK_Aus_Schaltzeiten[%d] = %d\n",
                 n, HK_Ein_Schaltzeiten[n], n, HK_Aus_Schaltzeiten[n] );
-                
-    for( n=0; n<zirk_states; n++ ) 
-        printf( "ZIRK_Ein_Schaltzeiten[%d] = %d, ZIRK_Aus_Schaltzeiten[%d] = %d\n", 
+
+    for( n=0; n<zirk_states; n++ )
+        printf( "ZIRK_Ein_Schaltzeiten[%d] = %d, ZIRK_Aus_Schaltzeiten[%d] = %d\n",
                 n, ZIRK_Ein_Schaltzeiten[n], n, ZIRK_Aus_Schaltzeiten[n] );
 
-    for( n=0; n<dusch_states; n++ ) 
-        printf( "DUSCH_Ein_Schaltzeiten[%d] = %d, DUSCH_Aus_Schaltzeiten[%d] = %d\n", 
-                n, FB_Ein_Schaltzeiten[n], n, FB_Aus_Schaltzeiten[n] );                
+    for( n=0; n<dusch_states; n++ )
+        printf( "DUSCH_Ein_Schaltzeiten[%d] = %d, DUSCH_Aus_Schaltzeiten[%d] = %d\n",
+                n, FB_Ein_Schaltzeiten[n], n, FB_Aus_Schaltzeiten[n] );
 }
 
 #endif /* __TEST__ */
