@@ -10,7 +10,7 @@
 // #include "variablen.h"
 #include "zeit.h"
 
-int zeit_einlesen( int states_max, zeit_schaltpunkt_t schaltzeiten[] )
+static int zeit_einlesen( int states_max, zeit_schaltpunkt_t schaltzeiten[] )
 {   int     states = 0;
     int     wday, hour, min;
     char    *value;
@@ -101,7 +101,6 @@ int zeit_Init( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
     absenkung->SP2_Freigabe     = zFreigegeben;
     absenkung->Zirk_Zustand     = zEin;
 }
-
 
 void zeit_Run( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
 {
@@ -197,5 +196,30 @@ void zeit__variables( void )
 	}
 }
 */
+
+/********* TESTCODE *********/
+#ifdef __TEST__
+
+void zeit_TEST_Schaltzeiten( void )
+{
+    int n;
+    for( n=0; n<fb_states; n++ ) 
+        printf( "FB_Ein_Schaltzeiten[%d] = %d, FB_Aus_Schaltzeiten[%d] = %d\n", 
+                n, FB_Ein_Schaltzeiten[n], n, FB_Aus_Schaltzeiten[n] );
+
+    for( n=0; n<hk_states; n++ ) 
+        printf( "HK_Ein_Schaltzeiten[%d] = %d, HK_Aus_Schaltzeiten[%d] = %d\n", 
+                n, HK_Ein_Schaltzeiten[n], n, HK_Aus_Schaltzeiten[n] );
+                
+    for( n=0; n<zirk_states; n++ ) 
+        printf( "ZIRK_Ein_Schaltzeiten[%d] = %d, ZIRK_Aus_Schaltzeiten[%d] = %d\n", 
+                n, ZIRK_Ein_Schaltzeiten[n], n, ZIRK_Aus_Schaltzeiten[n] );
+
+    for( n=0; n<dusch_states; n++ ) 
+        printf( "DUSCH_Ein_Schaltzeiten[%d] = %d, DUSCH_Aus_Schaltzeiten[%d] = %d\n", 
+                n, FB_Ein_Schaltzeiten[n], n, FB_Aus_Schaltzeiten[n] );                
+}
+
+#endif /* __TEST__ */
 
 
