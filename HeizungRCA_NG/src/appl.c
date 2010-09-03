@@ -117,10 +117,17 @@ void main( void )
         hk_Run( &hk_par, &fb_q, &hk_in, &hk_out ); 
         ww_Run( &ww_par, &ww_q, &ww_in, &ww_out );
         
-    printf( "Zeit: Absenkung Fuﬂbodenheizung: %d\n", zeit_absenkung.FB_Zustand );
-    printf( "sp1_av_sb=%d\nsp2_av_sb=%d\nsol_pu_sb=%d\n",
-            sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb );
-
+        printf( "Zeit: Absenkung Fuﬂbodenheizung: %d\n", zeit_absenkung.FB_Zustand );
+        printf( "sp1_av_sb=%d\nsp2_av_sb=%d\nsol_pu_sb=%d\n",
+                sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb );
+    
+#ifdef __WAGO__
+        KbusOpen();
+        KbusUpdate();
+#endif
+    }
+    
+    
     return( 0 );
 }
 
