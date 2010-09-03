@@ -1,6 +1,8 @@
 #define __IO_MASTER__
+#define __TEST__
 
 #include <stdio.h>
+#include <unistd.h>
 
 #include "gen_types.h"
 #include "param.h"
@@ -8,19 +10,31 @@
 #include "task.h"
 #include "solar.h"
 #include "fb.h"
-// #include "hk.h"
-// #include "ww.h"
-#include "io.h"
+#include "hk.h"
+#include "ww.h"
 
-int main( void )
+#ifdef __WAGO__
+#include <asm/types.h>
+#include "kbusapi.h"
+#include "io.h"
+#endif
+
+extern pthread_mutex_t	mutex;
+
+#ifdef __REENTRANT__
+void *main_thread( void *arg )
+#else
+void main( void )
+#endif
 {
     int n;
 
     /* Variablen fuer Zeit */
-    zeit_Betriebszustand_t zeit_absenkung;
-    zeit_event_t           zeit_event;
-    zeit_party_t zeit_party;
-
+    zeit_Betriebszustand_t  zeit_absenkung;
+    zeit_event_t            zeit_event;
+    zeit_party_t            zeit_party;
+    
+    /* Mittelwertbildung fuer Aussentemperatur */
     task_tau_t   tau;
 
     /* Variablen fuer Solarkollektorsteuerung */
@@ -28,67 +42,85 @@ int main( void )
     do_bitbyte_t sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb;
     sol_param_t  sol_par;
 
-    fb_param_t   fb_par;
-    fb_out_t     fb_out;
-    fb_in_t      fb_in;
-    sup_digreg_coeff_t fb_q;
+    /* Variablen fuer Fussbodenheizung */
+    fb_param_t          fb_par;
+    fb_out_t            fb_out;
+    fb_in_t             fb_in;
+    sup_digreg_coeff_t  fb_q;
 
-    zeit_Init( &zeit_absenkung, &zeit_event );
-    zeit_TEST_Schaltzeiten();
+    /* Variablen fuer Heizkörperkreis */
+    hk_param_t          hk_par;
+    hk_out_t            hk_out;
+    hk_in_t             hk_in;
+    sup_digreg_coeff_t  hk_q;
+    
+    /* Variablen fuer Warmwasserkreis */
+    ww_param_t          ww_par;
+    ww_out_t            ww_out;
+    ww_in_t             ww_in;    
+    sup_digreg_coeff_t  ww_q;
 
-    task_Init( &tau, ALL_Tau_MW );
-
+#ifdef __REENTRANT__    
+    pthread_mutex_lock( &mutex );
+#ifdef __REENTRANT__
     param_Init();
+    zeit_Init( &zeit_absenkung, &zeit_event );
+    task_Init( &tau, ALL_Tau_MW );
+    solar_Init( &sol_par );
+    fb_Init( &fb_par, &fb_q );
+    hk_Init( &hk_par, &hk_q );
+    ww_Init( &ww_par, &ww_q );
+#ifdef __REENTRANT__
+    pthread_mutex_unlock( &mutex );
+#ifdef __REENTRANT__    
+
+#ifdef __TEST__
+    zeit_TEST_Schaltzeiten();
     for( n=0; n<PARSE_SET_N; n++ ) {
         printf( Vorgaben[n].VarName );
         printf( "= " );
         printf( Vorgaben[n].format, *(float *)Vorgaben[n].VarPointer );
         printf( "\n" );
     }
+#endif
 
-    sol_par.sp_t_max = param_sol_sp_t_max;
-    sol_par.dt_ein_sw = param_sol_dt_ein_sw;
-    sol_par.dt_aus_sw = param_sol_dt_aus_sw;
-    solar_Init( &sol_par );
 
-    fb_par.frostschutz  = param_all_frostschutz;
-    fb_par.at_start     = param_all_at_start;
-    fb_par.reg_kp       = param_fb_reg_kp;
-    fb_par.reg_tn       = param_fb_reg_tn;
-    fb_par.TA           = 1.0;
-    fb_par.tvl_absenk   = param_fb_tvl_absenk;
-    fb_par.tvl_max      = param_fb_tvl_max;
-    fb_par.tvl_min      = param_fb_tvl_min;
-    fb_par.tvl_niveau   = param_fb_tvl_niveau;
-    fb_par.tvl_steigung = param_fb_tvl_steigung;
+    while( 1 ) {
+#ifdef __WAGO__
+        KbusOpen();
+        KbusUpdate();
+#endif
 
-    fb_Init( &fb_par, &fb_q, &fb_out );
-/*
-    sol_in_Sp1.koll_t_mw = ALL_Tau_MW;
-    sol_in_Sp1.sp_to_mw = SOL_SP1_To_MW;
-    sol_in_Sp1.sp_tu_mw = SOL_SP1_Tu_MW;
 
-    sol_in_Sp2.koll_t_mw = ALL_Tau_MW;
-    sol_in_Sp2.sp_to_mw = SOL_SP2_To_MW;
-    sol_in_Sp2.sp_tu_mw = SOL_SP2_Tu_MW;
-*/
-    sol_in_Sp1.koll_t_mw = 85.0;
-    sol_in_Sp1.sp_to_mw = 38.0;
-    sol_in_Sp1.sp_tu_mw = 34.0;
+    /*  sol_in_Sp1.koll_t_mw = ALL_Tau_MW;
+        sol_in_Sp1.sp_to_mw = SOL_SP1_To_MW;
+        sol_in_Sp1.sp_tu_mw = SOL_SP1_Tu_MW;
 
-    sol_in_Sp2.koll_t_mw = 85.0;
-    sol_in_Sp2.sp_to_mw = 57.0;
-    sol_in_Sp2.sp_tu_mw = 44.0;
+        sol_in_Sp2.koll_t_mw = ALL_Tau_MW;
+        sol_in_Sp2.sp_to_mw = SOL_SP2_To_MW;
+        sol_in_Sp2.sp_tu_mw = SOL_SP2_Tu_MW;
+    */
+        sol_in_Sp1.koll_t_mw = 85.0;
+        sol_in_Sp1.sp_to_mw = 38.0;
+        sol_in_Sp1.sp_tu_mw = 34.0;
 
-    task_Run( ALL_PARTY, WW_PARTY, ALL_Tau_MW, &tau, &zeit_event, &zeit_party );
-    zeit_Run( &zeit_absenkung, &zeit_schedule );
-    solar_Run( &sol_par, &sol_in_Sp1, &sol_in_Sp2, &sol_sp1_av_sb, &sol_sp2_av_sb, &sol_pu_sb );
-    fb_Run( &fb_par, &fb_q, &fb_in, &fb_out );
+        sol_in_Sp2.koll_t_mw = 85.0;
+        sol_in_Sp2.sp_to_mw = 57.0;
+        sol_in_Sp2.sp_tu_mw = 44.0;
 
+
+        task_Run( param_all_partydauer, ALL_PARTY, WW_PARTY, ALL_Tau_MW, &tau, &zeit_event, &zeit_party );
+        zeit_Run( &zeit_absenkung, &zeit_event );
+        
+        solar_Run( &sol_par, &sol_in_Sp1, &sol_in_Sp2, &sol_sp1_av_sb, &sol_sp2_av_sb, &sol_pu_sb );
+        fb_Run( &fb_par, &fb_q, &fb_in, &fb_out );
+        hk_Run( &hk_par, &fb_q, &hk_in, &hk_out ); 
+        ww_Run( &ww_par, &ww_q, &ww_in, &ww_out );
+        
     printf( "Zeit: Absenkung Fußbodenheizung: %d\n", zeit_absenkung.FB_Zustand );
     printf( "sp1_av_sb=%d\nsp2_av_sb=%d\nsol_pu_sb=%d\n",
             sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb );
 
-
     return( 0 );
 }
+

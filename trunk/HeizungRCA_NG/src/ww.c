@@ -1,5 +1,6 @@
 #define _WW_C_
 
+#include "param.h"
 #include "ww.h"
 
 static void ww_MV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_out_t *out_p )
@@ -24,7 +25,7 @@ static void ww_VV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_ou
         else                                         out_p->hzg_vv_sb = WW_VV_SP1;
     }
     else {
-        if( in_p->hzg_trl_mw < par_p->hk_tvl_sw )    out_p->hzg_vv_sb = WW_VV_SP2;
+        if( in_p->hzg_trl_mw < in_p->hk_tvl_sw )     out_p->hzg_vv_sb = WW_VV_SP2;
         else                                         out_p->hzg_vv_sb = WW_VV_SP1;
     }
 }   
@@ -45,13 +46,24 @@ static void ww_Schwachlast_Steuerung( const ww_param_t *par_p, ww_out_t *out_p )
     }
 }
     
-void ww_Init( ww_param_t *par_p, sup_digreg_coeff_t *q_hzg_pu_p, ww_out_t *out_p )
+void ww_Init( ww_param_t *par_p, sup_digreg_coeff_t *q_hzg_pu_p )
 {
+    par_p->pu_reg_kp = param_ww_pu_reg_kp;
+    par_p->pu_reg_tn = param_ww_pu_reg_tn;
+    par_p->mv_reg_kp = -0.0;   /* Momentan nicht genutzt */
+    par_p->mv_reg_tn = -0.0;   /* Momentan nicht genutzt */
+    par_p->TA = ABTASTZEIT;
+    par_p->kes_sp_dt_sw = param_kes_sp_dt_sw;
+    par_p->frostschutz = param_all_frostschutz;
+    par_p->at_start = param_all_at_start;
+    par_p->mv_korr = param_ww_mv_korr;
+    par_p->hzg_pu_y_min = 11.0;
+    par_p->schwachlastzeit_max = 300;
+
     q_hzg_pu_p->q0 =  par_p->pu_reg_kp + par_p->TA/par_p->pu_reg_tn;
     q_hzg_pu_p->q1 = -par_p->pu_reg_kp;
     q_hzg_pu_p->lower_limit = MIN_Y_PCT;
     q_hzg_pu_p->upper_limit = MAX_Y_PCT;
-    par_p->hzg_pu_y_min = 11.0;
 }    
 
 void ww_Run( const ww_param_t         *par_p, 
@@ -74,6 +86,9 @@ void ww_Run( const ww_param_t         *par_p,
 
     /* Berechnung von WW_HZG_MV_Y aus den Temperaturen von Speicher und Rücklauf */
     ww_MV_Steuerung( par_p, in_p, out_p );
+    
+    /* Schwachlast Steuerung */
+    ww_Schwachlast_Steuerung( par_p, out_p );
     
     /* Kriterium fuer Warmwasser Heizungsverteilventil */
     ww_VV_Steuerung( par_p, in_p, out_p );
