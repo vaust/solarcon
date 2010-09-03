@@ -91,6 +91,9 @@ void main( void )
         KbusUpdate();
 #endif
 
+#ifdef __REENTRANT__    
+        pthread_mutex_lock( &mutex );
+#ifdef __REENTRANT__
 
     /*  sol_in_Sp1.koll_t_mw = ALL_Tau_MW;
         sol_in_Sp1.sp_to_mw = SOL_SP1_To_MW;
@@ -121,12 +124,17 @@ void main( void )
         printf( "sp1_av_sb=%d\nsp2_av_sb=%d\nsol_pu_sb=%d\n",
                 sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb );
     
+        CONTROL_AKTIV = !CONTROL_AKTIV;  /* Lebenszeichen der Steuerung */
+
+#ifdef __REENTRANT__
+        pthread_mutex_unlock( &mutex );
+#ifdef __REENTRANT__    
+        
 #ifdef __WAGO__
         KbusOpen();
         KbusUpdate();
 #endif
     }
-    
     
     return( 0 );
 }
