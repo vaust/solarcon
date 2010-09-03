@@ -36,7 +36,7 @@ typedef struct {
 /* <Typen/> */
 
 /* <Prototypen> */
-void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p );
+void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p );
 void fb_Run( const fb_param_t *par_p, const sup_digreg_coeff_t *q_p, const fb_in_t *in_p, fb_out_t *out_p );
 /* <Prototypen/> */
 

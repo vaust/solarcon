@@ -3,31 +3,15 @@
  */
  #define _TASK_C_
 
-/*
-#include <stdio.h>
-#include <stdlib.h>
-#include <getopt.h>
-#include <unistd.h>
-#include <string.h>
-*/
-
-#ifdef __WAGO__
-#include <asm/types.h>
-#include "kbusapi.h"
-#endif
-
 #include "gen_types.h"
 #include "param.h"
 #include "zeit.h"
 #include "task.h"
-#ifdef __TEST__
-#include "io.h"
-#endif
 
-void task_partytime_schalter( const int          all_partydauer,
-                              const di_bitbyte_t all_party,
-                              const di_bitbyte_t ww_party,
-                                    zeit_party_t *partytime )
+static void task_partytime_schalter( const int          all_partydauer,
+                                     const di_bitbyte_t all_party,
+                                     const di_bitbyte_t ww_party,
+                                           zeit_party_t *partytime )
 {
     static di_bitbyte_t  old_all_party = IO_AUS;
     static di_bitbyte_t  old_ww_party = IO_AUS;
@@ -66,11 +50,11 @@ void task_Run( const int          all_partydauer,
     }
 }
 
-void task_minute( const di_bitbyte_t all_party,
-                  const di_bitbyte_t ww_party,
-                  const float        all_tau_mw,
-                        zeit_party_t *partytime,
-                        task_tau_t   *tau       )
+static void task_minute( const di_bitbyte_t all_party,
+                         const di_bitbyte_t ww_party,
+                         const float        all_tau_mw,
+                               zeit_party_t *partytime,
+                               task_tau_t   *tau       )
 {
     static int		index = 0;
 
@@ -111,7 +95,7 @@ void task_minute( const di_bitbyte_t all_party,
     tau->t_1h_mittel = tau->t_1h_summe/60.0;
  }
 
-void task_stunde( task_tau_t *tau )
+static void task_stunde( task_tau_t *tau )
 {
 	static int index = 0;
 
@@ -128,32 +112,12 @@ void task_Init( task_tau_t *tau, float all_tau_mw )
 {
 	int i;
 
-	for( i=0; i<60; i++ ) {
+	for( i=0; i<60; i++ ) 
         tau->t_1min_Intervall[i] = all_tau_mw;
-	}
-	for( i=0; i<param_all_tau_mittel_zeit; i++ ) {
+	for( i=0; i<param_all_tau_mittel_zeit; i++ ) 
         tau->t_1h_mittel_36h_Intervall[i] = all_tau_mw;
-	}
 	tau->t_1h_summe = all_tau_mw * 60;
 	tau->t_36h_summe = all_tau_mw * param_all_tau_mittel_zeit;
 }
-
-/** MAIN TASK **/
-#ifdef __TEST__
-void main( void )
-{
-    zeit_party_t zeit_party;
-    zeit_event_t zeit_event;
-    task_tau_t   tau;
-
-#ifdef __WAGO__
- 	KbusUpdate();
-#endif
-
-#ifdef __WAGO__
-	KbusUpdate();
-#endif
-}
-#endif /* __TEST__ */
 
 

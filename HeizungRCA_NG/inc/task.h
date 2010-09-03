@@ -30,19 +30,18 @@ PUBLIC u32_t     task_kes_Betriebszeit_sec;   /* Betriebszeitzähler Kessel in S
 
 /* <Prototypen> */
 #ifdef _TASK_C_
-void task_partytime_schalter( const int          all_partydauer,
-                              const di_bitbyte_t all_party,
-                              const di_bitbyte_t ww_party,
-                                    zeit_party_t *partytime );
+static void task_partytime_schalter( const int          all_partydauer,
+                                     const di_bitbyte_t all_party,
+                                     const di_bitbyte_t ww_party,
+                                           zeit_party_t *partytime );
 
-void task_minute( const di_bitbyte_t all_party,
-                  const di_bitbyte_t ww_party,
-                  const float        all_tau_mw,
-                        zeit_party_t *partytime,
-                        task_tau_t   *tau       );
+static void task_minute( const di_bitbyte_t all_party,
+                         const di_bitbyte_t ww_party,
+                         const float        all_tau_mw,
+                               zeit_party_t *partytime,
+                               task_tau_t   *tau       );
 
-void task_stunde( task_tau_t *tau );
-
+static void task_stunde( task_tau_t *tau );
 #endif
 
 void task_Init( task_tau_t *tau,

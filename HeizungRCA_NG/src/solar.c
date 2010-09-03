@@ -1,13 +1,18 @@
 #define _SOLAR_C_
 
 #include "solar.h"
+#include "param.h"
 
 void solar_Init( sol_param_t *par_p )
 {
-    /* nichts zu initialisieren */
+    par_p->sp_t_max = param_sol_sp_t_max;
+    par_p->dt_ein_sw = param_sol_dt_ein_sw;
+    par_p->dt_aus_sw = param_sol_dt_aus_sw;
 }
 
-static int solar_Speicherabsperrventil( const sol_param_t *par_p, const sol_in_t *in_p, do_bitbyte_t *sp_av_sb_p )
+static int solar_Speicherabsperrventil( const sol_param_t  *par_p, 
+                                        const sol_in_t     *in_p, 
+                                              do_bitbyte_t *sp_av_sb_p )
 {
     int errorcode;
 

@@ -22,7 +22,6 @@ typedef struct {
     float mv_korr;
     float hzg_pu_y_min;
     u16_t schwachlastzeit_max;
-    float hk_tvl_sw;
 } ww_param_t;
 
 typedef struct {
@@ -32,6 +31,7 @@ typedef struct {
     float tau_36h_mittel;
     u32_t wz_mw;
     float hzg_trl_mw;
+    float hk_tvl_sw;
     float sol_sp1_to_mw;
     float sol_sp2_tu_mw;
     abgesenkt_t zirkzustand;
@@ -49,6 +49,7 @@ typedef struct {
 /* <Typen/> */
 
 /* <Prototypen> */
+#ifdef _WW_C_
 static void ww_MV_Steuerung( const ww_param_t *par_p, 
                              const ww_in_t    *in_p, 
                                    ww_out_t   *out_p );
@@ -59,10 +60,10 @@ static void ww_VV_Steuerung( const ww_param_t *par_p,
               
 static void ww_Schwachlast_Steuerung( const ww_param_t *par_p, 
                                             ww_out_t   *out_p );
+#endif // _WW_C_
               
 void ww_Init( ww_param_t         *par_p, 
-              sup_digreg_coeff_t *q_hzg_pu_p, 
-              ww_out_t           *out_p );
+              sup_digreg_coeff_t *q_hzg_pu_p );
                     
 void ww_Run( const ww_param_t         *par_p, 
              const sup_digreg_coeff_t *q_hzg_pu_p, 
