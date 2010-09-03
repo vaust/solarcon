@@ -19,10 +19,11 @@
 #include "io.h"
 #endif
 
-extern pthread_mutex_t	mutex;
 
 #ifdef __REENTRANT__
-void *main_thread( void *arg )
+extern pthread_mutex_t	mutex;
+
+void *cntrl_thread( void *arg )
 #else
 void main( void )
 #endif
@@ -120,22 +121,24 @@ void main( void )
         hk_Run( &hk_par, &fb_q, &hk_in, &hk_out ); 
         ww_Run( &ww_par, &ww_q, &ww_in, &ww_out );
         
+        /* Ab hier Ausgabe des Prozessabbildes */
         printf( "Zeit: Absenkung Fuﬂbodenheizung: %d\n", zeit_absenkung.FB_Zustand );
         printf( "sp1_av_sb=%d\nsp2_av_sb=%d\nsol_pu_sb=%d\n",
                 sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb );
     
         CONTROL_AKTIV = !CONTROL_AKTIV;  /* Lebenszeichen der Steuerung */
 
-#ifdef __REENTRANT__
-        pthread_mutex_unlock( &mutex );
-#ifdef __REENTRANT__    
-        
 #ifdef __WAGO__
         KbusOpen();
         KbusUpdate();
 #endif
+
+#ifdef __REENTRANT__
+        pthread_mutex_unlock( &mutex );
+#ifdef __REENTRANT__    
+        
+        /* Abtastzeit warten ACHTUNG: Rechenzeit nicht beruecksichtigt */
+        usleep( ABTASTZEIT_USEC );        
     }
-    
-    return( 0 );
 }
 
