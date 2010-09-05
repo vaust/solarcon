@@ -1,4 +1,5 @@
 #define __IO_MASTER__
+#undef  __TEST__
 #define __TEST__
 
 #include <stdio.h>
@@ -22,7 +23,6 @@
 
 #ifdef __REENTRANT__
 extern pthread_mutex_t	mutex;
-
 void *cntrl_thread( void *arg )
 #else
 void main( void )
@@ -34,7 +34,7 @@ void main( void )
     zeit_Betriebszustand_t  zeit_absenkung;
     zeit_event_t            zeit_event;
     zeit_party_t            zeit_party;
-    
+
     /* Mittelwertbildung fuer Aussentemperatur */
     task_tau_t   tau;
 
@@ -54,16 +54,16 @@ void main( void )
     hk_out_t            hk_out;
     hk_in_t             hk_in;
     sup_digreg_coeff_t  hk_q;
-    
+
     /* Variablen fuer Warmwasserkreis */
     ww_param_t          ww_par;
     ww_out_t            ww_out;
-    ww_in_t             ww_in;    
+    ww_in_t             ww_in;
     sup_digreg_coeff_t  ww_q;
 
-#ifdef __REENTRANT__    
-    pthread_mutex_lock( &mutex );
 #ifdef __REENTRANT__
+    pthread_mutex_lock( &mutex );
+#endif
     param_Init();
     zeit_Init( &zeit_absenkung, &zeit_event );
     task_Init( &tau, ALL_Tau_MW );
@@ -73,7 +73,7 @@ void main( void )
     ww_Init( &ww_par, &ww_q );
 #ifdef __REENTRANT__
     pthread_mutex_unlock( &mutex );
-#ifdef __REENTRANT__    
+#endif
 
 #ifdef __TEST__
     zeit_TEST_Schaltzeiten();
@@ -92,10 +92,9 @@ void main( void )
         KbusUpdate();
 #endif
 
-#ifdef __REENTRANT__    
-        pthread_mutex_lock( &mutex );
 #ifdef __REENTRANT__
-
+        pthread_mutex_lock( &mutex );
+#endif
     /*  sol_in_Sp1.koll_t_mw = ALL_Tau_MW;
         sol_in_Sp1.sp_to_mw = SOL_SP1_To_MW;
         sol_in_Sp1.sp_tu_mw = SOL_SP1_Tu_MW;
@@ -112,20 +111,19 @@ void main( void )
         sol_in_Sp2.sp_to_mw = 57.0;
         sol_in_Sp2.sp_tu_mw = 44.0;
 
-
         task_Run( param_all_partydauer, ALL_PARTY, WW_PARTY, ALL_Tau_MW, &tau, &zeit_event, &zeit_party );
         zeit_Run( &zeit_absenkung, &zeit_event );
-        
+
         solar_Run( &sol_par, &sol_in_Sp1, &sol_in_Sp2, &sol_sp1_av_sb, &sol_sp2_av_sb, &sol_pu_sb );
         fb_Run( &fb_par, &fb_q, &fb_in, &fb_out );
-        hk_Run( &hk_par, &fb_q, &hk_in, &hk_out ); 
+        hk_Run( &hk_par, &fb_q, &hk_in, &hk_out );
         ww_Run( &ww_par, &ww_q, &ww_in, &ww_out );
-        
+
         /* Ab hier Ausgabe des Prozessabbildes */
         printf( "Zeit: Absenkung Fuﬂbodenheizung: %d\n", zeit_absenkung.FB_Zustand );
         printf( "sp1_av_sb=%d\nsp2_av_sb=%d\nsol_pu_sb=%d\n",
                 sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb );
-    
+
         CONTROL_AKTIV = !CONTROL_AKTIV;  /* Lebenszeichen der Steuerung */
 
 #ifdef __WAGO__
@@ -135,10 +133,9 @@ void main( void )
 
 #ifdef __REENTRANT__
         pthread_mutex_unlock( &mutex );
-#ifdef __REENTRANT__    
-        
+#endif
         /* Abtastzeit warten ACHTUNG: Rechenzeit nicht beruecksichtigt */
-        usleep( ABTASTZEIT_USEC );        
+        usleep( ABTASTZEIT_USEC );
     }
 }
 
