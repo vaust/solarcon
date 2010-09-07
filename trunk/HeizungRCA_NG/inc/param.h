@@ -45,7 +45,7 @@
 #define WW_MV_KORR               3.0    /* Korrekturfaktor fuer MV-Kennlinie                                      */
 
 #define ABTASTZEIT_USEC     1000000L    /* das gleiche als LONG in Mikrosekunden fuer usleep Operation            */
-#define ABTASTZEIT          (((float)ABTASTZEIT_USEC)/1000000L) /* Abtastzeit für digitale Regler Algorithmen     */
+#define ABTASTZEIT          (((float)ABTASTZEIT_USEC)/1e6) /* Abtastzeit für digitale Regler Algorithmen     */
 
 #define PARSE_SET_N         36
 #define VORGABENDATEI       "vorgaben.ini"
