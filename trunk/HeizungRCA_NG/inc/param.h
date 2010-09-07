@@ -162,6 +162,9 @@ extern parse_set_t Vorgaben[];
 
 /* <Prototypen> */
 int param_Init( void );
+#ifdef __TEST__
+void param_TEST_vorgaben( void );
+#endif /* __TEST__  */
 /* <Prototypen/> */
 
 #endif
