@@ -94,3 +94,21 @@ int param_Init( void )
 	fclose( handle );
     return( errCode );
 }
+
+/********* TESTCODE *********/
+#ifdef __TEST__
+
+void param_TEST_vorgaben( void )
+{
+    int n;
+    
+    for( n=0; n<PARSE_SET_N; n++ ) {
+        printf( Vorgaben[n].VarName );
+        printf( "= " );
+        printf( Vorgaben[n].format, *(float *)Vorgaben[n].VarPointer );
+        printf( "\n" );
+    }
+}
+#endif /* __TEST__ */
+
+

@@ -1,6 +1,4 @@
 #define __IO_MASTER__
-#undef  __TEST__
-#define __TEST__
 
 #include <stdio.h>
 #include <unistd.h>
@@ -77,16 +75,11 @@ void main( void )
 
 #ifdef __TEST__
     zeit_TEST_Schaltzeiten();
-    for( n=0; n<PARSE_SET_N; n++ ) {
-        printf( Vorgaben[n].VarName );
-        printf( "= " );
-        printf( Vorgaben[n].format, *(float *)Vorgaben[n].VarPointer );
-        printf( "\n" );
-    }
+    param_TEST_vorgaben();
 #endif
 
 
-    while( 1 ) {
+//    while( 1 ) {
 #ifdef __WAGO__
         KbusOpen();
         KbusUpdate();
@@ -136,6 +129,6 @@ void main( void )
 #endif
         /* Abtastzeit warten ACHTUNG: Rechenzeit nicht beruecksichtigt */
         usleep( ABTASTZEIT_USEC );
-    }
+//    }
 }
 
