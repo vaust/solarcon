@@ -19,11 +19,11 @@
 #include "hk.h"
 #include "ww.h"
 #include "kes.h"
+#include "io.h"
 
 #ifdef __WAGO__
 #include <asm/types.h>
 #include "kbusapi.h"
-#include "io.h"
 #endif
 
 #ifdef __REENTRANT__
@@ -63,7 +63,7 @@ int main( void )
     fb_in_t             fb_in;
     sup_digreg_coeff_t  fb_q;
 
-    /* Variablen fuer Heizkörperkreis */
+    /* Variablen fuer Heizkï¿½rperkreis */
     hk_param_t          hk_par;
     hk_out_t            hk_out;
     hk_in_t             hk_in;
@@ -111,7 +111,7 @@ int main( void )
         /* Absenkungszeiten ermitteln */
         zeit_Run( &zeit_absenkung, &zeit_event );
 
-        /* solar_Run(), fb_Run() und hk_Run() sind unabhängig von einander */
+        /* solar_Run(), fb_Run() und hk_Run() sind unabhï¿½ngig von einander */
 
         /* Solar Controller */
         sol_in_Sp1.koll_t_mw = 85.0;  // = SOL_KOLL_T_MW;
@@ -142,7 +142,7 @@ int main( void )
         
         hk_Run( &hk_par, &fb_q, &hk_in, &hk_out );
 
-        /* ww_Run() Eingabewerte sind abhängig von Ausgabewerten von hk_Run() */
+        /* ww_Run() Eingabewerte sind abhï¿½ngig von Ausgabewerten von hk_Run() */
         ww_in.tww_mw        = 41.4;   // = WW_Tww_MW;
         ww_in.tau_mw        = 11.0;   // = ALL_Tau_MW;
         ww_in.tau_avg       = 13.4;   // = tau.t_36h_mittel;
@@ -153,7 +153,7 @@ int main( void )
         
         ww_Run( &ww_par, &ww_q, &ww_in, &ww_out );
         
-        /* kes_Run() Eingabewerte abhängig von Ausgabewerten von hk_Run(), fb_Run() */
+        /* kes_Run() Eingabewerte abhï¿½ngig von Ausgabewerten von hk_Run(), fb_Run() */
         kes_in.sp1_to_mw = 67.0;    // = SOL_SP1_To_MW;
         kes_in.sp1_tu_mw = 45.0;    // = SOL_SP1_Tu_MW;
         kes_in.sp2_to_mw = 56.0;    // = SOL_SP2_To_MW;
