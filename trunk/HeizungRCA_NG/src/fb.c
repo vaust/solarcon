@@ -5,6 +5,11 @@
 #include "sup.h"
 #include "param.h"
 
+/** \brief Fussbodenheizung Initialisierung.
+    \param par_p Pointer auf die Struktur mit allen relevanten Parametern
+    \param q_p Pointer auf reglerspezifische Parameter für den Mischventilregler
+    \return kein
+*/
 void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p )
 {
     /* Vorgaben aus Parametrierung */
@@ -26,6 +31,13 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p )
     q_p->upper_limit = MAX_Y_PCT;
 }
 
+/** \brief Fußbodenheizung Reglerfunktion
+    \param par_p[in] Pointer auf die Struktur mit allen relevanten Parametern
+    \param q_p[in] Pointer auf reglerspezifische Parameter für den Mischventilregler
+    \param in_p[in] Pointer auf Struktur mit allen Eingabegrößen
+    \param out_p[out] Pointer auf Struktur mit allen Ausgangsgrößen
+    \return kein
+*/
 void fb_Run( const fb_param_t *par_p, const sup_digreg_coeff_t *q_p, const fb_in_t *in_p, fb_out_t *out_p )
 {
     /* Vorlauftemperatursollwert im Floatformat berechnen  */
