@@ -80,13 +80,13 @@ u8_t    dusch_states;
 
 /* <Prototypen> */
 void zeit_Init( zeit_Betriebszustand_t *absenkung,
-               zeit_event_t           *schedule );
+                zeit_event_t           *schedule );
 
 void zeit_Run( zeit_Betriebszustand_t *absenkung,
                zeit_event_t           *schedule );
 
 
-/*** TESTCODE ***/
+/** TESTCODE */
 #ifdef __TEST__
 void zeit_TEST_Schaltzeiten( void );
 #endif /* __TEST__ */

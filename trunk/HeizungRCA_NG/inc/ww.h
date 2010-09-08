@@ -11,12 +11,13 @@
 
 /* <Typen> */
 typedef struct {
-    float pu_reg_kp;
+    float pu_reg_kp;        
     float pu_reg_tn;
     float mv_reg_kp;
     float mv_reg_tn;   
     float TA;
     float kes_sp_dt_sw;
+    float tww_sw;                   /**< Warmwasser Temperatur Sollwert */
     float frostschutz;
     float at_start;
     float mv_korr;
@@ -26,10 +27,9 @@ typedef struct {
 
 typedef struct {
     float tww_mw;
-    float tww_sw;
     float tau_mw;
-    float tau_36h_mittel;
-    u32_t wz_mw;
+    float tau_avg;
+    // u32_t wz_mw;
     float hzg_trl_mw;
     float hk_tvl_sw;
     float sol_sp1_to_mw;
