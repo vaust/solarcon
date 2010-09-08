@@ -77,7 +77,7 @@ void ww_Run( const ww_param_t         *par_p,
     out_p->hzg_pu_sb = IO_EIN;
 
     /* Zirkulationspumpe ansteuern */
-    if( (in_p->zirkzustand == zEin) || (in_p->tau_mw < par_p->frostschutz) ) 
+    if( (in_p->zirkzustand == zNormal) || (in_p->tau_mw < par_p->frostschutz) ) 
         out_p->zirk_pu_sb = IO_EIN;
     else 
         out_p->zirk_pu_sb = IO_AUS;
