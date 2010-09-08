@@ -48,7 +48,7 @@ void zeit_Init( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
 
 	handle = fopen( ZEITPROGRAMMDATEI, "r" );
 	if( handle == NULL ) {
-        printf( "DEBUG: Datei wochenzeitprogramm.ini konnte nicht geöffnet werden!\n" );
+        printf( "ZEIT.C: Datei wochenzeitprogramm.ini konnte nicht geöffnet werden!\n" );
     }
     else {
 		while( !feof( handle ) )  {
@@ -131,51 +131,43 @@ void zeit_Run( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
     oldHour = aktHour;
 
     /* Betriebszustand Heizkoerperheizkreis */
-    for( i=0; i<hk_states; i++ ) {
+    for( i=0; i<hk_states; i++ ) 
         if( aktUhrzeit <= HK_Aus_Schaltzeiten[i] ) break;
-    }
-    if( aktUhrzeit > HK_Ein_Schaltzeiten[i] )  {
+
+    if( aktUhrzeit > HK_Ein_Schaltzeiten[i] )  
         absenkung->HK_Zustand = zNormal;
-    }
-    else {
+    else 
         absenkung->HK_Zustand = zAbgesenkt;
-    }
 
     /* Betriebszustand Fussbodenheizkreis */
-    for( i=0; i<fb_states; i++ ) {
+    for( i=0; i<fb_states; i++ ) 
         if( aktUhrzeit <= FB_Aus_Schaltzeiten[i] ) break;
-    }
-    if( aktUhrzeit > FB_Ein_Schaltzeiten[i] ) {
+
+    if( aktUhrzeit > FB_Ein_Schaltzeiten[i] ) 
         absenkung->FB_Zustand = zNormal;
-    }
-    else {
+    else 
         absenkung->FB_Zustand = zAbgesenkt;
-    }
 
     /* Betriebszustand Zirkulationspumpe */
-    for( i=0; i<zirk_states; i++ ) {
+    for( i=0; i<zirk_states; i++ ) 
         if( aktUhrzeit <= ZIRK_Aus_Schaltzeiten[i] ) break;
-    }
-    if( aktUhrzeit > ZIRK_Ein_Schaltzeiten[i] ) {
+    
+    if( aktUhrzeit > ZIRK_Ein_Schaltzeiten[i] ) 
         absenkung->Zirk_Zustand = zEin;
-    }
-    else {
+    else 
         absenkung->Zirk_Zustand = zAus;
-    }
 
     /* Duschzeit */
-    for( i=0; i<dusch_states; i++ ) {
+    for( i=0; i<dusch_states; i++ ) 
         if( aktUhrzeit <= DUSCH_Aus_Schaltzeiten[i] ) break;
-    }
-    if( aktUhrzeit > DUSCH_Ein_Schaltzeiten[i] ) {
+        
+    if( aktUhrzeit > DUSCH_Ein_Schaltzeiten[i] ) 
         absenkung->Duschzeit = zJa;
-    }
-    else {
+    else 
         absenkung->Duschzeit = zNein;
-    }
 }
 
-/********* TESTCODE *********/
+/** TESTCODE */
 #ifdef __TEST__
 
 void zeit_TEST_Schaltzeiten( void )
