@@ -3,6 +3,13 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#ifdef __WIN__
+#include <windows.h>
+#define SLEEP(t) Sleep((t)/1000)
+#else
+#define SLEEP(t) usleep((t))
+#endif
+
 #include "gen_types.h"
 #include "param.h"
 #include "zeit.h"
@@ -34,8 +41,6 @@ void *cntrl_thread( void *arg )
 int main( void )
 #endif
 {
-    int n;
-
     /* Variablen fuer Zeit */
     zeit_Betriebszustand_t  zeit_absenkung;
     zeit_event_t            zeit_event;
@@ -88,10 +93,11 @@ int main( void )
     param_TEST_Vorgaben();
 #endif
 
-
-//    while( 1 ) {
 #ifdef __WAGO__
-        KbusOpen();
+    KbusOpen();
+#endif
+    while( 1 ) {
+#ifdef __WAGO__
         KbusUpdate();
 #endif
 
@@ -112,7 +118,7 @@ int main( void )
 
         solar_Run( &sol_par, &sol_in_Sp1, &sol_in_Sp2, &sol_sp1_av_sb, &sol_sp2_av_sb, &sol_pu_sb );
 
-        /** Fussbodenheizung Controller */
+        /* Fussbodenheizung Controller */
         fb_in.tau_mw        = 11.0;   // = ALL_Tau_MW;
         fb_in.tau_avg       = 13.4;   // = tau.t_36h_mittel;
         fb_in.sek_tvl_mw    = 27.0;   // = FB_SEK_Tvl_MW;
@@ -121,7 +127,7 @@ int main( void )
 
         fb_Run( &fb_par, &fb_q, &fb_in, &fb_out );
 
-        /** Heizkoerper Controller */
+        /* Heizkoerper Controller */
         hk_in.tau_mw        = 11.0;   // = ALL_Tau_MW;
         hk_in.tau_avg       = 13.4;   // = tau.t_36h_mittel;
         hk_in.tvl_mw        = 45.0;   // = HK_Tvl_MW;
@@ -130,7 +136,7 @@ int main( void )
         
         hk_Run( &hk_par, &fb_q, &hk_in, &hk_out );
 
-        /** ww_Run() Eingabewerte sind abh‰ngig von Ausgabewerten von hk_Run() */
+        /* ww_Run() Eingabewerte sind abh‰ngig von Ausgabewerten von hk_Run() */
         ww_in.tww_mw        = 41.4;   // = WW_Tww_MW;
         ww_in.tau_mw        = 11.0;   // = ALL_Tau_MW;
         ww_in.tau_avg       = 13.4;   // = tau.t_36h_mittel;
@@ -141,7 +147,7 @@ int main( void )
         
         ww_Run( &ww_par, &ww_q, &ww_in, &ww_out );
         
-        /** kes_Run() Eingabewerte abh‰ngig von Ausgabewerten von hk_Run(), fb_Run() */
+        /* kes_Run() Eingabewerte abh‰ngig von Ausgabewerten von hk_Run(), fb_Run() */
         kes_in.sp1_to_mw = 67.0;    // = SOL_SP1_To_MW;
         kes_in.sp1_tu_mw = 45.0;    // = SOL_SP1_Tu_MW;
         kes_in.sp2_to_mw = 56.0;    // = SOL_SP2_To_MW;
@@ -154,25 +160,26 @@ int main( void )
         
         kes_Run( &kes_par, &kes_in, &kes_out );
  
-        /** Ab hier Ausgabe des Prozessabbildes */
+        /* Ab hier Ausgabe des Prozessabbildes */
         printf( "Zeit: Absenkung Fuﬂbodenheizung: %d\n", zeit_absenkung.FB_Zustand );
         printf( "sp1_av_sb=%d\nsp2_av_sb=%d\nsol_pu_sb=%d\n",
                 sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb );
 
 
-
-        /** Lebenszeichen der Steuerung */
+        /* Lebenszeichen der Steuerung */
         CONTROL_AKTIV = !CONTROL_AKTIV;  
 
 #ifdef __WAGO__
-        KbusOpen();
         KbusUpdate();
 #endif
         MUTEX_UNLOCK();
         
         /* Abtastzeit abwarten ACHTUNG: Rechenzeit nicht beruecksichtigt */
-        usleep( ABTASTZEIT_USEC );
-//    }
+        SLEEP( ABTASTZEIT_USEC ); 
+    }
+#ifdef __WAGO__
+    KbusClose();
+#endif
     return( 0 );
 }
 
