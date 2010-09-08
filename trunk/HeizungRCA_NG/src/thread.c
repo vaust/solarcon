@@ -15,13 +15,11 @@
 #include <pthread.h>        /* Fuer Threadfunktionalitaet */
 #include <semaphore.h>
 
-
-/*-----------------------------------------------
-Funktion:       create_server_sock
-                Socket zur Kommunikation erzeugen
-Parameter:      int port: Portnummer fuer Socket
-Rueckgabewert:  Filedescriptor fuer Zugriff
-------------------------------------------------*/
+/** 
+\brief create_server_sock(). Socket zur Kommunikation erzeugen
+\param port Portnummer fuer Socket
+\return Filedescriptor fuer Zugriff
+*/
 int create_server_sock( int port )
 {
     int                 sock_fd, socklen;
@@ -59,12 +57,11 @@ int create_server_sock( int port )
     return( sock_fd );
 }
 
-/*---------------------------------------------------------
-Funktion:       terminate
-                Server gezielt auf Signal beenden
-Parameter:      keine
-Rueckgabewert:  keine
-----------------------------------------------------------*/
+/**
+\brief terminate(). Server gezielt auf Signal beenden
+\param keine
+\return keine
+*/
 void terminate( int sig )
 {
     shutdown( client_sock_fd, SHUT_RDWR );
@@ -107,7 +104,7 @@ int main( void )
 
     while( 1 ) {
         /* Auf Verbindung mit Client warten */
-        if( (client_sock_fd = accept( server_sock_fd, NULL, NULL )) < 0 ) {
+        if( (client_sock_fd = accept( server_sock_fd, NULL, NULL )) != 0 ) {
             perror( "Verbindungsanforderung abgelehnt" );
         }
         thread_args[0] = client_sock_fd;
