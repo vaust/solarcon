@@ -37,8 +37,8 @@ int param_Init( void )
         /* Die Datei vorgaben.ini scheint nicht vorhanden zu sein:
          * Defaultwerte aus #defines in vorgabe.h initialisieren
 	     */
-        printf( "DEBUG: Die Datei /home/vorgaben.ini ist nicht vorhanden\n" );
-        printf( "DEBUG: Die Parameter werden mit Default Werten initialisiert!\n" );
+        printf( "PARAM.C: Die Datei /home/vorgaben.ini ist nicht vorhanden\n" );
+        printf( "PARAM.C: Die Parameter werden mit Default Werten initialisiert!\n" );
         errCode = -1;
         
 		param_all_tau_mittel_zeit = ALL_Tau_mittel_Zeit;
@@ -88,7 +88,7 @@ int param_Init( void )
         param_hour_offset =         1;
     }
 	else {
-        printf( "DEBUG: Ini Datei einlesen:\n" );
+        printf( "PARAM.C: Ini Datei einlesen:\n" );
         errCode = param_ReadVorgaben( handle );
 	}
 	fclose( handle );
