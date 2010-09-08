@@ -27,6 +27,9 @@
 #endif
 
 #ifdef __REENTRANT__
+#include <pthread.h>        /* Fuer Threadfunktionalitaet */
+#include <semaphore.h>
+
 #define MUTEX_LOCK()    pthread_mutex_lock( &mutex )
 #define MUTEX_UNLOCK()  pthread_mutex_unlock( &mutex ) 
 #else
@@ -102,12 +105,15 @@ int main( void )
 #endif
 
         MUTEX_LOCK();
+        /* alles was im Sekunden-, Minuten- und Stundenraster ablaufen muss und *
+         * Aussentemperaturmittelwerte ermitteln                                */
         task_Run( param_all_partydauer, ALL_PARTY, WW_PARTY, ALL_Tau_MW, &tau, &zeit_event, &zeit_party );
+        /* Absenkungszeiten ermitteln */
         zeit_Run( &zeit_absenkung, &zeit_event );
 
-        /** solar_Run(), fb_Run() und hk_Run() sind unabh‰ngig von einander */
+        /* solar_Run(), fb_Run() und hk_Run() sind unabh‰ngig von einander */
 
-        /** Solar Controller */
+        /* Solar Controller */
         sol_in_Sp1.koll_t_mw = 85.0;  // = SOL_KOLL_T_MW;
         sol_in_Sp1.sp_to_mw  = 38.0;  // = SOL_SP1_To_MW;
         sol_in_Sp1.sp_tu_mw  = 34.0;  // = SOL_SP1_Tu_MW;
@@ -161,20 +167,33 @@ int main( void )
         kes_Run( &kes_par, &kes_in, &kes_out );
  
         /* Ab hier Ausgabe des Prozessabbildes */
-        printf( "Zeit: Absenkung Fuﬂbodenheizung: %d\n", zeit_absenkung.FB_Zustand );
-        printf( "sp1_av_sb=%d\nsp2_av_sb=%d\nsol_pu_sb=%d\n",
+#ifdef __TEST__        
+        printf( "CNTRL.C: TEST: ZEIT : Absenkung Fussbodenheizung: %d\n", zeit_absenkung.FB_Zustand );
+        printf( "CNTRL.C: TEST: ZEIT : Absenkung Duschzeit       : %d\n", zeit_absenkung.Duschzeit );
+        printf( "CNTRL.C: TEST: SOLAR: sp1_av_sb=%d sp2_av_sb=%d sol_pu_sb=%d\n",
                 sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb );
-
+        printf( "CNTRL.C: TEST: FB   : tvl_sw=%f prim_mv_y=%f prim_pu_sb=%d sek_pu_sb=%d\n",
+                fb_out.tvl_sw, fb_out.prim_mv_y, fb_out.prim_pu_sb, fb_out.sek_pu_sb );
+        printf( "CNTRL.C: TEST: HK   : tvl_sw=%f mv_y=%f pu_sb=%d\n",
+                hk_out.tvl_sw, hk_out.mv_y, hk_out.pu_sb );        
+        printf( "CNTRL.C: TEST: WW   : hzg_tvl_sw=%f hzg_mv_y=%f hzg_pu_y=%f zirk_pu_sb=%d hzg_pu_sb=%d hzg_vv_sb=%d\n", 
+                ww_out.hzg_tvl_sw, ww_out.hzg_mv_y, ww_out.hzg_pu_y, ww_out.zirk_pu_sb, ww_out.hzg_pu_sb, ww_out.hzg_vv_sb );
+        printf( "CNTRL.C: TEST: KES  : sp1_to_sw=%f sp2_to_sw=%f tvl_sw_sp1=%f tvl_sw_sp2=%f \n",
+                kes_out.sp1_to_sw, kes_out.sp2_to_sw, kes_out.tvl_sw_sp1 , kes_out.tvl_sw_sp2 );
+        printf( "CNTRL.C: TEST: KES  : tvl_sw=%f pu_sp1_sb=%d pu_sp1_sb=%d\n", 
+                kes_out.tvl_sw, kes_out.pu_sp1_sb, kes_out.pu_sp2_sb );
+                printf( "\n" );        
+#endif /* __TEST__ */
 
         /* Lebenszeichen der Steuerung */
-        CONTROL_AKTIV = !CONTROL_AKTIV;  
+        CONTROL_AKTIV = !CONTROL_AKTIV; 
 
 #ifdef __WAGO__
         KbusUpdate();
 #endif
         MUTEX_UNLOCK();
         
-        /* Abtastzeit abwarten ACHTUNG: Rechenzeit nicht beruecksichtigt */
+        /* Abtastzeit abwarten. ACHTUNG: Rechenzeit nicht beruecksichtigt */
         SLEEP( ABTASTZEIT_USEC ); 
     }
 #ifdef __WAGO__

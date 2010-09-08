@@ -174,19 +174,19 @@ void zeit_TEST_Schaltzeiten( void )
 {
     int n;
     for( n=0; n<fb_states; n++ )
-        printf( "FB_Ein_Schaltzeiten[%d] = %ld, FB_Aus_Schaltzeiten[%d] = %ld\n",
+        printf( "ZEIT.C: TEST: FB_Ein_Schaltzeiten[%d] = %ld, FB_Aus_Schaltzeiten[%d] = %ld\n",
                 n, FB_Ein_Schaltzeiten[n], n, FB_Aus_Schaltzeiten[n] );
 
     for( n=0; n<hk_states; n++ )
-        printf( "HK_Ein_Schaltzeiten[%d] = %ld, HK_Aus_Schaltzeiten[%d] = %ld\n",
+        printf( "ZEIT.C: TEST: HK_Ein_Schaltzeiten[%d] = %ld, HK_Aus_Schaltzeiten[%d] = %ld\n",
                 n, HK_Ein_Schaltzeiten[n], n, HK_Aus_Schaltzeiten[n] );
 
     for( n=0; n<zirk_states; n++ )
-        printf( "ZIRK_Ein_Schaltzeiten[%d] = %ld, ZIRK_Aus_Schaltzeiten[%d] = %ld\n",
+        printf( "ZEIT.C: TEST: ZIRK_Ein_Schaltzeiten[%d] = %ld, ZIRK_Aus_Schaltzeiten[%d] = %ld\n",
                 n, ZIRK_Ein_Schaltzeiten[n], n, ZIRK_Aus_Schaltzeiten[n] );
 
     for( n=0; n<dusch_states; n++ )
-        printf( "DUSCH_Ein_Schaltzeiten[%d] = %ld, DUSCH_Aus_Schaltzeiten[%d] = %ld\n",
+        printf( "ZEIT.C: TEST: DUSCH_Ein_Schaltzeiten[%d] = %ld, DUSCH_Aus_Schaltzeiten[%d] = %ld\n",
                 n, FB_Ein_Schaltzeiten[n], n, FB_Aus_Schaltzeiten[n] );
 }
 

@@ -18,16 +18,16 @@ typedef struct {
 } kes_param_t;
 
 typedef struct {
-    float       sp1_to_mw;
-    float       sp1_tu_mw;
-    float       sp2_to_mw;
-    float       sp2_tu_mw;
-    float       tvl_mw;
-    float       hk_tvl_sw;
-    float       fb_tvl_sw;
-    nutzzeit_t  duschzeit;
-    u8_t        partytime_flg;
-    char        br_bm;
+    float        sp1_to_mw;
+    float        sp1_tu_mw;
+    float        sp2_to_mw;
+    float        sp2_tu_mw;
+    float        tvl_mw;
+    float        hk_tvl_sw;
+    float        fb_tvl_sw;
+    nutzzeit_t   duschzeit;
+    u8_t         partytime_flg;
+    di_bitbyte_t br_bm;
 } kes_in_t;
 
 typedef struct {
@@ -36,8 +36,8 @@ typedef struct {
     float tvl_sw_sp1;
     float tvl_sw_sp2;
     float tvl_sw;
-    unsigned char pu_sp1_sb;
-    unsigned char pu_sp2_sb;
+    do_bitbyte_t pu_sp1_sb;
+    do_bitbyte_t pu_sp2_sb;
 } kes_out_t;
 /* <Typen/> */
 

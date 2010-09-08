@@ -103,12 +103,13 @@ void param_TEST_Vorgaben( void )
     int n;
     
     for( n=0; n<(sizeof(Vorgaben)/sizeof(parse_set_t)); n++ ) {
+        printf( "PARAM.C: TEST: " );
         printf( Vorgaben[n].VarName );
         printf( "= " );
         printf( Vorgaben[n].format, *(float *)Vorgaben[n].VarPointer );
         printf( "\n" );
     }
-    printf( "Sizeof(Vorgaben) = %d\n", sizeof(Vorgaben)/sizeof(parse_set_t) );
+    printf( "PARAM.C: TEST: Sizeof(Vorgaben) = %d\n", sizeof(Vorgaben)/sizeof(parse_set_t) );
 }
 #endif /* __TEST__ */
 

@@ -59,7 +59,8 @@ void ww_Init( ww_param_t *par_p, sup_digreg_coeff_t *q_hzg_pu_p )
     par_p->mv_korr = param_ww_mv_korr;
     par_p->hzg_pu_y_min = 11.0;
     par_p->schwachlastzeit_max = 300;
-
+    par_p->tww_sw = param_ww_tww_sw;
+    
     q_hzg_pu_p->q0 =  par_p->pu_reg_kp + par_p->TA/par_p->pu_reg_tn;
     q_hzg_pu_p->q1 = -par_p->pu_reg_kp;
     q_hzg_pu_p->lower_limit = MIN_Y_PCT;
