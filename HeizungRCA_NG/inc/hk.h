@@ -15,12 +15,12 @@ typedef struct {
     float tvl_max;
     float at_start;
     float frostschutz;
+    float tr_sw;
 } hk_param_t;
 
 typedef struct {
     float        tau_mw;
     float        tau_avg;
-    float        tr_sw;
     float        tvl_mw;
     abgesenkt_t  zustand;
     char         partytime_flg;

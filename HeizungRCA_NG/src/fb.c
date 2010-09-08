@@ -18,7 +18,7 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p )
     par_p->tvl_min      = param_fb_tvl_min;
     par_p->tvl_niveau   = param_fb_tvl_niveau;
     par_p->tvl_steigung = param_fb_tvl_steigung;
-
+    par_p->tr_sw        = param_fb_tr_sw;
     /* abgeleitete Groessen */
     q_p->q0          =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
     q_p->q1          = -par_p->reg_kp;
@@ -29,8 +29,8 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p )
 void fb_Run( const fb_param_t *par_p, const sup_digreg_coeff_t *q_p, const fb_in_t *in_p, fb_out_t *out_p )
 {
     /* Vorlauftemperatursollwert im Floatformat berechnen  */
-    out_p->tvl_sw =  (in_p->tr_sw - in_p->tau_mw) * par_p->tvl_steigung
-                    + in_p->tr_sw + par_p->tvl_niveau;
+    out_p->tvl_sw =  (par_p->tr_sw - in_p->tau_mw) * par_p->tvl_steigung
+                    + par_p->tr_sw + par_p->tvl_niveau;
     if( (in_p->zustand == zAbgesenkt) && (in_p->partytime_flg == RESET) ) {
         out_p->tvl_sw -= par_p->tvl_absenk;
     }

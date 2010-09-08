@@ -15,7 +15,7 @@ static int param_ReadVorgaben( FILE *handle )
         fgets( linestr, 127, handle );
         if( linestr[0] != '%' ) {
             parameter = strtok( linestr, "=" );
-            for( n=0; n<PARSE_SET_N; n++ ) {
+            for( n=0; n<(sizeof(Vorgaben)/sizeof(parse_set_t)); n++ ) {
                 if( strncmp( parameter, Vorgaben[n].VarName, strlen(Vorgaben[n].VarName) ) == 0 ) {
                     value = strtok( NULL, "\n" );
                     sscanf( value, Vorgaben[n].format, Vorgaben[n].VarPointer );
@@ -95,19 +95,20 @@ int param_Init( void )
     return( errCode );
 }
 
-/********* TESTCODE *********/
+/** TESTCODE  */
 #ifdef __TEST__
 
-void param_TEST_vorgaben( void )
+void param_TEST_Vorgaben( void )
 {
     int n;
     
-    for( n=0; n<PARSE_SET_N; n++ ) {
+    for( n=0; n<(sizeof(Vorgaben)/sizeof(parse_set_t)); n++ ) {
         printf( Vorgaben[n].VarName );
         printf( "= " );
         printf( Vorgaben[n].format, *(float *)Vorgaben[n].VarPointer );
         printf( "\n" );
     }
+    printf( "Sizeof(Vorgaben) = %d\n", sizeof(Vorgaben)/sizeof(parse_set_t) );
 }
 #endif /* __TEST__ */
 

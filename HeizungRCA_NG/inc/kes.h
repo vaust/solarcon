@@ -25,9 +25,8 @@ typedef struct {
     float       tvl_mw;
     float       hk_tvl_sw;
     float       fb_tvl_sw;
-    float       ww_tww_sw;
     nutzzeit_t  duschzeit;
-    char        partytime_flg;
+    u8_t        partytime_flg;
     char        br_bm;
 } kes_in_t;
 

@@ -5,7 +5,7 @@
 
 static void ww_MV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_out_t *out_p )
 {
-    out_p->hzg_tvl_sw = in_p->tww_sw + par_p->kes_sp_dt_sw/2.0;
+    out_p->hzg_tvl_sw = par_p->tww_sw + par_p->kes_sp_dt_sw/2.0;
     if( in_p->sol_sp1_to_mw > in_p->hzg_trl_mw ) {
         out_p->hzg_mv_y =
             (out_p->hzg_tvl_sw - in_p->hzg_trl_mw) * 100.0 / 
@@ -20,7 +20,7 @@ static void ww_MV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_ou
 
 static void ww_VV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_out_t *out_p )
 {
-    if( in_p->tau_36h_mittel > par_p->at_start ) {
+    if( in_p->tau_avg        > par_p->at_start ) {
         if( in_p->hzg_trl_mw < in_p->sol_sp2_tu_mw ) out_p->hzg_vv_sb = WW_VV_SP2;
         else                                         out_p->hzg_vv_sb = WW_VV_SP1;
     }
@@ -82,7 +82,7 @@ void ww_Run( const ww_param_t         *par_p,
         out_p->zirk_pu_sb = IO_AUS;
     
     /* PI-Regler fuer WW Heizungspumpe */
-    sup_DigRegler( q_hzg_pu_p, in_p->tww_sw, in_p->tww_mw, &(out_p->hzg_pu_y) );
+    sup_DigRegler( q_hzg_pu_p, par_p->tww_sw, in_p->tww_mw, &(out_p->hzg_pu_y) );
 
     /* Berechnung von WW_HZG_MV_Y aus den Temperaturen von Speicher und Rücklauf */
     ww_MV_Steuerung( par_p, in_p, out_p );
