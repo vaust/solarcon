@@ -27,14 +27,14 @@ typedef struct {
 } hk_in_t;
 
 typedef struct {
-    float        tvl_sw;
-    float        mv_y;
-    do_bitbyte_t pu_sb;
+    float            tvl_sw;
+    sup_digreg_out_t mv_y;
+    do_bitbyte_t     pu_sb;
 } hk_out_t;
 /* <Typen/> */
 
 /* <Prototypen> */
-void hk_Init( hk_param_t *par_p, sup_digreg_coeff_t *q_p );
+void hk_Init( hk_param_t *par_p, sup_digreg_coeff_t *q_p, hk_out_t *out_p );
 void hk_Run( const hk_param_t         *par_p, 
              const sup_digreg_coeff_t *q_p, 
              const hk_in_t            *in_p, 

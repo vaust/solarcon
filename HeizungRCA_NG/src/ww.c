@@ -7,15 +7,15 @@ static void ww_MV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_ou
 {
     out_p->hzg_tvl_sw = par_p->tww_sw + par_p->kes_sp_dt_sw/2.0;
     if( in_p->sol_sp1_to_mw > in_p->hzg_trl_mw ) {
-        out_p->hzg_mv_y =
+        out_p->hzg_mv_y.y =
             (out_p->hzg_tvl_sw - in_p->hzg_trl_mw) * 100.0 / 
                 (in_p->sol_sp1_to_mw - in_p->hzg_trl_mw)  
           + (out_p->hzg_tvl_sw - out_p->hzg_tvl_sw) * par_p->mv_korr;            
     } else
     {
-        out_p->hzg_mv_y = MAX_Y_PCT;  /* dann stimmt was nicht -> Ventil voll auf */
+        out_p->hzg_mv_y.y = MAX_Y_PCT;  /* dann stimmt was nicht -> Ventil voll auf */
     }
-    sup_Limit( &(out_p->hzg_mv_y), MIN_Y_PCT, MAX_Y_PCT );
+    sup_Limit( &(out_p->hzg_mv_y.y), MIN_Y_PCT, MAX_Y_PCT );
 }
 
 static void ww_VV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_out_t *out_p )
@@ -35,10 +35,10 @@ static void ww_Schwachlast_Steuerung( const ww_param_t *par_p, ww_out_t *out_p )
     static u16_t    schwachlastzeit = 0;
 
     /* Pumpe waehrend Duschbetrieb nicht abschalten, wegen Schwingung */
-    if( out_p->hzg_pu_y < par_p->hzg_pu_y_min ) {
+    if( out_p->hzg_pu_y.y < par_p->hzg_pu_y_min ) {
         schwachlastzeit ++;
         if( schwachlastzeit < par_p->schwachlastzeit_max ) {
-            out_p->hzg_pu_y = par_p->hzg_pu_y_min;
+            out_p->hzg_pu_y.y = par_p->hzg_pu_y_min;
         }
     } /* nach 30s ununterbrochener Schwachlast darf die Pumpe abschalten */
     else {
@@ -46,25 +46,26 @@ static void ww_Schwachlast_Steuerung( const ww_param_t *par_p, ww_out_t *out_p )
     }
 }
     
-void ww_Init( ww_param_t *par_p, sup_digreg_coeff_t *q_hzg_pu_p )
+void ww_Init( ww_param_t *par_p, sup_digreg_coeff_t *q_hzg_pu_p, ww_out_t *out_p )
 {
-    par_p->pu_reg_kp = param_ww_pu_reg_kp;
-    par_p->pu_reg_tn = param_ww_pu_reg_tn;
-    par_p->mv_reg_kp = -0.0;   /* Momentan nicht genutzt */
-    par_p->mv_reg_tn = -0.0;   /* Momentan nicht genutzt */
-    par_p->TA = ABTASTZEIT;
-    par_p->kes_sp_dt_sw = param_kes_sp_dt_sw;
-    par_p->frostschutz = param_all_frostschutz;
-    par_p->at_start = param_all_at_start;
-    par_p->mv_korr = param_ww_mv_korr;
-    par_p->hzg_pu_y_min = 11.0;
+    par_p->pu_reg_kp           = param_ww_pu_reg_kp;
+    par_p->pu_reg_tn           = param_ww_pu_reg_tn;
+    // par_p->mv_reg_kp = -0.0;   /* Momentan nicht genutzt */
+    // par_p->mv_reg_tn = -0.0;   /* Momentan nicht genutzt */
+    par_p->TA                  = ABTASTZEIT;
+    par_p->kes_sp_dt_sw        = param_kes_sp_dt_sw;
+    par_p->tww_sw              = param_ww_tww_sw;
+    par_p->frostschutz         = param_all_frostschutz;
+    par_p->at_start            = param_all_at_start;
+    par_p->mv_korr             = param_ww_mv_korr;
+    par_p->hzg_pu_y_min        = 11.0;
     par_p->schwachlastzeit_max = 300;
-    par_p->tww_sw = param_ww_tww_sw;
     
     q_hzg_pu_p->q0 =  par_p->pu_reg_kp + par_p->TA/par_p->pu_reg_tn;
     q_hzg_pu_p->q1 = -par_p->pu_reg_kp;
     q_hzg_pu_p->lower_limit = MIN_Y_PCT;
     q_hzg_pu_p->upper_limit = MAX_Y_PCT;
+    sup_DigRegInit( q_hzg_pu_p, &(out_p->hzg_pu_y) );
 }    
 
 void ww_Run( const ww_param_t         *par_p, 

@@ -51,7 +51,8 @@ void zeit_Init( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
         printf( "ZEIT.C: Datei wochenzeitprogramm.ini konnte nicht geöffnet werden!\n" );
     }
     else {
-		while( !feof( handle ) )  {
+        printf( "ZEIT.C: wochenzeitprogramm.ini einlesen:\n" );
+        while( !feof( handle ) )  {
             fgets( linestr, 127, handle );
             if( linestr[0] != '%' ) {
                 parameter = strtok( linestr, "=" );
@@ -188,6 +189,8 @@ void zeit_TEST_Schaltzeiten( void )
     for( n=0; n<dusch_states; n++ )
         printf( "ZEIT.C: TEST: DUSCH_Ein_Schaltzeiten[%d] = %ld, DUSCH_Aus_Schaltzeiten[%d] = %ld\n",
                 n, FB_Ein_Schaltzeiten[n], n, FB_Aus_Schaltzeiten[n] );
+
+    printf( "\n" );
 }
 
 #endif /* __TEST__ */

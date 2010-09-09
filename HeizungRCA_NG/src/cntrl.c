@@ -63,13 +63,13 @@ int main( void )
     fb_in_t             fb_in;
     sup_digreg_coeff_t  fb_q;
 
-    /* Variablen fuer Heizk�rperkreis */
+    /* Variablen fuer Heizkoerperkreis */
     hk_param_t          hk_par;
     hk_out_t            hk_out;
     hk_in_t             hk_in;
     sup_digreg_coeff_t  hk_q;
 
-    /* Variablen fuer Warmwasserkreis */
+    /* Variablen fuer Warmwasserkreis  */
     ww_param_t          ww_par;
     ww_out_t            ww_out;
     ww_in_t             ww_in;
@@ -85,10 +85,10 @@ int main( void )
     zeit_Init( &zeit_absenkung, &zeit_event );
     task_Init( &tau, ALL_Tau_MW );
     solar_Init( &sol_par );
-    fb_Init( &fb_par, &fb_q );
-    hk_Init( &hk_par, &hk_q );
-    ww_Init( &ww_par, &ww_q );
-    kes_Init();
+    fb_Init( &fb_par, &fb_q, &fb_out );
+    hk_Init( &hk_par, &hk_q, &hk_out );
+    ww_Init( &ww_par, &ww_q, &ww_out );
+    kes_Init( &kes_par );
     MUTEX_UNLOCK();
 
 #ifdef __TEST__
@@ -108,7 +108,7 @@ int main( void )
         /* alles was im Sekunden-, Minuten- und Stundenraster ablaufen muss und *
          * Aussentemperaturmittelwerte ermitteln                                */
         task_Run( param_all_partydauer, ALL_PARTY, WW_PARTY, ALL_Tau_MW, &tau, &zeit_event, &zeit_party );
-        /* Absenkungszeiten ermitteln */
+        /* Absenkzeiten ermitteln */
         zeit_Run( &zeit_absenkung, &zeit_event );
 
         /* solar_Run(), fb_Run() und hk_Run() sind unabh�ngig von einander */
@@ -142,7 +142,7 @@ int main( void )
         
         hk_Run( &hk_par, &fb_q, &hk_in, &hk_out );
 
-        /* ww_Run() Eingabewerte sind abh�ngig von Ausgabewerten von hk_Run() */
+        /* ww_Run() Eingabewerte sind abhaengig von Ausgabewerten von hk_Run() */
         ww_in.tww_mw        = 41.4;   // = WW_Tww_MW;
         ww_in.tau_mw        = 11.0;   // = ALL_Tau_MW;
         ww_in.tau_avg       = 13.4;   // = tau.t_36h_mittel;
@@ -153,7 +153,7 @@ int main( void )
         
         ww_Run( &ww_par, &ww_q, &ww_in, &ww_out );
         
-        /* kes_Run() Eingabewerte abh�ngig von Ausgabewerten von hk_Run(), fb_Run() */
+        /* kes_Run() Eingabewerte abhaengig von Ausgabewerten von hk_Run(), fb_Run() */
         kes_in.sp1_to_mw = 67.0;    // = SOL_SP1_To_MW;
         kes_in.sp1_tu_mw = 45.0;    // = SOL_SP1_Tu_MW;
         kes_in.sp2_to_mw = 56.0;    // = SOL_SP2_To_MW;
@@ -173,11 +173,11 @@ int main( void )
         printf( "CNTRL.C: TEST: SOLAR: sp1_av_sb=%d sp2_av_sb=%d sol_pu_sb=%d\n",
                 sol_sp1_av_sb, sol_sp2_av_sb, sol_pu_sb );
         printf( "CNTRL.C: TEST: FB   : tvl_sw=%f prim_mv_y=%f prim_pu_sb=%d sek_pu_sb=%d\n",
-                fb_out.tvl_sw, fb_out.prim_mv_y, fb_out.prim_pu_sb, fb_out.sek_pu_sb );
+                fb_out.tvl_sw, fb_out.prim_mv_y.y, fb_out.prim_pu_sb, fb_out.sek_pu_sb );
         printf( "CNTRL.C: TEST: HK   : tvl_sw=%f mv_y=%f pu_sb=%d\n",
-                hk_out.tvl_sw, hk_out.mv_y, hk_out.pu_sb );        
+                hk_out.tvl_sw, hk_out.mv_y.y, hk_out.pu_sb );        
         printf( "CNTRL.C: TEST: WW   : hzg_tvl_sw=%f hzg_mv_y=%f hzg_pu_y=%f zirk_pu_sb=%d hzg_pu_sb=%d hzg_vv_sb=%d\n", 
-                ww_out.hzg_tvl_sw, ww_out.hzg_mv_y, ww_out.hzg_pu_y, ww_out.zirk_pu_sb, ww_out.hzg_pu_sb, ww_out.hzg_vv_sb );
+                ww_out.hzg_tvl_sw, ww_out.hzg_mv_y.y, ww_out.hzg_pu_y.y, ww_out.zirk_pu_sb, ww_out.hzg_pu_sb, ww_out.hzg_vv_sb );
         printf( "CNTRL.C: TEST: KES  : sp1_to_sw=%f sp2_to_sw=%f tvl_sw_sp1=%f tvl_sw_sp2=%f \n",
                 kes_out.sp1_to_sw, kes_out.sp2_to_sw, kes_out.tvl_sw_sp1 , kes_out.tvl_sw_sp2 );
         printf( "CNTRL.C: TEST: KES  : tvl_sw=%f pu_sp1_sb=%d pu_sp1_sb=%d\n", 
