@@ -1,5 +1,6 @@
 #define _KES_C_
 
+#include "gen_types.h"
 #include "param.h"
 #include "kes.h"
 
@@ -37,6 +38,7 @@ void kes_Run( const kes_param_t *par_p,
     /* Schaltkriterium fuer Speicherladepumpe 1 */
     if( in_p->sp1_to_mw < out_p->sp1_to_sw ) {
         out_p->tvl_sw_sp1 = out_p->sp1_to_sw + par_p->sp_dt_sw;
+        /* Einschalten der Pumpe erst wenn Brenner ein oder die Vorlauftemperatur > Speichertemperatur */
         if( (in_p->br_bm == IO_EIN) || (in_p->tvl_mw > in_p->sp1_to_mw) ) 
             out_p->pu_sp1_sb = IO_EIN;
         /* Wenn Sp.-pumpe 1 ein, Sp.-pumpe 2 immer aus! */
@@ -46,12 +48,16 @@ void kes_Run( const kes_param_t *par_p,
         out_p->tvl_sw_sp1 = 0.0;   /* Kessel AUS */
         out_p->pu_sp1_sb = IO_AUS;
     }
-
+    else {
+        out_p->pu_sp1_sb = IO_EIN;
+    }
+    
     /* Schaltkriterium fuer Speicherladepumpe 2 */
     if( out_p->pu_sp1_sb == IO_AUS ) {
         /* Sp.-pumpe 2 nur einschalten, wenn Sp.-pumpe 1 aus ist! */
         if( in_p->sp2_to_mw < out_p->sp2_to_sw ) {
             out_p->tvl_sw_sp2 = out_p->sp2_to_sw + par_p->sp_dt_sw;
+            /* Einschalten der Pumpe erst wenn Brenner ein oder die Vorlauftemperatur > Speichertemperatur */
             if( (in_p->br_bm == IO_EIN) || (in_p->tvl_mw > in_p->sp2_to_mw) ) 
                 out_p->pu_sp2_sb = IO_EIN;
         }
@@ -61,6 +67,7 @@ void kes_Run( const kes_param_t *par_p,
         }
     }
     else /* if( KES_PU_SP1_SB == IO_EIN ) */ {
+        out_p->tvl_sw_sp2 = 0.0;  /* Kessel AUS */
         out_p->pu_sp2_sb = IO_AUS;
     }
 
