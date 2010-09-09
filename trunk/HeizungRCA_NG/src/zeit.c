@@ -42,12 +42,12 @@ static int zeit_einlesen( int states_max, zeit_schaltpunkt_t schaltzeiten[] )
 
 void zeit_Init( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
 {
-	FILE 	*handle;
-   	char	linestr[128];
- 	char	*parameter, *value;
+    FILE    *handle;
+    char    linestr[128];
+    char    *parameter, *value;
 
-	handle = fopen( ZEITPROGRAMMDATEI, "r" );
-	if( handle == NULL ) {
+    handle = fopen( ZEITPROGRAMMDATEI, "r" );
+    if( handle == NULL ) {
         printf( "ZEIT.C: Datei wochenzeitprogramm.ini konnte nicht geöffnet werden!\n" );
     }
     else {

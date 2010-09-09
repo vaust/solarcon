@@ -56,7 +56,7 @@ static void task_minute( const di_bitbyte_t all_party,
                                zeit_party_t *partytime,
                                task_tau_t   *tau       )
 {
-    static int		index = 0;
+    static int  index = 0;
 
     /* Partyflag Ruecksetzzeitpunkt ermitteln */
     if(  partytime->all_party_restzeit_min > 0 ) {
@@ -97,27 +97,27 @@ static void task_minute( const di_bitbyte_t all_party,
 
 static void task_stunde( task_tau_t *tau )
 {
-	static int index = 0;
+    static int index = 0;
 
-	/* Berechnung des 36h (default) Mittelwerts der Aussentemperatur aus 36 1h Mittelwerten */
-	tau->t_36h_summe += tau->t_1h_mittel - tau->t_1h_mittel_36h_Intervall[index];
+    /* Berechnung des 36h (default) Mittelwerts der Aussentemperatur aus 36 1h Mittelwerten */
+    tau->t_36h_summe += tau->t_1h_mittel - tau->t_1h_mittel_36h_Intervall[index];
     tau->t_1h_mittel_36h_Intervall[index] = tau->t_1h_mittel;
     index ++;
-	if( index >= param_all_tau_mittel_zeit )
+    if( index >= param_all_tau_mittel_zeit )
         index = 0;
-	tau->t_36h_mittel = tau->t_36h_summe / param_all_tau_mittel_zeit;
+    tau->t_36h_mittel = tau->t_36h_summe / param_all_tau_mittel_zeit;
 }
 
 void task_Init( task_tau_t *tau, float all_tau_mw )
 {
-	int i;
+    int i;
 
-	for( i=0; i<60; i++ ) 
+    for( i=0; i<60; i++ ) 
         tau->t_1min_Intervall[i] = all_tau_mw;
-	for( i=0; i<param_all_tau_mittel_zeit; i++ ) 
+    for( i=0; i<param_all_tau_mittel_zeit; i++ ) 
         tau->t_1h_mittel_36h_Intervall[i] = all_tau_mw;
-	tau->t_1h_summe = all_tau_mw * 60;
-	tau->t_36h_summe = all_tau_mw * param_all_tau_mittel_zeit;
+    tau->t_1h_summe = all_tau_mw * 60;
+    tau->t_36h_summe = all_tau_mw * param_all_tau_mittel_zeit;
 }
 
 
