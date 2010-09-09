@@ -115,46 +115,46 @@ PUBLIC int   param_hour_offset;         /**< Workaround fuer localtime() Fehler 
 
 /* <Konstanten> */
 #ifdef _PARAM_C_
-const parse_set_t Vorgaben[] = {
-    { "ALL_Tau_mittel_Zeit", &param_all_tau_mittel_zeit, "%d" }, //  0
-    { "ALL_Partydauer",      &param_all_partydauer,      "%d" }, //  1
-    { "ALL_Frostschutz",     &param_all_frostschutz,     "%f" }, //  2
-    { "ALL_AT_Start",        &param_all_at_start,        "%f" }, //  3
-    { "SOL_dT_ein_SW",       &param_sol_dt_ein_sw,       "%f" }, //  4
-    { "SOL_dT_aus_SW",       &param_sol_dt_aus_sw,       "%f" }, //  5
-    { "SOL_KOLL_T_max",      &param_sol_koll_t_max,      "%f" }, //  6
-    { "SOL_SP_T_max",        &param_sol_sp_t_max,        "%f" }, //  7
-    { "SOL_SP1_T_min",       &param_sol_sp1_t_min,       "%f" }, //  8
-    { "KES_SP_dT_SW",        &param_kes_sp_dt_sw,        "%f" }, //  9
-    { "HK_Tvl_Steigung",     &param_hk_tvl_steigung,     "%f" }, // 10
-    { "HK_Tvl_Niveau",       &param_hk_tvl_niveau,       "%f" }, // 11
-    { "HK_Tvl_Absenk",       &param_hk_tvl_absenk,       "%f" }, // 12
-    { "HK_Tvl_Min",          &param_hk_tvl_min,          "%f" }, // 13
-    { "HK_Tvl_Max",          &param_hk_tvl_max,          "%f" }, // 14
-    { "HK_Frostschutz",      &param_hk_frostschutz,      "%f" }, // 15
-    { "HK_REG_Kp",           &param_hk_reg_kp,           "%f" }, // 16
-    { "HK_REG_Tn",           &param_hk_reg_tn,           "%f" }, // 17
-    { "HK_Tr_SW",            &param_hk_tr_sw,            "%f" }, // 18
-    { "FB_Tvl_Steigung",     &param_fb_tvl_steigung,     "%f" }, // 19
-    { "FB_Tvl_Niveau",       &param_fb_tvl_niveau,       "%f" }, // 20
-    { "FB_Tr_SW",            &param_fb_tr_sw,            "%f" }, // 21
-    { "FB_Tvl_Absenk",       &param_fb_tvl_absenk,       "%f" }, // 22
-    { "FB_Tvl_Min",          &param_fb_tvl_min,          "%f" }, // 23
-    { "FB_Tvl_Max",          &param_fb_tvl_max,          "%f" }, // 24
-    { "FB_REG_Kp",           &param_fb_reg_kp,           "%f" }, // 25
-    { "FB_REG_Tn",           &param_fb_reg_tn,           "%f" }, // 26
-    { "WW_Tww_SW",           &param_ww_tww_sw,           "%f" }, // 27
-    { "WW_Tww_Max",          &param_ww_tww_max,          "%f" }, // 28
-    { "WZ_Faktor",           &param_wz_faktor,           "%f" }, // 29
-    { "WZ_Max",              &param_wz_max,              "%f" }, // 30
-    { "WW_PU_REG_Kp",        &param_ww_pu_reg_kp,        "%f" }, // 31
-    { "WW_PU_REG_Tn",        &param_ww_pu_reg_tn,        "%f" }, // 32
-    { "WW_MV_KORR",          &param_ww_mv_korr,          "%f" }, // 33
-    { "WW_Tww_Tvl_Faktor",   &param_ww_tww_tvl_faktor,   "%f" }, // 34
-    { "WW_Tz_SW",            &param_ww_tz_sw,            "%f" }  // 35
+const parse_set_t param_Vorgaben[] = {
+    { "ALL_Tau_mittel_Zeit", &param_all_tau_mittel_zeit, "%d" },
+    { "ALL_Partydauer",      &param_all_partydauer,      "%d" },
+    { "ALL_Frostschutz",     &param_all_frostschutz,     "%f" },
+    { "ALL_AT_Start",        &param_all_at_start,        "%f" },
+    { "SOL_dT_ein_SW",       &param_sol_dt_ein_sw,       "%f" },
+    { "SOL_dT_aus_SW",       &param_sol_dt_aus_sw,       "%f" },
+    { "SOL_KOLL_T_max",      &param_sol_koll_t_max,      "%f" },
+    { "SOL_SP_T_max",        &param_sol_sp_t_max,        "%f" },
+    { "SOL_SP1_T_min",       &param_sol_sp1_t_min,       "%f" },
+    { "KES_SP_dT_SW",        &param_kes_sp_dt_sw,        "%f" },
+    { "HK_Tvl_Steigung",     &param_hk_tvl_steigung,     "%f" },
+    { "HK_Tvl_Niveau",       &param_hk_tvl_niveau,       "%f" },
+    { "HK_Tvl_Absenk",       &param_hk_tvl_absenk,       "%f" },
+    { "HK_Tvl_Min",          &param_hk_tvl_min,          "%f" },
+    { "HK_Tvl_Max",          &param_hk_tvl_max,          "%f" },
+    { "HK_Frostschutz",      &param_hk_frostschutz,      "%f" },
+    { "HK_REG_Kp",           &param_hk_reg_kp,           "%f" },
+    { "HK_REG_Tn",           &param_hk_reg_tn,           "%f" },
+    { "HK_Tr_SW",            &param_hk_tr_sw,            "%f" },
+    { "FB_Tvl_Steigung",     &param_fb_tvl_steigung,     "%f" },
+    { "FB_Tvl_Niveau",       &param_fb_tvl_niveau,       "%f" },
+    { "FB_Tr_SW",            &param_fb_tr_sw,            "%f" },
+    { "FB_Tvl_Absenk",       &param_fb_tvl_absenk,       "%f" },
+    { "FB_Tvl_Min",          &param_fb_tvl_min,          "%f" },
+    { "FB_Tvl_Max",          &param_fb_tvl_max,          "%f" },
+    { "FB_REG_Kp",           &param_fb_reg_kp,           "%f" },
+    { "FB_REG_Tn",           &param_fb_reg_tn,           "%f" },
+    { "WW_Tww_SW",           &param_ww_tww_sw,           "%f" },
+    { "WW_Tww_Max",          &param_ww_tww_max,          "%f" },
+    { "WZ_Faktor",           &param_wz_faktor,           "%f" },
+    { "WZ_Max",              &param_wz_max,              "%f" },
+    { "WW_PU_REG_Kp",        &param_ww_pu_reg_kp,        "%f" },
+    { "WW_PU_REG_Tn",        &param_ww_pu_reg_tn,        "%f" },
+    { "WW_MV_KORR",          &param_ww_mv_korr,          "%f" },
+    { "WW_Tww_Tvl_Faktor",   &param_ww_tww_tvl_faktor,   "%f" },
+    { "WW_Tz_SW",            &param_ww_tz_sw,            "%f" }
 };
 #else
-extern parse_set_t Vorgaben[];
+extern parse_set_t param_Vorgaben[];
 #endif
 /* <Konstanten/> */
 

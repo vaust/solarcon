@@ -190,6 +190,7 @@ void zeit_TEST_Schaltzeiten( void )
         printf( "ZEIT.C: TEST: DUSCH_Ein_Schaltzeiten[%d] = %ld, DUSCH_Aus_Schaltzeiten[%d] = %ld\n",
                 n, FB_Ein_Schaltzeiten[n], n, FB_Aus_Schaltzeiten[n] );
 
+    printf( "ZEIT.C: TEST: HOUR_OFFSET = %d\n", param_hour_offset );
     printf( "\n" );
 }
 
