@@ -15,10 +15,10 @@ static int param_ReadVorgaben( FILE *handle )
         fgets( linestr, 127, handle );
         if( linestr[0] != '%' ) {
             parameter = strtok( linestr, "=" );
-            for( n=0; n<(sizeof(Vorgaben)/sizeof(parse_set_t)); n++ ) {
-                if( strncmp( parameter, Vorgaben[n].VarName, strlen(Vorgaben[n].VarName) ) == 0 ) {
+            for( n=0; n<(sizeof(param_Vorgaben)/sizeof(parse_set_t)); n++ ) {
+                if( strncmp( parameter, param_Vorgaben[n].VarName, strlen(param_Vorgaben[n].VarName) ) == 0 ) {
                     value = strtok( NULL, "\n" );
-                    sscanf( value, Vorgaben[n].format, Vorgaben[n].VarPointer );
+                    sscanf( value, param_Vorgaben[n].format, param_Vorgaben[n].VarPointer );
                     break; /* Passende Variable gefunden: For Schleife abbrechen und zur naechsten Zeile */
                 }
             }
@@ -102,22 +102,22 @@ void param_TEST_Vorgaben( void )
 {
     int n;
     
-    for( n=0; n<(sizeof(Vorgaben)/sizeof(parse_set_t)); n++ ) {
+    for( n=0; n<(sizeof(param_Vorgaben)/sizeof(parse_set_t)); n++ ) {
         printf( "PARAM.C: TEST: " );
-        printf( Vorgaben[n].VarName );
-        printf( "= " );
-        switch ( Vorgaben[n].format[1] ) {
+        printf( param_Vorgaben[n].VarName );
+        printf( " = " );
+        switch ( param_Vorgaben[n].format[1] ) {
             case 'd':
-                printf( Vorgaben[n].format, *(int *)Vorgaben[n].VarPointer );
+                printf( param_Vorgaben[n].format, *(int *)param_Vorgaben[n].VarPointer );
                 break;
             case 'f':
             default:
-                printf( Vorgaben[n].format, *(float *)Vorgaben[n].VarPointer );
+                printf( param_Vorgaben[n].format, *(float *)param_Vorgaben[n].VarPointer );
                 break;
         }
         printf( "\n" );
     }
-    printf( "PARAM.C: TEST: Sizeof(Vorgaben) = %u\n\n", sizeof(Vorgaben)/sizeof(parse_set_t) );
+    printf( "PARAM.C: TEST: Sizeof(Vorgaben) = %u\n\n", sizeof(param_Vorgaben)/sizeof(parse_set_t) );
 }
 #endif /* __TEST__ */
 
