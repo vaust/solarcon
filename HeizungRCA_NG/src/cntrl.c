@@ -114,11 +114,11 @@ int main( void )
         /* solar_Run(), fb_Run() und hk_Run() sind unabh�ngig von einander */
 
         /* Solar Controller */
-        sol_in_Sp1.koll_t_mw = 85.0;  // = SOL_KOLL_T_MW;
+        sol_in_Sp1.koll_t_mw = 35.0;  // = SOL_KOLL_T_MW;
         sol_in_Sp1.sp_to_mw  = 38.0;  // = SOL_SP1_To_MW;
         sol_in_Sp1.sp_tu_mw  = 34.0;  // = SOL_SP1_Tu_MW;
 
-        sol_in_Sp2.koll_t_mw = 85.0;  // = SOL_KOLL_T_MW;
+        sol_in_Sp2.koll_t_mw = 35.0;  // = SOL_KOLL_T_MW;
         sol_in_Sp2.sp_to_mw  = 57.0;  // = SOL_SP2_To_MW;
         sol_in_Sp2.sp_tu_mw  = 44.0;  // = SOL_SP2_Tu_MW;
 
