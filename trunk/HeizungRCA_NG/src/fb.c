@@ -10,7 +10,7 @@
     \param q_p Pointer auf reglerspezifische Parameter für den Mischventilregler
     \return kein
 */
-void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p )
+void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )
 {
     /* Vorgaben aus Parametrierung */
     par_p->frostschutz  = param_all_frostschutz;
@@ -29,6 +29,7 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p )
     q_p->q1          = -par_p->reg_kp;
     q_p->lower_limit = MIN_Y_PCT;
     q_p->upper_limit = MAX_Y_PCT;
+    sup_DigRegInit( q_p, &(out_p->prim_mv_y) );
 }
 
 /** \brief Fußbodenheizung Reglerfunktion

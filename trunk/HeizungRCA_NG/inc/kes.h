@@ -13,7 +13,7 @@ typedef struct {
     float tvl_max;
     float at_start;
     float frostschutz;
-    float sp_dt_sw;  /* Globaler Wert div 2 !! */
+    float sp_dt_sw;         /**< Globaler Wert div 2 !! */
     float ww_tww_sw;
 } kes_param_t;
 
@@ -42,7 +42,7 @@ typedef struct {
 /* <Typen/> */
 
 /* <Prototypen> */
-void kes_Init( void );
+void kes_Init( kes_param_t *par_p );
 void kes_Run( const kes_param_t *par_p, 
               const kes_in_t    *in_p,
                     kes_out_t   *out_p );

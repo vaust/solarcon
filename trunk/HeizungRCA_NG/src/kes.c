@@ -1,9 +1,20 @@
 #define _KES_C_
 
+#include "param.h"
 #include "kes.h"
 
-void kes_Init( void )
+void kes_Init( kes_param_t *par_p )
 {
+    par_p->TA           = ABTASTZEIT;
+    par_p->tvl_absenk   = param_hk_tvl_absenk;
+    par_p->tvl_steigung = param_hk_tvl_steigung;
+    par_p->tvl_niveau   = param_hk_tvl_niveau;
+    par_p->tvl_min      = param_hk_tvl_min;
+    par_p->tvl_max      = param_hk_tvl_max;
+    par_p->at_start     = param_all_at_start;
+    par_p->frostschutz  = param_all_frostschutz;
+    par_p->sp_dt_sw     = param_kes_sp_dt_sw;       
+    par_p->ww_tww_sw    = param_ww_tww_sw;
 }
 
 void kes_Run( const kes_param_t *par_p, 

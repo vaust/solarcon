@@ -28,15 +28,15 @@ typedef struct {
 } fb_in_t;
 
 typedef struct {
-    float        tvl_sw;
-    float        prim_mv_y;
-    do_bitbyte_t prim_pu_sb;
-    do_bitbyte_t sek_pu_sb;
+    float            tvl_sw;
+    sup_digreg_out_t prim_mv_y;
+    do_bitbyte_t     prim_pu_sb;
+    do_bitbyte_t     sek_pu_sb;
 } fb_out_t;
 /* <Typen/> */
 
 /* <Prototypen> */
-void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p );
+void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p );
 void fb_Run( const fb_param_t *par_p, const sup_digreg_coeff_t *q_p, const fb_in_t *in_p, fb_out_t *out_p );
 /* <Prototypen/> */
 
