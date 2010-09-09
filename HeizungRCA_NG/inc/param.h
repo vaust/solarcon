@@ -110,7 +110,7 @@ PUBLIC float param_ww_mv_korr;          /**< WW Hzg-VL-Temperatur-Steurung (Misc
 PUBLIC float param_ww_tww_tvl_faktor;   /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                                */
 PUBLIC float param_ww_tz_sw;            /**< Temperatursollwert des Zirkulationswassers in Grad C                                */
 
-PUBLIC int   param_hour_offset;         /**< Workaround fuer localtime() Fehler                                                  */
+PUBLIC int   param_hour_offset;         /**< Workaround fuer localtime() Fehler (nur auf WAGO Hardware relevant)                 */
 /* <Variablen/> */
 
 /* <Konstanten> */

@@ -1,13 +1,14 @@
 #ifndef _TASK_H_
 #define _TASK_H_
 
+
 #include "gen_types.h"
 #include "zeit.h"
 
 /* <Typen> */
 typedef struct {
-    float t_1min_Intervall[60];
-    float t_1h_mittel_36h_Intervall[MAX_ALL_Tau_mittel_Zeit];
+    float t_1min_Intervall[60];                                 /**< Temperaturen der letzten Stunde im Minutenintervall */
+    float t_1h_mittel_36h_Intervall[MAX_ALL_Tau_mittel_Zeit];   /**< Temperaturen der letzten 36h    im Stundenintervall */
     float t_1h_summe;
     float t_1h_mittel;
     float t_36h_summe;
@@ -23,9 +24,9 @@ typedef struct {
 #endif
 
 /* <Variablen> */
-PUBLIC u16_t     task_hk_Aufheizzeit;         /* Zeit von Heizbeginn bis zum Erreichen der Raumtemperatur in Minuten */
-PUBLIC u32_t     task_ww_Zaehler;             /* Wasserzaehler */
-PUBLIC u32_t     task_kes_Betriebszeit_sec;   /* Betriebszeitzähler Kessel in Sek. Applikation rechnet in Stunden um */
+PUBLIC u16_t     task_hk_Aufheizzeit;         /**< Zeit von Heizbeginn bis zum Erreichen der Raumtemperatur in Minuten */
+PUBLIC u32_t     task_ww_Zaehler;             /**< Wasserzaehler */
+PUBLIC u32_t     task_kes_Betriebszeit_sec;   /**< Betriebszeitzähler Kessel in Sek. Applikation rechnet in Stunden um */
 /* <Variablen/> */
 
 /* <Prototypen> */
