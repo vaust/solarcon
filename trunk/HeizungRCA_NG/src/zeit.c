@@ -171,25 +171,48 @@ void zeit_Run( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
 /** TESTCODE */
 #ifdef __TEST__
 
+void zeit_TEST_minToTime( s16_t t, s16_t *d, s16_t *h, s16_t *m )
+{
+    s16_t tmp;
+    
+    tmp  = t;
+    *m   = tmp % 60;
+    tmp  /= 60;
+    *h   = tmp % 24;
+    tmp  /= 24;
+    *d = tmp % 7;
+}    
+        
 void zeit_TEST_Schaltzeiten( void )
 {
-    int n;
-    for( n=0; n<fb_states; n++ )
-        printf( "ZEIT.C: TEST: FB_Ein_Schaltzeiten[%d] = %ld, FB_Aus_Schaltzeiten[%d] = %ld\n",
-                n, FB_Ein_Schaltzeiten[n], n, FB_Aus_Schaltzeiten[n] );
-
-    for( n=0; n<hk_states; n++ )
-        printf( "ZEIT.C: TEST: HK_Ein_Schaltzeiten[%d] = %ld, HK_Aus_Schaltzeiten[%d] = %ld\n",
-                n, HK_Ein_Schaltzeiten[n], n, HK_Aus_Schaltzeiten[n] );
-
-    for( n=0; n<zirk_states; n++ )
-        printf( "ZEIT.C: TEST: ZIRK_Ein_Schaltzeiten[%d] = %ld, ZIRK_Aus_Schaltzeiten[%d] = %ld\n",
-                n, ZIRK_Ein_Schaltzeiten[n], n, ZIRK_Aus_Schaltzeiten[n] );
-
-    for( n=0; n<dusch_states; n++ )
-        printf( "ZEIT.C: TEST: DUSCH_Ein_Schaltzeiten[%d] = %ld, DUSCH_Aus_Schaltzeiten[%d] = %ld\n",
-                n, FB_Ein_Schaltzeiten[n], n, FB_Aus_Schaltzeiten[n] );
-
+    s16_t n;
+    s16_t d_ein, h_ein, m_ein;
+    s16_t d_aus, h_aus, m_aus;
+   
+    for( n=0; n<hk_states; n++ ) {
+        zeit_TEST_minToTime( HK_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
+        zeit_TEST_minToTime( HK_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
+        printf( "ZEIT.C: TEST: HK_Ein_Schaltzeiten[%d]    = %1d-%02d:%02d, HK_Aus_Schaltzeiten[%d]    = %1d-%02d:%02d\n",
+                n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
+    }
+    for( n=0; n<fb_states; n++ ) {
+        zeit_TEST_minToTime( FB_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
+        zeit_TEST_minToTime( FB_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
+        printf( "ZEIT.C: TEST: FB_Ein_Schaltzeiten[%d]    = %1d-%02d:%02d, FB_Aus_Schaltzeiten[%d]    = %1d-%02d:%02d\n",
+                n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
+    }
+    for( n=0; n<zirk_states; n++ ) {
+        zeit_TEST_minToTime( ZIRK_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
+        zeit_TEST_minToTime( ZIRK_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
+        printf( "ZEIT.C: TEST: ZIRK_Ein_Schaltzeiten[%d]  = %1d-%02d:%02d, ZIRK_Aus_Schaltzeiten[%d]  = %1d-%02d:%02d\n",
+                n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
+    }
+    for( n=0; n<dusch_states; n++ ) {
+        zeit_TEST_minToTime( DUSCH_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
+        zeit_TEST_minToTime( DUSCH_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
+        printf( "ZEIT.C: TEST: DUSCH_Ein_Schaltzeiten[%d] = %1d-%02d:%02d, DUSCH_Aus_Schaltzeiten[%d] = %1d-%02d:%02d\n",
+                n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
+    }
     printf( "ZEIT.C: TEST: HOUR_OFFSET = %d\n", param_hour_offset );
     printf( "\n" );
 }
