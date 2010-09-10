@@ -30,6 +30,7 @@ typedef struct {
     float tau_mw;
     float tau_avg;
     u32_t wz_mw;                    /**< Zaehlerstand des Wasserzaehlers (noch nicht in Verwendung */
+    float hzg_tvl_mw;
     float hzg_trl_mw;
     float hk_tvl_sw;
     float sol_sp1_to_mw;

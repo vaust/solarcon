@@ -10,7 +10,7 @@ static void ww_MV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_ou
         out_p->hzg_mv_y.y =
             (out_p->hzg_tvl_sw - in_p->hzg_trl_mw) * 100.0 / 
                 (in_p->sol_sp1_to_mw - in_p->hzg_trl_mw)  
-          + (out_p->hzg_tvl_sw - out_p->hzg_tvl_sw) * par_p->mv_korr;            
+          + (out_p->hzg_tvl_sw - in_p->hzg_tvl_mw) * par_p->mv_korr;            
     } else
     {
         out_p->hzg_mv_y.y = MAX_Y_PCT;  /* dann stimmt was nicht -> Ventil voll auf */

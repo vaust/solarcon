@@ -91,7 +91,7 @@ int main( void )
         cntrl_fb_in.zustand        = cntrl_zeit_absenkung.FB_Zustand;
         cntrl_fb_in.partytime_flg  = cntrl_hk_in.partytime_flg  = cntrl_zeit_party.all_partytime_flg;
 
-        cntrl_hk_in.tvl_mw         = 45.0;   // = HK_Tvl_MW;
+        cntrl_hk_in.tvl_mw         = cntrl_ww_in.hzg_tvl_mw     = 45.0;   // = HK_Tvl_MW;
         cntrl_hk_in.zustand        = cntrl_zeit_absenkung.HK_Zustand;
 
         cntrl_ww_in.tww_mw         = 23.4;   // = WW_Tww_MW;
