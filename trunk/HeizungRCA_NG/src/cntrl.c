@@ -69,7 +69,7 @@ int main( void )
 #endif
 
     KBUSOPEN();
-    for(;;) {
+    while( 1  ) {
         KBUSUPDATE();
 
         MUTEX_LOCK();

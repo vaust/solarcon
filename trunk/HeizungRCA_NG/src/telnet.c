@@ -9,10 +9,10 @@
 #include <pthread.h>    /* Fuer Threadfunktionalitaet */
 #include <semaphore.h>
 #define MUTEX_LOCK()    pthread_mutex_lock( &mutex )
-#define MUTEX_UNLOCK()  pthread_mutex_unlock( &mutex ) 
+#define MUTEX_UNLOCK()  pthread_mutex_unlock( &mutex )
 #else
-#define MUTEX_LOCK()   
-#define MUTEX_UNLOCK() 
+#define MUTEX_LOCK()
+#define MUTEX_UNLOCK()
 #endif
 
 #include "param.h"
@@ -20,8 +20,8 @@
 
 #define BFLN    64
 #define BFLSH()  write( fdesc, bufout, strlen( bufout ) )
-  
-/** 
+
+/**
 server_thread.
 Server Threads die mit dem Client (Telnet, Heizungsregler oder Visualisierung)
 kommunizieren
@@ -86,6 +86,13 @@ void *telnet_thread( void *arg )
         }
     }
 }
+
+typedef struct {
+    char *VarName;
+    void *VarPointer;
+    char *format;
+} doc_set_t;
+
 
 void telnet_writeTemps( void );
 
