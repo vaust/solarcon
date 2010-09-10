@@ -4,7 +4,7 @@
 #include "param.h"
 #include "kes.h"
 
-void kes_Init( kes_param_t *par_p )
+void kes_Init( kes_param_t *par_p, kes_out_t *out_p )
 {
     par_p->TA           = ABTASTZEIT;
     par_p->tvl_absenk   = param_hk_tvl_absenk;
@@ -16,6 +16,10 @@ void kes_Init( kes_param_t *par_p )
     par_p->frostschutz  = param_all_frostschutz;
     par_p->sp_dt_sw     = param_kes_sp_dt_sw;       
     par_p->ww_tww_sw    = param_ww_tww_sw;
+
+    /* Ausgaenge initialisieren: (notwendig wg. undefinierten Zustands in Hystereseschleife zum Programmstart */
+    out_p->pu_sp1_sb = IO_AUS;
+    out_p->pu_sp2_sb = IO_AUS;
 }
 
 void kes_Run( const kes_param_t *par_p, 
@@ -48,9 +52,6 @@ void kes_Run( const kes_param_t *par_p,
         out_p->tvl_sw_sp1 = 0.0;   /* Kessel AUS */
         out_p->pu_sp1_sb = IO_AUS;
     }
-    else {
-        out_p->pu_sp1_sb = IO_EIN;
-    }
     
     /* Schaltkriterium fuer Speicherladepumpe 2 */
     if( out_p->pu_sp1_sb == IO_AUS ) {
@@ -71,9 +72,7 @@ void kes_Run( const kes_param_t *par_p,
         out_p->pu_sp2_sb = IO_AUS;
     }
 
-    /*
-     * Notfall in dem Sp.-pumpe 2 immer laufen soll:
-     */
+    /* Notfall in dem Sp.-pumpe 2 immer laufen soll: */
     if( in_p->sp2_to_mw < (in_p->fb_tvl_sw - par_p->sp_dt_sw) ) {
         if( in_p->br_bm == IO_EIN ) out_p->pu_sp2_sb = IO_EIN;
     }
