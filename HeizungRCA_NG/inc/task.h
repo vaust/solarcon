@@ -3,6 +3,7 @@
 
 
 #include "gen_types.h"
+#include "param.h"
 #include "zeit.h"
 
 /* <Typen> */
