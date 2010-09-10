@@ -5,7 +5,7 @@
 
 static void ww_MV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_out_t *out_p )
 {
-    out_p->hzg_tvl_sw = par_p->tww_sw + par_p->kes_sp_dt_sw/2.0;
+    out_p->hzg_tvl_sw = par_p->tww_sw + par_p->kes_sp_dt_sw;
     if( in_p->sol_sp1_to_mw > in_p->hzg_trl_mw ) {
         out_p->hzg_mv_y.y =
             (out_p->hzg_tvl_sw - in_p->hzg_trl_mw) * 100.0 / 
