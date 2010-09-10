@@ -26,9 +26,9 @@
 #ifdef __WAGO__
 #include <asm/types.h>
 #include "kbusapi.h"
-#define KBUSOPEN() KbusOpen()
+#define KBUSOPEN()   KbusOpen()
 #define KBUSUPDATE() KbusUpdate()
-#define KBUSCLOSE() KbusClose()
+#define KBUSCLOSE()  KbusClose()
 #else
 #define KBUSOPEN() 
 #define KBUSUPDATE() 
@@ -36,7 +36,7 @@
 #endif
 
 #ifdef __REENTRANT__
-#include <pthread.h>        /* Fuer Threadfunktionalitaet */
+#include <pthread.h>    /* Fuer Threadfunktionalitaet */
 #include <semaphore.h>
 #define MUTEX_LOCK()    pthread_mutex_lock( &mutex )
 #define MUTEX_UNLOCK()  pthread_mutex_unlock( &mutex ) 
@@ -69,7 +69,7 @@ int main( void )
 #endif
 
     KBUSOPEN();
-//    while( 1 ) {
+    for(;;) {
         KBUSUPDATE();
 
         MUTEX_LOCK();
@@ -79,22 +79,22 @@ int main( void )
         /* Absenkzeiten ermitteln */
         zeit_Run( &cntrl_zeit_absenkung, &cntrl_zeit_event );
 
-        cntrl_sol_in_Sp1.koll_t_mw = cntrl_sol_in_Sp2.koll_t_mw                           = 35.0;  // = SOL_KOLL_T_MW;
-        cntrl_sol_in_Sp1.sp_to_mw  = cntrl_ww_in.sol_sp1_to_mw   = cntrl_kes_in.sp1_to_mw = 67.9;  // = SOL_SP1_To_MW; 
-        cntrl_sol_in_Sp1.sp_tu_mw                                = cntrl_kes_in.sp1_tu_mw = 34.0;  // = SOL_SP1_Tu_MW;  
-        cntrl_sol_in_Sp2.sp_to_mw                                = cntrl_kes_in.sp2_to_mw = 37.0;  // = SOL_SP2_To_MW; 
-        cntrl_sol_in_Sp2.sp_tu_mw  = cntrl_ww_in.sol_sp2_tu_mw   = cntrl_kes_in.sp2_tu_mw = 42.0;  // = SOL_SP2_Tu_MW;                     
+        cntrl_sol_in_Sp1.koll_t_mw = cntrl_sol_in_Sp2.koll_t_mw                          = 35.0;  // = SOL_KOLL_T_MW;
+        cntrl_sol_in_Sp1.sp_to_mw  = cntrl_ww_in.sol_sp1_to_mw  = cntrl_kes_in.sp1_to_mw = 67.9;  // = SOL_SP1_To_MW; 
+        cntrl_sol_in_Sp1.sp_tu_mw                               = cntrl_kes_in.sp1_tu_mw = 34.0;  // = SOL_SP1_Tu_MW;  
+        cntrl_sol_in_Sp2.sp_to_mw                               = cntrl_kes_in.sp2_to_mw = 37.0;  // = SOL_SP2_To_MW; 
+        cntrl_sol_in_Sp2.sp_tu_mw  = cntrl_ww_in.sol_sp2_tu_mw  = cntrl_kes_in.sp2_tu_mw = 33.0;  // = SOL_SP2_Tu_MW;                     
 
-        cntrl_fb_in.tau_mw         = cntrl_hk_in.tau_mw          = cntrl_ww_in.tau_mw     = 11.0;   // = ALL_Tau_MW;
-        cntrl_fb_in.tau_avg        = cntrl_hk_in.tau_avg         = cntrl_ww_in.tau_avg    = 13.4;   // = tau.t_36h_mittel;
-        cntrl_fb_in.sek_tvl_mw                                                            = 27.0;   // = FB_SEK_Tvl_MW;
+        cntrl_fb_in.tau_mw         = cntrl_hk_in.tau_mw         = cntrl_ww_in.tau_mw     = 11.0;  // = ALL_Tau_MW;
+        cntrl_fb_in.tau_avg        = cntrl_hk_in.tau_avg        = cntrl_ww_in.tau_avg    = 13.4;  // = tau.t_36h_mittel;
+        cntrl_fb_in.sek_tvl_mw                                                           = 27.0;  // = FB_SEK_Tvl_MW;
         cntrl_fb_in.zustand        = cntrl_zeit_absenkung.FB_Zustand;
         cntrl_fb_in.partytime_flg  = cntrl_hk_in.partytime_flg  = cntrl_zeit_party.all_partytime_flg;
 
         cntrl_hk_in.tvl_mw         = 45.0;   // = HK_Tvl_MW;
         cntrl_hk_in.zustand        = cntrl_zeit_absenkung.HK_Zustand;
 
-        cntrl_ww_in.tww_mw         = 41.4;   // = WW_Tww_MW;
+        cntrl_ww_in.tww_mw         = 23.4;   // = WW_Tww_MW;
         cntrl_ww_in.hzg_trl_mw     = 31.0;   // = HK_Trl_MW;
 
         cntrl_kes_in.tvl_mw        = 25.0;   // = KES_Tvl_MW;
@@ -132,7 +132,7 @@ int main( void )
                 cntrl_ww_out.zirk_pu_sb, cntrl_ww_out.hzg_pu_sb, cntrl_ww_out.hzg_vv_sb );
         printf( "CNTRL.C: TEST: KES  : sp1_to_sw=%f sp2_to_sw=%f tvl_sw_sp1=%f tvl_sw_sp2=%f \n",
                 cntrl_kes_out.sp1_to_sw, cntrl_kes_out.sp2_to_sw, 
-                cntrl_kes_out.tvl_sw_sp1 , cntrl_kes_out.tvl_sw_sp2 );
+                cntrl_kes_out.tvl_sw_sp1, cntrl_kes_out.tvl_sw_sp2 );
         printf( "CNTRL.C: TEST: KES  : tvl_sw=%f pu_sp1_sb=%d pu_sp2_sb=%d\n", 
                 cntrl_kes_out.tvl_sw, cntrl_kes_out.pu_sp1_sb, cntrl_kes_out.pu_sp2_sb );
                 printf( "\n" );        
@@ -146,7 +146,7 @@ int main( void )
         
         /* Abtastzeit abwarten. ACHTUNG: Rechenzeit nicht beruecksichtigt */
         SLEEP( ABTASTZEIT_USEC ); 
-//    }
+    }
     KBUSCLOSE();
     return( 0 );
 }

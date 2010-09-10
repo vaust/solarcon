@@ -44,7 +44,7 @@
 #define WW_Tz_SW                40.0    /**< Temperatursollwert des Zirkulationswassers in Grad C                       */
 #define WW_MV_KORR               3.0    /**< Korrekturfaktor fuer MV-Kennlinie                                          */
 
-#define ABTASTZEIT_USEC     1000000L    /**< das gleiche als LONG in Mikrosekunden fuer usleep Operation                */
+#define ABTASTZEIT_USEC      500000L    /**< das gleiche als LONG in Mikrosekunden fuer usleep Operation                */
 #define ABTASTZEIT          (((float)ABTASTZEIT_USEC)/1e6) /**< Abtastzeit für digitale Regler Algorithmen              */
 
 #define VORGABENDATEI       "vorgaben.ini"
