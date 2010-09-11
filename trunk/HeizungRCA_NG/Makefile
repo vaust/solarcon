@@ -1,32 +1,39 @@
-CFLAGS = -D_REENTRANT -D__WAGO__ -D__DEBUG__
-# CFLAGS = -D_REENTRANT -D__WAGO__
+#TOOL := D:/Tools/MinGW/bin
+INC := ./inc
+SRC := ./src
+#CC := $(TOOL)/gcc.exe
+#CFLAGS := -I$(INC) -D__TEST__ -D__REENTRANT__ -Wall
+CFLAGS := -I$(INC) -D__TEST__ -Wall
+VPATH := $(SRC):$(INC)
+#OBJECTS := cntrl.o task.o zeit.o param.o solar.o fb.o hk.o ww.o sup.o kes.o thread.o
+OBJECTS := cntrl.o task.o zeit.o param.o solar.o fb.o hk.o ww.o sup.o kes.o
 
-objects = server.o main.o task.o zeit.o init_var.o log.o kbusapi.o \
-          solar.o fb.o hk.o ww.o speicher.o kessel.o
+test : $(OBJECTS)
+	$(CC) -o $@ $(OBJECTS)
+#	$(CC) -fprofile-arcs -ftest-coverage -o $@ $(OBJECTS)
 
-all: rca4
+cntrl.o: cntrl.c \
+  gen_types.h param.h zeit.h task.h zeit.h \
+  solar.h fb.h sup.h hk.h ww.h kes.h
+fb.o: fb.c gen_types.h fb.h gen_types.h sup.h \
+  sup.h param.h
+hk.o: hk.c gen_types.h param.h hk.h sup.h \
+  gen_types.h sup.h
+kes.o: kes.c param.h kes.h gen_types.h
+param.o: param.c \
+  param.h
+solar.o: solar.c solar.h gen_types.h param.h
+sup.o: sup.c sup.h gen_types.h gen_types.h
+task.o: task.c gen_types.h param.h zeit.h \
+  gen_types.h task.h zeit.h
+# telnet.o: telnet.c \
+#  io.h gen_types.h \
+ww.o: ww.c param.h ww.h sup.h gen_types.h
+zeit.o: zeit.c \
+  gen_types.h param.h zeit.h gen_types.h
 
-rca4: $(objects)
-	$(CC) $(LDFLAGS) -o $@ $(objects) -lpthread $(LDLIBS$(LDLIBS-$(@)))
-#	cp rca2 /targetfs/
 
-romfs:
-	$(ROMFSINST) /bin/rca4
-	chmod 755 $(ROMFSDIR)/bin/rca4
+clean :
+	rm *.o; rm test
 
-clean:
-	-rm -f rca4 *.elf *.gdb *.o
 
-server.o: server.h io.h vorgabe.h variablen.h
-main.o: io.h vorgabe.h variablen.h
-task.o: io.h vorgabe.h variablen.h zeitprogramm.h
-zeit.o: vorgabe.h variablen.h zeitprogramm.h
-init_var.o: vorgabe.h variablen.h zeitprogramm.h
-log.o: io.h vorgabe.h variablen.h zeitprogramm.h
-kbusapi.o: kbusapi.h
-solar.o: io.h vorgabe.h variablen.h zeitprogramm.h
-fb.o: io.h vorgabe.h variablen.h zeitprogramm.h
-hk.o: io.h vorgabe.h variablen.h zeitprogramm.h
-ww.o: io.h vorgabe.h variablen.h zeitprogramm.h
-speicher.o: io.h vorgabe.h variablen.h zeitprogramm.h
-kessel.o: io.h vorgabe.h variablen.h zeitprogramm.h
