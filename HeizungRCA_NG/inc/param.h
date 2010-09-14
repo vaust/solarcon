@@ -2,7 +2,6 @@
 #define _PARAM_H_
 
 /* <Defines> */
-
 /* Vorgabewerte: */
 #define ALL_Tau_mittel_Zeit       36    /**< Zeit ueber die die Aussentemperatur gemittelt wird (in Stunden)            */
 #define MAX_ALL_Tau_mittel_Zeit   48    /**< max. Wert aus Kommentar in vorgaben.ini                                    */
@@ -45,7 +44,7 @@
 #define WW_MV_KORR               3.0    /**< Korrekturfaktor fuer MV-Kennlinie                                          */
 
 #define ABTASTZEIT_USEC      500000L    /**< das gleiche als LONG in Mikrosekunden fuer usleep Operation                */
-#define ABTASTZEIT          (((float)ABTASTZEIT_USEC)/1e6) /**< Abtastzeit für digitale Regler Algorithmen              */
+#define ABTASTZEIT          (((float)ABTASTZEIT_USEC)/1e6) /**< Abtastzeit fuer digitale Regler Algorithmen              */
 
 #define VORGABENDATEI       "vorgaben.ini"
 
@@ -152,7 +151,7 @@ const parse_set_t param_Vorgaben[] = {
     { "WW_Tz_SW",            &param_ww_tz_sw,            "%f" }
 };
 #else
-extern parse_set_t param_Vorgaben[];
+extern const parse_set_t param_Vorgaben[];
 #endif
 /* <Konstanten/> */
 

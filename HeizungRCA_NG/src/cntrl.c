@@ -175,7 +175,8 @@ int main( void )
         printf( "\n" );        
 #endif /* __TEST__ */
         
-        /* Abtastzeit abwarten. ACHTUNG: Rechenzeit nicht beruecksichtigt Müsste eigentlich über Timerfunktion laufen */
+        /* Abtastzeit abwarten. ACHTUNG: Rechenzeit nicht beruecksichtigt.
+           Muesste eigentlich ueber Timerfunktion laufen */
         SLEEP( ABTASTZEIT_USEC ); 
     }
 
