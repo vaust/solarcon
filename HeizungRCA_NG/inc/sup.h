@@ -27,7 +27,6 @@ typedef struct {
 float sup_Limit( float *value, const float lower_limit, const float upper_limit );
 void sup_DigRegInit( sup_digreg_coeff_t *q_p, sup_digreg_out_t *y_p );
 float sup_DigRegler( const sup_digreg_coeff_t *q_p, const float soll, const float ist, sup_digreg_out_t *y_p );
-void  sup_YToAnalog( float scale, ao_0_10V_t *out_p );
 /* <Prototypen/> */
 
 #endif /* _SUP_H_ */
