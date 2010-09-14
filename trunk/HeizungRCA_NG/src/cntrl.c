@@ -104,6 +104,7 @@ int main( void )
 
         cntrl_kes_in.tvl_mw        = /* 25.0;  */ io_get_KES_Tvl_MW();
         cntrl_kes_in.duschzeit     = cntrl_zeit_absenkung.Duschzeit; 
+        cntrl_kes_in.br_bm         = io_get_KES_BR_BM();
         cntrl_kes_in.partytime_flg = cntrl_zeit_party.ww_partytime_flg;
 
         /* solar_Run(), fb_Run() und hk_Run() sind unabhaengig von einander */
