@@ -93,7 +93,7 @@ int main( void )
         cntrl_sol_in_Sp2.sp_tu_mw  = cntrl_ww_in.sol_sp2_tu_mw  = cntrl_kes_in.sp2_tu_mw = io_get_SOL_SP2_Tu_MW();                     
 
         cntrl_fb_in.tau_mw         = cntrl_hk_in.tau_mw         = cntrl_ww_in.tau_mw     = io_get_ALL_Tau_MW();
-        cntrl_fb_in.tau_avg        = cntrl_hk_in.tau_avg        = cntrl_ww_in.tau_avg    = tau.t_36h_mittel;
+        cntrl_fb_in.tau_avg        = cntrl_hk_in.tau_avg        = cntrl_ww_in.tau_avg    = cntrl_tau.t_36h_mittel;
         cntrl_fb_in.sek_tvl_mw                                                           = io_get_FB_SEK_Tvl_MW();
         cntrl_fb_in.zustand        = cntrl_zeit_absenkung.FB_Zustand;
         cntrl_fb_in.partytime_flg  = cntrl_hk_in.partytime_flg  = cntrl_zeit_party.all_partytime_flg;
