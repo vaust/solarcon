@@ -90,23 +90,23 @@ void *telnet_thread( void *arg )
 
 void telnet_writeTemp( void )
 {
-    snprintf( bufout, BFLN, "ALL_Tau_MW     = %5.1f °C\n", io_get_ALL_Tau_MW() );   BFLSH();
-    snprintf( bufout, BFLN, "SOL_KOLL_T_MW  = %5.1f °C\n", io_get_SOL_KOLL_T_MW );      BFLSH();
-    snprintf( bufout, BFLN, "SOL_SP1_To_MW  = %5.1f °C\n", io_get_SOL_SP1_To_MW );      BFLSH();
-    snprintf( bufout, BFLN, "SOL_SP1_Tu_MW  = %5.1f °C\n", io_get_SOL_SP1_Tu_MW );      BFLSH();
-    snprintf( bufout, BFLN, "SOL_SP2_To_MW  = %5.1f °C\n", io_get_SOL_SP2_To_MW );      BFLSH();
-    snprintf( bufout, BFLN, "SOL_SP2_Tu_MW  = %5.1f °C\n", io_get_SOL_SP2_Tu_MW );      BFLSH();
-    snprintf( bufout, BFLN, "KES_Tvl_MW     = %5.1f °C\n", io_get_KES_Tvl_MW );         BFLSH();
-    snprintf( bufout, BFLN, "KES_Trl_MW     = %5.1f °C\n", io_get_KES_Trl_MW );         BFLSH();
-    snprintf( bufout, BFLN, "HK_Tvl_MW      = %5.1f °C\n", io_get_HK_Tvl_MW );          BFLSH();
-    snprintf( bufout, BFLN, "HK_Trl_MW      = %5.1f °C\n", io_get_HK_Trl_MW );          BFLSH();
-    snprintf( bufout, BFLN, "FB_PRIM_Trl_MW = %5.1f °C\n", io_get_FB_PRIM_Trl_MW );     BFLSH();
-    snprintf( bufout, BFLN, "FB_SEK_Tvl_MW  = %5.1f °C\n", io_get_FB_SEK_Tvl_MW );      BFLSH();
-    snprintf( bufout, BFLN, "WW_HZG_Tvl_MW  = %5.1f °C\n", io_get_WW_HZG_Tvl_MW );      BFLSH();
-    snprintf( bufout, BFLN, "WW_HZG_Trl_MW  = %5.1f °C\n", io_get_WW_HZG_Trl_MW );      BFLSH();
-    snprintf( bufout, BFLN, "WW_Tww_MW      = %5.1f °C\n", io_get_WW_Tww_MW );          BFLSH();
-    snprintf( bufout, BFLN, "Tau_1h_mittel_f  = %6.2f °C\n", Tau_1h_mittel_f );  BFLSH();
-    snprintf( bufout, BFLN, "Tau_36h_mittel_f = %6.2f °C\n", Tau_36h_mittel_f ); BFLSH();
+    snprintf( bufout, BFLN, "ALL_Tau_MW     = %5.1f °C\n", io_get_ALL_Tau_MW() );       BFLSH();
+    snprintf( bufout, BFLN, "SOL_KOLL_T_MW  = %5.1f °C\n", io_get_SOL_KOLL_T_MW() );    BFLSH();
+    snprintf( bufout, BFLN, "SOL_SP1_To_MW  = %5.1f °C\n", io_get_SOL_SP1_To_MW() );    BFLSH();
+    snprintf( bufout, BFLN, "SOL_SP1_Tu_MW  = %5.1f °C\n", io_get_SOL_SP1_Tu_MW() );    BFLSH();
+    snprintf( bufout, BFLN, "SOL_SP2_To_MW  = %5.1f °C\n", io_get_SOL_SP2_To_MW() );    BFLSH();
+    snprintf( bufout, BFLN, "SOL_SP2_Tu_MW  = %5.1f °C\n", io_get_SOL_SP2_Tu_MW() );    BFLSH();
+    snprintf( bufout, BFLN, "KES_Tvl_MW     = %5.1f °C\n", io_get_KES_Tvl_MW() );       BFLSH();
+    snprintf( bufout, BFLN, "KES_Trl_MW     = %5.1f °C\n", io_get_KES_Trl_MW() );       BFLSH();
+    snprintf( bufout, BFLN, "HK_Tvl_MW      = %5.1f °C\n", io_get_HK_Tvl_MW() );        BFLSH();
+    snprintf( bufout, BFLN, "HK_Trl_MW      = %5.1f °C\n", io_get_HK_Trl_MW() );        BFLSH();
+    snprintf( bufout, BFLN, "FB_PRIM_Trl_MW = %5.1f °C\n", io_get_FB_PRIM_Trl_MW() );   BFLSH();
+    snprintf( bufout, BFLN, "FB_SEK_Tvl_MW  = %5.1f °C\n", io_get_FB_SEK_Tvl_MW() );    BFLSH();
+    snprintf( bufout, BFLN, "WW_HZG_Tvl_MW  = %5.1f °C\n", io_get_WW_HZG_Tvl_MW() );    BFLSH();
+    snprintf( bufout, BFLN, "WW_HZG_Trl_MW  = %5.1f °C\n", io_get_WW_HZG_Trl_MW() );    BFLSH();
+    snprintf( bufout, BFLN, "WW_Tww_MW      = %5.1f °C\n", io_get_WW_Tww_MW() );        BFLSH();
+    snprintf( bufout, BFLN, "Tau_1h_mittel_f  = %6.2f °C\n", cntrl_tau.t_1h_mittel );   BFLSH();
+    snprintf( bufout, BFLN, "Tau_36h_mittel_f = %6.2f °C\n", cntrl_tau.t_36h_mittel );  BFLSH();
 }    
 
 int telnet_parseGet( int fdesc, char *bufout )
@@ -119,12 +119,10 @@ int telnet_parseGet( int fdesc, char *bufout )
     }
     else if( strncasecmp( token, "SW", 2 ) == 0 ) {
 
-        snprintf( bufout, BFLN, "kes_Tvl_SW_Sp2_f = %5.1f °C\t sol_SP2_To_SW_f= %5.1f °C\n", kes_Tvl_SW_Sp2_f, sol_SP2_To_SW_f );
-        BFLSH();
-
+        snprintf( bufout, BFLN, "kes_Tvl_SW_Sp2_f = %5.1f °C\t sol_SP2_To_SW_f= %5.1f °C\n", kes_Tvl_SW_Sp2_f, sol_SP2_To_SW_f );        BFLSH();
         if( z_FB_Zustand == zAbgesenkt )
             snprintf( bufout, BFLN, "fb_Tvl_SW_f = %5.1f °C (abgesenkt um %5.1f °C)\n", fb_Tvl_SW_f, fb_tvl_absenk );
-        else
+            else
             snprintf( bufout, BFLN, "fb_Tvl_SW_f = %5.1f °C (Normalbetrieb)\n", fb_Tvl_SW_f );
         BFLSH();
 
@@ -171,64 +169,42 @@ int telnet_parseGet( int fdesc, char *bufout )
     }
     else if( strncasecmp( token, "DO", 2 ) == 0 ) {
         /* Solarkreispumpe */
-        snprintf( bufout, BFLN, "SOL_PU_SB = %s\n", (SOL_PU_SB == 0x00) ? "AUS" : "EIN" );
-        BFLSH();
+        snprintf( bufout, BFLN, "SOL_PU_SB = %s\n", (SOL_PU_SB == 0x00) ? "AUS" : "EIN" );        BFLSH();
         /* Solarabsperrventil Speicher 1 */
-        snprintf( bufout, BFLN, "SOL_SP1_AV_SB = %s\n", (SOL_SP1_AV_SB == 0x00) ? "ZU" : "AUF" );
-        BFLSH();
+        snprintf( bufout, BFLN, "SOL_SP1_AV_SB = %s\n", (SOL_SP1_AV_SB == 0x00) ? "ZU" : "AUF" );        BFLSH();
         /* Solarabsperrventil Speicher 2 */
-        snprintf( bufout, BFLN, "SOL_SP2_AV_SB = %s\n", (SOL_SP2_AV_SB == 0x00) ? "ZU" : "AUF" );
-        BFLSH();
+        snprintf( bufout, BFLN, "SOL_SP2_AV_SB = %s\n", (SOL_SP2_AV_SB == 0x00) ? "ZU" : "AUF" );        BFLSH();
         /* Kessel Ladepumpe Speicher 1 */
-        snprintf( bufout, BFLN, "KES_PU_SP1_SB = %s\n", (KES_PU_SP1_SB == 0x00) ? "AUS" : "EIN" );
-        BFLSH();
+        snprintf( bufout, BFLN, "KES_PU_SP1_SB = %s\n", (KES_PU_SP1_SB == 0x00) ? "AUS" : "EIN" );        BFLSH();
         /* Kessel Ladepumpe Speicher 2 */
-        snprintf( bufout, BFLN, "KES_PU_SP2_SB = %s\n", (KES_PU_SP2_SB == 0x00) ? "AUS" : "EIN" );
-        BFLSH();
+        snprintf( bufout, BFLN, "KES_PU_SP2_SB = %s\n", (KES_PU_SP2_SB == 0x00) ? "AUS" : "EIN" );        BFLSH();
         /* Heizkoeerperheizkreispumpe */
-        snprintf( bufout, BFLN, "HK_PU_SB = %s\n", (HK_PU_SB == 0x00) ? "AUS" : "EIN" );
-        BFLSH();
+        snprintf( bufout, BFLN, "HK_PU_SB = %s\n", (HK_PU_SB == 0x00) ? "AUS" : "EIN" );        BFLSH();
         /* Fußbodenheizung Wärmetauscher Primärkreispumpe */
-        snprintf( bufout, BFLN, "FB_PRIM_PU_SB = %s\n", (FB_PRIM_PU_SB == 0x00) ? "AUS" : "EIN" );
-        BFLSH();
+        snprintf( bufout, BFLN, "FB_PRIM_PU_SB = %s\n", (FB_PRIM_PU_SB == 0x00) ? "AUS" : "EIN" );        BFLSH();
         /* Fußbodenheizung Wärmetauscher Sekundärkreispumpe */
-        snprintf( bufout, BFLN, "FB_SEK_PU_SB = %s\n", (FB_SEK_PU_SB == 0x00) ? "AUS" : "EIN" );
-        BFLSH();
+        snprintf( bufout, BFLN, "FB_SEK_PU_SB = %s\n", (FB_SEK_PU_SB == 0x00) ? "AUS" : "EIN" );        BFLSH();
         /* Warmwasser / Heizung Verteilventil für Energiemanagement */
-        snprintf( bufout, BFLN, "WW_HZG_VV_SB = %s\n", (WW_HZG_VV_SB == 0x00) ? "ZU" : "AUF" );
-        BFLSH();
+        snprintf( bufout, BFLN, "WW_HZG_VV_SB = %s\n", (WW_HZG_VV_SB == 0x00) ? "ZU" : "AUF" );        BFLSH();
         /* Warmwasserheizungspumpe */
-        snprintf( bufout, BFLN, "WW_HZG_PU_SB = %s\n", (WW_HZG_PU_SB == 0x00) ? "AUS" : "EIN" );
-        BFLSH();
+        snprintf( bufout, BFLN, "WW_HZG_PU_SB = %s\n", (WW_HZG_PU_SB == 0x00) ? "AUS" : "EIN" );        BFLSH();
         /* Zirkulationspumpe */
-        snprintf( bufout, BFLN, "WW_ZIRK_PU_SB = %s\n", (WW_ZIRK_PU_SB == 0x00) ? "AUS" : "EIN" );
-        BFLSH();
+        snprintf( bufout, BFLN, "WW_ZIRK_PU_SB = %s\n", (WW_ZIRK_PU_SB == 0x00) ? "AUS" : "EIN" );        BFLSH();
     }
     else if( strncasecmp( token, "AO", 2 ) == 0 ) {
-        snprintf( bufout, BFLN, "KES_Tvl_Y    = %5d pct\n", KES_Tvl_Y/328 );
-        BFLSH();
-        snprintf( bufout, BFLN, "HK_MV_Y      = %5d pct\n", HK_MV_Y/328 );
-        BFLSH();
-        snprintf( bufout, BFLN, "FB_PRIM_MV_Y = %5d pct\n", FB_PRIM_MV_Y/328 );
-        BFLSH();
-        snprintf( bufout, BFLN, "WW_HZG_MV_Y  = %5d pct\n", WW_HZG_MV_Y/328 );
-        BFLSH();
-        snprintf( bufout, BFLN, "WW_HZG_PU_Y  = %5d pct\n", WW_HZG_PU_Y/328 );
-        BFLSH();
+        snprintf( bufout, BFLN, "KES_Tvl_Y    = %5d pct\n", KES_Tvl_Y/328 );        BFLSH();
+        snprintf( bufout, BFLN, "HK_MV_Y      = %5d pct\n", HK_MV_Y/328 );        BFLSH();
+        snprintf( bufout, BFLN, "FB_PRIM_MV_Y = %5d pct\n", FB_PRIM_MV_Y/328 );        BFLSH();
+        snprintf( bufout, BFLN, "WW_HZG_MV_Y  = %5d pct\n", WW_HZG_MV_Y/328 );        BFLSH();
+        snprintf( bufout, BFLN, "WW_HZG_PU_Y  = %5d pct\n", WW_HZG_PU_Y/328 );        BFLSH();
     }
     else if( strncasecmp( token, "FB", 2 ) == 0 ) {
-        snprintf( bufout, BFLN, "FB_PRIM_Trl_MW = %5.1f °C\n", FB_PRIM_Trl_MW );
-        BFLSH();
-        snprintf( bufout, BFLN, "FB_SEK_Tvl_MW  = %5.1f °C\n", FB_SEK_Tvl_MW );
-        BFLSH();
-        snprintf( bufout, BFLN, "FB_PRIM_MV_Y   = %5d pct\n", FB_PRIM_MV_Y/328 );
-        BFLSH();
-        snprintf( bufout, BFLN, "FB_PRIM_PU_SB  = %s\n", (FB_PRIM_PU_SB == 0x00) ? "AUS" : "EIN" );
-        BFLSH();
-        snprintf( bufout, BFLN, "FB_SEK_PU_SB   = %s\n", (FB_SEK_PU_SB == 0x00) ? "AUS" : "EIN" );
-        BFLSH();
-        snprintf( bufout, BFLN, "ALL_PARTY = %s", (ALL_PARTY == 0x00) ? "AUS\n" : "EIN" );
-        BFLSH();
+        snprintf( bufout, BFLN, "FB_PRIM_Trl_MW = %5.1f °C\n", FB_PRIM_Trl_MW );        BFLSH();
+        snprintf( bufout, BFLN, "FB_SEK_Tvl_MW  = %5.1f °C\n", FB_SEK_Tvl_MW );        BFLSH();
+        snprintf( bufout, BFLN, "FB_PRIM_MV_Y   = %5d pct\n", FB_PRIM_MV_Y/328 );        BFLSH();
+        snprintf( bufout, BFLN, "FB_PRIM_PU_SB  = %s\n", (FB_PRIM_PU_SB == 0x00) ? "AUS" : "EIN" );        BFLSH();
+        snprintf( bufout, BFLN, "FB_SEK_PU_SB   = %s\n", (FB_SEK_PU_SB == 0x00) ? "AUS" : "EIN" );        BFLSH();
+        snprintf( bufout, BFLN, "ALL_PARTY = %s", (ALL_PARTY == 0x00) ? "AUS\n" : "EIN" );        BFLSH();
         if (ALL_PARTY != 0x00) {
             snprintf( bufout, BFLN, "\t seit %d min, noch %d min aktiv\n",
             all_partydauer - all_party_restzeit_min, all_party_restzeit_min );
@@ -281,21 +257,13 @@ int telnet_parseGet( int fdesc, char *bufout )
         BFLSH();
     }
     else if( strncasecmp( token, "SOL", 3 ) == 0 ) {
-        snprintf( bufout, BFLN, "SOL_KOLL_T_MW = %5.1f °C\n", SOL_KOLL_T_MW );
-        BFLSH();
-        snprintf( bufout, BFLN, "SOL_SP1_To_MW = %5.1f °C\n", SOL_SP1_To_MW );
-        BFLSH();
-        snprintf( bufout, BFLN, "SOL_SP1_Tu_MW = %5.1f °C\n", SOL_SP1_Tu_MW );
-        BFLSH();
-        snprintf( bufout, BFLN, "SOL_SP2_To_MW = %5.1f °C\n", SOL_SP2_To_MW );
-        BFLSH();
-        snprintf( bufout, BFLN, "SOL_SP2_Tu_MW = %5.1f °C\n", SOL_SP2_Tu_MW );
-        BFLSH();
-        snprintf( bufout, BFLN, "SOL_PU_SB     = %s\n", (SOL_PU_SB == 0x00) ? "AUS" : "EIN" );
-        BFLSH();
-        snprintf( bufout, BFLN, "SOL_SP1_AV_SB = %s\n", (SOL_SP1_AV_SB == 0x00) ? "ZU" : "AUF" );
-        BFLSH();
-        snprintf( bufout, BFLN, "SOL_SP2_AV_SB = %s\n", (SOL_SP2_AV_SB == 0x00) ? "ZU" : "AUF" );
-        BFLSH();
+        snprintf( bufout, BFLN, "SOL_KOLL_T_MW = %5.1f °C\n", SOL_KOLL_T_MW );        BFLSH();
+        snprintf( bufout, BFLN, "SOL_SP1_To_MW = %5.1f °C\n", SOL_SP1_To_MW );        BFLSH();
+        snprintf( bufout, BFLN, "SOL_SP1_Tu_MW = %5.1f °C\n", SOL_SP1_Tu_MW );        BFLSH();
+        snprintf( bufout, BFLN, "SOL_SP2_To_MW = %5.1f °C\n", SOL_SP2_To_MW );        BFLSH();
+        snprintf( bufout, BFLN, "SOL_SP2_Tu_MW = %5.1f °C\n", SOL_SP2_Tu_MW );        BFLSH();
+        snprintf( bufout, BFLN, "SOL_PU_SB     = %s\n", (SOL_PU_SB == 0x00) ? "AUS" : "EIN" );        BFLSH();
+        snprintf( bufout, BFLN, "SOL_SP1_AV_SB = %s\n", (SOL_SP1_AV_SB == 0x00) ? "ZU" : "AUF" );        BFLSH();
+        snprintf( bufout, BFLN, "SOL_SP2_AV_SB = %s\n", (SOL_SP2_AV_SB == 0x00) ? "ZU" : "AUF" );        BFLSH();
     }
 }

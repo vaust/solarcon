@@ -70,10 +70,10 @@ int main( void )
 
     KBUSOPEN();
     while( 1  ) {
+        MUTEX_LOCK();
         KBUSUPDATE();
 
         /*---------- EINGABE DES PROZESSABBILDES ------------*/
-        MUTEX_LOCK();
         /* alles was im Sekunden-, Minuten- und Stundenraster ablaufen muss und *
          * Aussentemperaturmittelwerte ermitteln                                */
         task_Run( param_all_partydauer, 
@@ -85,30 +85,30 @@ int main( void )
         /* Absenkzeiten ermitteln */
         zeit_Run( &cntrl_zeit_absenkung, &cntrl_zeit_event );
 
-        cntrl_sol_in_Sp1.koll_t_mw = cntrl_sol_in_Sp2.koll_t_mw                          = /* 35.0; */ io_get_SOL_KOLL_T_MW();
-        cntrl_sol_in_Sp1.sp_to_mw  = cntrl_ww_in.sol_sp1_to_mw  = cntrl_kes_in.sp1_to_mw = /* 67.9; */ io_get_SOL_SP1_To_MW(); 
-        cntrl_sol_in_Sp1.sp_tu_mw                               = cntrl_kes_in.sp1_tu_mw = /* 34.0; */ io_get_SOL_SP1_Tu_MW();  
-        cntrl_sol_in_Sp2.sp_to_mw                               = cntrl_kes_in.sp2_to_mw = /* 37.0; */ io_get_SOL_SP2_To_MW(); 
-        cntrl_sol_in_Sp2.sp_tu_mw  = cntrl_ww_in.sol_sp2_tu_mw  = cntrl_kes_in.sp2_tu_mw = /* 33.0; */ io_get_SOL_SP2_Tu_MW();                     
+        /* Prozessdaten */
+        cntrl_sol_in_Sp1.koll_t_mw = cntrl_sol_in_Sp2.koll_t_mw                          = io_get_SOL_KOLL_T_MW();
+        cntrl_sol_in_Sp1.sp_to_mw  = cntrl_ww_in.sol_sp1_to_mw  = cntrl_kes_in.sp1_to_mw = io_get_SOL_SP1_To_MW(); 
+        cntrl_sol_in_Sp1.sp_tu_mw                               = cntrl_kes_in.sp1_tu_mw = io_get_SOL_SP1_Tu_MW();  
+        cntrl_sol_in_Sp2.sp_to_mw                               = cntrl_kes_in.sp2_to_mw = io_get_SOL_SP2_To_MW(); 
+        cntrl_sol_in_Sp2.sp_tu_mw  = cntrl_ww_in.sol_sp2_tu_mw  = cntrl_kes_in.sp2_tu_mw = io_get_SOL_SP2_Tu_MW();                     
 
-        cntrl_fb_in.tau_mw         = cntrl_hk_in.tau_mw         = cntrl_ww_in.tau_mw     = /* 11.0; */ io_get_ALL_Tau_MW();
-        cntrl_fb_in.tau_avg        = cntrl_hk_in.tau_avg        = cntrl_ww_in.tau_avg    = 13.4;  // = tau.t_36h_mittel;
-        cntrl_fb_in.sek_tvl_mw                                                           = /* 27.0; */ io_get_FB_SEK_Tvl_MW();
+        cntrl_fb_in.tau_mw         = cntrl_hk_in.tau_mw         = cntrl_ww_in.tau_mw     = io_get_ALL_Tau_MW();
+        cntrl_fb_in.tau_avg        = cntrl_hk_in.tau_avg        = cntrl_ww_in.tau_avg    = tau.t_36h_mittel;
+        cntrl_fb_in.sek_tvl_mw                                                           = io_get_FB_SEK_Tvl_MW();
         cntrl_fb_in.zustand        = cntrl_zeit_absenkung.FB_Zustand;
         cntrl_fb_in.partytime_flg  = cntrl_hk_in.partytime_flg  = cntrl_zeit_party.all_partytime_flg;
 
-        cntrl_hk_in.tvl_mw         = cntrl_ww_in.hzg_tvl_mw     = /* 45.0; */ io_get_HK_Tvl_MW();
+        cntrl_hk_in.tvl_mw         = cntrl_ww_in.hzg_tvl_mw     = io_get_HK_Tvl_MW();
         cntrl_hk_in.zustand        = cntrl_zeit_absenkung.HK_Zustand;
 
-        cntrl_ww_in.tww_mw         = /* 23.4;  */ io_get_WW_Tww_MW();
-        cntrl_ww_in.hzg_trl_mw     = /* 31.0;  */ io_get_HK_Trl_MW();
-
-        cntrl_kes_in.tvl_mw        = /* 25.0;  */ io_get_KES_Tvl_MW();
+        cntrl_ww_in.tww_mw         = io_get_WW_Tww_MW();
+        cntrl_ww_in.hzg_trl_mw     = io_get_HK_Trl_MW();
+                                     
+        cntrl_kes_in.tvl_mw        = io_get_KES_Tvl_MW();
         cntrl_kes_in.duschzeit     = cntrl_zeit_absenkung.Duschzeit; 
         cntrl_kes_in.br_bm         = io_get_KES_BR_BM();
         cntrl_kes_in.partytime_flg = cntrl_zeit_party.ww_partytime_flg;
-        MUTEX_UNLOCK();
-
+ 
         /*---------- VERARBEITUNG DES PROZESSABBILDES -----------*/
         /* solar_Run(), fb_Run() und hk_Run() sind unabhaengig von einander */
         solar_Run( &cntrl_sol_par, &cntrl_sol_in_Sp1, 
@@ -127,7 +127,6 @@ int main( void )
         kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
  
         /*---------- AUSGABE DES PROZESSABBILDES ------------*/
-        MUTEX_LOCK();
         io_put_SOL_PU_SB( cntrl_sol_pu_sb );    
         io_put_SOL_SP1_AV_SB( cntrl_sol_sp1_av_sb );
         io_put_SOL_SP2_AV_SB( cntrl_sol_sp2_av_sb );
@@ -153,7 +152,6 @@ int main( void )
         io_put_CONTROL_AKTIV( !io_get_CONTROL_AKTIV() ); 
         /* Ausgabe des Prozessabbildes auf den K-Bus */
         KBUSUPDATE();
-
         MUTEX_UNLOCK();
 
         /*---------- TESTAUSGABE DES PROZESSABBILDES ----------*/
@@ -177,7 +175,7 @@ int main( void )
         printf( "\n" );        
 #endif /* __TEST__ */
         
-        /* Abtastzeit abwarten. ACHTUNG: Rechenzeit nicht beruecksichtigt */
+        /* Abtastzeit abwarten. ACHTUNG: Rechenzeit nicht beruecksichtigt Müsste eigentlich über Timerfunktion laufen */
         SLEEP( ABTASTZEIT_USEC ); 
     }
 
