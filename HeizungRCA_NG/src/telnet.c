@@ -16,10 +16,11 @@
 #endif
 
 #include "param.h"
+#include "io.h"
 #include "cntrl.h"
 
-#define BFLN    64
-#define BFLSH()  write( fdesc, bufout, strlen( bufout ) )
+#define BFLN        64
+#define BFLSH()     write( fdesc, bufout, strlen( bufout ) )
 
 /**
 server_thread.
@@ -87,14 +88,26 @@ void *telnet_thread( void *arg )
     }
 }
 
-typedef struct {
-    char *VarName;
-    void *VarPointer;
-    char *format;
-} doc_set_t;
-
-
-void telnet_writeTemps( void );
+void telnet_writeTemp( void )
+{
+    snprintf( bufout, BFLN, "ALL_Tau_MW     = %5.1f °C\n", io_get_ALL_Tau_MW() );   BFLSH();
+    snprintf( bufout, BFLN, "SOL_KOLL_T_MW  = %5.1f °C\n", io_get_SOL_KOLL_T_MW );      BFLSH();
+    snprintf( bufout, BFLN, "SOL_SP1_To_MW  = %5.1f °C\n", io_get_SOL_SP1_To_MW );      BFLSH();
+    snprintf( bufout, BFLN, "SOL_SP1_Tu_MW  = %5.1f °C\n", io_get_SOL_SP1_Tu_MW );      BFLSH();
+    snprintf( bufout, BFLN, "SOL_SP2_To_MW  = %5.1f °C\n", io_get_SOL_SP2_To_MW );      BFLSH();
+    snprintf( bufout, BFLN, "SOL_SP2_Tu_MW  = %5.1f °C\n", io_get_SOL_SP2_Tu_MW );      BFLSH();
+    snprintf( bufout, BFLN, "KES_Tvl_MW     = %5.1f °C\n", io_get_KES_Tvl_MW );         BFLSH();
+    snprintf( bufout, BFLN, "KES_Trl_MW     = %5.1f °C\n", io_get_KES_Trl_MW );         BFLSH();
+    snprintf( bufout, BFLN, "HK_Tvl_MW      = %5.1f °C\n", io_get_HK_Tvl_MW );          BFLSH();
+    snprintf( bufout, BFLN, "HK_Trl_MW      = %5.1f °C\n", io_get_HK_Trl_MW );          BFLSH();
+    snprintf( bufout, BFLN, "FB_PRIM_Trl_MW = %5.1f °C\n", io_get_FB_PRIM_Trl_MW );     BFLSH();
+    snprintf( bufout, BFLN, "FB_SEK_Tvl_MW  = %5.1f °C\n", io_get_FB_SEK_Tvl_MW );      BFLSH();
+    snprintf( bufout, BFLN, "WW_HZG_Tvl_MW  = %5.1f °C\n", io_get_WW_HZG_Tvl_MW );      BFLSH();
+    snprintf( bufout, BFLN, "WW_HZG_Trl_MW  = %5.1f °C\n", io_get_WW_HZG_Trl_MW );      BFLSH();
+    snprintf( bufout, BFLN, "WW_Tww_MW      = %5.1f °C\n", io_get_WW_Tww_MW );          BFLSH();
+    snprintf( bufout, BFLN, "Tau_1h_mittel_f  = %6.2f °C\n", Tau_1h_mittel_f );  BFLSH();
+    snprintf( bufout, BFLN, "Tau_36h_mittel_f = %6.2f °C\n", Tau_36h_mittel_f ); BFLSH();
+}    
 
 int telnet_parseGet( int fdesc, char *bufout )
 {
@@ -102,23 +115,7 @@ int telnet_parseGet( int fdesc, char *bufout )
 
     token = strtok( NULL, "\n\r " );
     if( strncasecmp( token, "T", 1 ) == 0 ) {
-        snprintf( bufout, BFLN, "ALL_Tau_MW     = %5.1f °C\n", ALL_Tau_MW );         BFLSH();
-        snprintf( bufout, BFLN, "SOL_KOLL_T_MW  = %5.1f °C\n", SOL_KOLL_T_MW );      BFLSH();
-        snprintf( bufout, BFLN, "SOL_SP1_To_MW  = %5.1f °C\n", SOL_SP1_To_MW );      BFLSH();
-        snprintf( bufout, BFLN, "SOL_SP1_Tu_MW  = %5.1f °C\n", SOL_SP1_Tu_MW );      BFLSH();
-        snprintf( bufout, BFLN, "SOL_SP2_To_MW  = %5.1f °C\n", SOL_SP2_To_MW );      BFLSH();
-        snprintf( bufout, BFLN, "SOL_SP2_Tu_MW  = %5.1f °C\n", SOL_SP2_Tu_MW );      BFLSH();
-        snprintf( bufout, BFLN, "KES_Tvl_MW     = %5.1f °C\n", KES_Tvl_MW );         BFLSH();
-        snprintf( bufout, BFLN, "KES_Trl_MW     = %5.1f °C\n", KES_Trl_MW );         BFLSH();
-        snprintf( bufout, BFLN, "HK_Tvl_MW      = %5.1f °C\n", HK_Tvl_MW );          BFLSH();
-        snprintf( bufout, BFLN, "HK_Trl_MW      = %5.1f °C\n", HK_Trl_MW );          BFLSH();
-        snprintf( bufout, BFLN, "FB_PRIM_Trl_MW = %5.1f °C\n", FB_PRIM_Trl_MW );     BFLSH();
-        snprintf( bufout, BFLN, "FB_SEK_Tvl_MW  = %5.1f °C\n", FB_SEK_Tvl_MW );      BFLSH();
-        snprintf( bufout, BFLN, "WW_HZG_Tvl_MW  = %5.1f °C\n", WW_HZG_Tvl_MW );      BFLSH();
-        snprintf( bufout, BFLN, "WW_HZG_Trl_MW  = %5.1f °C\n", WW_HZG_Trl_MW );      BFLSH();
-        snprintf( bufout, BFLN, "WW_Tww_MW      = %5.1f °C\n", WW_Tww_MW );          BFLSH();
-        snprintf( bufout, BFLN, "Tau_1h_mittel_f  = %6.2f °C\n", Tau_1h_mittel_f );  BFLSH();
-        snprintf( bufout, BFLN, "Tau_36h_mittel_f = %6.2f °C\n", Tau_36h_mittel_f ); BFLSH();
+        telnet_writeTemp();
     }
     else if( strncasecmp( token, "SW", 2 ) == 0 ) {
 
