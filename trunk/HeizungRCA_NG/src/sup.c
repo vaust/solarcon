@@ -34,8 +34,3 @@ float sup_DigRegler( const sup_digreg_coeff_t *q_p, const float soll, const floa
     return( y_p->y );
 }
 
-void sup_YToAnalog( float scale ,ao_0_10V_t *out_p )
-{
-    *out_p = (ao_0_10V_t) ((scale*VFULLSCALE)/100);
-}
-

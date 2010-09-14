@@ -1,12 +1,12 @@
-#TOOL := D:/Tools/MinGW/bin
+TOOL := D:/Tools/MinGW/bin
 INC := ./inc
 SRC := ./src
-#CC := $(TOOL)/gcc.exe
+CC := $(TOOL)/gcc.exe
 #CFLAGS := -I$(INC) -D__TEST__ -D__REENTRANT__ -Wall
 CFLAGS := -I$(INC) -D__TEST__ -Wall
 VPATH := $(SRC):$(INC)
 #OBJECTS := cntrl.o task.o zeit.o param.o solar.o fb.o hk.o ww.o sup.o kes.o thread.o
-OBJECTS := cntrl.o task.o zeit.o param.o solar.o fb.o hk.o ww.o sup.o kes.o
+OBJECTS := cntrl.o task.o zeit.o param.o solar.o fb.o hk.o ww.o sup.o kes.o io.o
 
 test : $(OBJECTS)
 	$(CC) -o $@ $(OBJECTS)
@@ -31,9 +31,9 @@ task.o: task.c gen_types.h param.h zeit.h \
 ww.o: ww.c param.h ww.h sup.h gen_types.h
 zeit.o: zeit.c \
   gen_types.h param.h zeit.h gen_types.h
+io.o: io.c io.h gen_types.h 
 
-
-clean :
-	rm *.o; rm test
+#clean :
+#	rm *.o; rm test
 
 

@@ -84,8 +84,6 @@ int param_Init( void )
         param_ww_mv_korr =          WW_MV_KORR;
         param_ww_tww_tvl_faktor =   WW_Tww_Tvl_Faktor;
         param_ww_tz_sw =            WW_Tz_SW;
-
-        param_hour_offset =         1;
     }
     else {
         printf( "PARAM.C: Ini Datei einlesen:\n" );
@@ -117,7 +115,7 @@ void param_TEST_Vorgaben( void )
         }
         printf( "\n" );
     }
-    printf( "PARAM.C: TEST: Sizeof(Vorgaben) = %ld\n\n", sizeof(param_Vorgaben)/sizeof(parse_set_t) );
+    printf( "PARAM.C: TEST: Sizeof(Vorgaben) = %d\n\n", (signed)(sizeof(param_Vorgaben)/sizeof(parse_set_t)) );
 }
 #endif /* __TEST__ */
 

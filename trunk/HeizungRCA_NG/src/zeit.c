@@ -46,6 +46,8 @@ void zeit_Init( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
     char    linestr[128];
     char    *parameter, *value;
 
+    zeit_hour_offset = 1; /* Default Wert fuer Zeitprogramm falls nicht in ini-Datei enthalten */
+    
     handle = fopen( ZEITPROGRAMMDATEI, "r" );
     if( handle == NULL ) {
         printf( "ZEIT.C: Datei wochenzeitprogramm.ini konnte nicht geöffnet werden!\n" );
@@ -82,12 +84,13 @@ void zeit_Init( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
                 }
                 else if( strncmp( parameter, "HOUR_OFFSET", 11 ) == 0 ) {
                     value = strtok( NULL, ";" );
-                    sscanf( value, "%d", &param_hour_offset );
+                    sscanf( value, "%d", &zeit_hour_offset );
                 }
             }
         }
     }
 
+    
     schedule->hour_flg = RESET;
     schedule->min_flg  = RESET;
     schedule->sec_flg  = RESET;
@@ -112,7 +115,7 @@ void zeit_Run( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
     time( &aktZeit );
     aktZeitElemente_p = localtime( &aktZeit );
     aktWday           = aktZeitElemente_p->tm_wday;
-    aktHour           = aktZeitElemente_p->tm_hour + param_hour_offset;  // Workaround fuer Problem mit localtime()
+    aktHour           = aktZeitElemente_p->tm_hour + zeit_hour_offset;  // Workaround fuer Problem mit localtime()
     aktMin            = aktZeitElemente_p->tm_min;
     aktSec            = aktZeitElemente_p->tm_sec;
 
@@ -213,7 +216,7 @@ void zeit_TEST_Schaltzeiten( void )
         printf( "ZEIT.C: TEST: DUSCH_Ein_Schaltzeiten[%d] = %1d-%02d:%02d, DUSCH_Aus_Schaltzeiten[%d] = %1d-%02d:%02d\n",
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
     }
-    printf( "ZEIT.C: TEST: HOUR_OFFSET = %d\n", param_hour_offset );
+    printf( "ZEIT.C: TEST: HOUR_OFFSET = %d\n", zeit_hour_offset );
     printf( "\n" );
 }
 

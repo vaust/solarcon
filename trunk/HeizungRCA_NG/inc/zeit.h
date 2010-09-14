@@ -69,14 +69,12 @@ u8_t    haus_states;
 u8_t    dusch_states;
 #endif /* _ZEIT_C_ */
 
-#undef PUBLIC
 #ifdef _ZEIT_C_
-    #define PUBLIC
-#else
-    #define PUBLIC extern
+static int zeit_hour_offset;
 #endif
 
 /* <Variablen/> */
+
 
 /* <Prototypen> */
 void zeit_Init( zeit_Betriebszustand_t *absenkung,
