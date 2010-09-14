@@ -123,49 +123,50 @@ int main( void )
         kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
  
         /* Ab hier Ausgabe des Prozessabbildes */
-#ifdef __TEST__        
-        printf( "CNTRL.C: TEST: ZEIT : Absenkung Fussbodenheizung: %d\n", cntrl_zeit_absenkung.FB_Zustand );
-        printf( "CNTRL.C: TEST: ZEIT : Absenkung Duschzeit       : %d\n", cntrl_zeit_absenkung.Duschzeit );
-        printf( "CNTRL.C: TEST: SOLAR: sp1_av_sb=%d sp2_av_sb=%u sol_pu_sb=%d\n",
-                cntrl_sol_sp1_av_sb, cntrl_sol_sp2_av_sb, cntrl_sol_pu_sb );
         
         io_put_SOL_PU_SB( cntrl_sol_pu_sb );    
         io_put_SOL_SP1_AV_SB( cntrl_sol_sp1_av_sb );
         io_put_SOL_SP2_AV_SB( cntrl_sol_sp2_av_sb );
-
-        printf( "CNTRL.C: TEST: FB   : tvl_sw=%f prim_mv_y=%f prim_pu_sb=%d sek_pu_sb=%d\n",
-                cntrl_fb_out.tvl_sw, cntrl_fb_out.prim_mv_y.y, cntrl_fb_out.prim_pu_sb, cntrl_fb_out.sek_pu_sb );
-        
+   
         io_put_FB_PRIM_MV_Y( cntrl_fb_out.prim_mv_y.y );               
         io_put_FB_PRIM_PU_SB( cntrl_fb_out.prim_pu_sb );
         io_put_FB_SEK_PU_SB( cntrl_fb_out.sek_pu_sb ); 
         
-        printf( "CNTRL.C: TEST: HK   : tvl_sw=%f mv_y=%f pu_sb=%d\n",
-                cntrl_hk_out.tvl_sw, cntrl_hk_out.mv_y.y, cntrl_hk_out.pu_sb );        
- 
         io_put_HK_MV_Y( cntrl_hk_out.mv_y.y );               
         io_put_HK_PU_SB( cntrl_hk_out.pu_sb );
 
-        printf( "CNTRL.C: TEST: WW   : hzg_tvl_sw=%f hzg_mv_y=%f hzg_pu_y=%f zirk_pu_sb=%d hzg_pu_sb=%d hzg_vv_sb=%d\n", 
-                cntrl_ww_out.hzg_tvl_sw, cntrl_ww_out.hzg_mv_y.y, cntrl_ww_out.hzg_pu_y.y, 
-                cntrl_ww_out.zirk_pu_sb, cntrl_ww_out.hzg_pu_sb, cntrl_ww_out.hzg_vv_sb );
-        
         io_put_WW_HZG_MV_Y( cntrl_ww_out.hzg_mv_y.y );                   
         io_put_WW_HZG_VV_SB( cntrl_ww_out.hzg_vv_sb );    
         io_put_WW_HZG_PU_SB( cntrl_ww_out.hzg_pu_sb );    
         io_put_WW_HZG_PU_Y( cntrl_ww_out.hzg_pu_y.y );                  
         io_put_WW_ZIRK_PU_SB( cntrl_ww_out.zirk_pu_sb );   
 
+        io_put_KES_Tvl_Y( cntrl_kes_out.tvl_sw );          
+        io_put_KES_PU_SP1_SB( cntrl_kes_out.pu_sp1_sb );
+        io_put_KES_PU_SP2_SB( cntrl_kes_out.pu_sp2_sb ); 
+
+#ifdef __TEST__        
+        printf( "CNTRL.C: TEST: ZEIT : Absenkung Fussbodenheizung: %d\n", cntrl_zeit_absenkung.FB_Zustand );
+        printf( "CNTRL.C: TEST: ZEIT : Absenkung Duschzeit       : %d\n", cntrl_zeit_absenkung.Duschzeit );
+        printf( "CNTRL.C: TEST: SOLAR: sp1_av_sb=%d sp2_av_sb=%u sol_pu_sb=%d\n",
+                cntrl_sol_sp1_av_sb, cntrl_sol_sp2_av_sb, cntrl_sol_pu_sb );
+
+        printf( "CNTRL.C: TEST: FB   : tvl_sw=%f prim_mv_y=%f prim_pu_sb=%d sek_pu_sb=%d\n",
+                cntrl_fb_out.tvl_sw, cntrl_fb_out.prim_mv_y.y, cntrl_fb_out.prim_pu_sb, cntrl_fb_out.sek_pu_sb );
+
+        printf( "CNTRL.C: TEST: HK   : tvl_sw=%f mv_y=%f pu_sb=%d\n",
+                cntrl_hk_out.tvl_sw, cntrl_hk_out.mv_y.y, cntrl_hk_out.pu_sb );        
+ 
+        printf( "CNTRL.C: TEST: WW   : hzg_tvl_sw=%f hzg_mv_y=%f hzg_pu_y=%f zirk_pu_sb=%d hzg_pu_sb=%d hzg_vv_sb=%d\n", 
+                cntrl_ww_out.hzg_tvl_sw, cntrl_ww_out.hzg_mv_y.y, cntrl_ww_out.hzg_pu_y.y, 
+                cntrl_ww_out.zirk_pu_sb, cntrl_ww_out.hzg_pu_sb, cntrl_ww_out.hzg_vv_sb );
+
         printf( "CNTRL.C: TEST: KES  : sp1_to_sw=%f sp2_to_sw=%f tvl_sw_sp1=%f tvl_sw_sp2=%f \n",
                 cntrl_kes_out.sp1_to_sw, cntrl_kes_out.sp2_to_sw, 
                 cntrl_kes_out.tvl_sw_sp1, cntrl_kes_out.tvl_sw_sp2 );
         printf( "CNTRL.C: TEST: KES  : tvl_sw=%f pu_sp1_sb=%d pu_sp2_sb=%d\n", 
                 cntrl_kes_out.tvl_sw, cntrl_kes_out.pu_sp1_sb, cntrl_kes_out.pu_sp2_sb );
-        
-        io_put_KES_Tvl_Y( cntrl_kes_out.tvl_sw );          
-        io_put_KES_PU_SP1_SB( cntrl_kes_out.pu_sp1_sb );
-        io_put_KES_PU_SP2_SB( cntrl_kes_out.pu_sp2_sb ); 
-        
+                
         printf( "\n" );        
 #endif /* __TEST__ */
 
