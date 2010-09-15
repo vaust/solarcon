@@ -52,6 +52,9 @@ void *cntrl_thread( void *arg )
 int main( void )
 #endif
 {    
+    KBUSOPEN();
+    KBUSUPDATE();   
+
     MUTEX_LOCK();
     param_Init();
     zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
@@ -68,10 +71,9 @@ int main( void )
     param_TEST_Vorgaben();
 #endif
 
-    KBUSOPEN();
     while( 1  ) {
         MUTEX_LOCK();
-        KBUSUPDATE();
+        KBUSUPDATE();   /*---------- Prozessabbild aktualisieren ----------*/
 
         /*---------- EINGABE DES PROZESSABBILDES ------------*/
         /* alles was im Sekunden-, Minuten- und Stundenraster ablaufen muss und *
@@ -151,7 +153,7 @@ int main( void )
         /* Lebenszeichen der Steuerung */
         io_put_CONTROL_AKTIV( !io_get_CONTROL_AKTIV() ); 
         /* Ausgabe des Prozessabbildes auf den K-Bus */
-        KBUSUPDATE();
+        KBUSUPDATE();   /*---------- Prozessabbild aktualisieren ----------*/
         MUTEX_UNLOCK();
 
         /*---------- TESTAUSGABE DES PROZESSABBILDES ----------*/
