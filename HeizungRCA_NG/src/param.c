@@ -30,14 +30,14 @@ static int param_ReadVorgaben( FILE *handle )
 int param_Init( void )
 {
     FILE    *handle;
-    int     errCode;
+    int     errCode = 0;
     
     handle = fopen( VORGABENDATEI, "r" );
     if( handle == NULL ) {
         /* Die Datei vorgaben.ini scheint nicht vorhanden zu sein:
          * Defaultwerte aus #defines in vorgabe.h initialisieren
          */
-        printf( "PARAM.C: Die Datei /home/vorgaben.ini ist nicht vorhanden\n" );
+        printf( "PARAM.C: Die Datei vorgaben.ini ist nicht vorhanden\n" );
         printf( "PARAM.C: Die Parameter werden mit Default Werten initialisiert!\n" );
         errCode = -1;
         
@@ -115,7 +115,7 @@ void param_TEST_Vorgaben( void )
         }
         printf( "\n" );
     }
-    printf( "PARAM.C: TEST: Sizeof(Vorgaben) = %d\n\n", (signed)(sizeof(param_Vorgaben)/sizeof(parse_set_t)) );
+    printf( "PARAM.C: TEST: Sizeof(Vorgaben) = %ud\n\n", (sizeof(param_Vorgaben)/sizeof(parse_set_t)) );
 }
 #endif /* __TEST__ */
 
