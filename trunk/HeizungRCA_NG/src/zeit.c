@@ -89,7 +89,6 @@ void zeit_Init( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
             }
         }
     }
-
     
     schedule->hour_flg = RESET;
     schedule->min_flg  = RESET;

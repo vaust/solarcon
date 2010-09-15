@@ -150,8 +150,6 @@ const parse_set_t param_Vorgaben[] = {
     { "WW_Tww_Tvl_Faktor",   &param_ww_tww_tvl_faktor,   "%f" },
     { "WW_Tz_SW",            &param_ww_tz_sw,            "%f" }
 };
-#else
-extern const parse_set_t param_Vorgaben[];
 #endif
 /* <Konstanten/> */
 
