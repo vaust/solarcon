@@ -115,7 +115,7 @@ void param_TEST_Vorgaben( void )
         }
         printf( "\n" );
     }
-    printf( "PARAM.C: TEST: Sizeof(Vorgaben) = %ud\n\n", (sizeof(param_Vorgaben)/sizeof(parse_set_t)) );
+    printf( "PARAM.C: TEST: Sizeof(Vorgaben) = %u\n\n", (sizeof(param_Vorgaben)/sizeof(parse_set_t)) );
 }
 #endif /* __TEST__ */
 
