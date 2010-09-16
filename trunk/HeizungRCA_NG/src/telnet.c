@@ -41,7 +41,7 @@ void *telnet_thread( void *arg )
     snprintf( bufout, BFLN, "Andreas und Volker Stegmann\n\n" );                       BFLSH();
     snprintf( bufout, BFLN, "Server Prozess %d\n\n", arglist[1]+1 );                   BFLSH();
     snprintf( bufout, BFLN, "\n Mögliche Befehle: \n\n" );                             BFLSH();
-    snprintf( bufout, BFLN, "\t GET T (alle Temperaturmesswerte)\n" );                 BFLSH();
+    snprintf( bufout, BFLN, "\t GET T     (alle Temperaturmesswerte)\n" );             BFLSH();
     snprintf( bufout, BFLN, "\t GET SW    (Sollwerte)\n" );                            BFLSH();
     snprintf( bufout, BFLN, "\t GET AO    (alle Analog-Ausgaenge)\n" );                BFLSH();
     snprintf( bufout, BFLN, "\t GET DI    (alle Digital-Eingaenge)\n" );               BFLSH();
@@ -82,7 +82,7 @@ void *telnet_thread( void *arg )
                 param_Init();
                 zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
                 MUTEX_UNLOCK();
-                snprintf( bufout, BFLN, "Parameter, Variablen und Zeitprogramm initialisiert!\n\n" ); BFLSH();
+                snprintf( bufout, BFLN, "TELNET: Parameter, Variablen und Zeitprogramm initialisiert!\n\n" ); BFLSH();
             }
         }
     }
