@@ -1,5 +1,4 @@
 #define _CNTRL_C_
-#define __IO_MASTER__
 
 #include <stdio.h>
 #include <unistd.h>
