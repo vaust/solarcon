@@ -7,7 +7,7 @@
 
 /** \brief Fussbodenheizung Initialisierung.
     \param par_p Pointer auf die Struktur mit allen relevanten Parametern
-    \param q_p Pointer auf reglerspezifische Parameter für den Mischventilregler
+    \param q_p Pointer auf reglerspezifische Parameter fuer den Mischventilregler
     \return kein
 */
 void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )
@@ -32,11 +32,11 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )
     sup_DigRegInit( q_p, &(out_p->prim_mv_y) );
 }
 
-/** \brief Fußbodenheizung Reglerfunktion
+/** \brief Fussbodenheizung Reglerfunktion
     \param par_p[in] Pointer auf die Struktur mit allen relevanten Parametern
-    \param q_p[in] Pointer auf reglerspezifische Parameter für den Mischventilregler
-    \param in_p[in] Pointer auf Struktur mit allen Eingabegrößen
-    \param out_p[out] Pointer auf Struktur mit allen Ausgangsgrößen
+    \param q_p[in] Pointer auf reglerspezifische Parameter fuer den Mischventilregler
+    \param in_p[in] Pointer auf Struktur mit allen Eingabegroessen
+    \param out_p[out] Pointer auf Struktur mit allen Ausgangsgroessen
     \return kein
 */
 void fb_Run( const fb_param_t *par_p, const sup_digreg_coeff_t *q_p, const fb_in_t *in_p, fb_out_t *out_p )
@@ -53,7 +53,7 @@ void fb_Run( const fb_param_t *par_p, const sup_digreg_coeff_t *q_p, const fb_in
     sup_DigRegler( q_p, out_p->tvl_sw, in_p->sek_tvl_mw, &(out_p->prim_mv_y) );
 
     if(   (in_p->tau_avg <  par_p->at_start) && /* Die mittlere Aussentemperatur liegt unter der Betriebsschwelle */
-          (out_p->tvl_sw >  20.0           )    /* Der berechnete Vorlauftemperatursollwert liegt unter 20°C      */
+          (out_p->tvl_sw >  20.0           )    /* Der berechnete Vorlauftemperatursollwert liegt unter 20 Grad C */
         ) {
         out_p->prim_pu_sb = IO_EIN;
         out_p->sek_pu_sb  = IO_EIN;
