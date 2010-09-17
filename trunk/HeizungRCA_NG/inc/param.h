@@ -3,8 +3,8 @@
 
 /* <Defines> */
 /* Vorgabewerte: */
+#ifdef _PARAM_C_
 #define ALL_Tau_mittel_Zeit       36    /**< Zeit ueber die die Aussentemperatur gemittelt wird (in Stunden)            */
-#define MAX_ALL_Tau_mittel_Zeit   48    /**< max. Wert aus Kommentar in vorgaben.ini                                    */
 #define ALL_Partydauer           120    /**< Fussbodenheizkreis Dauer der Betriebsverlaengerung (in Minuten)            */
 #define ALL_Frostschutz          3.0    /**< Aussentemperatur unter der Heizkreis immer in Betrieb in Grad C            */
 #define ALL_AT_Start            15.0    /**< Aussentemperatur unter der Heizung startet in Grad C                       */
@@ -42,11 +42,13 @@
 #define WW_Tww_Tvl_Faktor        1.0    /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                       */
 #define WW_Tz_SW                40.0    /**< Temperatursollwert des Zirkulationswassers in Grad C                       */
 #define WW_MV_KORR               3.0    /**< Korrekturfaktor fuer MV-Kennlinie                                          */
+#define VORGABENDATEI           "vorgaben.ini"
+#endif
 
+#define MAX_ALL_Tau_mittel_Zeit   48    /**< max. Wert aus Kommentar in vorgaben.ini                                    */
 #define ABTASTZEIT_USEC      500000L    /**< das gleiche als LONG in Mikrosekunden fuer usleep Operation                */
-#define ABTASTZEIT          (((float)ABTASTZEIT_USEC)/1e6) /**< Abtastzeit fuer digitale Regler Algorithmen              */
+#define ABTASTZEIT          (((float)ABTASTZEIT_USEC)/1e6) /**< Abtastzeit fuer digitale Regler Algorithmen             */
 
-#define VORGABENDATEI       "vorgaben.ini"
 
 /* <Defines/> */
 
