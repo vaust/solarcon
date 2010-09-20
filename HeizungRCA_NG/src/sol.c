@@ -43,12 +43,12 @@ static int sol_Speicherabsperrventil( const sol_param_t   *par_p,
 static void sol_Pumpe( const sol_param_t  *par_p,
                              sol_out_t    *out_p )
 {
-    if( ( out_p->sp_av_sb[0] == IO_ZU ) &&
-        ( out_p->sp_av_sb[1] == IO_ZU )    ) {
-        out_p->sol_pu_sb[0] = IO_AUS;
+    if( ( out_p->av_sb[SP1] == IO_ZU ) &&
+        ( out_p->av_sb[SP2] == IO_ZU )    ) {
+        out_p->pu_sb[KO1] = IO_AUS;
     }
     else {
-        out_p->sol_pu_sb[0] = IO_EIN;
+        out_p->pu_sb[KO1] = IO_EIN;
     }
 }
 
@@ -56,13 +56,14 @@ int sol_Run(  const sol_param_t  *par_p,
               const sol_in_t     *in_p,
                     sol_out_t    *out_p )
 {
-    int errorcode;
+    int errorcode = 0;
     
     /* Absperrventil Speicher 1 */
-    errorcode = sol_Speicherabsperrventil( par_p, in_p->koll_t_mw[0], &(in_p->t_sp[0]), &(out_p->sp_av_sb[0]) ); 
+    errorcode = sol_Speicherabsperrventil( par_p, in_p->koll_t_mw[KO1], &(in_p->t_sp[SP1]), &(out_p->av_sb[SP1]) ); 
     /* Absperrventil Speicher 2 */
-    errorcode = sol_Speicherabsperrventil( par_p, in_p->koll_t_mw[0], &(in_p->t_sp[1]), &(out_p->sp_av_sb[1]) ); 
+    errorcode = sol_Speicherabsperrventil( par_p, in_p->koll_t_mw[KO1], &(in_p->t_sp[SP2]), &(out_p->av_sb[SP2]) ); 
     sol_Pumpe( par_p, out_p );
     return( errorcode );
 }
+
 
