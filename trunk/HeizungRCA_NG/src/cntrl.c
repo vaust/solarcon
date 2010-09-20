@@ -91,11 +91,11 @@ int main( void )
         zeit_Run( &cntrl_zeit_absenkung, &cntrl_zeit_event );
 
         /* Prozessdaten */
-        cntrl_sol_in.koll_t_mw[KOLL]  = io_get_SOL_KOLL_T_MW();
+        cntrl_sol_in.koll_t_mw[KOLL] = io_get_SOL_KOLL_T_MW();
         cntrl_sol_in.t_sp[SP1].to_mw = cntrl_ww_in.sol_sp1_to_mw  = cntrl_kes_in.sp1_to_mw = io_get_SOL_SP1_To_MW(); 
         cntrl_sol_in.t_sp[SP1].tu_mw                              = cntrl_kes_in.sp1_tu_mw = io_get_SOL_SP1_Tu_MW();  
         cntrl_sol_in.t_sp[SP2].to_mw                              = cntrl_kes_in.sp2_to_mw = io_get_SOL_SP2_To_MW(); 
-        cntrl_sol_in.t_sp[SP2].tu_mw = cntrl_ww_in.sol_sp2_tu_mw  = cntrl_kes_in.sp2_tu_mw = io_get_SOL_SP2_Tu_MW();                     
+        cntrl_sol_in.t_sp[SP2].tu_mw = cntrl_ww_in.sol_sp2_tu_mw  = cntrl_kes_in.sp2_tu_mw = io_get_SOL_SP2_Tu_MW();
 
         cntrl_fb_in.tau_mw         = cntrl_hk_in.tau_mw         = cntrl_ww_in.tau_mw     = io_get_ALL_Tau_MW();
         cntrl_fb_in.tau_avg        = cntrl_hk_in.tau_avg        = cntrl_ww_in.tau_avg    = cntrl_tau.t_36h_mittel;
@@ -108,7 +108,7 @@ int main( void )
 
         cntrl_ww_in.tww_mw         = io_get_WW_Tww_MW();
         cntrl_ww_in.hzg_trl_mw     = io_get_HK_Trl_MW();
-                                     
+
         cntrl_kes_in.tvl_mw        = io_get_KES_Tvl_MW();
         cntrl_kes_in.duschzeit     = cntrl_zeit_absenkung.Duschzeit; 
         cntrl_kes_in.br_bm         = io_get_KES_BR_BM();
