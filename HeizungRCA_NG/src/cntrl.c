@@ -15,6 +15,10 @@
 #include "io.h"
 #include "cntrl.h"
 
+#define SP1     0
+#define SP2     1
+#define KOLL    0
+
 #ifdef __WIN__
 #include <windows.h>
 #define SLEEP(t) Sleep((t)/1000)
@@ -87,11 +91,11 @@ int main( void )
         zeit_Run( &cntrl_zeit_absenkung, &cntrl_zeit_event );
 
         /* Prozessdaten */
-        cntrl_sol_in.koll_t_mw[0]  = io_get_SOL_KOLL_T_MW();
-        cntrl_sol_in.t_sp[0].to_mw = cntrl_ww_in.sol_sp1_to_mw  = cntrl_kes_in.sp1_to_mw = io_get_SOL_SP1_To_MW(); 
-        cntrl_sol_in.t_sp[0].tu_mw                              = cntrl_kes_in.sp1_tu_mw = io_get_SOL_SP1_Tu_MW();  
-        cntrl_sol_in.t_sp[1].to_mw                              = cntrl_kes_in.sp2_to_mw = io_get_SOL_SP2_To_MW(); 
-        cntrl_sol_in.t_sp[1].tu_mw = cntrl_ww_in.sol_sp2_tu_mw  = cntrl_kes_in.sp2_tu_mw = io_get_SOL_SP2_Tu_MW();                     
+        cntrl_sol_in.koll_t_mw[KOLL]  = io_get_SOL_KOLL_T_MW();
+        cntrl_sol_in.t_sp[SP1].to_mw = cntrl_ww_in.sol_sp1_to_mw  = cntrl_kes_in.sp1_to_mw = io_get_SOL_SP1_To_MW(); 
+        cntrl_sol_in.t_sp[SP1].tu_mw                              = cntrl_kes_in.sp1_tu_mw = io_get_SOL_SP1_Tu_MW();  
+        cntrl_sol_in.t_sp[SP2].to_mw                              = cntrl_kes_in.sp2_to_mw = io_get_SOL_SP2_To_MW(); 
+        cntrl_sol_in.t_sp[SP2].tu_mw = cntrl_ww_in.sol_sp2_tu_mw  = cntrl_kes_in.sp2_tu_mw = io_get_SOL_SP2_Tu_MW();                     
 
         cntrl_fb_in.tau_mw         = cntrl_hk_in.tau_mw         = cntrl_ww_in.tau_mw     = io_get_ALL_Tau_MW();
         cntrl_fb_in.tau_avg        = cntrl_hk_in.tau_avg        = cntrl_ww_in.tau_avg    = cntrl_tau.t_36h_mittel;
@@ -126,9 +130,9 @@ int main( void )
         kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
  
         /*---------- AUSGABE DES PROZESSABBILDES ------------*/
-        io_put_SOL_PU_SB( cntrl_sol_out.sol_pu_sb[0] );    
-        io_put_SOL_SP1_AV_SB( cntrl_sol_out.sp_av_sb[0] );
-        io_put_SOL_SP2_AV_SB( cntrl_sol_out.sp_av_sb[1] );
+        io_put_SOL_PU_SB( cntrl_sol_out.sol_pu_sb[KOLL] );    
+        io_put_SOL_SP1_AV_SB( cntrl_sol_out.sp_av_sb[SP1] );
+        io_put_SOL_SP2_AV_SB( cntrl_sol_out.sp_av_sb[SP2] );
    
         io_put_FB_PRIM_MV_Y( cntrl_fb_out.prim_mv_y.y );               
         io_put_FB_PRIM_PU_SB( cntrl_fb_out.prim_pu_sb );
