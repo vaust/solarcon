@@ -15,10 +15,6 @@
 #include "io.h"
 #include "cntrl.h"
 
-#define SP1     0
-#define SP2     1
-#define KOLL    0
-
 #ifdef __WIN__
 #include <windows.h>
 #define SLEEP(t) Sleep((t)/1000)
@@ -91,7 +87,7 @@ int main( void )
         zeit_Run( &cntrl_zeit_absenkung, &cntrl_zeit_event );
 
         /* Prozessdaten */
-        cntrl_sol_in.koll_t_mw[KOLL] = io_get_SOL_KOLL_T_MW();
+        cntrl_sol_in.koll_t_mw[KO1] = io_get_SOL_KOLL_T_MW();
         cntrl_sol_in.t_sp[SP1].to_mw = cntrl_ww_in.sol_sp1_to_mw  = cntrl_kes_in.sp1_to_mw = io_get_SOL_SP1_To_MW(); 
         cntrl_sol_in.t_sp[SP1].tu_mw                              = cntrl_kes_in.sp1_tu_mw = io_get_SOL_SP1_Tu_MW();  
         cntrl_sol_in.t_sp[SP2].to_mw                              = cntrl_kes_in.sp2_to_mw = io_get_SOL_SP2_To_MW(); 
@@ -130,9 +126,9 @@ int main( void )
         kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
  
         /*---------- AUSGABE DES PROZESSABBILDES ------------*/
-        io_put_SOL_PU_SB( cntrl_sol_out.sol_pu_sb[KOLL] );    
-        io_put_SOL_SP1_AV_SB( cntrl_sol_out.sp_av_sb[SP1] );
-        io_put_SOL_SP2_AV_SB( cntrl_sol_out.sp_av_sb[SP2] );
+        io_put_SOL_PU_SB( cntrl_sol_out.pu_sb[KO1] );    
+        io_put_SOL_SP1_AV_SB( cntrl_sol_out.av_sb[SP1] );
+        io_put_SOL_SP2_AV_SB( cntrl_sol_out.av_sb[SP2] );
    
         io_put_FB_PRIM_MV_Y( cntrl_fb_out.prim_mv_y.y );               
         io_put_FB_PRIM_PU_SB( cntrl_fb_out.prim_pu_sb );
@@ -162,7 +158,7 @@ int main( void )
         printf( "CNTRL.C: TEST: ZEIT : Absenkung Fussbodenheizung: %d\n", cntrl_zeit_absenkung.FB_Zustand );
         printf( "CNTRL.C: TEST: ZEIT : Absenkung Duschzeit       : %d\n", cntrl_zeit_absenkung.Duschzeit );
         printf( "CNTRL.C: TEST: SOLAR: sp1_av_sb=%d sp2_av_sb=%u sol_pu_sb=%d\n",
-                cntrl_sol_out.sp_av_sb[0], cntrl_sol_out.sp_av_sb[1], cntrl_sol_out.sol_pu_sb[0] );
+                cntrl_sol_out.av_sb[SP1], cntrl_sol_out.av_sb[SP2], cntrl_sol_out.pu_sb[KO1] );
         printf( "CNTRL.C: TEST: FB   : tvl_sw=%f prim_mv_y=%f prim_pu_sb=%d sek_pu_sb=%d\n",
                 cntrl_fb_out.tvl_sw, cntrl_fb_out.prim_mv_y.y, cntrl_fb_out.prim_pu_sb, cntrl_fb_out.sek_pu_sb );
         printf( "CNTRL.C: TEST: HK   : tvl_sw=%f mv_y=%f pu_sb=%d\n",

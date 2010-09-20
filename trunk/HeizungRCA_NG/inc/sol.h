@@ -8,7 +8,11 @@
 #define SOL_UEBERTEMPERATUR -1
 
 #define SOL_N_SP    2
-#define SOL_N_KOLL  1
+#define SOL_N_KO    1
+
+#define SP1     0
+#define SP2     1
+#define KO1     0
 /* <Defines/> */
 
 /* <Typen> */
@@ -24,14 +28,14 @@ typedef struct {
 } sol_sp_t_mw_t;
 
 typedef struct {
-    float           koll_t_mw[SOL_N_KOLL];
+    float           koll_t_mw[SOL_N_KO];
     sol_sp_t_mw_t   t_sp[SOL_N_SP];
 } sol_in_t;
 /* <Typen/> */
 
 typedef struct {
-    do_bitbyte_t    sp_av_sb[SOL_N_SP];
-    do_bitbyte_t    sol_pu_sb[SOL_N_KOLL];
+    do_bitbyte_t    av_sb[SOL_N_SP];
+    do_bitbyte_t    pu_sb[SOL_N_KO];
 } sol_out_t;   
 
 /* <Prototypen> */
