@@ -6,7 +6,7 @@
 
 #include "zeit.h"
 #include "task.h"
-#include "solar.h"
+#include "sol.h"
 #include "fb.h"
 #include "hk.h"
 #include "ww.h"
@@ -29,9 +29,9 @@ PUBLIC zeit_party_t            cntrl_zeit_party;
 PUBLIC task_tau_t   cntrl_tau;
 
 /* Variablen fuer Solarkollektorsteuerung */
-PUBLIC sol_in_t     cntrl_sol_in_Sp1, cntrl_sol_in_Sp2;
-PUBLIC do_bitbyte_t cntrl_sol_sp1_av_sb, cntrl_sol_sp2_av_sb, cntrl_sol_pu_sb;
 PUBLIC sol_param_t  cntrl_sol_par;
+PUBLIC sol_in_t     cntrl_sol_in;
+PUBLIC sol_out_t    cntrl_sol_out;
 
 /* Variablen fuer Fussbodenheizung */
 PUBLIC fb_param_t          cntrl_fb_par;

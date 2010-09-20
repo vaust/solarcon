@@ -7,7 +7,7 @@
 #include "param.h"
 #include "zeit.h"
 #include "task.h"
-#include "solar.h"
+#include "sol.h"
 #include "fb.h"
 #include "hk.h"
 #include "ww.h"
@@ -58,7 +58,7 @@ int main( void )
     param_Init();
     zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
     task_Init( &cntrl_tau, io_get_ALL_Tau_MW() );
-    solar_Init( &cntrl_sol_par );
+    sol_Init( &cntrl_sol_par );
     fb_Init( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_out );
     hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
     ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
@@ -87,11 +87,11 @@ int main( void )
         zeit_Run( &cntrl_zeit_absenkung, &cntrl_zeit_event );
 
         /* Prozessdaten */
-        cntrl_sol_in_Sp1.koll_t_mw = cntrl_sol_in_Sp2.koll_t_mw                          = io_get_SOL_KOLL_T_MW();
-        cntrl_sol_in_Sp1.sp_to_mw  = cntrl_ww_in.sol_sp1_to_mw  = cntrl_kes_in.sp1_to_mw = io_get_SOL_SP1_To_MW(); 
-        cntrl_sol_in_Sp1.sp_tu_mw                               = cntrl_kes_in.sp1_tu_mw = io_get_SOL_SP1_Tu_MW();  
-        cntrl_sol_in_Sp2.sp_to_mw                               = cntrl_kes_in.sp2_to_mw = io_get_SOL_SP2_To_MW(); 
-        cntrl_sol_in_Sp2.sp_tu_mw  = cntrl_ww_in.sol_sp2_tu_mw  = cntrl_kes_in.sp2_tu_mw = io_get_SOL_SP2_Tu_MW();                     
+        cntrl_sol_in.koll_t_mw[0]  = io_get_SOL_KOLL_T_MW();
+        cntrl_sol_in.t_sp[0].to_mw = cntrl_ww_in.sol_sp1_to_mw  = cntrl_kes_in.sp1_to_mw = io_get_SOL_SP1_To_MW(); 
+        cntrl_sol_in.t_sp[0].tu_mw                              = cntrl_kes_in.sp1_tu_mw = io_get_SOL_SP1_Tu_MW();  
+        cntrl_sol_in.t_sp[1].to_mw                              = cntrl_kes_in.sp2_to_mw = io_get_SOL_SP2_To_MW(); 
+        cntrl_sol_in.t_sp[1].tu_mw = cntrl_ww_in.sol_sp2_tu_mw  = cntrl_kes_in.sp2_tu_mw = io_get_SOL_SP2_Tu_MW();                     
 
         cntrl_fb_in.tau_mw         = cntrl_hk_in.tau_mw         = cntrl_ww_in.tau_mw     = io_get_ALL_Tau_MW();
         cntrl_fb_in.tau_avg        = cntrl_hk_in.tau_avg        = cntrl_ww_in.tau_avg    = cntrl_tau.t_36h_mittel;
@@ -112,9 +112,7 @@ int main( void )
  
         /*---------- VERARBEITUNG DES PROZESSABBILDES -----------*/
         /* solar_Run(), fb_Run() und hk_Run() sind unabhaengig von einander */
-        solar_Run( &cntrl_sol_par, &cntrl_sol_in_Sp1, 
-                   &cntrl_sol_in_Sp2, &cntrl_sol_sp1_av_sb, 
-                   &cntrl_sol_sp2_av_sb, &cntrl_sol_pu_sb );
+        sol_Run( &cntrl_sol_par, &cntrl_sol_in, &cntrl_sol_out );
         fb_Run( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_in, &cntrl_fb_out );
         hk_Run( &cntrl_hk_par, &cntrl_fb_q, &cntrl_hk_in, &cntrl_hk_out );
 
@@ -128,9 +126,9 @@ int main( void )
         kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
  
         /*---------- AUSGABE DES PROZESSABBILDES ------------*/
-        io_put_SOL_PU_SB( cntrl_sol_pu_sb );    
-        io_put_SOL_SP1_AV_SB( cntrl_sol_sp1_av_sb );
-        io_put_SOL_SP2_AV_SB( cntrl_sol_sp2_av_sb );
+        io_put_SOL_PU_SB( cntrl_sol_out.sol_pu_sb[0] );    
+        io_put_SOL_SP1_AV_SB( cntrl_sol_out.sp_av_sb[0] );
+        io_put_SOL_SP2_AV_SB( cntrl_sol_out.sp_av_sb[1] );
    
         io_put_FB_PRIM_MV_Y( cntrl_fb_out.prim_mv_y.y );               
         io_put_FB_PRIM_PU_SB( cntrl_fb_out.prim_pu_sb );
@@ -160,7 +158,7 @@ int main( void )
         printf( "CNTRL.C: TEST: ZEIT : Absenkung Fussbodenheizung: %d\n", cntrl_zeit_absenkung.FB_Zustand );
         printf( "CNTRL.C: TEST: ZEIT : Absenkung Duschzeit       : %d\n", cntrl_zeit_absenkung.Duschzeit );
         printf( "CNTRL.C: TEST: SOLAR: sp1_av_sb=%d sp2_av_sb=%u sol_pu_sb=%d\n",
-                cntrl_sol_sp1_av_sb, cntrl_sol_sp2_av_sb, cntrl_sol_pu_sb );
+                cntrl_sol_out.sp_av_sb[0], cntrl_sol_out.sp_av_sb[1], cntrl_sol_out.sol_pu_sb[0] );
         printf( "CNTRL.C: TEST: FB   : tvl_sw=%f prim_mv_y=%f prim_pu_sb=%d sek_pu_sb=%d\n",
                 cntrl_fb_out.tvl_sw, cntrl_fb_out.prim_mv_y.y, cntrl_fb_out.prim_pu_sb, cntrl_fb_out.sek_pu_sb );
         printf( "CNTRL.C: TEST: HK   : tvl_sw=%f mv_y=%f pu_sb=%d\n",
