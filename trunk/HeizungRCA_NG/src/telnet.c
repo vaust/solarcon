@@ -111,7 +111,8 @@ void telnet_writeT( void )
 
 void telnet_writeSW( void )
 {
-    snprintf( bufout, BFLN, "kes_Tvl_SW_Sp2_f = %5.1f °C\t sol_SP2_To_SW_f= %5.1f °C\n", kes_Tvl_SW_Sp2_f, sol_SP2_To_SW_f ); 
+    snprintf( bufout, BFLN, "kes_Tvl_SW_Sp2_f = %5.1f °C\t sol_SP2_To_SW_f= %5.1f °C\n", 
+              kes_Tvl_SW_Sp2_f, sol_SP2_To_SW_f ); 
     BFLSH();
     if( z_FB_Zustand == zAbgesenkt )
         snprintf( bufout, BFLN, "fb_Tvl_SW_f = %5.1f °C (abgesenkt um %5.1f °C)\n", fb_Tvl_SW_f, fb_tvl_absenk );
