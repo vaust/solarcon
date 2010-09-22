@@ -44,14 +44,18 @@ void telnet_parsePut( int fdesc, char *bufout );
 
 /* <Global> */
 /* - Globale Threadvariablen -*/
-pthread_t       threadlist[MAX_CON];
-pthread_attr_t  threadattr;
-int             next_thread = 0;
-int             thread_args[2];
+PUBLIC pthread_t       threadlist[MAX_CON];
+PUBLIC pthread_attr_t  threadattr;
+PUBLIC int             thread_args[2];
+PUBLIC pthread_mutex_t mutex;
 
-pthread_mutex_t mutex;
+#ifdef _SERVER_C_
+int             next_thread=0;
+#else 
+extern int      next_thread;
+#endif
 
-static int      server_sock_fd, client_sock_fd;
+PUBLIC int             server_sock_fd, client_sock_fd;
 
 /* </Global> */
 
