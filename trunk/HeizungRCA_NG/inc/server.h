@@ -1,4 +1,5 @@
-/* server.h */
+#ifndef _TELNET_H_
+#define _TELNET_H_
 
 /* <Makros> */
 #ifdef _SERVER_C_
@@ -25,6 +26,18 @@ int create_server_sock( int port );
 void terminate( int sig );
 void *server_thread( void *arg );
 void read_configfile( void );
+
+#ifdef _TELNET_C_
+void telnet_writeT( int fdesc, char *bufout );
+void telnet_writeAO( int fdesc, char *bufout );
+void telnet_writeDI( int fdesc, char *bufout );
+void telnet_writeDO( int fdesc, char *bufout );
+void telnet_writeFB( int fdesc, char *bufout );
+void telnet_writeSOL( int fdesc, char *bufout );
+void telnet_writeHK( int fdesc, char *bufout );
+void telnet_writeVorgabenparameter( int fdesc, char *bufout );
+
+#endif
 /* </Prototypen> */
 
 /* <Global> */
@@ -39,3 +52,6 @@ pthread_mutex_t	mutex;
 static int      server_sock_fd, client_sock_fd;
 
 /* </Global> */
+
+#endif
+

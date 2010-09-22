@@ -152,8 +152,11 @@ const parse_set_t param_Vorgaben[] = {
     { "WW_Tww_Tvl_Faktor",   &param_ww_tww_tvl_faktor,   "%f" },
     { "WW_Tz_SW",            &param_ww_tz_sw,            "%f" }
 };
-#elif _TELNET_C_
+const int param_Vorgaben_len = sizeof(param_Vorgaben)/sizeof(parse_set_t);
+
+#else
 extern const parse_set_t param_Vorgaben[];
+extern const int param_Vorgaben_len;
 #endif
 /* <Konstanten/> */
 

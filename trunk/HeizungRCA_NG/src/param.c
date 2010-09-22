@@ -100,7 +100,7 @@ void param_TEST_Vorgaben( void )
 {
     int n;
     
-    for( n=0; n<(sizeof(param_Vorgaben)/sizeof(parse_set_t)); n++ ) {
+    for( n=0; n<param_Vorgaben_len; n++ ) {
         printf( "PARAM.C: TEST: " );
         printf( param_Vorgaben[n].VarName );
         printf( " = " );
