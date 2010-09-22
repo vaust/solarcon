@@ -49,7 +49,7 @@ pthread_attr_t  threadattr;
 int             next_thread = 0;
 int             thread_args[2];
 
-pthread_mutex_t	mutex;
+pthread_mutex_t mutex;
 
 static int      server_sock_fd, client_sock_fd;
 
