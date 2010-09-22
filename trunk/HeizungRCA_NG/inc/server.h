@@ -2,9 +2,9 @@
 
 /* <Makros> */
 #ifdef _SERVER_C_
-	#define _EXT_
+    #define PUBLIC
 #else
-	#define _EXT_ extern
+    #define PUBLIC extern
 #endif
 
 /* </Makros> */

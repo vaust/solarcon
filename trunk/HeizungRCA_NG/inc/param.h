@@ -113,7 +113,7 @@ PUBLIC float param_ww_tz_sw;            /**< Temperatursollwert des Zirkulations
 /* <Variablen/> */
 
 /* <Konstanten> */
-#ifdef _PARAM_C_
+#ifdef _PARAM_C_ 
 const parse_set_t param_Vorgaben[] = {
     { "ALL_Tau_mittel_Zeit", &param_all_tau_mittel_zeit, "%d" },
     { "ALL_Partydauer",      &param_all_partydauer,      "%d" },
@@ -152,6 +152,8 @@ const parse_set_t param_Vorgaben[] = {
     { "WW_Tww_Tvl_Faktor",   &param_ww_tww_tvl_faktor,   "%f" },
     { "WW_Tz_SW",            &param_ww_tz_sw,            "%f" }
 };
+#elif _TELNET_C_
+extern const parse_set_t param_Vorgaben[];
 #endif
 /* <Konstanten/> */
 
