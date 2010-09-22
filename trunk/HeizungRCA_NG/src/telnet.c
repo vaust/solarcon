@@ -270,7 +270,7 @@ void telnet_writeFB( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "FB_PRIM_MV_Y   = %5.1f pct\n", io_get_FB_PRIM_MV_Y() );                       BFLSH();
     snprintf( bufout, BFLN, "FB_PRIM_PU_SB  = %s\n", (io_get_FB_PRIM_PU_SB() == IO_AUS) ? "AUS" : "EIN" ); BFLSH();
     snprintf( bufout, BFLN, "FB_SEK_PU_SB   = %s\n", (io_get_FB_SEK_PU_SB() == IO_AUS) ? "AUS" : "EIN" );  BFLSH();
-    snprintf( bufout, BFLN, "ALL_PARTY      = %s", (io_get_ALL_PARTY == IO_AUS) ? "AUS\n" : "EIN" );       BFLSH();
+    snprintf( bufout, BFLN, "ALL_PARTY      = %s", (io_get_ALL_PARTY() == IO_AUS) ? "AUS\n" : "EIN" );     BFLSH();
     if (io_get_ALL_PARTY() != 0x00) {
         snprintf( bufout, BFLN, "\t seit %d min, noch %d min aktiv\n",
         param_all_partydauer - cntrl_zeit_party.all_party_restzeit_min, cntrl_zeit_party.all_party_restzeit_min );
@@ -308,7 +308,7 @@ void telnet_writeHK( int fdesc, char *bufout )
 {
     snprintf( bufout, BFLN, "HK_Tvl_MW = %5.1f °C\n", io_get_HK_Tvl_MW() );                      BFLSH();
     snprintf( bufout, BFLN, "HK_Trl_MW = %5.1f °C\n", io_get_HK_Trl_MW() );                      BFLSH();
-    snprintf( bufout, BFLN, "HK_MV_Y   = %5d pct\n", io_get_HK_MV_Y() );                         BFLSH();
+    snprintf( bufout, BFLN, "HK_MV_Y   = %5.1f pct\n", io_get_HK_MV_Y() );                       BFLSH();
     snprintf( bufout, BFLN, "HK_PU_SB  = %s\n", (io_get_HK_PU_SB() == IO_AUS) ? "AUS" : "EIN" ); BFLSH();
 }
 
