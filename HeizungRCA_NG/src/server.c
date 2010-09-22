@@ -18,9 +18,6 @@
 
 #include "server.h"
 
-void *main_thread( void *arg );
-void *telnet_thread( void *arg );
-
 /*-----------------------------------------------
 Funktion:       create_server_sock
                 Socket zur Kommunikation erzeugen
@@ -105,7 +102,7 @@ int main( void )
 
     /* Main Thread erzeugen */
     if( (pthread_create( &(threadlist[next_thread]), &threadattr,
-                         main_thread, (void *)thread_args ) ) != 0 ) {
+                         cntrl_thread, (void *)thread_args ) ) != 0 ) {
         perror( "SERVER.C: Threaderzeugung schlug fehl" );
         exit( -1 );
     }
