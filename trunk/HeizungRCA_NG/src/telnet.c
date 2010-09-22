@@ -43,7 +43,7 @@ void *telnet_thread( void *arg )
     arglist = (int *) arg;
     fdesc = arglist[0];
 
-    snprintf( bufout, BFLN, "RCA Heizungssteuerung Version 0.6.1\n" );                 BFLSH();
+    snprintf( bufout, BFLN, "RCA Heizungssteuerung Version 0.6.2\n" );                 BFLSH();
     snprintf( bufout, BFLN, "Andreas und Volker Stegmann\n\n" );                       BFLSH();
     snprintf( bufout, BFLN, "Server Prozess %d\n\n", arglist[1]+1 );                   BFLSH();
     snprintf( bufout, BFLN, "\n Mögliche Befehle: \n\n" );                             BFLSH();
@@ -57,6 +57,7 @@ void *telnet_thread( void *arg )
     snprintf( bufout, BFLN, "\t GET SOL   (Daten zu Solarbeheizung)\n" );              BFLSH();
     snprintf( bufout, BFLN, "\t GET HK    (Daten zu Heizkörper-Heizkreis)\n" );        BFLSH();
     snprintf( bufout, BFLN, "\t INIT      (Initialisierungsdateien neu einlesen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\t GET PAR   (Eingelesene Parameter ausgeben)\n" );       BFLSH();
     snprintf( bufout, BFLN, "\t END       (Datenabfrage beenden)\n" );                 BFLSH();
 
     while( 1 ) {
