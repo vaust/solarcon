@@ -25,7 +25,8 @@
 int create_server_sock( int port );
 void terminate( int sig );
 void *server_thread( void *arg );
-void read_configfile( void );
+extern void *cntrl_thread( void *arg );
+void *telnet_thread( void *arg );
 
 #ifdef _TELNET_C_
 void telnet_writeT( int fdesc, char *bufout );
