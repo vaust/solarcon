@@ -46,6 +46,7 @@
 
 #ifdef __REENTRANT__
 extern pthread_mutex_t  mutex;
+
 void *cntrl_thread( void *arg )
 #else
 int main( void )

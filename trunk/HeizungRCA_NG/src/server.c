@@ -80,8 +80,6 @@ void terminate( int sig )
 
 int main( void )
 {
-    void    *thread_result;
-
     signal( SIGINT, terminate );
     server_sock_fd = create_server_sock( TCP_PORT );
 
