@@ -26,7 +26,7 @@ Rueckgabewert:  Filedescriptor fuer Zugriff
 ------------------------------------------------*/
 int create_server_sock( int port )
 {
-    int                 sock_fd, 
+    int                 sock_fd;
     socklen_t           socklen;
     struct sockaddr_in  server;
 
