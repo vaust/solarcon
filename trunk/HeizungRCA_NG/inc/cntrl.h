@@ -56,6 +56,34 @@ PUBLIC kes_param_t         cntrl_kes_par;
 PUBLIC kes_in_t            cntrl_kes_in;
 PUBLIC kes_out_t           cntrl_kes_out;
 
+#ifdef _TELNET_C_
+/* Variablennamen -> Mapping */
+{
+    { "fb_par.reg_kp",         &(cntrl_fb_par.reg_kp),         "%f" }, 
+    { "fb_par.reg_tn",         &(cntrl_fb_par.reg_tn),         "%f" },
+    { "fb_par.TA",             &(cntrl_fb_par.TA),             "%f" },
+    { "fb_par.tvl_absenk",     &(cntrl_fb_par.tvl_absenk),     "%f" },
+    { "fb_par.tvl_steigung",   &(cntrl_fb_par.tvl_steigung),   "%f" },
+    { "fb_par.tvl_niveau",     &(cntrl_fb_par.tvl_niveau),     "%f" },
+    { "fb_par.tvl_min",        &(cntrl_fb_par.tvl_min),        "%f" },
+    { "fb_par.tvl_max",        &(cntrl_fb_par.tvl_max),        "%f" },
+    { "fb_par.at_start",       &(cntrl_fb_par.at_start),       "%f" },
+    { "fb_par.frostschutz",    &(cntrl_fb_par.frostschutz),    "%f" },
+    { "fb_par.float tr_sw",    &(cntrl_fb_par.float tr_sw),    "%f" },
+
+    { "fb_in.tau_mw",          &(cntrl_fb_in.tau_mw),          "%f" },
+    { "fb_in.tau_avg",         &(cntrl_fb_in.tau_avg),         "%f" },
+    { "fb_in.sek_tvl_mw",      &(cntrl_fb_in.sek_tvl_mw),      "%f" },
+    { "fb_in.zustand",         &(cntrl_fb_in.zustand),         "%d" },
+    { "fb_in.partytime_flg",   &(cntrl_fb_in.partytime_flg),   "%d" },
+     
+    { "fb_out.tvl_sw",         &(cntrl_fb_out.tvl_sw),         "%f" },
+    { "fb_out.prim_mv_y.y",    &(cntrl_fb_out.prim_mv_y.y),    "%f" },
+    { "fb_out.prim_mv_y.y_1",  &(cntrl_fb_out.prim_mv_y.y_1),  "%f" },
+    { "fb_out.prim_mv_y.xd_1", &(cntrl_fb_out.prim_mv_y.xd_1), "%f" },
+    { "fb_out.prim_pu_sb",     &(cntrl_fb_out.prim_pu_sb),     "%d" },
+    { "fb_out.sek_pu_sb",      &(cntrl_fb_out.sek_pu_sb),      "%d" }
+}
 /* <Globals/> */
 #endif
 
