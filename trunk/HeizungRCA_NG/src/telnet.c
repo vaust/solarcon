@@ -83,6 +83,12 @@ void *telnet_thread( void *arg )
                 MUTEX_LOCK();
                 param_Init();
                 zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
+                task_Init( &cntrl_tau, io_get_ALL_Tau_MW() );
+                sol_Init( &cntrl_sol_par );
+                fb_Init( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_out );
+                hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
+                ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
+                kes_Init( &cntrl_kes_par, &cntrl_kes_out );
                 MUTEX_UNLOCK();
                 snprintf( bufout, BFLN, "TELNET: Parameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
             }
