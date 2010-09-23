@@ -62,6 +62,10 @@ void *telnet_thread( void *arg )
                 close( fdesc );
                 pthread_exit( NULL );
             }
+            if( strncasecmp( "HELP", token, 3 ) == 0 ) {
+                printf( "TELNET.C: HELP Befehl erhalten\n" );
+                telnet_writeHelp( fdesc, bufout );
+            }
             else if( strncasecmp( "GET", token, 3 ) == 0 ) {
                 printf( "TELNET.C: GET Befehl erhalten\n" );
                 MUTEX_LOCK();
@@ -100,10 +104,10 @@ void telnet_writeHelp( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "\t GET HK    (Daten zu Heizkörper-Heizkreis)\n" );        BFLSH();
     snprintf( bufout, BFLN, "\t INIT      (Initialisierungsdateien neu einlesen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t GET PAR   (Eingelesene Parameter ausgeben)\n" );       BFLSH();
+    snprintf( bufout, BFLN, "\t GET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n" );   BFLSH();
     snprintf( bufout, BFLN, "\t HELP      (Diesen Hilfetext ausgeben)\n" );            BFLSH();
     snprintf( bufout, BFLN, "\t END       (Datenabfrage beenden)\n" );                 BFLSH();
-    
-    }
+}
 
 void telnet_parseGet( int fdesc, char *bufout )
 {
@@ -197,33 +201,33 @@ void telnet_writeSchaltzeiten( int fdesc, char *bufout )
     for( n=0; n<hk_states; n++ ) {
         telnet_minToTime( HK_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
         telnet_minToTime( HK_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
-        snprintf( bufout, BFLN, "ZEIT.C: TEST: HK_Ein_Schaltzeiten[%d]    = %1d-%02d:%02d, HK_Aus_Schaltzeiten[%d]    = %1d-%02d:%02d\n",
+        snprintf( bufout, BFLN, "HK_Ein_Schaltzeiten[%d]    = %1d-%02d:%02d, HK_Aus_Schaltzeiten[%d]    = %1d-%02d:%02d\n",
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
     for( n=0; n<fb_states; n++ ) {
         telnet_minToTime( FB_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
         telnet_minToTime( FB_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
-        snprintf( bufout, BFLN, "ZEIT.C: TEST: FB_Ein_Schaltzeiten[%d]    = %1d-%02d:%02d, FB_Aus_Schaltzeiten[%d]    = %1d-%02d:%02d\n",
+        snprintf( bufout, BFLN, "FB_Ein_Schaltzeiten[%d]    = %1d-%02d:%02d, FB_Aus_Schaltzeiten[%d]    = %1d-%02d:%02d\n",
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
     for( n=0; n<zirk_states; n++ ) {
         telnet_minToTime( ZIRK_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
         telnet_minToTime( ZIRK_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
-        snprintf( bufout, BFLN, "ZEIT.C: TEST: ZIRK_Ein_Schaltzeiten[%d]  = %1d-%02d:%02d, ZIRK_Aus_Schaltzeiten[%d]  = %1d-%02d:%02d\n",
+        snprintf( bufout, BFLN, "ZIRK_Ein_Schaltzeiten[%d]  = %1d-%02d:%02d, ZIRK_Aus_Schaltzeiten[%d]  = %1d-%02d:%02d\n",
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
     for( n=0; n<dusch_states; n++ ) {
         telnet_minToTime( DUSCH_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
         telnet_minToTime( DUSCH_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
-        snprintf( bufout, BFLN, "ZEIT.C: TEST: DUSCH_Ein_Schaltzeiten[%d] = %1d-%02d:%02d, DUSCH_Aus_Schaltzeiten[%d] = %1d-%02d:%02d\n",
+        snprintf( bufout, BFLN, "DUSCH_Ein_Schaltzeiten[%d] = %1d-%02d:%02d, DUSCH_Aus_Schaltzeiten[%d] = %1d-%02d:%02d\n",
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
-//    snprintf( bufout, BFLN,"ZEIT.C: TEST: HOUR_OFFSET = %d\n\n", zeit_hour_offset );  
-//    BFLSH();
+    snprintf( bufout, BFLN,"HOUR_OFFSET = %d\n\n", zeit_hour_offset );  
+    BFLSH();
 }
 
 void telnet_writeT( int fdesc, char *bufout )
