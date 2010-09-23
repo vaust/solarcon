@@ -25,7 +25,7 @@
 #include "task.h"
 #include "server.h"
 
-#define BFLN        64
+#define BFLN        96
 #define BFLSH()     write( fdesc, bufout, strlen( bufout ) )
 
 /**
@@ -43,22 +43,10 @@ void *telnet_thread( void *arg )
     arglist = (int *) arg;
     fdesc = arglist[0];
 
-    snprintf( bufout, BFLN, "RCA Heizungssteuerung Version 0.6.2\n" );                 BFLSH();
-    snprintf( bufout, BFLN, "Andreas und Volker Stegmann\n\n" );                       BFLSH();
-    snprintf( bufout, BFLN, "Server Prozess %d\n\n", arglist[1]+1 );                   BFLSH();
-    snprintf( bufout, BFLN, "\n Mögliche Befehle: \n\n" );                             BFLSH();
-    snprintf( bufout, BFLN, "\t GET T     (alle Temperaturmesswerte)\n" );             BFLSH();
-    snprintf( bufout, BFLN, "\t GET SW    (Sollwerte)\n" );                            BFLSH();
-    snprintf( bufout, BFLN, "\t GET AO    (alle Analog-Ausgaenge)\n" );                BFLSH();
-    snprintf( bufout, BFLN, "\t GET DI    (alle Digital-Eingaenge)\n" );               BFLSH();
-    snprintf( bufout, BFLN, "\t GET DO    (alle Digital-Ausgaenge)\n" );               BFLSH();
-    snprintf( bufout, BFLN, "\t GET FB    (Daten zu FB-Heizung)\n" );                  BFLSH();
-    snprintf( bufout, BFLN, "\t GET WW    (Daten zu Warmwasserbereitung)\n" );         BFLSH();
-    snprintf( bufout, BFLN, "\t GET SOL   (Daten zu Solarbeheizung)\n" );              BFLSH();
-    snprintf( bufout, BFLN, "\t GET HK    (Daten zu Heizkörper-Heizkreis)\n" );        BFLSH();
-    snprintf( bufout, BFLN, "\t INIT      (Initialisierungsdateien neu einlesen)\n" ); BFLSH();
-    snprintf( bufout, BFLN, "\t GET PAR   (Eingelesene Parameter ausgeben)\n" );       BFLSH();
-    snprintf( bufout, BFLN, "\t END       (Datenabfrage beenden)\n" );                 BFLSH();
+    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version 0.6.2\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\tAndreas und Volker Stegmann\n\n" );       BFLSH();
+    snprintf( bufout, BFLN, "\tServer Prozess %d\n\n", arglist[1]+1 );   BFLSH();
+    telnet_writeHelp( fdesc, bufout );
 
     while( 1 ) {
         if( read( fdesc, bufin, BFLN-1 ) == 0 ) {
@@ -98,7 +86,24 @@ void *telnet_thread( void *arg )
     }
 }
 
-
+void telnet_writeHelp( int fdesc, char *bufout )
+{
+    snprintf( bufout, BFLN, "\n Mögliche Befehle: \n\n" );                             BFLSH();
+    snprintf( bufout, BFLN, "\t GET T     (alle Temperaturmesswerte)\n" );             BFLSH();
+    snprintf( bufout, BFLN, "\t GET SW    (Sollwerte)\n" );                            BFLSH();
+    snprintf( bufout, BFLN, "\t GET AO    (alle Analog-Ausgaenge)\n" );                BFLSH();
+    snprintf( bufout, BFLN, "\t GET DI    (alle Digital-Eingaenge)\n" );               BFLSH();
+    snprintf( bufout, BFLN, "\t GET DO    (alle Digital-Ausgaenge)\n" );               BFLSH();
+    snprintf( bufout, BFLN, "\t GET FB    (Daten zu FB-Heizung)\n" );                  BFLSH();
+    snprintf( bufout, BFLN, "\t GET WW    (Daten zu Warmwasserbereitung)\n" );         BFLSH();
+    snprintf( bufout, BFLN, "\t GET SOL   (Daten zu Solarbeheizung)\n" );              BFLSH();
+    snprintf( bufout, BFLN, "\t GET HK    (Daten zu Heizkörper-Heizkreis)\n" );        BFLSH();
+    snprintf( bufout, BFLN, "\t INIT      (Initialisierungsdateien neu einlesen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\t GET PAR   (Eingelesene Parameter ausgeben)\n" );       BFLSH();
+    snprintf( bufout, BFLN, "\t HELP      (Diesen Hilfetext ausgeben)\n" );            BFLSH();
+    snprintf( bufout, BFLN, "\t END       (Datenabfrage beenden)\n" );                 BFLSH();
+    
+    }
 
 void telnet_parseGet( int fdesc, char *bufout )
 {
