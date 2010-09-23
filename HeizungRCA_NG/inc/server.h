@@ -39,6 +39,7 @@ void telnet_writeHK( int fdesc, char *bufout );
 void telnet_writeVorgabenparameter( int fdesc, char *bufout );
 void telnet_parseGet( int fdesc, char *bufout );
 void telnet_parsePut( int fdesc, char *bufout );
+void telnet_writeHelp( int fdesc, char *bufout );
 #endif
 /* </Prototypen> */
 
