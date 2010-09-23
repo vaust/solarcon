@@ -135,6 +135,9 @@ void telnet_parseGet( int fdesc, char *bufout )
     else if( strncasecmp( token, "PAR", 3 ) == 0 ) {
         telnet_writeVorgabenparameter( fdesc, bufout );
     }
+    else if( strncasecmp( token, "ZEIT", 4 ) == 0 ) {
+        telnet_writeSchaltzeiten( fdesc, bufout );
+    }
 }
 
 
@@ -179,7 +182,7 @@ void telnet_minToTime( s16_t t, s16_t *d, s16_t *h, s16_t *m )
     tmp  /= 24;
     *d = tmp % 7;
 }    
-/*        
+        
 void telnet_writeSchaltzeiten( int fdesc, char *bufout )
 {
     s16_t n;
@@ -214,10 +217,10 @@ void telnet_writeSchaltzeiten( int fdesc, char *bufout )
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
-    snprintf( bufout, BFLN,"ZEIT.C: TEST: HOUR_OFFSET = %d\n\n", zeit_hour_offset );  
-    BFLSH();
+//    snprintf( bufout, BFLN,"ZEIT.C: TEST: HOUR_OFFSET = %d\n\n", zeit_hour_offset );  
+//    BFLSH();
 }
-*/
+
 void telnet_writeT( int fdesc, char *bufout )
 {
     snprintf( bufout, BFLN, "ALL_Tau_MW     = %5.1f °C\n", io_get_ALL_Tau_MW() );       BFLSH();
