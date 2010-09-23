@@ -67,11 +67,28 @@ u8_t    sp1_states;
 u8_t    sp2_states;
 u8_t    haus_states;
 u8_t    dusch_states;
-#endif /* _ZEIT_C_ */
 
-#ifdef _ZEIT_C_
 static int zeit_hour_offset;
+#else
+#ifdef _TELNET_C_
+extern zeit_schaltpunkt_t HK_Ein_Schaltzeiten[];
+extern zeit_schaltpunkt_t HK_Aus_Schaltzeiten[];
+extern zeit_schaltpunkt_t FB_Ein_Schaltzeiten[];
+extern zeit_schaltpunkt_t FB_Aus_Schaltzeiten[];
+extern zeit_schaltpunkt_t ZIRK_Ein_Schaltzeiten[];
+extern zeit_schaltpunkt_t ZIRK_Aus_Schaltzeiten[];
+extern zeit_schaltpunkt_t DUSCH_Ein_Schaltzeiten[];
+extern zeit_schaltpunkt_t DUSCH_Aus_Schaltzeiten[];
+extern u8_t    hk_states;
+extern u8_t    fb_states;
+extern u8_t    zirk_states;
+extern u8_t    sp1_states;
+extern u8_t    sp2_states;
+extern u8_t    haus_states;
+extern u8_t    dusch_states;
 #endif
+
+#endif /* _ZEIT_C_ */
 
 /* <Variablen/> */
 
