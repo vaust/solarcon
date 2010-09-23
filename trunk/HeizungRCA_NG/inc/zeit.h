@@ -68,7 +68,7 @@ u8_t    sp2_states;
 u8_t    haus_states;
 u8_t    dusch_states;
 
-static int zeit_hour_offset;
+int zeit_hour_offset;
 #else
 #ifdef _TELNET_C_
 extern zeit_schaltpunkt_t HK_Ein_Schaltzeiten[];
@@ -86,6 +86,7 @@ extern u8_t    sp1_states;
 extern u8_t    sp2_states;
 extern u8_t    haus_states;
 extern u8_t    dusch_states;
+extern int     zeit_hour_offset;
 #endif
 
 #endif /* _ZEIT_C_ */
