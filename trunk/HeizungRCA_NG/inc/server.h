@@ -41,6 +41,7 @@ void telnet_parseGet( int fdesc, char *bufout );
 void telnet_parsePut( int fdesc, char *bufout );
 void telnet_writeSchaltzeiten( int fdesc, char *bufout );
 void telnet_writeHelp( int fdesc, char *bufout );
+void telnet_writeFbVars( int fdesc, char *bufout );
 #endif
 /* </Prototypen> */
 
