@@ -36,6 +36,7 @@ void telnet_writeDO( int fdesc, char *bufout );
 void telnet_writeFB( int fdesc, char *bufout );
 void telnet_writeSOL( int fdesc, char *bufout );
 void telnet_writeHK( int fdesc, char *bufout );
+void telnet_writeWW( int fdesc, char *bufout );
 void telnet_writeVorgabenparameter( int fdesc, char *bufout );
 void telnet_parseGet( int fdesc, char *bufout );
 void telnet_parsePut( int fdesc, char *bufout );

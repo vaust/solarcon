@@ -139,7 +139,7 @@ void telnet_parseGet( int fdesc, char *bufout )
         telnet_writeFB( fdesc, bufout );
     }
     else if( strncasecmp( token, "WW", 2 ) == 0 ) {
-        // telnet_writeWW();
+        telnet_writeWW( fdesc, bufout );
     }
     else if( strncasecmp( token, "HK", 2 ) == 0 ) {
         telnet_writeHK( fdesc, bufout );
@@ -153,7 +153,7 @@ void telnet_parseGet( int fdesc, char *bufout )
     else if( strncasecmp( token, "ZEIT", 4 ) == 0 ) {
         telnet_writeSchaltzeiten( fdesc, bufout );
     }
-    else if( strncasecmp( token, "FBV", 3 ) == 0 ) {
+    else if( strncasecmp( token, "VFB", 3 ) == 0 ) {
         telnet_writeFbVars( fdesc, bufout );
     }
 }
@@ -408,10 +408,8 @@ const parse_set_t telnet_FbVars[] =
     { "fb_par.tvl_max",        &(cntrl_fb_par.tvl_max),        "%f" },
     { "fb_par.at_start",       &(cntrl_fb_par.at_start),       "%f" },
     { "fb_par.frostschutz",    &(cntrl_fb_par.frostschutz),    "%f" },
-    { "fb_par.float tr_sw",    &(cntrl_fb_par.tr_sw),          "%f" },
 
     { "fb_in.tau_mw",          &(cntrl_fb_in.tau_mw),          "%f" },
-    { "fb_in.tau_avg",         &(cntrl_fb_in.tau_avg),         "%f" },
     { "fb_in.sek_tvl_mw",      &(cntrl_fb_in.sek_tvl_mw),      "%f" },
     { "fb_in.zustand",         &(cntrl_fb_in.zustand),         "%d" },
     { "fb_in.partytime_flg",   &(cntrl_fb_in.partytime_flg),   "%d" },
