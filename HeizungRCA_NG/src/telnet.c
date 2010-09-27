@@ -202,9 +202,9 @@ void telnet_writeHelp( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "\t GET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n" );   BFLSH();
     snprintf( bufout, BFLN, "\t GET ABS   (Absenkungen ausgeben)\n" );                 BFLSH();
     snprintf( bufout, BFLN, "\t HELP      (Diesen Hilfetext ausgeben)\n" );            BFLSH();
-    snprintf( bufout, BFLN, "\n\t VFB      (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
-    snprintf( bufout, BFLN, "\t VHK      (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
-    snprintf( bufout, BFLN, "\t VWW      (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\n\t GET VFB     (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\t GET VHK      (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\t GET VWW      (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t END       (Datenabfrage beenden)\n" );                 BFLSH();
 }
 
@@ -250,13 +250,13 @@ void telnet_parseGet( int fdesc, char *bufout )
         telnet_writeAbsenk( fdesc, bufout );
     }
     else if( strncasecmp( token, "VFB", 3 ) == 0 ) {
-        telnet_writeVars( telnet_fb_Vars, fdesc, bufout );
+        telnet_writeVars( telnet_fb_Vars, sizeof(telnet_fb_Vars)/sizeof(parse_set_t), fdesc, bufout );
     }
     else if( strncasecmp( token, "VHK", 3 ) == 0 ) {
-        telnet_writeVars( telnet_hk_Vars, fdesc, bufout );
+        telnet_writeVars( telnet_hk_Vars, sizeof(telnet_hk_Vars)/sizeof(parse_set_t), fdesc, bufout );
     }
     else if( strncasecmp( token, "VWW", 3 ) == 0 ) {
-        telnet_writeVars( telnet_hk_Vars, fdesc, bufout );
+        telnet_writeVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t), fdesc, bufout );
     }
 }
  
@@ -525,11 +525,11 @@ void telnet_writeSOL( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "SOL_SP2_AV_SB = %s\n", (io_get_SOL_SP2_AV_SB() == IO_ZU) ? "ZU" : "AUF" ); BFLSH();
 }
 
-void telnet_writeVars( const parse_set_t Vars[], int fdesc, char *bufout )
+void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufout )
 {
     int n;
     
-    for( n=0; n<sizeof(Vars)/sizeof(parse_set_t); n++ ) {
+    for( n=0; n<len; n++ ) {
         snprintf( bufout, BFLN, Vars[n].VarName ); BFLSH();
         snprintf( bufout, BFLN, " = " ); BFLSH();
         switch ( Vars[n].format[1] ) {
