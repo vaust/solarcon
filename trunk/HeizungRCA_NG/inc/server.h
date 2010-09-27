@@ -33,6 +33,7 @@ void telnet_writeT( int fdesc, char *bufout );
 void telnet_writeAO( int fdesc, char *bufout );
 void telnet_writeDI( int fdesc, char *bufout );
 void telnet_writeDO( int fdesc, char *bufout );
+void telnet_writeSW( int fdesc, char *bufout );
 void telnet_writeFB( int fdesc, char *bufout );
 void telnet_writeSOL( int fdesc, char *bufout );
 void telnet_writeHK( int fdesc, char *bufout );
@@ -42,7 +43,8 @@ void telnet_parseGet( int fdesc, char *bufout );
 void telnet_parsePut( int fdesc, char *bufout );
 void telnet_writeSchaltzeiten( int fdesc, char *bufout );
 void telnet_writeHelp( int fdesc, char *bufout );
-void telnet_writeFbVars( int fdesc, char *bufout );
+void telnet_writeVars( const parse_set_t Vars[], int fdesc, char *bufout );
+void telnet_writeAbsenk( int fdesc, char *bufout );
 #endif
 /* </Prototypen> */
 

@@ -6,10 +6,10 @@
 static void ww_MV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_out_t *out_p )
 {
     out_p->hzg_tvl_sw = par_p->tww_sw + par_p->kes_sp_dt_sw;
-    if( in_p->sol_sp1_to_mw > in_p->hzg_trl_mw ) {
+    if( in_p->sp1_to_mw > in_p->hzg_trl_mw ) {
         out_p->hzg_mv_y.y =
             (out_p->hzg_tvl_sw - in_p->hzg_trl_mw) * 100.0 / 
-                (in_p->sol_sp1_to_mw - in_p->hzg_trl_mw)  
+                (in_p->sp1_to_mw - in_p->hzg_trl_mw)  
           + (out_p->hzg_tvl_sw - in_p->hzg_tvl_mw) * par_p->mv_korr;            
     } else
     {
@@ -21,12 +21,12 @@ static void ww_MV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_ou
 static void ww_VV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_out_t *out_p )
 {
     if( in_p->tau_avg        > par_p->at_start ) {
-        if( in_p->hzg_trl_mw < in_p->sol_sp2_tu_mw ) out_p->hzg_vv_sb = WW_VV_SP2;
-        else                                         out_p->hzg_vv_sb = WW_VV_SP1;
+        if( in_p->hzg_trl_mw < in_p->sp2_tu_mw ) out_p->hzg_vv_sb = WW_VV_SP2;
+        else                                     out_p->hzg_vv_sb = WW_VV_SP1;
     }
     else {
-        if( in_p->hzg_trl_mw < in_p->hk_tvl_sw )     out_p->hzg_vv_sb = WW_VV_SP2;
-        else                                         out_p->hzg_vv_sb = WW_VV_SP1;
+        if( in_p->hzg_trl_mw < in_p->hk_tvl_sw ) out_p->hzg_vv_sb = WW_VV_SP2;
+        else                                     out_p->hzg_vv_sb = WW_VV_SP1;
     }
 }   
  
