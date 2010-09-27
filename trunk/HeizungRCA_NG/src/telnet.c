@@ -202,8 +202,9 @@ void telnet_writeHelp( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "\t GET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n" );   BFLSH();
     snprintf( bufout, BFLN, "\t GET ABS   (Absenkungen ausgeben)\n" );                 BFLSH();
     snprintf( bufout, BFLN, "\t HELP      (Diesen Hilfetext ausgeben)\n" );            BFLSH();
-    snprintf( bufout, BFLN, "\n\t VFB      (Parameter-, Eingangs- und Ausgangsvariablen fuer FB)\n" ); BFLSH();
-    snprintf( bufout, BFLN, "\t VHK      (Parameter-, Eingangs- und Ausgangsvariablen fuer HK)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\n\t VFB      (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\t VHK      (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\t VWW      (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t END       (Datenabfrage beenden)\n" );                 BFLSH();
 }
 
@@ -216,7 +217,7 @@ void telnet_parseGet( int fdesc, char *bufout )
         telnet_writeT( fdesc, bufout );
     }
     else if( strncasecmp( token, "SW", 2 ) == 0 ) {
-        // telnet_writeSW();
+        telnet_writeSW( fdesc, bufout );
     }
     else if( strncasecmp( token, "DI", 2 ) == 0 ) {
         telnet_writeDI( fdesc, bufout );
@@ -252,6 +253,9 @@ void telnet_parseGet( int fdesc, char *bufout )
         telnet_writeVars( telnet_fb_Vars, fdesc, bufout );
     }
     else if( strncasecmp( token, "VHK", 3 ) == 0 ) {
+        telnet_writeVars( telnet_hk_Vars, fdesc, bufout );
+    }
+    else if( strncasecmp( token, "VWW", 3 ) == 0 ) {
         telnet_writeVars( telnet_hk_Vars, fdesc, bufout );
     }
 }
