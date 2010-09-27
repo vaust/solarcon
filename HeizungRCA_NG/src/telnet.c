@@ -172,6 +172,12 @@ void *telnet_thread( void *arg )
                 printf( "TELNET.C: HELP Befehl erhalten\n" );
                 telnet_writeHelp( fdesc, bufout );
             }
+            if( strncasecmp( "VERSION", token, 7 ) == 0 ) {
+                printf( "TELNET.C: VERSION Befehl erhalten\n" );
+                snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version 0.6.3\n" ); BFLSH();
+                snprintf( bufout, BFLN, "\tOktober 2010\n" ); BFLSH(); 
+                snprintf( bufout, BFLN, "\tAndreas und Volker Stegmann\n" ); BFLSH();             
+            }
             else if( strncasecmp( "GET", token, 3 ) == 0 ) {
                 printf( "TELNET.C: GET Befehl erhalten\n" );
                 MUTEX_LOCK();
@@ -219,6 +225,7 @@ void telnet_writeHelp( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "\t GET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n" );   BFLSH();
     snprintf( bufout, BFLN, "\t GET ABS   (Absenkungen ausgeben)\n" );                 BFLSH();
     snprintf( bufout, BFLN, "\t HELP      (Diesen Hilfetext ausgeben)\n" );            BFLSH();
+    snprintf( bufout, BFLN, "\t VERSION   (Software Version ausgeben)\n" );            BFLSH();
     snprintf( bufout, BFLN, "\n\t GET VFB   (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t GET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t GET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
@@ -332,28 +339,28 @@ void telnet_writeSchaltzeiten( int fdesc, char *bufout )
     for( n=0; n<hk_states; n++ ) {
         telnet_minToTime( HK_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
         telnet_minToTime( HK_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
-        snprintf( bufout, BFLN, "HK_Ein_Schaltzeiten[%d]    = %1d-%02d:%02d, HK_Aus_Schaltzeiten[%d]    = %1d-%02d:%02d\n",
+        snprintf( bufout, BFLN, "HK_Ein[%d]    = %1d-%02d:%02d, HK_Aus[%d]    = %1d-%02d:%02d\n",
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
     for( n=0; n<fb_states; n++ ) {
         telnet_minToTime( FB_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
         telnet_minToTime( FB_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
-        snprintf( bufout, BFLN, "FB_Ein_Schaltzeiten[%d]    = %1d-%02d:%02d, FB_Aus_Schaltzeiten[%d]    = %1d-%02d:%02d\n",
+        snprintf( bufout, BFLN, "FB_Ein[%d]    = %1d-%02d:%02d, FB_Aus[%d]    = %1d-%02d:%02d\n",
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
     for( n=0; n<zirk_states; n++ ) {
         telnet_minToTime( ZIRK_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
         telnet_minToTime( ZIRK_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
-        snprintf( bufout, BFLN, "ZIRK_Ein_Schaltzeiten[%d]  = %1d-%02d:%02d, ZIRK_Aus_Schaltzeiten[%d]  = %1d-%02d:%02d\n",
+        snprintf( bufout, BFLN, "ZIRK_Ein[%d]  = %1d-%02d:%02d, ZIRK_Aus[%d]  = %1d-%02d:%02d\n",
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
     for( n=0; n<dusch_states; n++ ) {
         telnet_minToTime( DUSCH_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
         telnet_minToTime( DUSCH_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
-        snprintf( bufout, BFLN, "DUSCH_Ein_Schaltzeiten[%d] = %1d-%02d:%02d, DUSCH_Aus_Schaltzeiten[%d] = %1d-%02d:%02d\n",
+        snprintf( bufout, BFLN, "DUSCH_Ein[%d] = %1d-%02d:%02d, DUSCH_Aus[%d] = %1d-%02d:%02d\n",
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
