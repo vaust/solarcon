@@ -33,8 +33,8 @@ typedef struct {
     float hzg_tvl_mw;
     float hzg_trl_mw;
     float hk_tvl_sw;
-    float sol_sp1_to_mw;
-    float sol_sp2_tu_mw;
+    float sp1_to_mw;
+    float sp2_tu_mw;
     ein_aus_t zirkzustand;
 } ww_in_t;
 

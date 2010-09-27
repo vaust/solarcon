@@ -28,6 +28,95 @@
 #define BFLN        96
 #define BFLSH()     write( fdesc, bufout, strlen( bufout ) )
 
+const parse_set_t telnet_fb_Vars[] =
+{
+    { "fb_par.reg_kp",         &(cntrl_fb_par.reg_kp),         "%f" }, 
+    { "fb_par.reg_tn",         &(cntrl_fb_par.reg_tn),         "%f" },
+    { "fb_par.TA",             &(cntrl_fb_par.TA),             "%f" },
+    { "fb_par.tvl_absenk",     &(cntrl_fb_par.tvl_absenk),     "%f" },
+    { "fb_par.tvl_steigung",   &(cntrl_fb_par.tvl_steigung),   "%f" },
+    { "fb_par.tvl_niveau",     &(cntrl_fb_par.tvl_niveau),     "%f" },
+    { "fb_par.tvl_min",        &(cntrl_fb_par.tvl_min),        "%f" },
+    { "fb_par.tvl_max",        &(cntrl_fb_par.tvl_max),        "%f" },
+    { "fb_par.at_start",       &(cntrl_fb_par.at_start),       "%f" },
+    { "fb_par.frostschutz",    &(cntrl_fb_par.frostschutz),    "%f" },
+    { "fb_par.tr_sw",          &(cntrl_fb_par.tr_sw),          "%f" },
+
+    
+    { "fb_in.tau_mw",          &(cntrl_fb_in.tau_mw),          "%f" },
+    { "fb_in.sek_tvl_mw",      &(cntrl_fb_in.sek_tvl_mw),      "%f" },
+    { "fb_in.zustand",         &(cntrl_fb_in.zustand),         "%d" },
+    { "fb_in.partytime_flg",   &(cntrl_fb_in.partytime_flg),   "%d" },
+     
+    { "fb_out.tvl_sw",         &(cntrl_fb_out.tvl_sw),         "%f" },
+    { "fb_out.prim_mv_y.y",    &(cntrl_fb_out.prim_mv_y.y),    "%f" },
+    { "fb_out.prim_mv_y.y_1",  &(cntrl_fb_out.prim_mv_y.y_1),  "%f" },
+    { "fb_out.prim_mv_y.xd_1", &(cntrl_fb_out.prim_mv_y.xd_1), "%f" },
+    { "fb_out.prim_pu_sb",     &(cntrl_fb_out.prim_pu_sb),     "%d" },
+    { "fb_out.sek_pu_sb",      &(cntrl_fb_out.sek_pu_sb),      "%d" }
+};
+
+const parse_set_t telnet_hk_Vars[] =
+{
+    { "hk_par.reg_kp",         &(cntrl_hk_par.reg_kp),         "%f" }, 
+    { "hk_par.reg_tn",         &(cntrl_hk_par.reg_tn),         "%f" },
+    { "hk_par.TA",             &(cntrl_hk_par.TA),             "%f" },
+    { "hk_par.tvl_absenk",     &(cntrl_hk_par.tvl_absenk),     "%f" },
+    { "hk_par.tvl_steigung",   &(cntrl_hk_par.tvl_steigung),   "%f" },
+    { "hk_par.tvl_niveau",     &(cntrl_hk_par.tvl_niveau),     "%f" },
+    { "hk_par.tvl_min",        &(cntrl_hk_par.tvl_min),        "%f" },
+    { "hk_par.tvl_max",        &(cntrl_hk_par.tvl_max),        "%f" },
+    { "hk_par.at_start",       &(cntrl_hk_par.at_start),       "%f" },
+    { "hk_par.frostschutz",    &(cntrl_hk_par.frostschutz),    "%f" },
+    { "hk_par.tr_sw",          &(cntrl_hk_par.tr_sw),          "%f" },
+
+    { "hk_in.tau_mw",          &(cntrl_hk_in.tau_mw),          "%f" },
+    { "hk_in.tau_avg",         &(cntrl_hk_in.tau_avg),         "%f" },
+    { "hk_in.tvl_mw",          &(cntrl_hk_in.tvl_mw),          "%f" },
+    { "hk_in.zustand",         &(cntrl_hk_in.zustand),         "%d" },
+    { "hk_in.partytime_flg",   &(cntrl_hk_in.partytime_flg),   "%d" },
+     
+    { "hk_out.tvl_sw",         &(cntrl_hk_out.tvl_sw),         "%f" },
+    { "hk_out.mv_y.y",         &(cntrl_hk_out.mv_y.y),         "%f" },
+    { "hk_out.mv_y.y_1",       &(cntrl_hk_out.mv_y.y_1),       "%f" },
+    { "hk_out.mv_y.xd_1",      &(cntrl_hk_out.mv_y.xd_1),      "%f" },
+    { "hk_out.pu_sb",          &(cntrl_hk_out.pu_sb),          "%d" }
+};
+
+const parse_set_t telnet_ww_Vars[] =
+{
+    { "ww_par.pu_reg_kp",           &(cntrl_ww_par.pu_reg_kp),           "%f" }, 
+    { "ww_par.pu_reg_tn",           &(cntrl_ww_par.pu_reg_tn),           "%f" },
+    { "ww_par.TA",                  &(cntrl_ww_par.TA),                  "%f" },
+    { "ww_par.kes_sp_dt_sw",        &(cntrl_ww_par.kes_sp_dt_sw),        "%f" },
+    { "ww_par.tww_sw",              &(cntrl_ww_par.tww_sw),              "%f" },
+    { "ww_par.frostschutz",         &(cntrl_ww_par.frostschutz),         "%f" },
+    { "ww_par.at_start",            &(cntrl_ww_par.at_start),            "%f" },
+    { "ww_par.mv_korr",             &(cntrl_ww_par.mv_korr),             "%f" },
+    { "ww_par.hzg_pu_y_min",        &(cntrl_ww_par.hzg_pu_y_min),        "%f" },
+    { "ww_par.schwachlastzeit_max", &(cntrl_ww_par.schwachlastzeit_max), "%d" },
+    
+    { "ww_in.tww_mw",          &(cntrl_ww_in.tww_mw),          "%f" },
+    { "ww_in.tau_mw",          &(cntrl_ww_in.tau_mw),          "%f" },
+    { "ww_in.tau_avg",         &(cntrl_ww_in.tau_avg),         "%f" },
+    { "ww_in.hzg_tvl_mw",      &(cntrl_ww_in.hzg_tvl_mw),      "%f" },
+    { "ww_in.hzg_trl_mw",      &(cntrl_ww_in.hzg_trl_mw),      "%f" },
+    { "ww_in.hk_tvl_sw",       &(cntrl_ww_in.hk_tvl_sw),       "%f" },
+    { "ww_in.sp1_to_mw",       &(cntrl_ww_in.sp1_to_mw),       "%f" },
+    { "ww_in.sp2_tu_mw",       &(cntrl_ww_in.sp2_tu_mw),       "%f" },
+    { "ww_in.zirkzustand",     &(cntrl_ww_in.zirkzustand),     "%d" },
+     
+    { "ww_out.hzg_tvl_sw",     &(cntrl_ww_out.hzg_tvl_sw),     "%f" },
+    { "ww_out.hzg_mv_y.y",     &(cntrl_ww_out.hzg_mv_y.y),     "%f" },
+    { "ww_out.hzg_mv_y.y_1",   &(cntrl_ww_out.hzg_mv_y.y_1),   "%f" },
+    { "ww_out.hzg_mv_y.xd_1",  &(cntrl_ww_out.hzg_mv_y.xd_1),  "%f" },
+    { "ww_out.hzg_pu_y.y",     &(cntrl_ww_out.hzg_pu_y.y),     "%f" },
+    { "ww_out.hzg_pu_y.y_1",   &(cntrl_ww_out.hzg_pu_y.y_1),   "%f" },
+    { "ww_out.hzg_pu_y.xd_1",  &(cntrl_ww_out.hzg_pu_y.xd_1),  "%f" },
+    { "ww_out.hzg_pu_sb",      &(cntrl_ww_out.hzg_pu_sb),      "%d" },
+    { "ww_out.hzg_vv_sb",      &(cntrl_ww_out.hzg_vv_sb),      "%d" },
+};
+
 /**
 server_thread.
 Server Threads die mit dem Client (Telnet, Heizungsregler oder Visualisierung)
@@ -43,7 +132,7 @@ void *telnet_thread( void *arg )
     arglist = (int *) arg;
     fdesc = arglist[0];
 
-    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version 0.6.2\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version 0.6.3\n" ); BFLSH();
     snprintf( bufout, BFLN, "\tAndreas und Volker Stegmann\n\n" );       BFLSH();
     snprintf( bufout, BFLN, "\tServer Prozess %d\n\n", arglist[1]+1 );   BFLSH();
     telnet_writeHelp( fdesc, bufout );
@@ -111,7 +200,10 @@ void telnet_writeHelp( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "\t INIT      (Initialisierungsdateien neu einlesen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t GET PAR   (Eingelesene Parameter ausgeben)\n" );       BFLSH();
     snprintf( bufout, BFLN, "\t GET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n" );   BFLSH();
+    snprintf( bufout, BFLN, "\t GET ABS   (Absenkungen ausgeben)\n" );                 BFLSH();
     snprintf( bufout, BFLN, "\t HELP      (Diesen Hilfetext ausgeben)\n" );            BFLSH();
+    snprintf( bufout, BFLN, "\n\t VFB      (Parameter-, Eingangs- und Ausgangsvariablen fuer FB)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\t VHK      (Parameter-, Eingangs- und Ausgangsvariablen fuer HK)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t END       (Datenabfrage beenden)\n" );                 BFLSH();
 }
 
@@ -153,12 +245,17 @@ void telnet_parseGet( int fdesc, char *bufout )
     else if( strncasecmp( token, "ZEIT", 4 ) == 0 ) {
         telnet_writeSchaltzeiten( fdesc, bufout );
     }
+    else if( strncasecmp( token, "ABS", 3 ) == 0 ) {
+        telnet_writeAbsenk( fdesc, bufout );
+    }
     else if( strncasecmp( token, "VFB", 3 ) == 0 ) {
-        telnet_writeFbVars( fdesc, bufout );
+        telnet_writeVars( telnet_fb_Vars, fdesc, bufout );
+    }
+    else if( strncasecmp( token, "VHK", 3 ) == 0 ) {
+        telnet_writeVars( telnet_hk_Vars, fdesc, bufout );
     }
 }
  
-
 void telnet_parsePut( int fdesc, char *bufout )
 {
     char *token;
@@ -260,33 +357,60 @@ void telnet_writeT( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "Tau_36h_mittel = %6.2f °C\n", cntrl_tau.t_36h_mittel );    BFLSH();
 }    
 
-// void telnet_writeSW( void )
-// {
-    // snprintf( bufout, BFLN, "kes_Tvl_SW_Sp2_f = %5.1f °C\t sol_SP2_To_SW_f= %5.1f °C\n", 
-              // kes_Tvl_SW_Sp2_f, sol_SP2_To_SW_f ); 
-    // BFLSH();
-    // if( z_FB_Zustand == zAbgesenkt )
-        // snprintf( bufout, BFLN, "fb_Tvl_SW_f = %5.1f °C (abgesenkt um %5.1f °C)\n", fb_Tvl_SW_f, fb_tvl_absenk );
-        // else
-        // snprintf( bufout, BFLN, "fb_Tvl_SW_f = %5.1f °C (Normalbetrieb)\n", fb_Tvl_SW_f );
-    // BFLSH();
+void telnet_writeSW( int fdesc, char *bufout )
+{
+    snprintf( bufout, BFLN, "kes_out.tvl_sw_sp1 = %5.1f °C\t kes_out.sp1_to_sw = %5.1f °C\n", 
+              cntrl_kes_out.tvl_sw_sp1, cntrl_kes_out.sp1_to_sw ); 
+    BFLSH();
+    snprintf( bufout, BFLN, "kes_out.tvl_sw_sp2 = %5.1f °C\t kes_out.sp2_to_sw = %5.1f °C\n", 
+              cntrl_kes_out.tvl_sw_sp2, cntrl_kes_out.sp2_to_sw ); 
+    BFLSH();
 
-    // if( z_HK_Zustand == zAbgesenkt )
-        // snprintf( bufout, BFLN, "hk_Tvl_SW_f = %5.1f °C (abgesenkt um %5.1f °C)\n", hk_Tvl_SW_f, hk_tvl_absenk );
-    // else
-        // snprintf( bufout, BFLN, "hk_Tvl_SW_f = %5.1f °C (Normalbetrieb)\n", hk_Tvl_SW_f);
-    // BFLSH();
+    snprintf( bufout, BFLN, "fb_out.tvl_sw = %5.1f °C ", cntrl_fb_out.tvl_sw ); BFLSH();
+    if( cntrl_zeit_absenkung.FB_Zustand == zAbgesenkt )
+        snprintf( bufout, BFLN, "(abgesenkt um %5.1f °C)\n", cntrl_fb_par.tvl_absenk );
+    else
+        snprintf( bufout, BFLN, "(Normalbetrieb)\n" );
+    BFLSH();
 
-    // snprintf( bufout, BFLN, "kes_Tvl_SW_Sp1_f = %5.1f °C\t sol_SP1_To_SW_f= %5.1f °C\n", kes_Tvl_SW_Sp1_f, sol_SP1_To_SW_f );
-    // BFLSH();
+    snprintf( bufout, BFLN, "hk_out.tvl_sw = %5.1f °C ", cntrl_hk_out.tvl_sw ); BFLSH();
+    if( cntrl_zeit_absenkung.HK_Zustand == zAbgesenkt )
+        snprintf( bufout, BFLN, "(abgesenkt um %5.1f °C)\n", cntrl_hk_par.tvl_absenk );
+    else
+        snprintf( bufout, BFLN, "(Normalbetrieb)\n" );
+    BFLSH();
+    
+    snprintf( bufout, BFLN, "ww_par.tww_sw = %5.1f °C ", cntrl_ww_par.tww_sw ); BFLSH();
+    if( cntrl_zeit_absenkung.Duschzeit == zNein )
+        snprintf( bufout, BFLN, "(keine Duschzeit)\n" );
+    else
+        snprintf( bufout, BFLN, "(Duschzeit)\n" );
+    BFLSH();
+}
 
-    // if( z_Duschzeit == zNein )
-        // snprintf( bufout, BFLN, "ww_tww_sw   = %5.1f °C (keine Duschzeit)\n",  ww_tww_sw );
-    // else
-        // snprintf( bufout, BFLN, "ww_tww_sw   = %5.1f °C (Duschzeit)\n",  ww_tww_sw );
-    // BFLSH();
-// }
-
+void telnet_writeAbsenk( int fdesc, char *bufout )
+{
+    snprintf( bufout, BFLN, "HK_Zustand       = %s\n",
+              (cntrl_zeit_absenkung.HK_Zustand == zAbgesenkt) ? "Abgesenkt" : "Normal" );     BFLSH();
+    snprintf( bufout, BFLN, "FB_Zustand       = %s\n",
+              (cntrl_zeit_absenkung.FB_Zustand == zAbgesenkt) ? "Abgesenkt" : "Normal" );     BFLSH();
+    snprintf( bufout, BFLN, "Zirk_Zustand     = %s\n",
+              (cntrl_zeit_absenkung.Zirk_Zustand == zAus) ? "Aus" : "Ein" );                  BFLSH();
+    snprintf( bufout, BFLN, "Duschzeit        = %s\n",
+              (cntrl_zeit_absenkung.Duschzeit == zNein) ? "Nein" : "Ja" );                    BFLSH();
+    snprintf( bufout, BFLN, "SP1_Freigabe     = %s\n",
+              (cntrl_zeit_absenkung.SP1_Freigabe == zGesperrt) ? "Gesperrt" : "Freigegeben" ); BFLSH();
+    snprintf( bufout, BFLN, "SP2_Freigabe     = %s\n",
+              (cntrl_zeit_absenkung.SP2_Freigabe == zGesperrt) ? "Gesperrt" : "Freigegeben" ); BFLSH();
+    snprintf( bufout, BFLN, "Bootshausnutzung = %s\n",
+              (cntrl_zeit_absenkung.Bootshausnutzung == zNein) ? "Nein" : "Ja" );             BFLSH();
+   if (io_get_WW_PARTY() != IO_AUS) {
+        snprintf( bufout, BFLN, "\t seit %d min, noch %d min aktiv\n",
+        param_all_partydauer - cntrl_zeit_party.ww_party_restzeit_min, cntrl_zeit_party.ww_party_restzeit_min );
+        BFLSH();
+    }
+}
+  
 void telnet_writeDI( int fdesc, char *bufout )
 {
     /* Allgemeiner Partyschalter */
@@ -360,15 +484,16 @@ void telnet_writeWW( int fdesc, char *bufout )
     BFLSH();
     snprintf( bufout, BFLN, "WW_Tww_MW        = %5.1f °C\n", io_get_WW_Tww_MW() );      BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_Tvl_MW    = %5.1f °C\n", io_get_WW_HZG_Tvl_MW() );  BFLSH();
-    // snprintf( bufout, BFLN, "kes_Tvl_SW_Sp1_f = %5.1f °C\t sol_SP1_To_SW_f= %5.1f °C\n", kes_Tvl_SW_Sp1_f, sol_SP1_To_SW_f ); BFLSH();
+    snprintf( bufout, BFLN, "kes_out.tvl_sw_sp1 = %5.1f °C\t kes_out.sp1_to_sw = %5.1f °C\n", 
+              cntrl_kes_out.tvl_sw_sp1, cntrl_kes_out.sp1_to_sw ); BFLSH();
     snprintf( bufout, BFLN, "SOL_SP1_To_MW    = %5.1f °C\n", io_get_SOL_SP1_To_MW() );  BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_Tvl_MW    = %5.1f °C\n", io_get_WW_HZG_Tvl_MW() );  BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_Trl_MW    = %5.1f °C\n", io_get_WW_HZG_Trl_MW() );  BFLSH();
-    snprintf( bufout, BFLN, "WW_HZG_VV_SB     = %s\n", (io_get_WW_HZG_VV_SB() == IO_ZU) ? "ZU" : "AUF" );  BFLSH();
+    snprintf( bufout, BFLN, "WW_HZG_VV_SB     = %s\n", (io_get_WW_HZG_VV_SB() == IO_ZU) ? "ZU" : "AUF" );   BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_PU_SB     = %s\n", (io_get_WW_HZG_PU_SB() == IO_AUS) ? "AUS" : "EIN" ); BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_MV_Y      = %5.1f pct\n", io_get_WW_HZG_MV_Y() );   BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_PU_Y      = %5.1f pct\n", io_get_WW_HZG_PU_Y() );   BFLSH();
-    snprintf( bufout, BFLN, "WW_PARTY = %s", (io_get_WW_PARTY() == IO_AUS) ? "AUS\n" : "EIN" );    BFLSH();
+    snprintf( bufout, BFLN, "WW_PARTY = %s", (io_get_WW_PARTY() == IO_AUS) ? "AUS\n" : "EIN" ); BFLSH();
     if (io_get_WW_PARTY() != IO_AUS) {
         snprintf( bufout, BFLN, "\t seit %d min, noch %d min aktiv\n",
         param_all_partydauer - cntrl_zeit_party.ww_party_restzeit_min, cntrl_zeit_party.ww_party_restzeit_min );
@@ -396,46 +521,20 @@ void telnet_writeSOL( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "SOL_SP2_AV_SB = %s\n", (io_get_SOL_SP2_AV_SB() == IO_ZU) ? "ZU" : "AUF" ); BFLSH();
 }
 
-const parse_set_t telnet_FbVars[] =
-{
-    { "fb_par.reg_kp",         &(cntrl_fb_par.reg_kp),         "%f" }, 
-    { "fb_par.reg_tn",         &(cntrl_fb_par.reg_tn),         "%f" },
-    { "fb_par.TA",             &(cntrl_fb_par.TA),             "%f" },
-    { "fb_par.tvl_absenk",     &(cntrl_fb_par.tvl_absenk),     "%f" },
-    { "fb_par.tvl_steigung",   &(cntrl_fb_par.tvl_steigung),   "%f" },
-    { "fb_par.tvl_niveau",     &(cntrl_fb_par.tvl_niveau),     "%f" },
-    { "fb_par.tvl_min",        &(cntrl_fb_par.tvl_min),        "%f" },
-    { "fb_par.tvl_max",        &(cntrl_fb_par.tvl_max),        "%f" },
-    { "fb_par.at_start",       &(cntrl_fb_par.at_start),       "%f" },
-    { "fb_par.frostschutz",    &(cntrl_fb_par.frostschutz),    "%f" },
-
-    { "fb_in.tau_mw",          &(cntrl_fb_in.tau_mw),          "%f" },
-    { "fb_in.sek_tvl_mw",      &(cntrl_fb_in.sek_tvl_mw),      "%f" },
-    { "fb_in.zustand",         &(cntrl_fb_in.zustand),         "%d" },
-    { "fb_in.partytime_flg",   &(cntrl_fb_in.partytime_flg),   "%d" },
-     
-    { "fb_out.tvl_sw",         &(cntrl_fb_out.tvl_sw),         "%f" },
-    { "fb_out.prim_mv_y.y",    &(cntrl_fb_out.prim_mv_y.y),    "%f" },
-    { "fb_out.prim_mv_y.y_1",  &(cntrl_fb_out.prim_mv_y.y_1),  "%f" },
-    { "fb_out.prim_mv_y.xd_1", &(cntrl_fb_out.prim_mv_y.xd_1), "%f" },
-    { "fb_out.prim_pu_sb",     &(cntrl_fb_out.prim_pu_sb),     "%d" },
-    { "fb_out.sek_pu_sb",      &(cntrl_fb_out.sek_pu_sb),      "%d" }
-};
-
-void telnet_writeFbVars( int fdesc, char *bufout )
+void telnet_writeVars( const parse_set_t Vars[], int fdesc, char *bufout )
 {
     int n;
     
-    for( n=0; n<sizeof(telnet_FbVars)/sizeof(parse_set_t); n++ ) {
-        snprintf( bufout, BFLN, telnet_FbVars[n].VarName ); BFLSH();
+    for( n=0; n<sizeof(Vars)/sizeof(parse_set_t); n++ ) {
+        snprintf( bufout, BFLN, Vars[n].VarName ); BFLSH();
         snprintf( bufout, BFLN, " = " ); BFLSH();
-        switch ( telnet_FbVars[n].format[1] ) {
+        switch ( Vars[n].format[1] ) {
             case 'd':
-                snprintf( bufout, BFLN, telnet_FbVars[n].format, *(int *)telnet_FbVars[n].VarPointer ); BFLSH();
+                snprintf( bufout, BFLN, Vars[n].format, *(int *)Vars[n].VarPointer ); BFLSH();
                 break;
             case 'f':
             default:
-                snprintf( bufout, BFLN, telnet_FbVars[n].format, *(float *)telnet_FbVars[n].VarPointer ); BFLSH();
+                snprintf( bufout, BFLN, Vars[n].format, *(float *)Vars[n].VarPointer ); BFLSH();
                 break;
         }
         snprintf( bufout, BFLN, "\n" ); BFLSH();

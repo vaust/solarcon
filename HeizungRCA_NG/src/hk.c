@@ -46,11 +46,11 @@ void hk_Run( const hk_param_t         *par_p,
     sup_DigRegler( q_p, out_p->tvl_sw, in_p->tvl_mw, &(out_p->mv_y) );
 
     if( (in_p->tau_avg < par_p->at_start) &&            /* mittlere AT unter Betriebsschwelle */
-        (out_p->tvl_sw > 30.0           )    )          /* VL-Temp. ab der HK wirklich heizt */
+        (out_p->tvl_sw > 30.0           )    )          /* VL-Temp. ab der HK wirklich heizt  */
         out_p->pu_sb = IO_EIN;                          /* Heizkreis Pumpe einschalten */
     else if( in_p->tau_avg > (par_p->at_start+1.0) )
         out_p->pu_sb = IO_AUS;                          /* Heizkreis Pumpe ausschalten */
-    else if (in_p->tau_mw < par_p->frostschutz )        /* AT unter Frostschutzmarke */
+    else if (in_p->tau_mw < par_p->frostschutz )        /* AT unter Frostschutzmarke   */
         out_p->pu_sb = IO_EIN;                          /* Heizkreis Pumpe einschalten */
 }
 
