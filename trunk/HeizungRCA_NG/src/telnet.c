@@ -119,21 +119,21 @@ const parse_set_t telnet_ww_Vars[] =
 
 const parse_set_t telnet_sol_Vars[] =
 {
-    { "sol_par.sp_t_max",      &(cntrl_sol_par.sp_t_max),         "%f" }, 
-    { "sol_par.dt_ein_sw",     &(cntrl_sol_par.dt_ein_sw),        "%f" },
-    { "sol_par.dt_aus_sw",     &(cntrl_sol_par.dt_aus_sw),        "%f" },
+    { "sol_par.sp_t_max",       &(cntrl_sol_par.sp_t_max),       "%f" }, 
+    { "sol_par.dt_ein_sw",      &(cntrl_sol_par.dt_ein_sw),      "%f" },
+    { "sol_par.dt_aus_sw",      &(cntrl_sol_par.dt_aus_sw),      "%f" },
     
-    { "sol_in.koll_t_mw[KO1]", &(cntrl_sol_in.koll_t_mw[KO1]),  "%f" },
-    { "sol_in.koll_t_mw[KO2]", &(cntrl_sol_in.koll_t_mw[KO2]),  "%f" },
-    { "sol_in.to_mw[SP1]",     &(cntrl_sol_in.to_mw[SP1]),      "%f" },
-    { "sol_in.tu_mw[SP1]",     &(cntrl_sol_in.tu_mw[SP1]),      "%f" },
-    { "sol_in.to_mw[SP2]",     &(cntrl_sol_in.to_mw[SP2]),      "%f" },
-    { "sol_in.tu_mw[SP2]",     &(cntrl_sol_in.tu_mw[SP2]),      "%f" },
+    { "sol_in.koll_t_mw[KO1]",  &(cntrl_sol_in.koll_t_mw[KO1]),  "%f" },
+    { "sol_in.koll_t_mw[KO2]",  &(cntrl_sol_in.koll_t_mw[KO2]),  "%f" },
+    { "sol_in.t_sp[SP1].to_mw", &(cntrl_sol_in.t_sp[SP1].to_mw), "%f" },
+    { "sol_in.t_sp[SP1].tu_mw", &(cntrl_sol_in.t_sp[SP1].tu_mw), "%f" },
+    { "sol_in.t_sp[SP2].to_mw", &(cntrl_sol_in.t_sp[SP2].to_mw), "%f" },
+    { "sol_in.t_sp[SP2].tu_mw", &(cntrl_sol_in.t_sp[SP2].tu_mw), "%f" },
      
-    { "sol_out.av_sb[SP1]",    &(cntrl_sol_out.av_sb[SP1]),     "%f" },
-    { "sol_out.av_sb[SP2]",    &(cntrl_sol_out.av_sb[SP2]),     "%f" },
-    { "sol_out.pu_sb[SP1]",    &(cntrl_sol_out.pu_sb[SP1]),     "%f" },
-    { "sol_out.pu_sb[SP2]",    &(cntrl_sol_out.pu_sb[SP2]),     "%f" }
+    { "sol_out.av_sb[SP1]",     &(cntrl_sol_out.av_sb[SP1]),     "%f" },
+    { "sol_out.av_sb[SP2]",     &(cntrl_sol_out.av_sb[SP2]),     "%f" },
+    { "sol_out.pu_sb[SP1]",     &(cntrl_sol_out.pu_sb[SP1]),     "%f" },
+    { "sol_out.pu_sb[SP2]",     &(cntrl_sol_out.pu_sb[SP2]),     "%f" }
 };
 
 /**
