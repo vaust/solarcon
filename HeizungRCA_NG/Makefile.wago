@@ -6,11 +6,12 @@ CFLAGS = -Wall -I$(INC) -D__REENTRANT__ -D__WAGO__
 
 VPATH := $(SRC):$(INC)
 
-OBJECTS := cntrl.o task.o zeit.o param.o sol.o fb.o hk.o ww.o sup.o kes.o io.o telnet.o server.o
+OBJECTS := cntrl.o task.o zeit.o param.o sol.o fb.o hk.o ww.o sup.o kes.o io.o telnet.o server.o \
+ kbusapi.o
 
 all: rca6
 
-rca6: $(objects)
+rca6: $(OBJECTS)
 	$(CC) $(LDFLAGS) -o $@ $(OBJECTS) -lpthread $(LDLIBS$(LDLIBS-$(@)))
 
 romfs:
@@ -40,3 +41,5 @@ ww.o: ww.c param.h ww.h sup.h gen_types.h
 zeit.o: zeit.c \
   gen_types.h param.h zeit.h gen_types.h
 io.o: io.c io.h gen_types.h 
+kbusapi.o: kbusapi.c kbusapi.h
+
