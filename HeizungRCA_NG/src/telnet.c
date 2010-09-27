@@ -129,10 +129,9 @@ const parse_set_t telnet_sol_Vars[] =
     { "sol_in.t_sp[SP2].to_mw", &(cntrl_sol_in.t_sp[SP2].to_mw), "%f" },
     { "sol_in.t_sp[SP2].tu_mw", &(cntrl_sol_in.t_sp[SP2].tu_mw), "%f" },
      
-    { "sol_out.av_sb[SP1]",     &(cntrl_sol_out.av_sb[SP1]),     "%f" },
-    { "sol_out.av_sb[SP2]",     &(cntrl_sol_out.av_sb[SP2]),     "%f" },
-    { "sol_out.pu_sb[SP1]",     &(cntrl_sol_out.pu_sb[SP1]),     "%f" },
-    { "sol_out.pu_sb[SP2]",     &(cntrl_sol_out.pu_sb[SP2]),     "%f" }
+    { "sol_out.av_sb[SP1]",     &(cntrl_sol_out.av_sb[SP1]),     "%d" },
+    { "sol_out.av_sb[SP2]",     &(cntrl_sol_out.av_sb[SP2]),     "%d" },
+    { "sol_out.pu_sb[KO1]",     &(cntrl_sol_out.pu_sb[SP1]),     "%d" }
 };
 
 /**
@@ -223,7 +222,8 @@ void telnet_writeHelp( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "\n\t GET VFB   (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t GET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t GET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
-    snprintf( bufout, BFLN, "\t END       (Datenabfrage beenden)\n" );                 BFLSH();
+    snprintf( bufout, BFLN, "\t GET VSOL  (SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\n\t END       (Datenabfrage beenden)\n" );                 BFLSH();
 }
 
 void telnet_parseGet( int fdesc, char *bufout )
