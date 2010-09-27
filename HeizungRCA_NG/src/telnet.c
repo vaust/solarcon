@@ -124,7 +124,6 @@ const parse_set_t telnet_sol_Vars[] =
     { "sol_par.dt_aus_sw",      &(cntrl_sol_par.dt_aus_sw),      "%f" },
     
     { "sol_in.koll_t_mw[KO1]",  &(cntrl_sol_in.koll_t_mw[KO1]),  "%f" },
-    { "sol_in.koll_t_mw[KO2]",  &(cntrl_sol_in.koll_t_mw[KO2]),  "%f" },
     { "sol_in.t_sp[SP1].to_mw", &(cntrl_sol_in.t_sp[SP1].to_mw), "%f" },
     { "sol_in.t_sp[SP1].tu_mw", &(cntrl_sol_in.t_sp[SP1].tu_mw), "%f" },
     { "sol_in.t_sp[SP2].to_mw", &(cntrl_sol_in.t_sp[SP2].to_mw), "%f" },
