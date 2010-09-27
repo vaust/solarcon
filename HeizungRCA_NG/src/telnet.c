@@ -202,9 +202,9 @@ void telnet_writeHelp( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "\t GET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n" );   BFLSH();
     snprintf( bufout, BFLN, "\t GET ABS   (Absenkungen ausgeben)\n" );                 BFLSH();
     snprintf( bufout, BFLN, "\t HELP      (Diesen Hilfetext ausgeben)\n" );            BFLSH();
-    snprintf( bufout, BFLN, "\n\t GET VFB     (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
-    snprintf( bufout, BFLN, "\t GET VHK      (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
-    snprintf( bufout, BFLN, "\t GET VWW      (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\n\t GET VFB   (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\t GET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\t GET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t END       (Datenabfrage beenden)\n" );                 BFLSH();
 }
 
