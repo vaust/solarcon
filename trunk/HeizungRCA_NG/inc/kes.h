@@ -38,7 +38,7 @@ typedef struct {
     float tvl_sw_sp2;           /**< Kesselvorlaufsollwert fuer Speicher 1 nur zur Info und Debugging */
     float tvl_sw;               /**< eigentlicher Kesselvorlaufsollwert (Maximum aus tvl_sw_sp1 und tvl_sw_sp2 */
     do_bitbyte_t pu_sp1_sb;     /**< Pumpen Relais Speicher Pumpe 1 */
-    do_bitbyte_t pu_sp2_sb;     /**< Pumpen Relais Speicher Pumpe 1 */
+    do_bitbyte_t pu_sp2_sb;     /**< Pumpen Relais Speicher Pumpe 2 */
 } kes_out_t;
 /* <Typen/> */
 

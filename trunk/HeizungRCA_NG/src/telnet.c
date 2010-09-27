@@ -1,5 +1,7 @@
 #define _TELNET_C_
 
+#define VERSIONSTRING "\tbuild 27.09.2010\n"
+
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -45,15 +47,15 @@ const parse_set_t telnet_fb_Vars[] =
     
     { "fb_in.tau_mw",          &(cntrl_fb_in.tau_mw),          "%f" },
     { "fb_in.sek_tvl_mw",      &(cntrl_fb_in.sek_tvl_mw),      "%f" },
-    { "fb_in.zustand",         &(cntrl_fb_in.zustand),         "%d" },
-    { "fb_in.partytime_flg",   &(cntrl_fb_in.partytime_flg),   "%d" },
+    { "fb_in.zustand",         &(cntrl_fb_in.zustand),         "%x" },
+    { "fb_in.partytime_flg",   &(cntrl_fb_in.partytime_flg),   "%x" },
      
     { "fb_out.tvl_sw",         &(cntrl_fb_out.tvl_sw),         "%f" },
     { "fb_out.prim_mv_y.y",    &(cntrl_fb_out.prim_mv_y.y),    "%f" },
     { "fb_out.prim_mv_y.y_1",  &(cntrl_fb_out.prim_mv_y.y_1),  "%f" },
     { "fb_out.prim_mv_y.xd_1", &(cntrl_fb_out.prim_mv_y.xd_1), "%f" },
-    { "fb_out.prim_pu_sb",     &(cntrl_fb_out.prim_pu_sb),     "%d" },
-    { "fb_out.sek_pu_sb",      &(cntrl_fb_out.sek_pu_sb),      "%d" }
+    { "fb_out.prim_pu_sb",     &(cntrl_fb_out.prim_pu_sb),     "%x" },
+    { "fb_out.sek_pu_sb",      &(cntrl_fb_out.sek_pu_sb),      "%x" }
 };
 
 const parse_set_t telnet_hk_Vars[] =
@@ -73,14 +75,14 @@ const parse_set_t telnet_hk_Vars[] =
     { "hk_in.tau_mw",          &(cntrl_hk_in.tau_mw),          "%f" },
     { "hk_in.tau_avg",         &(cntrl_hk_in.tau_avg),         "%f" },
     { "hk_in.tvl_mw",          &(cntrl_hk_in.tvl_mw),          "%f" },
-    { "hk_in.zustand",         &(cntrl_hk_in.zustand),         "%d" },
-    { "hk_in.partytime_flg",   &(cntrl_hk_in.partytime_flg),   "%d" },
+    { "hk_in.zustand",         &(cntrl_hk_in.zustand),         "%x" },
+    { "hk_in.partytime_flg",   &(cntrl_hk_in.partytime_flg),   "%x" },
      
     { "hk_out.tvl_sw",         &(cntrl_hk_out.tvl_sw),         "%f" },
     { "hk_out.mv_y.y",         &(cntrl_hk_out.mv_y.y),         "%f" },
     { "hk_out.mv_y.y_1",       &(cntrl_hk_out.mv_y.y_1),       "%f" },
     { "hk_out.mv_y.xd_1",      &(cntrl_hk_out.mv_y.xd_1),      "%f" },
-    { "hk_out.pu_sb",          &(cntrl_hk_out.pu_sb),          "%d" }
+    { "hk_out.pu_sb",          &(cntrl_hk_out.pu_sb),          "%x" }
 };
 
 const parse_set_t telnet_ww_Vars[] =
@@ -104,7 +106,7 @@ const parse_set_t telnet_ww_Vars[] =
     { "ww_in.hk_tvl_sw",       &(cntrl_ww_in.hk_tvl_sw),       "%f" },
     { "ww_in.sp1_to_mw",       &(cntrl_ww_in.sp1_to_mw),       "%f" },
     { "ww_in.sp2_tu_mw",       &(cntrl_ww_in.sp2_tu_mw),       "%f" },
-    { "ww_in.zirkzustand",     &(cntrl_ww_in.zirkzustand),     "%d" },
+    { "ww_in.zirkzustand",     &(cntrl_ww_in.zirkzustand),     "%x" },
      
     { "ww_out.hzg_tvl_sw",     &(cntrl_ww_out.hzg_tvl_sw),     "%f" },
     { "ww_out.hzg_mv_y.y",     &(cntrl_ww_out.hzg_mv_y.y),     "%f" },
@@ -113,8 +115,8 @@ const parse_set_t telnet_ww_Vars[] =
     { "ww_out.hzg_pu_y.y",     &(cntrl_ww_out.hzg_pu_y.y),     "%f" },
     { "ww_out.hzg_pu_y.y_1",   &(cntrl_ww_out.hzg_pu_y.y_1),   "%f" },
     { "ww_out.hzg_pu_y.xd_1",  &(cntrl_ww_out.hzg_pu_y.xd_1),  "%f" },
-    { "ww_out.hzg_pu_sb",      &(cntrl_ww_out.hzg_pu_sb),      "%d" },
-    { "ww_out.hzg_vv_sb",      &(cntrl_ww_out.hzg_vv_sb),      "%d" }
+    { "ww_out.hzg_pu_sb",      &(cntrl_ww_out.hzg_pu_sb),      "%x" },
+    { "ww_out.hzg_vv_sb",      &(cntrl_ww_out.hzg_vv_sb),      "%x" }
 };
 
 const parse_set_t telnet_sol_Vars[] =
@@ -129,9 +131,9 @@ const parse_set_t telnet_sol_Vars[] =
     { "sol_in.t_sp[SP2].to_mw", &(cntrl_sol_in.t_sp[SP2].to_mw), "%f" },
     { "sol_in.t_sp[SP2].tu_mw", &(cntrl_sol_in.t_sp[SP2].tu_mw), "%f" },
      
-    { "sol_out.av_sb[SP1]",     &(cntrl_sol_out.av_sb[SP1]),     "%d" },
-    { "sol_out.av_sb[SP2]",     &(cntrl_sol_out.av_sb[SP2]),     "%d" },
-    { "sol_out.pu_sb[KO1]",     &(cntrl_sol_out.pu_sb[SP1]),     "%d" }
+    { "sol_out.av_sb[SP1]",     &(cntrl_sol_out.av_sb[SP1]),     "%x" },
+    { "sol_out.av_sb[SP2]",     &(cntrl_sol_out.av_sb[SP2]),     "%x" },
+    { "sol_out.pu_sb[KO1]",     &(cntrl_sol_out.pu_sb[SP1]),     "%x" }
 };
 
 /**
@@ -175,7 +177,7 @@ void *telnet_thread( void *arg )
             if( strncasecmp( "VERSION", token, 7 ) == 0 ) {
                 printf( "TELNET.C: VERSION Befehl erhalten\n" );
                 snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version 0.6.3\n" ); BFLSH();
-                snprintf( bufout, BFLN, "\tOktober 2010\n" ); BFLSH(); 
+                snprintf( bufout, BFLN, VERSIONSTRING ); BFLSH(); 
                 snprintf( bufout, BFLN, "\tAndreas und Volker Stegmann\n" ); BFLSH();             
             }
             else if( strncasecmp( "GET", token, 3 ) == 0 ) {
@@ -219,7 +221,7 @@ void telnet_writeHelp( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "\t GET FB    (Daten zu FB-Heizung)\n" );                  BFLSH();
     snprintf( bufout, BFLN, "\t GET WW    (Daten zu Warmwasserbereitung)\n" );         BFLSH();
     snprintf( bufout, BFLN, "\t GET SOL   (Daten zu Solarbeheizung)\n" );              BFLSH();
-    snprintf( bufout, BFLN, "\t GET HK    (Daten zu Heizkörper-Heizkreis)\n" );        BFLSH();
+    snprintf( bufout, BFLN, "\t GET HK    (Daten zu Heizkoerper-Heizkreis)\n" );       BFLSH();
     snprintf( bufout, BFLN, "\t INIT      (Initialisierungsdateien neu einlesen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t GET PAR   (Eingelesene Parameter ausgeben)\n" );       BFLSH();
     snprintf( bufout, BFLN, "\t GET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n" );   BFLSH();
@@ -563,6 +565,9 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
         switch ( Vars[n].format[1] ) {
             case 'd':
                 snprintf( bufout, BFLN, Vars[n].format, *(int *)Vars[n].VarPointer ); BFLSH();
+                break;
+            case 'x':
+                snprintf( bufout, BFLN, Vars[n].format, *(u8_t *)Vars[n].VarPointer ); BFLSH();
                 break;
             case 'f':
             default:
