@@ -277,7 +277,7 @@ void telnet_parseGet( int fdesc, char *bufout )
         telnet_writeVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t), fdesc, bufout );
     }
     else if( strncasecmp( token, "VSOL", 4 ) == 0 ) {
-        telnet_writeVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t), fdesc, bufout );
+        telnet_writeVars( telnet_sol_Vars, sizeof(telnet_sol_Vars)/sizeof(parse_set_t), fdesc, bufout );
     }
 }
  
