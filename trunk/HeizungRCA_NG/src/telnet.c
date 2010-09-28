@@ -136,6 +136,38 @@ const parse_set_t telnet_sol_Vars[] =
     { "sol_out.pu_sb[KO1]",     &(cntrl_sol_out.pu_sb[SP1]),     "%x" }
 };
 
+const parse_set_t telnet_kes_Vars[] =
+{
+    { "kes_par.TA",           &(cntrl_kes_par.TA),           "%f" }, 
+    { "kes_par.tvl_absenk",   &(cntrl_kes_par.tvl_absenk),   "%f" },
+    { "kes_par.tvl_steigung", &(cntrl_kes_par.tvl_steigung), "%f" },
+    { "kes_par.tvl_niveau",   &(cntrl_kes_par.tvl_niveau),   "%f" },
+    { "kes_par.tvl_min",      &(cntrl_kes_par.tvl_min),      "%f" },
+    { "kes_par.tvl_max",      &(cntrl_kes_par.tvl_max),      "%f" },
+    { "kes_par.at_start",     &(cntrl_kes_par.at_start),     "%f" },
+    { "kes_par.frostschutz",  &(cntrl_kes_par.frostschutz),  "%f" },
+    { "kes_par.sp_dt_sw",     &(cntrl_kes_par.sp_dt_sw),     "%f" },
+    { "kes_par.ww_tww_sw",    &(cntrl_kes_par.ww_tww_sw),    "%f" },
+    
+    { "kes_in.sp1_to_mw",     &(cntrl_kes_in.sp1_to_mw),     "%f" },
+    { "kes_in.sp1_tu_mw" ,    &(cntrl_kes_in.sp1_tu_mw),     "%f" },
+    { "kes_in.sp2_to_mw",     &(cntrl_kes_in.sp2_to_mw),     "%f" },
+    { "kes_in.sp2_tu_mw" ,    &(cntrl_kes_in.sp2_tu_mw),     "%f" },
+    { "kes_in.tvl_mw",        &(cntrl_kes_in.tvl_mw),        "%f" },
+    { "kes_in.hk_tvl_sw",     &(cntrl_kes_in.hk_tvl_sw),     "%f" },
+    { "kes_in.fb_tvl_sw",     &(cntrl_kes_in.fb_tvl_sw),     "%f" },
+    { "kes_in.duschzeit",     &(cntrl_kes_in.duschzeit),     "%x" },
+    { "kes_in.partytime_flg", &(cntrl_kes_in.partytime_flg), "%x" },
+    { "kes_in.br_bm",         &(cntrl_kes_in.br_bm),         "%x" },
+   
+    { "kes_out.sp1_to_sw",    &(cntrl_kes_out.sp1_to_sw),    "%f" },
+    { "kes_out.sp2_to_sw",    &(cntrl_kes_out.sp2_to_sw),    "%f" },
+    { "kes_out.tvl_sw_sp1",   &(cntrl_kes_out.tvl_sw_sp1),   "%f" },
+    { "kes_out.tvl_sw_sp2",   &(cntrl_kes_out.tvl_sw_sp2),   "%f" },
+    { "kes_out.pu_sp1_sb",    &(cntrl_kes_out.pu_sp1_sb),    "%x" },
+    { "kes_out.pu_sp2_sb",    &(cntrl_kes_out.pu_sp2_sb),    "%x" }
+};
+
 /**
 server_thread.
 Server Threads die mit dem Client (Telnet, Heizungsregler oder Visualisierung)
@@ -232,6 +264,7 @@ void telnet_writeHelp( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "\t GET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t GET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t GET VSOL  (SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\t GET VKES  (KES Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\n\t END       (Datenabfrage beenden)\n" );                 BFLSH();
 }
 
@@ -287,6 +320,9 @@ void telnet_parseGet( int fdesc, char *bufout )
     }
     else if( strncasecmp( token, "VSOL", 4 ) == 0 ) {
         telnet_writeVars( telnet_sol_Vars, sizeof(telnet_sol_Vars)/sizeof(parse_set_t), fdesc, bufout );
+    }
+    else if( strncasecmp( token, "VKES", 4 ) == 0 ) {
+        telnet_writeVars( telnet_kes_Vars, sizeof(telnet_kes_Vars)/sizeof(parse_set_t), fdesc, bufout );
     }
 }
  
