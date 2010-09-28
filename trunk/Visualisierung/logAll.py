@@ -9,7 +9,7 @@ import time
 TEMPNAMES = ( "ALL_Tau_MW", "SOL_KOLL_T_MW", "SOL_SP1_To_MW", "SOL_SP1_Tu_MW", "SOL_SP2_To_MW",
               "SOL_SP2_Tu_MW", "KES_Tvl_MW", "KES_Trl_MW", "HK_Tvl_MW", "HK_Trl_MW",
               "FB_PRIM_Trl_MW", "FB_SEK_Tvl_MW", "WW_HZG_Tvl_MW", "WW_HZG_Trl_MW", "WW_Tww_MW",
-              "Tau_1h_mittel_f", "Tau_36h_mittel_f" )        
+              "Tau_1h_mittel", "Tau_36h_mittel" )        
 DINAMES = ( "ALL_PARTY", "WW_PARTY", "KES_SSM", "KES_BR_BM", "FB_SEK_TW" )
 DONAMES = ( "SOL_PU_SB", "SOL_SP1_AV_SB", "SOL_SP2_AV_SB", "KES_PU_SP1_SB", "KES_PU_SP2_SB",
             "HK_PU_SB", "FB_PRIM_PU_SB", "FB_SEK_PU_SB", "WW_HZG_VV_SB", "WW_HZG_PU_SB", "WW_ZIRK_PU_SB" )
@@ -111,13 +111,13 @@ while (time.time() < (startTime+logTime)):
     # alle AO auf unplausible Strings initialisieren
     ao = []
     for i in range(len(AONAMES)):
-        ao.append( -99 )
+        ao.append( -99.9 )
 
     for line in lines:
         i = 0
         for name in AONAMES:
             if (line.startswith(name)):
-                ao[i] = int(line.split('=')[1].split('pct')[0])
+                ao[i] = float(line.split('=')[1].split('pct')[0])
             i += 1
     
     now = datetime.datetime.now()
