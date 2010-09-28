@@ -55,7 +55,7 @@ void kes_Run( const kes_param_t *par_p,
     
     /* Schaltkriterium fuer Speicherladepumpe 2 */
     if( out_p->pu_sp1_sb == IO_AUS ) {
-        /* Sp.-pumpe 2 nur einschalten, wenn Sp.-pumpe 1 aus ist! */
+    /* Sp.-pumpe 2 nur einschalten, wenn Sp.-pumpe 1 aus ist! */
         if( in_p->sp2_to_mw < out_p->sp2_to_sw ) {
             out_p->tvl_sw_sp2 = out_p->sp2_to_sw + par_p->sp_dt_sw;
             /* Einschalten der Pumpe erst wenn Brenner ein oder die Vorlauftemperatur > Speichertemperatur */
