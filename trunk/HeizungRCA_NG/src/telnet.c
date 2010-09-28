@@ -1,6 +1,6 @@
 #define _TELNET_C_
 
-#define VERSIONSTRING "\tbuild 27.09.2010\n"
+#define VERSIONSTRING "\tBuild 28.09.2010\n"
 
 #include <sys/types.h>
 #include <unistd.h>
