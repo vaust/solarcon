@@ -32,104 +32,104 @@
 
 const parse_set_t telnet_fb_Vars[] =
 {
-    { "fb_par.reg_kp",         &(cntrl_fb_par.reg_kp),         "%5.1f" }, 
-    { "fb_par.reg_tn",         &(cntrl_fb_par.reg_tn),         "%5.1f" },
-    { "fb_par.TA",             &(cntrl_fb_par.TA),             "%5.1f" },
-    { "fb_par.tvl_absenk",     &(cntrl_fb_par.tvl_absenk),     "%5.1f" },
-    { "fb_par.tvl_steigung",   &(cntrl_fb_par.tvl_steigung),   "%5.1f" },
-    { "fb_par.tvl_niveau",     &(cntrl_fb_par.tvl_niveau),     "%5.1f" },
-    { "fb_par.tvl_min",        &(cntrl_fb_par.tvl_min),        "%5.1f" },
-    { "fb_par.tvl_max",        &(cntrl_fb_par.tvl_max),        "%5.1f" },
-    { "fb_par.at_start",       &(cntrl_fb_par.at_start),       "%5.1f" },
-    { "fb_par.frostschutz",    &(cntrl_fb_par.frostschutz),    "%5.1f" },
-    { "fb_par.tr_sw",          &(cntrl_fb_par.tr_sw),          "%5.1f" },
+    { "fb_par.reg_kp",         &(cntrl_fb_par.reg_kp),         "%f" }, 
+    { "fb_par.reg_tn",         &(cntrl_fb_par.reg_tn),         "%f" },
+    { "fb_par.TA",             &(cntrl_fb_par.TA),             "%f" },
+    { "fb_par.tvl_absenk",     &(cntrl_fb_par.tvl_absenk),     "%f" },
+    { "fb_par.tvl_steigung",   &(cntrl_fb_par.tvl_steigung),   "%f" },
+    { "fb_par.tvl_niveau",     &(cntrl_fb_par.tvl_niveau),     "%f" },
+    { "fb_par.tvl_min",        &(cntrl_fb_par.tvl_min),        "%f" },
+    { "fb_par.tvl_max",        &(cntrl_fb_par.tvl_max),        "%f" },
+    { "fb_par.at_start",       &(cntrl_fb_par.at_start),       "%f" },
+    { "fb_par.frostschutz",    &(cntrl_fb_par.frostschutz),    "%f" },
+    { "fb_par.tr_sw",          &(cntrl_fb_par.tr_sw),          "%f" },
 
     
-    { "fb_in.tau_mw",          &(cntrl_fb_in.tau_mw),          "%5.1f" },
-    { "fb_in.sek_tvl_mw",      &(cntrl_fb_in.sek_tvl_mw),      "%5.1f" },
+    { "fb_in.tau_mw",          &(cntrl_fb_in.tau_mw),          "%f" },
+    { "fb_in.sek_tvl_mw",      &(cntrl_fb_in.sek_tvl_mw),      "%f" },
     { "fb_in.zustand",         &(cntrl_fb_in.zustand),         "%x" },
     { "fb_in.partytime_flg",   &(cntrl_fb_in.partytime_flg),   "%x" },
      
-    { "fb_out.tvl_sw",         &(cntrl_fb_out.tvl_sw),         "%5.1f" },
-    { "fb_out.prim_mv_y.y",    &(cntrl_fb_out.prim_mv_y.y),    "%5.1f" },
-    { "fb_out.prim_mv_y.y_1",  &(cntrl_fb_out.prim_mv_y.y_1),  "%5.1f" },
-    { "fb_out.prim_mv_y.xd_1", &(cntrl_fb_out.prim_mv_y.xd_1), "%5.1f" },
+    { "fb_out.tvl_sw",         &(cntrl_fb_out.tvl_sw),         "%f" },
+    { "fb_out.prim_mv_y.y",    &(cntrl_fb_out.prim_mv_y.y),    "%f" },
+    { "fb_out.prim_mv_y.y_1",  &(cntrl_fb_out.prim_mv_y.y_1),  "%f" },
+    { "fb_out.prim_mv_y.xd_1", &(cntrl_fb_out.prim_mv_y.xd_1), "%f" },
     { "fb_out.prim_pu_sb",     &(cntrl_fb_out.prim_pu_sb),     "%x" },
     { "fb_out.sek_pu_sb",      &(cntrl_fb_out.sek_pu_sb),      "%x" }
 };
 
 const parse_set_t telnet_hk_Vars[] =
 {
-    { "hk_par.reg_kp",         &(cntrl_hk_par.reg_kp),         "%5.1f" }, 
-    { "hk_par.reg_tn",         &(cntrl_hk_par.reg_tn),         "%5.1f" },
-    { "hk_par.TA",             &(cntrl_hk_par.TA),             "%5.1f" },
-    { "hk_par.tvl_absenk",     &(cntrl_hk_par.tvl_absenk),     "%5.1f" },
-    { "hk_par.tvl_steigung",   &(cntrl_hk_par.tvl_steigung),   "%5.1f" },
-    { "hk_par.tvl_niveau",     &(cntrl_hk_par.tvl_niveau),     "%5.1f" },
-    { "hk_par.tvl_min",        &(cntrl_hk_par.tvl_min),        "%5.1f" },
-    { "hk_par.tvl_max",        &(cntrl_hk_par.tvl_max),        "%5.1f" },
-    { "hk_par.at_start",       &(cntrl_hk_par.at_start),       "%5.1f" },
-    { "hk_par.frostschutz",    &(cntrl_hk_par.frostschutz),    "%5.1f" },
-    { "hk_par.tr_sw",          &(cntrl_hk_par.tr_sw),          "%5.1f" },
+    { "hk_par.reg_kp",         &(cntrl_hk_par.reg_kp),         "%f" }, 
+    { "hk_par.reg_tn",         &(cntrl_hk_par.reg_tn),         "%f" },
+    { "hk_par.TA",             &(cntrl_hk_par.TA),             "%f" },
+    { "hk_par.tvl_absenk",     &(cntrl_hk_par.tvl_absenk),     "%f" },
+    { "hk_par.tvl_steigung",   &(cntrl_hk_par.tvl_steigung),   "%f" },
+    { "hk_par.tvl_niveau",     &(cntrl_hk_par.tvl_niveau),     "%f" },
+    { "hk_par.tvl_min",        &(cntrl_hk_par.tvl_min),        "%f" },
+    { "hk_par.tvl_max",        &(cntrl_hk_par.tvl_max),        "%f" },
+    { "hk_par.at_start",       &(cntrl_hk_par.at_start),       "%f" },
+    { "hk_par.frostschutz",    &(cntrl_hk_par.frostschutz),    "%f" },
+    { "hk_par.tr_sw",          &(cntrl_hk_par.tr_sw),          "%f" },
 
-    { "hk_in.tau_mw",          &(cntrl_hk_in.tau_mw),          "%5.1f" },
-    { "hk_in.tau_avg",         &(cntrl_hk_in.tau_avg),         "%5.1f" },
-    { "hk_in.tvl_mw",          &(cntrl_hk_in.tvl_mw),          "%5.1f" },
+    { "hk_in.tau_mw",          &(cntrl_hk_in.tau_mw),          "%f" },
+    { "hk_in.tau_avg",         &(cntrl_hk_in.tau_avg),         "%f" },
+    { "hk_in.tvl_mw",          &(cntrl_hk_in.tvl_mw),          "%f" },
     { "hk_in.zustand",         &(cntrl_hk_in.zustand),         "%x" },
     { "hk_in.partytime_flg",   &(cntrl_hk_in.partytime_flg),   "%x" },
      
-    { "hk_out.tvl_sw",         &(cntrl_hk_out.tvl_sw),         "%5.1f" },
-    { "hk_out.mv_y.y",         &(cntrl_hk_out.mv_y.y),         "%5.1f" },
-    { "hk_out.mv_y.y_1",       &(cntrl_hk_out.mv_y.y_1),       "%5.1f" },
-    { "hk_out.mv_y.xd_1",      &(cntrl_hk_out.mv_y.xd_1),      "%5.1f" },
+    { "hk_out.tvl_sw",         &(cntrl_hk_out.tvl_sw),         "%f" },
+    { "hk_out.mv_y.y",         &(cntrl_hk_out.mv_y.y),         "%f" },
+    { "hk_out.mv_y.y_1",       &(cntrl_hk_out.mv_y.y_1),       "%f" },
+    { "hk_out.mv_y.xd_1",      &(cntrl_hk_out.mv_y.xd_1),      "%f" },
     { "hk_out.pu_sb",          &(cntrl_hk_out.pu_sb),          "%x" }
 };
 
 const parse_set_t telnet_ww_Vars[] =
 {
-    { "ww_par.pu_reg_kp",           &(cntrl_ww_par.pu_reg_kp),           "%5.1f" }, 
-    { "ww_par.pu_reg_tn",           &(cntrl_ww_par.pu_reg_tn),           "%5.1f" },
-    { "ww_par.TA",                  &(cntrl_ww_par.TA),                  "%5.1f" },
-    { "ww_par.kes_sp_dt_sw",        &(cntrl_ww_par.kes_sp_dt_sw),        "%5.1f" },
-    { "ww_par.tww_sw",              &(cntrl_ww_par.tww_sw),              "%5.1f" },
-    { "ww_par.frostschutz",         &(cntrl_ww_par.frostschutz),         "%5.1f" },
-    { "ww_par.at_start",            &(cntrl_ww_par.at_start),            "%5.1f" },
-    { "ww_par.mv_korr",             &(cntrl_ww_par.mv_korr),             "%5.1f" },
-    { "ww_par.hzg_pu_y_min",        &(cntrl_ww_par.hzg_pu_y_min),        "%5.1f" },
+    { "ww_par.pu_reg_kp",           &(cntrl_ww_par.pu_reg_kp),           "%f" }, 
+    { "ww_par.pu_reg_tn",           &(cntrl_ww_par.pu_reg_tn),           "%f" },
+    { "ww_par.TA",                  &(cntrl_ww_par.TA),                  "%f" },
+    { "ww_par.kes_sp_dt_sw",        &(cntrl_ww_par.kes_sp_dt_sw),        "%f" },
+    { "ww_par.tww_sw",              &(cntrl_ww_par.tww_sw),              "%f" },
+    { "ww_par.frostschutz",         &(cntrl_ww_par.frostschutz),         "%f" },
+    { "ww_par.at_start",            &(cntrl_ww_par.at_start),            "%f" },
+    { "ww_par.mv_korr",             &(cntrl_ww_par.mv_korr),             "%f" },
+    { "ww_par.hzg_pu_y_min",        &(cntrl_ww_par.hzg_pu_y_min),        "%f" },
     { "ww_par.schwachlastzeit_max", &(cntrl_ww_par.schwachlastzeit_max), "%d" },
     
-    { "ww_in.tww_mw",          &(cntrl_ww_in.tww_mw),          "%5.1f" },
-    { "ww_in.tau_mw",          &(cntrl_ww_in.tau_mw),          "%5.1f" },
-    { "ww_in.tau_avg",         &(cntrl_ww_in.tau_avg),         "%5.1f" },
-    { "ww_in.hzg_tvl_mw",      &(cntrl_ww_in.hzg_tvl_mw),      "%5.1f" },
-    { "ww_in.hzg_trl_mw",      &(cntrl_ww_in.hzg_trl_mw),      "%5.1f" },
-    { "ww_in.hk_tvl_sw",       &(cntrl_ww_in.hk_tvl_sw),       "%5.1f" },
-    { "ww_in.sp1_to_mw",       &(cntrl_ww_in.sp1_to_mw),       "%5.1f" },
-    { "ww_in.sp2_tu_mw",       &(cntrl_ww_in.sp2_tu_mw),       "%5.1f" },
+    { "ww_in.tww_mw",          &(cntrl_ww_in.tww_mw),          "%f" },
+    { "ww_in.tau_mw",          &(cntrl_ww_in.tau_mw),          "%f" },
+    { "ww_in.tau_avg",         &(cntrl_ww_in.tau_avg),         "%f" },
+    { "ww_in.hzg_tvl_mw",      &(cntrl_ww_in.hzg_tvl_mw),      "%f" },
+    { "ww_in.hzg_trl_mw",      &(cntrl_ww_in.hzg_trl_mw),      "%f" },
+    { "ww_in.hk_tvl_sw",       &(cntrl_ww_in.hk_tvl_sw),       "%f" },
+    { "ww_in.sp1_to_mw",       &(cntrl_ww_in.sp1_to_mw),       "%f" },
+    { "ww_in.sp2_tu_mw",       &(cntrl_ww_in.sp2_tu_mw),       "%f" },
     { "ww_in.zirkzustand",     &(cntrl_ww_in.zirkzustand),     "%x" },
      
-    { "ww_out.hzg_tvl_sw",     &(cntrl_ww_out.hzg_tvl_sw),     "%5.1f" },
-    { "ww_out.hzg_mv_y.y",     &(cntrl_ww_out.hzg_mv_y.y),     "%5.1f" },
-    { "ww_out.hzg_mv_y.y_1",   &(cntrl_ww_out.hzg_mv_y.y_1),   "%5.1f" },
-    { "ww_out.hzg_mv_y.xd_1",  &(cntrl_ww_out.hzg_mv_y.xd_1),  "%5.1f" },
-    { "ww_out.hzg_pu_y.y",     &(cntrl_ww_out.hzg_pu_y.y),     "%5.1f" },
-    { "ww_out.hzg_pu_y.y_1",   &(cntrl_ww_out.hzg_pu_y.y_1),   "%5.1f" },
-    { "ww_out.hzg_pu_y.xd_1",  &(cntrl_ww_out.hzg_pu_y.xd_1),  "%5.1f" },
+    { "ww_out.hzg_tvl_sw",     &(cntrl_ww_out.hzg_tvl_sw),     "%f" },
+    { "ww_out.hzg_mv_y.y",     &(cntrl_ww_out.hzg_mv_y.y),     "%f" },
+    { "ww_out.hzg_mv_y.y_1",   &(cntrl_ww_out.hzg_mv_y.y_1),   "%f" },
+    { "ww_out.hzg_mv_y.xd_1",  &(cntrl_ww_out.hzg_mv_y.xd_1),  "%f" },
+    { "ww_out.hzg_pu_y.y",     &(cntrl_ww_out.hzg_pu_y.y),     "%f" },
+    { "ww_out.hzg_pu_y.y_1",   &(cntrl_ww_out.hzg_pu_y.y_1),   "%f" },
+    { "ww_out.hzg_pu_y.xd_1",  &(cntrl_ww_out.hzg_pu_y.xd_1),  "%f" },
     { "ww_out.hzg_pu_sb",      &(cntrl_ww_out.hzg_pu_sb),      "%x" },
     { "ww_out.hzg_vv_sb",      &(cntrl_ww_out.hzg_vv_sb),      "%x" }
 };
 
 const parse_set_t telnet_sol_Vars[] =
 {
-    { "sol_par.sp_t_max",       &(cntrl_sol_par.sp_t_max),       "%5.1f" }, 
-    { "sol_par.dt_ein_sw",      &(cntrl_sol_par.dt_ein_sw),      "%5.1f" },
-    { "sol_par.dt_aus_sw",      &(cntrl_sol_par.dt_aus_sw),      "%5.1f" },
+    { "sol_par.sp_t_max",       &(cntrl_sol_par.sp_t_max),       "%f" }, 
+    { "sol_par.dt_ein_sw",      &(cntrl_sol_par.dt_ein_sw),      "%f" },
+    { "sol_par.dt_aus_sw",      &(cntrl_sol_par.dt_aus_sw),      "%f" },
     
-    { "sol_in.koll_t_mw[KO1]",  &(cntrl_sol_in.koll_t_mw[KO1]),  "%5.1f" },
-    { "sol_in.t_sp[SP1].to_mw", &(cntrl_sol_in.t_sp[SP1].to_mw), "%5.1f" },
-    { "sol_in.t_sp[SP1].tu_mw", &(cntrl_sol_in.t_sp[SP1].tu_mw), "%5.1f" },
-    { "sol_in.t_sp[SP2].to_mw", &(cntrl_sol_in.t_sp[SP2].to_mw), "%5.1f" },
-    { "sol_in.t_sp[SP2].tu_mw", &(cntrl_sol_in.t_sp[SP2].tu_mw), "%5.1f" },
+    { "sol_in.koll_t_mw[KO1]",  &(cntrl_sol_in.koll_t_mw[KO1]),  "%f" },
+    { "sol_in.t_sp[SP1].to_mw", &(cntrl_sol_in.t_sp[SP1].to_mw), "%f" },
+    { "sol_in.t_sp[SP1].tu_mw", &(cntrl_sol_in.t_sp[SP1].tu_mw), "%f" },
+    { "sol_in.t_sp[SP2].to_mw", &(cntrl_sol_in.t_sp[SP2].to_mw), "%f" },
+    { "sol_in.t_sp[SP2].tu_mw", &(cntrl_sol_in.t_sp[SP2].tu_mw), "%f" },
      
     { "sol_out.av_sb[SP1]",     &(cntrl_sol_out.av_sb[SP1]),     "%x" },
     { "sol_out.av_sb[SP2]",     &(cntrl_sol_out.av_sb[SP2]),     "%x" },
@@ -138,32 +138,32 @@ const parse_set_t telnet_sol_Vars[] =
 
 const parse_set_t telnet_kes_Vars[] =
 {
-    { "kes_par.TA",           &(cntrl_kes_par.TA),           "%5.1f" }, 
-    { "kes_par.tvl_absenk",   &(cntrl_kes_par.tvl_absenk),   "%5.1f" },
-    { "kes_par.tvl_steigung", &(cntrl_kes_par.tvl_steigung), "%5.1f" },
-    { "kes_par.tvl_niveau",   &(cntrl_kes_par.tvl_niveau),   "%5.1f" },
-    { "kes_par.tvl_min",      &(cntrl_kes_par.tvl_min),      "%5.1f" },
-    { "kes_par.tvl_max",      &(cntrl_kes_par.tvl_max),      "%5.1f" },
-    { "kes_par.at_start",     &(cntrl_kes_par.at_start),     "%5.1f" },
-    { "kes_par.frostschutz",  &(cntrl_kes_par.frostschutz),  "%5.1f" },
-    { "kes_par.sp_dt_sw",     &(cntrl_kes_par.sp_dt_sw),     "%5.1f" },
-    { "kes_par.ww_tww_sw",    &(cntrl_kes_par.ww_tww_sw),    "%5.1f" },
+    { "kes_par.TA",           &(cntrl_kes_par.TA),           "%f" }, 
+    { "kes_par.tvl_absenk",   &(cntrl_kes_par.tvl_absenk),   "%f" },
+    { "kes_par.tvl_steigung", &(cntrl_kes_par.tvl_steigung), "%f" },
+    { "kes_par.tvl_niveau",   &(cntrl_kes_par.tvl_niveau),   "%f" },
+    { "kes_par.tvl_min",      &(cntrl_kes_par.tvl_min),      "%f" },
+    { "kes_par.tvl_max",      &(cntrl_kes_par.tvl_max),      "%f" },
+    { "kes_par.at_start",     &(cntrl_kes_par.at_start),     "%f" },
+    { "kes_par.frostschutz",  &(cntrl_kes_par.frostschutz),  "%f" },
+    { "kes_par.sp_dt_sw",     &(cntrl_kes_par.sp_dt_sw),     "%f" },
+    { "kes_par.ww_tww_sw",    &(cntrl_kes_par.ww_tww_sw),    "%f" },
     
-    { "kes_in.sp1_to_mw",     &(cntrl_kes_in.sp1_to_mw),     "%5.1f" },
-    { "kes_in.sp1_tu_mw" ,    &(cntrl_kes_in.sp1_tu_mw),     "%5.1f" },
-    { "kes_in.sp2_to_mw",     &(cntrl_kes_in.sp2_to_mw),     "%5.1f" },
-    { "kes_in.sp2_tu_mw" ,    &(cntrl_kes_in.sp2_tu_mw),     "%5.1f" },
-    { "kes_in.tvl_mw",        &(cntrl_kes_in.tvl_mw),        "%5.1f" },
-    { "kes_in.hk_tvl_sw",     &(cntrl_kes_in.hk_tvl_sw),     "%5.1f" },
-    { "kes_in.fb_tvl_sw",     &(cntrl_kes_in.fb_tvl_sw),     "%5.1f" },
+    { "kes_in.sp1_to_mw",     &(cntrl_kes_in.sp1_to_mw),     "%f" },
+    { "kes_in.sp1_tu_mw" ,    &(cntrl_kes_in.sp1_tu_mw),     "%f" },
+    { "kes_in.sp2_to_mw",     &(cntrl_kes_in.sp2_to_mw),     "%f" },
+    { "kes_in.sp2_tu_mw" ,    &(cntrl_kes_in.sp2_tu_mw),     "%f" },
+    { "kes_in.tvl_mw",        &(cntrl_kes_in.tvl_mw),        "%f" },
+    { "kes_in.hk_tvl_sw",     &(cntrl_kes_in.hk_tvl_sw),     "%f" },
+    { "kes_in.fb_tvl_sw",     &(cntrl_kes_in.fb_tvl_sw),     "%f" },
     { "kes_in.duschzeit",     &(cntrl_kes_in.duschzeit),     "%x" },
     { "kes_in.partytime_flg", &(cntrl_kes_in.partytime_flg), "%x" },
     { "kes_in.br_bm",         &(cntrl_kes_in.br_bm),         "%x" },
    
-    { "kes_out.sp1_to_sw",    &(cntrl_kes_out.sp1_to_sw),    "%5.1f" },
-    { "kes_out.sp2_to_sw",    &(cntrl_kes_out.sp2_to_sw),    "%5.1f" },
-    { "kes_out.tvl_sw_sp1",   &(cntrl_kes_out.tvl_sw_sp1),   "%5.1f" },
-    { "kes_out.tvl_sw_sp2",   &(cntrl_kes_out.tvl_sw_sp2),   "%5.1f" },
+    { "kes_out.sp1_to_sw",    &(cntrl_kes_out.sp1_to_sw),    "%f" },
+    { "kes_out.sp2_to_sw",    &(cntrl_kes_out.sp2_to_sw),    "%f" },
+    { "kes_out.tvl_sw_sp1",   &(cntrl_kes_out.tvl_sw_sp1),   "%f" },
+    { "kes_out.tvl_sw_sp2",   &(cntrl_kes_out.tvl_sw_sp2),   "%f" },
     { "kes_out.pu_sp1_sb",    &(cntrl_kes_out.pu_sp1_sb),    "%x" },
     { "kes_out.pu_sp2_sb",    &(cntrl_kes_out.pu_sp2_sb),    "%x" }
 };
@@ -605,9 +605,9 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
             case 'x':
                 snprintf( bufout, BFLN, Vars[n].format, *(u8_t *)Vars[n].VarPointer ); BFLSH();
                 break;
-            case '5':
+            case 'f':
             default:
-                snprintf( bufout, BFLN, Vars[n].format, *(float *)Vars[n].VarPointer ); BFLSH();
+                snprintf( bufout, BFLN, "%6.2f", *(float *)Vars[n].VarPointer ); BFLSH();
                 break;
         }
         snprintf( bufout, BFLN, "\n" ); BFLSH();
