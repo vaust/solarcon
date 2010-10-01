@@ -108,7 +108,8 @@ static void task_stunde( task_tau_t *tau )
     tau->t_36h_mittel = tau->t_36h_summe / param_all_tau_mittel_zeit;
 }
 
-void task_Init( task_tau_t *tau, float all_tau_mw )
+void task_Init( task_tau_t *tau, 
+                float      all_tau_mw )
 {
     int i;
 

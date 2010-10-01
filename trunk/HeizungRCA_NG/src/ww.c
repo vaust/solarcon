@@ -3,7 +3,9 @@
 #include "param.h"
 #include "ww.h"
 
-static void ww_MV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_out_t *out_p )
+static void ww_MV_Steuerung( const ww_param_t *par_p, 
+                             const ww_in_t    *in_p, 
+                                   ww_out_t   *out_p )
 {
     out_p->hzg_tvl_sw = par_p->tww_sw + par_p->kes_sp_dt_sw;
     if( in_p->sp1_to_mw > in_p->hzg_trl_mw ) {
@@ -18,7 +20,9 @@ static void ww_MV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_ou
     sup_Limit( &(out_p->hzg_mv_y.y), MIN_Y_PCT, MAX_Y_PCT );
 }
 
-static void ww_VV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_out_t *out_p )
+static void ww_VV_Steuerung( const ww_param_t *par_p, 
+                             const ww_in_t    *in_p, 
+                                   ww_out_t   *out_p )
 {
     if( in_p->tau_avg        > par_p->at_start ) {
         if( in_p->hzg_trl_mw < in_p->sp2_tu_mw ) out_p->hzg_vv_sb = WW_VV_SP2;
@@ -30,7 +34,8 @@ static void ww_VV_Steuerung( const ww_param_t *par_p, const ww_in_t *in_p, ww_ou
     }
 }   
  
-static void ww_Schwachlast_Steuerung( const ww_param_t *par_p, ww_out_t *out_p )
+static void ww_Schwachlast_Steuerung( const ww_param_t *par_p, 
+                                            ww_out_t   *out_p )
 {
     static u16_t    schwachlastzeit = 0;
 
@@ -46,7 +51,9 @@ static void ww_Schwachlast_Steuerung( const ww_param_t *par_p, ww_out_t *out_p )
     }
 }
     
-void ww_Init( ww_param_t *par_p, sup_digreg_coeff_t *q_hzg_pu_p, ww_out_t *out_p )
+void ww_Init( ww_param_t         *par_p, 
+              sup_digreg_coeff_t *q_hzg_pu_p, 
+              ww_out_t           *out_p )
 {
     par_p->pu_reg_kp           = param_ww_pu_reg_kp;
     par_p->pu_reg_tn           = param_ww_pu_reg_tn;
