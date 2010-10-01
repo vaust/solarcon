@@ -4,7 +4,8 @@
 #include "param.h"
 #include "kes.h"
 
-void kes_Init( kes_param_t *par_p, kes_out_t *out_p )
+void kes_Init( kes_param_t *par_p, 
+               kes_out_t   *out_p )
 {
     par_p->TA           = ABTASTZEIT;
     par_p->tvl_absenk   = param_hk_tvl_absenk;

@@ -2,12 +2,12 @@
 
 #include "cntrl.h"
 
-/* Pseudocode als Denkhilfe 
+/* 
 SAMMELSTOERMELDUNG =
     Kollektorübertemperatur ||
     Brennermeldung kommt nicht nach max 1 min nach Anforderung ||
-    STB Fussbodenheizung hat ausgelöst ||
     Kesselstörmeldung ist gesetzt ||
+    STB Fussbodenheizung hat ausgelöst ||
     
     ...
 

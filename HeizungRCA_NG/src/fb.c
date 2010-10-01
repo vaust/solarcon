@@ -42,7 +42,10 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )
     \param out_p[out] Pointer auf Struktur mit allen Ausgangsgroessen
     \return kein
 */
-void fb_Run( const fb_param_t *par_p, const sup_digreg_coeff_t *q_p, const fb_in_t *in_p, fb_out_t *out_p )
+void fb_Run( const fb_param_t *par_p, 
+             const sup_digreg_coeff_t *q_p, 
+             const fb_in_t *in_p, 
+                   fb_out_t *out_p )
 {
     /* Vorlauftemperatursollwert im Floatformat berechnen  */
     out_p->tvl_sw =  (par_p->tr_sw - in_p->tau_mw) * par_p->tvl_steigung
