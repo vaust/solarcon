@@ -40,7 +40,7 @@ float sup_DigRegler( const sup_digreg_coeff_t *q_p,
     /* Begrenzung nur zur Sicherheit: Werte sollten dank Anti Windup *
      * immer unter Grenze liegen.                                    */
     sup_Limit( &(y_p->y  ), q_p->lower_limit, q_p->upper_limit );   
-    sup_Limit( &(y_p->y_1), q_p->lower_limit, q_p->upper_limit );
+    // sup_Limit( &(y_p->y_1), q_p->lower_limit, q_p->upper_limit );
 
     y_p->y_1  = y_p->y;
     y_p->xd_1 = xd;
