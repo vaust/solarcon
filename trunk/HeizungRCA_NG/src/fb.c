@@ -28,6 +28,7 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )
     /* abgeleitete Groessen */
     q_p->q0          =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
     q_p->q1          = -par_p->reg_kp;
+    q_p->antiwup     = par_p->TA/par_p->reg_tn;
     q_p->lower_limit = MIN_Y_PCT;
     q_p->upper_limit = MAX_Y_PCT;
     
