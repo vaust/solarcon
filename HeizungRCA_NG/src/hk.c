@@ -25,8 +25,9 @@ void hk_Init( hk_param_t         *par_p,
     par_p->tr_sw        = param_hk_tr_sw;
 
     /* abgeleitete Groessen */
-    q_p->q0 =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
-    q_p->q1 = -par_p->reg_kp;
+    q_p->q0          =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
+    q_p->q1          = -par_p->reg_kp;
+    q_p->antiwup     = par_p->TA/par_p->reg_tn;
     q_p->lower_limit = MIN_Y_PCT;
     q_p->upper_limit = MAX_Y_PCT;
     sup_DigRegInit( q_p, &(out_p->mv_y) );
