@@ -33,9 +33,9 @@ float sup_DigRegler( const sup_digreg_coeff_t *q_p,
 
     /* Anti Windup Algorithmus */
     if( y_p->y > q_p->upper_limit )  
-        y_p->y -= q_p->antiwup * (y_p->y - q_p->upper_limit);
+        y_p->y_1 -= q_p->antiwup * (y_p->y - q_p->upper_limit);
     else if( y_p->y < q_p->lower_limit ) 
-        y_p->y -= q_p->antiwup * (y_p->y - q_p->lower_limit);
+        y_p->y_1 -= q_p->antiwup * (y_p->y - q_p->lower_limit);
 
     /* Begrenzung nur zur Sicherheit: Werte sollten dank Anti Windup *
      * immer unter Grenze liegen.                                    */
