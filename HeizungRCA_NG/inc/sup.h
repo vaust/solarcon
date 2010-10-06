@@ -12,6 +12,8 @@ typedef struct {
     float q0;
     float q1;
     float antiwup;
+    float kp;
+    float ki;
     float lower_limit;
     float upper_limit;
 } sup_digreg_coeff_t;
