@@ -17,7 +17,7 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )
     par_p->frostschutz  = param_all_frostschutz;
     par_p->at_start     = param_all_at_start;
     par_p->reg_kp       = param_fb_reg_kp;
-    par_p->reg_kp       = param_fb_reg_ki;
+    par_p->reg_ki       = param_fb_reg_ki;
     par_p->reg_tn       = param_fb_reg_tn;
     par_p->TA           = ABTASTZEIT;
     par_p->tvl_absenk   = param_fb_tvl_absenk;
