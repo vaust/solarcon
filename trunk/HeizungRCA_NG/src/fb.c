@@ -29,9 +29,12 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )
     // q_p->q0          =  par_p->reg_kp + par_p->TA/par_p->reg_tn; // alt
     q_p->q0          =  par_p->reg_kp + par_p->TA*par_p->reg_ki;    // neu!
     q_p->q1          = -par_p->reg_kp;
-    q_p->antiwup     = par_p->TA/par_p->reg_tn;
-    q_p->lower_limit = MIN_Y_PCT;
-    q_p->upper_limit = MAX_Y_PCT;
+    q_p->kp          =  par_p->reg_kp;
+    q_p->ki          =  par_p->reg_ki;
+    q_p->antiwup     =  par_p->TA*par_p->reg_ki; // neu!
+    q_p->lower_limit =  MIN_Y_PCT;
+    q_p->upper_limit =  MAX_Y_PCT;
+    sup_DigRegInit( q_p, &(out_p->prim_mv_y) );
     
     out_p->prim_pu_sb = IO_AUS;
     out_p->sek_pu_sb = IO_AUS;

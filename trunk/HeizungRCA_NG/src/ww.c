@@ -73,9 +73,11 @@ void ww_Init( ww_param_t         *par_p,
     // q_hzg_pu_p->q0          =  par_p->pu_reg_kp + par_p->TA/par_p->pu_reg_tn; // alt
     q_hzg_pu_p->q0          =  par_p->pu_reg_kp + par_p->TA*par_p->pu_reg_ki;    // neu!
     q_hzg_pu_p->q1          = -par_p->pu_reg_kp;
-    q_hzg_pu_p->antiwup     = par_p->TA/par_p->pu_reg_tn;
-    q_hzg_pu_p->lower_limit = MIN_Y_PCT;
-    q_hzg_pu_p->upper_limit = MAX_Y_PCT;
+    q_p->kp                 =  par_p->pu_reg_kp;
+    q_p->ki                 =  par_p->pu_reg_ki;
+    q_hzg_pu_p->antiwup     =  par_p->TA*par_p->pu_reg_ki;
+    q_hzg_pu_p->lower_limit =  MIN_Y_PCT;
+    q_hzg_pu_p->upper_limit =  MAX_Y_PCT;
     sup_DigRegInit( q_hzg_pu_p, &(out_p->hzg_pu_y) );
 }    
 
