@@ -56,8 +56,10 @@ void ww_Init( ww_param_t         *par_p,
               ww_out_t           *out_p )
 {
     par_p->pu_reg_kp           = param_ww_pu_reg_kp;
+    par_p->pu_reg_ki           = param_ww_pu_reg_ki;
     par_p->pu_reg_tn           = param_ww_pu_reg_tn;
     // par_p->mv_reg_kp = -0.0;   /* Momentan nicht genutzt */
+    // par_p->mv_reg_ki = -0.0;   /* Momentan nicht genutzt */
     // par_p->mv_reg_tn = -0.0;   /* Momentan nicht genutzt */
     par_p->TA                  = ABTASTZEIT;
     par_p->kes_sp_dt_sw        = param_kes_sp_dt_sw;
@@ -68,7 +70,8 @@ void ww_Init( ww_param_t         *par_p,
     par_p->hzg_pu_y_min        = 11.0;
     par_p->schwachlastzeit_max = 300;
     
-    q_hzg_pu_p->q0          =  par_p->pu_reg_kp + par_p->TA/par_p->pu_reg_tn;
+    // q_hzg_pu_p->q0          =  par_p->pu_reg_kp + par_p->TA/par_p->pu_reg_tn; // alt
+    q_hzg_pu_p->q0          =  par_p->pu_reg_kp + par_p->TA*par_p->pu_reg_ki;    // neu!
     q_hzg_pu_p->q1          = -par_p->pu_reg_kp;
     q_hzg_pu_p->antiwup     = par_p->TA/par_p->pu_reg_tn;
     q_hzg_pu_p->lower_limit = MIN_Y_PCT;

@@ -62,6 +62,7 @@ int param_Init( void )
         param_hk_frostschutz =      HK_Frostschutz;
         param_hk_reg_kp =           HK_REG_Kp;
         param_hk_reg_tn =           HK_REG_Tn;
+        param_hk_reg_ki =           HK_REG_Ki;
         param_hk_tr_sw  =           HK_Tr_SW;
 
         param_fb_tvl_steigung =     FB_Tvl_Steigung;
@@ -73,7 +74,8 @@ int param_Init( void )
 
         param_fb_reg_kp =           FB_REG_Kp;
         param_fb_reg_tn =           FB_REG_Tn;
-
+        param_fb_reg_ki =           FB_REG_Ki;
+        
         param_ww_tww_sw =           WW_Tww_SW;
         param_ww_tww_max =          WW_Tww_Max;
         param_wz_faktor =           WZ_Faktor;
@@ -81,6 +83,8 @@ int param_Init( void )
 
         param_ww_pu_reg_kp =        WW_PU_REG_Kp;
         param_ww_pu_reg_tn =        WW_PU_REG_Tn;
+        param_ww_pu_reg_ki =        WW_PU_REG_Ki;
+        
         param_ww_mv_korr =          WW_MV_KORR;
         param_ww_tww_tvl_faktor =   WW_Tww_Tvl_Faktor;
         param_ww_tz_sw =            WW_Tz_SW;

@@ -15,6 +15,7 @@ void hk_Init( hk_param_t         *par_p,
     par_p->frostschutz  = param_all_frostschutz;
     par_p->at_start     = param_all_at_start;
     par_p->reg_kp       = param_hk_reg_kp;
+    par_p->reg_ki       = param_hk_reg_ki;
     par_p->reg_tn       = param_hk_reg_tn;
     par_p->TA           = ABTASTZEIT;
     par_p->tvl_absenk   = param_hk_tvl_absenk;
@@ -25,7 +26,8 @@ void hk_Init( hk_param_t         *par_p,
     par_p->tr_sw        = param_hk_tr_sw;
 
     /* abgeleitete Groessen */
-    q_p->q0          =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
+    // q_p->q0          =  par_p->reg_kp + par_p->TA/par_p->reg_tn; // alt
+    q_p->q0          =  par_p->reg_kp + par_p->TA*par_p->reg_ki;    // neu!
     q_p->q1          = -par_p->reg_kp;
     q_p->antiwup     = par_p->TA/par_p->reg_tn;
     q_p->lower_limit = MIN_Y_PCT;
