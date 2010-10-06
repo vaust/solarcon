@@ -58,7 +58,7 @@ float sup_DigRegler2( const sup_digreg_coeff_t *q_p,
     y_p->x[3] = y_p->x[2] + y_p->x[4] - y_p->x[6]; /* x[4] = z^(-1)*x[3] */
     y_p->x[4] = y_p->x[3];                         /* neuer x[3] ist jetzt x[4] fuer naechsten Durchlauf */
     y_p->x[5] = y_p->x[1] + y_p->x[3];
-    y_p->x[7] = (y_p->x[5] > q_p->upper_limit ? q_p->upper_limit : y_p->x[5]) < q_p->lower_limit ? q_p->lower_limit : y_p->x[5];
+    y_p->x[7] = (y_p->x[5] >= q_p->upper_limit ? q_p->upper_limit : y_p->x[5]) < q_p->lower_limit ? q_p->lower_limit : y_p->x[5];
     y_p->x[6] = y_p->x[5] - y_p->x[7];
     y_p->y = y_p->x[7];
     return( y_p->y );
