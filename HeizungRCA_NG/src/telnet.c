@@ -135,7 +135,7 @@ const parse_set_t telnet_ww_Vars[] =
     { "ww_out.hzg_pu_y.y_1",   &(cntrl_ww_out.hzg_pu_y.y_1),   "%f" },
     { "ww_out.hzg_pu_y.xd_1",  &(cntrl_ww_out.hzg_pu_y.xd_1),  "%f" },
     { "ww_out.hzg_pu_sb",      &(cntrl_ww_out.hzg_pu_sb),      "%x" },
-    { "ww_out.hzg_vv_sb",      &(cntrl_ww_out.hzg_vv_sb),      "%x" }
+    { "ww_out.hzg_vv_sb",      &(cntrl_ww_out.hzg_vv_sb),      "%x" },
 
     { "ww_q.q0",               &(cntrl_ww_q.q0),               "%f" },
     { "ww_q.q1",               &(cntrl_ww_q.q1),               "%f" },
