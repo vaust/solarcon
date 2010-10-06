@@ -52,8 +52,16 @@ const parse_set_t telnet_fb_Vars[] =
      
     { "fb_out.tvl_sw",         &(cntrl_fb_out.tvl_sw),         "%f" },
     { "fb_out.prim_mv_y.y",    &(cntrl_fb_out.prim_mv_y.y),    "%f" },
-    { "fb_out.prim_mv_y.y_1",  &(cntrl_fb_out.prim_mv_y.y_1),  "%f" },
-    { "fb_out.prim_mv_y.xd_1", &(cntrl_fb_out.prim_mv_y.xd_1), "%f" },
+    { "fb_out.prim_mv_y.x[0]", &(cntrl_fb_out.prim_mv_y.x[0]), "%f" },
+    { "fb_out.prim_mv_y.x[1]", &(cntrl_fb_out.prim_mv_y.x[1]), "%f" },
+    { "fb_out.prim_mv_y.x[2]", &(cntrl_fb_out.prim_mv_y.x[2]), "%f" },
+    { "fb_out.prim_mv_y.x[3]", &(cntrl_fb_out.prim_mv_y.x[3]), "%f" },
+    { "fb_out.prim_mv_y.x[4]", &(cntrl_fb_out.prim_mv_y.x[4]), "%f" },
+    { "fb_out.prim_mv_y.x[5]", &(cntrl_fb_out.prim_mv_y.x[5]), "%f" },
+    { "fb_out.prim_mv_y.x[6]", &(cntrl_fb_out.prim_mv_y.x[6]), "%f" },
+    { "fb_out.prim_mv_y.x[7]", &(cntrl_fb_out.prim_mv_y.x[7]), "%f" },
+//    { "fb_out.prim_mv_y.y_1",  &(cntrl_fb_out.prim_mv_y.y_1),  "%f" },
+//    { "fb_out.prim_mv_y.xd_1", &(cntrl_fb_out.prim_mv_y.xd_1), "%f" },
     { "fb_out.prim_pu_sb",     &(cntrl_fb_out.prim_pu_sb),     "%x" },
     { "fb_out.sek_pu_sb",      &(cntrl_fb_out.sek_pu_sb),      "%x" },
 
