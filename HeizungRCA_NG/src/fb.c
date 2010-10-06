@@ -26,7 +26,8 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )
     par_p->tvl_steigung = param_fb_tvl_steigung;
     par_p->tr_sw        = param_fb_tr_sw;
     /* abgeleitete Groessen */
-    q_p->q0          =  par_p->reg_kp + par_p->TA/par_p->reg_tn;
+    // q_p->q0          =  par_p->reg_kp + par_p->TA/par_p->reg_tn; // alt
+    q_p->q0          =  par_p->reg_kp + par_p->TA*par_p->reg_ki;    // neu!
     q_p->q1          = -par_p->reg_kp;
     q_p->antiwup     = par_p->TA/par_p->reg_tn;
     q_p->lower_limit = MIN_Y_PCT;
