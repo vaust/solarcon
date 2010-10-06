@@ -60,8 +60,8 @@ const parse_set_t telnet_fb_Vars[] =
     { "fb_out.prim_mv_y.x[5]", &(cntrl_fb_out.prim_mv_y.x[5]), "%f" },
     { "fb_out.prim_mv_y.x[6]", &(cntrl_fb_out.prim_mv_y.x[6]), "%f" },
     { "fb_out.prim_mv_y.x[7]", &(cntrl_fb_out.prim_mv_y.x[7]), "%f" },
-//    { "fb_out.prim_mv_y.y_1",  &(cntrl_fb_out.prim_mv_y.y_1),  "%f" },
-//    { "fb_out.prim_mv_y.xd_1", &(cntrl_fb_out.prim_mv_y.xd_1), "%f" },
+    // { "fb_out.prim_mv_y.y_1",  &(cntrl_fb_out.prim_mv_y.y_1),  "%f" },
+    // { "fb_out.prim_mv_y.xd_1", &(cntrl_fb_out.prim_mv_y.xd_1), "%f" },
     { "fb_out.prim_pu_sb",     &(cntrl_fb_out.prim_pu_sb),     "%x" },
     { "fb_out.sek_pu_sb",      &(cntrl_fb_out.sek_pu_sb),      "%x" },
 
@@ -97,8 +97,8 @@ const parse_set_t telnet_hk_Vars[] =
      
     { "hk_out.tvl_sw",         &(cntrl_hk_out.tvl_sw),         "%f" },
     { "hk_out.mv_y.y",         &(cntrl_hk_out.mv_y.y),         "%f" },
-    { "hk_out.mv_y.y_1",       &(cntrl_hk_out.mv_y.y_1),       "%f" },
-    { "hk_out.mv_y.xd_1",      &(cntrl_hk_out.mv_y.xd_1),      "%f" },
+    // { "hk_out.mv_y.y_1",       &(cntrl_hk_out.mv_y.y_1),       "%f" },
+    // { "hk_out.mv_y.xd_1",      &(cntrl_hk_out.mv_y.xd_1),      "%f" },
     { "hk_out.pu_sb",          &(cntrl_hk_out.pu_sb),          "%x" },
 
     { "hk_q.q0",               &(cntrl_hk_q.q0),               "%f" },
@@ -108,8 +108,7 @@ const parse_set_t telnet_hk_Vars[] =
     { "hk_q.ki",               &(cntrl_hk_q.ki),               "%f" },
     { "hk_q.lower_limit",      &(cntrl_hk_q.lower_limit),      "%f" },
     { "hk_q.upper_limit",      &(cntrl_hk_q.upper_limit),      "%f" }
-
-    };
+};
 
 const parse_set_t telnet_ww_Vars[] =
 {
@@ -137,11 +136,11 @@ const parse_set_t telnet_ww_Vars[] =
      
     { "ww_out.hzg_tvl_sw",     &(cntrl_ww_out.hzg_tvl_sw),     "%f" },
     { "ww_out.hzg_mv_y.y",     &(cntrl_ww_out.hzg_mv_y.y),     "%f" },
-    { "ww_out.hzg_mv_y.y_1",   &(cntrl_ww_out.hzg_mv_y.y_1),   "%f" },
-    { "ww_out.hzg_mv_y.xd_1",  &(cntrl_ww_out.hzg_mv_y.xd_1),  "%f" },
+    // { "ww_out.hzg_mv_y.y_1",   &(cntrl_ww_out.hzg_mv_y.y_1),   "%f" },
+    // { "ww_out.hzg_mv_y.xd_1",  &(cntrl_ww_out.hzg_mv_y.xd_1),  "%f" },
     { "ww_out.hzg_pu_y.y",     &(cntrl_ww_out.hzg_pu_y.y),     "%f" },
-    { "ww_out.hzg_pu_y.y_1",   &(cntrl_ww_out.hzg_pu_y.y_1),   "%f" },
-    { "ww_out.hzg_pu_y.xd_1",  &(cntrl_ww_out.hzg_pu_y.xd_1),  "%f" },
+    // { "ww_out.hzg_pu_y.y_1",   &(cntrl_ww_out.hzg_pu_y.y_1),   "%f" },
+    // { "ww_out.hzg_pu_y.xd_1",  &(cntrl_ww_out.hzg_pu_y.xd_1),  "%f" },
     { "ww_out.hzg_pu_sb",      &(cntrl_ww_out.hzg_pu_sb),      "%x" },
     { "ww_out.hzg_vv_sb",      &(cntrl_ww_out.hzg_vv_sb),      "%x" },
 
