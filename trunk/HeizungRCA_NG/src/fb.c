@@ -61,8 +61,8 @@ void fb_Run( const fb_param_t *par_p,
     }
     sup_Limit( &(out_p->tvl_sw), par_p->tvl_min, par_p->tvl_max );
 
-    /* Mischventil PI-Regleralgorithmus */
-    sup_DigRegler( q_p, out_p->tvl_sw, in_p->sek_tvl_mw, &(out_p->prim_mv_y) );
+    /* Mischventil PI-Regleralgorithmus mit Anti Windup */
+    sup_DigRegler2( q_p, out_p->tvl_sw, in_p->sek_tvl_mw, &(out_p->prim_mv_y) );
 
     if(   (in_p->tau_avg <  par_p->at_start) && /* Die mittlere Aussentemperatur liegt unter der Betriebsschwelle */
           (out_p->tvl_sw >  20.0           )    /* Der berechnete Vorlauftemperatursollwert liegt unter 20 Grad C */
