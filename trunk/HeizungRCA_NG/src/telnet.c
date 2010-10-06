@@ -97,6 +97,14 @@ const parse_set_t telnet_hk_Vars[] =
      
     { "hk_out.tvl_sw",         &(cntrl_hk_out.tvl_sw),         "%f" },
     { "hk_out.mv_y.y",         &(cntrl_hk_out.mv_y.y),         "%f" },
+    { "hk_out.mv_y.x[0]",      &(cntrl_hk_out.mv_y.x[0]),      "%f" },
+    { "hk_out.mv_y.x[1]",      &(cntrl_hk_out.mv_y.x[1]),      "%f" },
+    { "hk_out.mv_y.x[2]",      &(cntrl_hk_out.mv_y.x[2]),      "%f" },
+    { "hk_out.mv_y.x[3]",      &(cntrl_hk_out.mv_y.x[3]),      "%f" },
+    { "hk_out.mv_y.x[4]",      &(cntrl_hk_out.mv_y.x[4]),      "%f" },
+    { "hk_out.mv_y.x[5]",      &(cntrl_hk_out.mv_y.x[5]),      "%f" },
+    { "hk_out.mv_y.x[6]",      &(cntrl_hk_out.mv_y.x[6]),      "%f" },
+    { "hk_out.mv_y.x[7]",      &(cntrl_hk_out.mv_y.x[7]),      "%f" },
     // { "hk_out.mv_y.y_1",       &(cntrl_hk_out.mv_y.y_1),       "%f" },
     // { "hk_out.mv_y.xd_1",      &(cntrl_hk_out.mv_y.xd_1),      "%f" },
     { "hk_out.pu_sb",          &(cntrl_hk_out.pu_sb),          "%x" },
@@ -217,7 +225,7 @@ void *telnet_thread( void *arg )
     arglist = (int *) arg;
     fdesc = arglist[0];
 
-    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version 0.6.3\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version 0.6.4\n" ); BFLSH();
     snprintf( bufout, BFLN, "\tAndreas und Volker Stegmann\n\n" );       BFLSH();
     snprintf( bufout, BFLN, "\tServer Prozess %d\n\n", arglist[1]+1 );   BFLSH();
     telnet_writeHelp( fdesc, bufout );
