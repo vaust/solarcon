@@ -63,7 +63,7 @@ const parse_set_t telnet_fb_Vars[] =
     { "fb_q.kp",               &(cntrl_fb_q.kp),               "%f" },
     { "fb_q.ki",               &(cntrl_fb_q.ki),               "%f" },
     { "fb_q.lower_limit",      &(cntrl_fb_q.lower_limit),      "%f" },
-    { "fb_q.lower_limit",      &(cntrl_fb_q.lower_limit),      "%f" }
+    { "fb_q.upper_limit",      &(cntrl_fb_q.upper_limit),      "%f" }
 };
 
 const parse_set_t telnet_hk_Vars[] =
@@ -99,7 +99,7 @@ const parse_set_t telnet_hk_Vars[] =
     { "hk_q.kp",               &(cntrl_hk_q.kp),               "%f" },
     { "hk_q.ki",               &(cntrl_hk_q.ki),               "%f" },
     { "hk_q.lower_limit",      &(cntrl_hk_q.lower_limit),      "%f" },
-    { "hk_q.lower_limit",      &(cntrl_hk_q.lower_limit),      "%f" }
+    { "hk_q.upper_limit",      &(cntrl_hk_q.upper_limit),      "%f" }
 
     };
 
@@ -143,7 +143,7 @@ const parse_set_t telnet_ww_Vars[] =
     { "ww_q.kp",               &(cntrl_ww_q.kp),               "%f" },
     { "ww_q.ki",               &(cntrl_ww_q.ki),               "%f" },
     { "ww_q.lower_limit",      &(cntrl_ww_q.lower_limit),      "%f" },
-    { "ww_q.lower_limit",      &(cntrl_ww_q.lower_limit),      "%f" }
+    { "ww_q.upper_limit",      &(cntrl_ww_q.upper_limit),      "%f" }
 };
 
 const parse_set_t telnet_sol_Vars[] =
