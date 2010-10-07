@@ -22,7 +22,7 @@ typedef struct {
     float y;            /**< Stellgroesse    zum Zeitpunkt t   */
     float y_1;          /**< Stellgroesse    zum Zeitpunkt t-1 */
     float xd_1;         /**< Regelabweichung zum Zeitpunkt t-1 */
-    float x[8];         /**< Zustandsgroessen fuer Blockdarstellung des Anti Windup PI-Reglers */
+    float x[5];         /**< Zustandsgroessen fuer Blockdarstellung des Anti Windup PI-Reglers */
 } sup_digreg_out_t;
 
 /* <Typen> */
