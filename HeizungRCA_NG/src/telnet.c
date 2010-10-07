@@ -57,9 +57,6 @@ const parse_set_t telnet_fb_Vars[] =
     { "fb_out.prim_mv_y.x[2]", &(cntrl_fb_out.prim_mv_y.x[2]), "%f" },
     { "fb_out.prim_mv_y.x[3]", &(cntrl_fb_out.prim_mv_y.x[3]), "%f" },
     { "fb_out.prim_mv_y.x[4]", &(cntrl_fb_out.prim_mv_y.x[4]), "%f" },
-    { "fb_out.prim_mv_y.x[5]", &(cntrl_fb_out.prim_mv_y.x[5]), "%f" },
-    { "fb_out.prim_mv_y.x[6]", &(cntrl_fb_out.prim_mv_y.x[6]), "%f" },
-    { "fb_out.prim_mv_y.x[7]", &(cntrl_fb_out.prim_mv_y.x[7]), "%f" },
     // { "fb_out.prim_mv_y.y_1",  &(cntrl_fb_out.prim_mv_y.y_1),  "%f" },
     // { "fb_out.prim_mv_y.xd_1", &(cntrl_fb_out.prim_mv_y.xd_1), "%f" },
     { "fb_out.prim_pu_sb",     &(cntrl_fb_out.prim_pu_sb),     "%x" },
@@ -102,9 +99,6 @@ const parse_set_t telnet_hk_Vars[] =
     { "hk_out.mv_y.x[2]",      &(cntrl_hk_out.mv_y.x[2]),      "%f" },
     { "hk_out.mv_y.x[3]",      &(cntrl_hk_out.mv_y.x[3]),      "%f" },
     { "hk_out.mv_y.x[4]",      &(cntrl_hk_out.mv_y.x[4]),      "%f" },
-    { "hk_out.mv_y.x[5]",      &(cntrl_hk_out.mv_y.x[5]),      "%f" },
-    { "hk_out.mv_y.x[6]",      &(cntrl_hk_out.mv_y.x[6]),      "%f" },
-    { "hk_out.mv_y.x[7]",      &(cntrl_hk_out.mv_y.x[7]),      "%f" },
     // { "hk_out.mv_y.y_1",       &(cntrl_hk_out.mv_y.y_1),       "%f" },
     // { "hk_out.mv_y.xd_1",      &(cntrl_hk_out.mv_y.xd_1),      "%f" },
     { "hk_out.pu_sb",          &(cntrl_hk_out.pu_sb),          "%x" },
@@ -225,7 +219,7 @@ void *telnet_thread( void *arg )
     arglist = (int *) arg;
     fdesc = arglist[0];
 
-    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version 0.6.4\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version 0.6.5\n" ); BFLSH();
     snprintf( bufout, BFLN, "\tAndreas und Volker Stegmann\n\n" );       BFLSH();
     snprintf( bufout, BFLN, "\tServer Prozess %d\n\n", arglist[1]+1 );   BFLSH();
     telnet_writeHelp( fdesc, bufout );
@@ -303,10 +297,10 @@ void telnet_writeHelp( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "\t HELP      (Diesen Hilfetext ausgeben)\n" );            BFLSH();
     snprintf( bufout, BFLN, "\t VERSION   (Software Version ausgeben)\n" );            BFLSH();
     snprintf( bufout, BFLN, "\n\t GET VFB   (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
-    snprintf( bufout, BFLN, "\t GET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
-    snprintf( bufout, BFLN, "\t GET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
-    snprintf( bufout, BFLN, "\t GET VSOL  (SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
-    snprintf( bufout, BFLN, "\t GET VKES  (KES Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\t GET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" );   BFLSH();
+    snprintf( bufout, BFLN, "\t GET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" );   BFLSH();
+    snprintf( bufout, BFLN, "\t GET VSOL  (SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" );  BFLSH();
+    snprintf( bufout, BFLN, "\t GET VKES  (KES Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" );  BFLSH();
     snprintf( bufout, BFLN, "\n\t END       (Datenabfrage beenden)\n" );                 BFLSH();
 }
 

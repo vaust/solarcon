@@ -21,7 +21,7 @@ void sup_DigRegInit( sup_digreg_coeff_t *q_p, sup_digreg_out_t *y_p )
     y_p->xd_1 = 0.0;
     y_p->y    = 50.0; /* % */
     y_p->y_1  = 50.0; /* % */
-    for( n=0; n<8; n ++ ) y_p->x[n] = 0.0;
+    for( n=0; n<5; n ++ ) y_p->x[n] = 0.0;
 }
 
 float sup_DigRegler( const sup_digreg_coeff_t *q_p, 
@@ -49,25 +49,23 @@ float sup_DigRegler2( const sup_digreg_coeff_t *q_p,
                       const float               ist, 
                             sup_digreg_out_t   *y_p )
 {
+
     /* x[0] : x Eingangsgroesse */
-    /* x[7] : y Ausgangsgroesse */
+    /* x[4] : y Ausgangsgroesse */
     
     y_p->x[0] = soll-ist;
-    y_p->x[1] = q_p->kp * y_p->x[0];
-    y_p->x[2] = q_p->ki * y_p->x[0];
-    y_p->x[3] = y_p->x[2] + y_p->x[4] - y_p->x[6]; /* x[4] = z^(-1)*x[3]         */
-    y_p->x[4] = y_p->x[3]; /* neuer x[3] ist jetzt x[4] fuer naechsten Durchlauf */
-    y_p->x[5] = y_p->x[1] + y_p->x[3];
+    y_p->x[1] = q_p->ki * y_p->x[0] + y_p->x[1] - y_p->x[3]; 
+    y_p->x[2] = q_p->kp * y_p->x[0] + y_p->x[1];
 
-    if ( y_p->x[5] >= q_p->upper_limit )
-        y_p->x[7] = q_p->upper_limit;
-    else if ( y_p->x[5] < q_p->lower_limit )
-        y_p->x[7] = q_p->lower_limit;
+    if ( y_p->x[2] > q_p->upper_limit )
+        y_p->x[4] = q_p->upper_limit;
+    else if ( y_p->x[2] <= q_p->lower_limit )
+        y_p->x[4] = q_p->lower_limit;
     else
-        y_p->x[7] = y_p->x[5];
+        y_p->x[4] = y_p->x[2];
     
-    y_p->x[6] = y_p->x[5] - y_p->x[7];
-    y_p->y = y_p->x[7];
+    y_p->x[3] = y_p->x[2] - y_p->x[4];
+    y_p->y = y_p->x[4];
     return( y_p->y );
 }
 
