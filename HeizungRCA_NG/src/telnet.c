@@ -1,6 +1,6 @@
 #define _TELNET_C_
 
-#define VERSIONSTRING "\t0.6.5\nBuild 08.10.2010\n"
+#define VERSIONSTRING "0.6.5\n\tBuild 08.10.2010\n"
 
 #include <sys/types.h>
 #include <unistd.h>
@@ -203,7 +203,7 @@ void *telnet_thread( void *arg )
     arglist = (int *) arg;
     fdesc = arglist[0];
 
-    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version" );         BFLSH();
+    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version " );        BFLSH();
     snprintf( bufout, BFLN, VERSIONSTRING );                             BFLSH();
     snprintf( bufout, BFLN, "\tAndreas und Volker Stegmann\n\n" );       BFLSH();
     snprintf( bufout, BFLN, "\tServer Prozess %d\n\n", arglist[1]+1 );   BFLSH();
@@ -229,7 +229,7 @@ void *telnet_thread( void *arg )
             }
             if( strncasecmp( "VERSION", token, 7 ) == 0 ) {
                 printf( "TELNET.C: VERSION Befehl erhalten\n" );
-                snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version 0.6.3\n" ); BFLSH();
+                snprintf( bufout, BFLN, "\tRCA Heizungssteuerung\n\tVersion " ); BFLSH();
                 snprintf( bufout, BFLN, VERSIONSTRING ); BFLSH(); 
                 snprintf( bufout, BFLN, "\tAndreas und Volker Stegmann\n" ); BFLSH();             
             }
