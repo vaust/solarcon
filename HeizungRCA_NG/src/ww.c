@@ -57,10 +57,6 @@ void ww_Init( ww_param_t         *par_p,
 {
     par_p->pu_reg_kp           = param_ww_pu_reg_kp;
     par_p->pu_reg_ki           = param_ww_pu_reg_ki;
-    par_p->pu_reg_tn           = param_ww_pu_reg_tn;
-    // par_p->mv_reg_kp = -0.0;   /* Momentan nicht genutzt */
-    // par_p->mv_reg_ki = -0.0;   /* Momentan nicht genutzt */
-    // par_p->mv_reg_tn = -0.0;   /* Momentan nicht genutzt */
     par_p->TA                  = ABTASTZEIT;
     par_p->kes_sp_dt_sw        = param_kes_sp_dt_sw;
     par_p->tww_sw              = param_ww_tww_sw;
@@ -70,15 +66,7 @@ void ww_Init( ww_param_t         *par_p,
     par_p->hzg_pu_y_min        = 11.0;
     par_p->schwachlastzeit_max = 300;
 
-    // q_hzg_pu_p->q0          =  par_p->pu_reg_kp + par_p->TA/par_p->pu_reg_tn; // alt
-    q_hzg_pu_p->q0          =  par_p->pu_reg_kp + par_p->TA*par_p->pu_reg_ki;    // neu!
-    q_hzg_pu_p->q1          = -par_p->pu_reg_kp;
-    q_hzg_pu_p->kp          =  par_p->pu_reg_kp;
-    q_hzg_pu_p->ki          =  par_p->pu_reg_ki;
-    q_hzg_pu_p->antiwup     =  par_p->TA*par_p->pu_reg_ki;
-    q_hzg_pu_p->lower_limit =  MIN_Y_PCT;
-    q_hzg_pu_p->upper_limit =  MAX_Y_PCT;
-    sup_DigRegInit( q_hzg_pu_p, &(out_p->hzg_pu_y) );
+    sup_DigRegInit( q_hzg_pu_p, &(out_p->hzg_pu_y), ABTASTZEIT, par_p->pu_reg_kp, par_p->pu_reg_ki, MIN_Y_PCT, MAX_Y_PCT );
 }
 
 void ww_Run( const ww_param_t         *par_p,
@@ -97,7 +85,7 @@ void ww_Run( const ww_param_t         *par_p,
         out_p->zirk_pu_sb = IO_AUS;
 
     /* PI-Regler fuer WW Heizungspumpe */
-    sup_DigRegler2( q_hzg_pu_p, par_p->tww_sw, in_p->tww_mw, &(out_p->hzg_pu_y) );
+    sup_DigRegler( q_hzg_pu_p, par_p->tww_sw, in_p->tww_mw, &(out_p->hzg_pu_y) );
 
     /* Berechnung von WW_HZG_MV_Y aus den Temperaturen von Speicher und Rücklauf */
     ww_MV_Steuerung( par_p, in_p, out_p );
