@@ -1,6 +1,6 @@
 #define _TELNET_C_
 
-#define VERSIONSTRING "\tBuild 28.09.2010\n"
+#define VERSIONSTRING "\t0.6.5\nBuild 08.10.2010\n"
 
 #include <sys/types.h>
 #include <unistd.h>
@@ -203,7 +203,8 @@ void *telnet_thread( void *arg )
     arglist = (int *) arg;
     fdesc = arglist[0];
 
-    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version 0.6.5\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version" );         BFLSH();
+    snprintf( bufout, BFLN, VERSIONSTRING );                             BFLSH();
     snprintf( bufout, BFLN, "\tAndreas und Volker Stegmann\n\n" );       BFLSH();
     snprintf( bufout, BFLN, "\tServer Prozess %d\n\n", arglist[1]+1 );   BFLSH();
     telnet_writeHelp( fdesc, bufout );
@@ -627,7 +628,7 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
                 break;
             case 'f':
             default:
-                snprintf( bufout, BFLN, "%6.2f", *(float *)Vars[n].VarPointer ); BFLSH();
+                snprintf( bufout, BFLN, "%8.4f", *(float *)Vars[n].VarPointer ); BFLSH();
                 break;
         }
         snprintf( bufout, BFLN, "\n" ); BFLSH();
