@@ -51,21 +51,20 @@ float sup_DigRegler2( const sup_digreg_coeff_t *q_p,
 {
 
     /* x[0] : x Eingangsgroesse */
-    /* x[4] : y Ausgangsgroesse */
+    /* x[2] : y Ausgangsgroesse ohne Begrenzung */
     
-    y_p->x[0] = soll-ist;
-    y_p->x[1] = q_p->ki * y_p->x[0] + y_p->x[1] - y_p->x[3]; 
-    y_p->x[2] = q_p->kp * y_p->x[0] + y_p->x[1];
+    y_p->x[0] =  soll-ist;
+    y_p->x[1] += q_p->ki * y_p->x[0] - y_p->x[3]; 
+    y_p->x[2] =  q_p->kp * y_p->x[0] + y_p->x[1];
 
     if ( y_p->x[2] > q_p->upper_limit )
-        y_p->x[4] = q_p->upper_limit;
+        y_p->y = q_p->upper_limit;
     else if ( y_p->x[2] <= q_p->lower_limit )
-        y_p->x[4] = q_p->lower_limit;
+        y_p->y = q_p->lower_limit;
     else
-        y_p->x[4] = y_p->x[2];
+        y_p->y = y_p->x[2];
     
-    y_p->x[3] = y_p->x[2] - y_p->x[4];
-    y_p->y = y_p->x[4];
+    y_p->x[3] = y_p->x[2] - y_p->y;
     return( y_p->y );
 }
 
