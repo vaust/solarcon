@@ -25,16 +25,7 @@ void hk_Init( hk_param_t         *par_p,
     par_p->tvl_steigung = param_hk_tvl_steigung;
     par_p->tr_sw        = param_hk_tr_sw;
 
-    /* abgeleitete Groessen */
-    // q_p->q0          =  par_p->reg_kp + par_p->TA/par_p->reg_tn; // alt
-    q_p->q0          =  par_p->reg_kp + par_p->TA*par_p->reg_ki;    // neu!
-    q_p->q1          = -par_p->reg_kp;
-    q_p->kp          =  par_p->reg_kp;
-    q_p->ki          =  par_p->reg_ki;
-    q_p->antiwup     =  par_p->TA*par_p->reg_ki; // neu!
-    q_p->lower_limit =  MIN_Y_PCT;
-    q_p->upper_limit =  MAX_Y_PCT;
-    sup_DigRegInit( q_p, &(out_p->mv_y) );
+    sup_DigRegInit( q_p, &(out_p->mv_y), ABTASTZEIT, par_p->reg_kp, par_p->reg_ki, MIN_Y_PCT, MAX_Y_PCT );
 }
 
 /* Regler fuer den Waermetauscher, der den Heizkoerperheizkreis beheizt */
@@ -50,7 +41,7 @@ void hk_Run( const hk_param_t         *par_p,
     }
 
     sup_Limit( &(out_p->tvl_sw), par_p->tvl_min, par_p->tvl_max );
-    sup_DigRegler2( q_p, out_p->tvl_sw, in_p->tvl_mw, &(out_p->mv_y) );
+    sup_DigRegler( q_p, out_p->tvl_sw, in_p->tvl_mw, &(out_p->mv_y) );
 
     if( (in_p->tau_avg < par_p->at_start) &&            /* mittlere AT unter Betriebsschwelle */
         (out_p->tvl_sw > 30.0           )    )          /* VL-Temp. ab der HK wirklich heizt  */

@@ -26,16 +26,8 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )
     par_p->tvl_niveau   = param_fb_tvl_niveau;
     par_p->tvl_steigung = param_fb_tvl_steigung;
     par_p->tr_sw        = param_fb_tr_sw;
-    /* abgeleitete Groessen */
-    // q_p->q0          =  par_p->reg_kp + par_p->TA/par_p->reg_tn; // alt
-    q_p->q0          =  par_p->reg_kp + par_p->TA*par_p->reg_ki;    // neu!
-    q_p->q1          = -par_p->reg_kp;
-    q_p->kp          =  par_p->reg_kp;
-    q_p->ki          =  par_p->reg_ki;
-    q_p->antiwup     =  par_p->TA*par_p->reg_ki; // neu!
-    q_p->lower_limit =  MIN_Y_PCT;
-    q_p->upper_limit =  MAX_Y_PCT;
-    sup_DigRegInit( q_p, &(out_p->prim_mv_y) );
+
+    sup_DigRegInit( q_p, &(out_p->prim_mv_y), ABTASTZEIT, par_p->reg_kp, par_p->reg_ki, MIN_Y_PCT, MAX_Y_PCT );
     
     out_p->prim_pu_sb = IO_AUS;
     out_p->sek_pu_sb = IO_AUS;
@@ -62,7 +54,7 @@ void fb_Run( const fb_param_t *par_p,
     sup_Limit( &(out_p->tvl_sw), par_p->tvl_min, par_p->tvl_max );
 
     /* Mischventil PI-Regleralgorithmus mit Anti Windup */
-    sup_DigRegler2( q_p, out_p->tvl_sw, in_p->sek_tvl_mw, &(out_p->prim_mv_y) );
+    sup_DigRegler( q_p, out_p->tvl_sw, in_p->sek_tvl_mw, &(out_p->prim_mv_y) );
 
     if(   (in_p->tau_avg <  par_p->at_start) && /* Die mittlere Aussentemperatur liegt unter der Betriebsschwelle */
           (out_p->tvl_sw >  20.0           )    /* Der berechnete Vorlauftemperatursollwert liegt unter 20 Grad C */
