@@ -89,13 +89,13 @@ void ww_Run( const ww_param_t         *par_p,
         q_hzg_pu_p->lower_limit = MIN_Y_PCT;
     }
     else {
-        q_hzg_pu_p->upper_limit = 11.0;
+        q_hzg_pu_p->upper_limit = par_p->hzg_pu_y_min;
         q_hzg_pu_p->lower_limit = MIN_Y_PCT;
     }
     /* PI-Regler fuer WW Heizungspumpe */
     sup_DigRegler( q_hzg_pu_p, par_p->tww_sw, in_p->tww_mw, &(out_p->hzg_pu_y) );
 
-    /* Berechnung von WW_HZG_MV_Y aus den Temperaturen von Speicher und Rücklauf */
+    /* Berechnung von WW_HZG_MV_Y aus den Temperaturen von Speicher und Ruecklauf */
     ww_MV_Steuerung( par_p, in_p, out_p );
 
     /* Schwachlast Steuerung */
