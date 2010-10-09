@@ -30,7 +30,7 @@ void sup_DigRegInit( sup_digreg_coeff_t *q_p,
     q_p->ki = ki;
     q_p->lower_limit = lower_limit;
     q_p->upper_limit = upper_limit;
-    for( n=0; n<5; n ++ ) y_p->x[n] = 0.0;
+    for( n=0; n<4; n ++ ) y_p->x[n] = 0.0;
 }
 
 

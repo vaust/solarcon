@@ -104,6 +104,8 @@ int main( void )
 
         cntrl_ww_in.tww_mw           = io_get_WW_Tww_MW();
         cntrl_ww_in.hzg_trl_mw       = io_get_HK_Trl_MW();
+        cntrl_ww_in.zirkzustand      = cntrl_zeit_absenkung.Zirk_Zustand;
+        cntrl_ww_in.duschzeit        = cntrl_zeit_absenkung.Duschzeit;
 
         cntrl_kes_in.tvl_mw          = io_get_KES_Tvl_MW();
         cntrl_kes_in.duschzeit       = cntrl_zeit_absenkung.Duschzeit;

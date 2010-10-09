@@ -6,10 +6,10 @@
 /* <Typen> */
 typedef struct {
     abgesenkt_t   HK_Zustand;           /* HK-Heizkreis Zeitprogramm normal / abgesenkt / abgeschaltet */
-    abgesenkt_t   FB_Zustand;           /* Zustand Fußbodenheizung */
+    abgesenkt_t   FB_Zustand;           /* Zustand Fuï¿½bodenheizung */
     ein_aus_t     Zirk_Zustand;         /* Einschaltzustand Zirkulationspumpe */
-    freigabe_t    SP1_Freigabe;         /* Freigabe des Speichers 1 über Kessel */
-    freigabe_t    SP2_Freigabe;         /* Freigabe des Speichers 2 über Kessel */
+    freigabe_t    SP1_Freigabe;         /* Freigabe des Speichers 1 ï¿½ber Kessel */
+    freigabe_t    SP2_Freigabe;         /* Freigabe des Speichers 2 ï¿½ber Kessel */
     nutzzeit_t    Bootshausnutzung;     /* Bootshausnutzung */
     nutzzeit_t    Duschzeit;            /* wird gerade geduscht ? */
 } zeit_Betriebszustand_t;
@@ -34,17 +34,17 @@ typedef struct {
 #define WOCHENZEIT(D, H, M)     ((M)+60*((H)+24*(D))) /* Wochentag, Stunde und Minute in Minuten umrechnen */
 #define TAGESZEIT(H, M)         ((M)+60*(H))          /* Tageszeit in Minuten                              */
 
-#define ZEITPROGRAMMDATEI       "wochenzeitprogramm.ini"
+#define ZEITPROGRAMMDATEI       "/home/wochenzeitprogramm.ini"
 /* <Makros/> */
 
 /* <Variablen> */
 #ifdef _ZEIT_C_
-/* Zeitprogramm_Heizkörperheizkreis   */
+/* Zeitprogramm_Heizkï¿½rperheizkreis   */
 #define HK_STATES_MAX 16
 zeit_schaltpunkt_t HK_Ein_Schaltzeiten[HK_STATES_MAX];
 zeit_schaltpunkt_t HK_Aus_Schaltzeiten[HK_STATES_MAX];
 
-/* Zeitprogramm Fußbodenheizung       */
+/* Zeitprogramm Fuï¿½bodenheizung       */
 #define FB_STATES_MAX 16
 zeit_schaltpunkt_t FB_Ein_Schaltzeiten[FB_STATES_MAX];
 zeit_schaltpunkt_t FB_Aus_Schaltzeiten[FB_STATES_MAX];
@@ -59,7 +59,7 @@ zeit_schaltpunkt_t ZIRK_Aus_Schaltzeiten[ZIRK_STATES_MAX];
 zeit_schaltpunkt_t DUSCH_Ein_Schaltzeiten[DUSCH_STATES_MAX];
 zeit_schaltpunkt_t DUSCH_Aus_Schaltzeiten[DUSCH_STATES_MAX];
 
-/* Variablen für Anzahl der Schaltpunkte der einzelnen Zeitprogramme */
+/* Variablen fï¿½r Anzahl der Schaltpunkte der einzelnen Zeitprogramme */
 u8_t    hk_states;
 u8_t    fb_states;
 u8_t    zirk_states;
