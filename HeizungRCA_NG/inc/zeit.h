@@ -34,7 +34,8 @@ typedef struct {
 #define WOCHENZEIT(D, H, M)     ((M)+60*((H)+24*(D))) /* Wochentag, Stunde und Minute in Minuten umrechnen */
 #define TAGESZEIT(H, M)         ((M)+60*(H))          /* Tageszeit in Minuten                              */
 
-#define ZEITPROGRAMMDATEI       "/home/wochenzeitprogramm.ini"
+// #define ZEITPROGRAMMDATEI       "/home/wochenzeitprogramm.ini"
+#define ZEITPROGRAMMDATEI       "wochenzeitprogramm.ini"
 /* <Makros/> */
 
 /* <Variablen> */
