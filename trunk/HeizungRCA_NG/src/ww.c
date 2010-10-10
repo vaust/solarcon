@@ -99,7 +99,7 @@ void ww_Run( const ww_param_t         *par_p,
     ww_MV_Steuerung( par_p, in_p, out_p );
 
     /* Schwachlast Steuerung */
-    ww_Schwachlast_Steuerung( par_p, out_p );
+    // ww_Schwachlast_Steuerung( par_p, out_p );
 
     /* Kriterium fuer Warmwasser Heizungsverteilventil */
     ww_VV_Steuerung( par_p, in_p, out_p );

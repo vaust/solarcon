@@ -46,7 +46,8 @@
 #define WW_Tww_Tvl_Faktor        1.0    /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                       */
 #define WW_Tz_SW                40.0    /**< Temperatursollwert des Zirkulationswassers in Grad C                       */
 #define WW_MV_KORR               3.0    /**< Korrekturfaktor fuer MV-Kennlinie                                          */
-#define VORGABENDATEI           "/home/vorgaben.ini"
+// #define VORGABENDATEI           "/home/vorgaben.ini"
+#define VORGABENDATEI           "vorgaben.ini"
 #endif
 
 #define MAX_ALL_Tau_mittel_Zeit   48    /**< max. Wert aus Kommentar in vorgaben.ini                                    */
