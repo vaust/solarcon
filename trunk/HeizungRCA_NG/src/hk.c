@@ -13,7 +13,7 @@ void hk_Init( hk_param_t         *par_p,
 {
     /* Vorgaben aus Parametrierung */
     par_p->frostschutz  = param_all_frostschutz;
-    par_p->at_start     = param_all_at_start+1.0;
+    par_p->at_start     = param_all_at_start;
     par_p->reg_kp       = param_hk_reg_kp;
     par_p->reg_ki       = param_hk_reg_ki;
     par_p->reg_tn       = param_hk_reg_tn;
@@ -25,7 +25,8 @@ void hk_Init( hk_param_t         *par_p,
     par_p->tvl_steigung = param_hk_tvl_steigung;
     par_p->tr_sw        = param_hk_tr_sw;
 
-    sup_DigRegInit( q_p, &(out_p->mv_y), ABTASTZEIT, par_p->reg_kp, par_p->reg_ki, MIN_Y_PCT, MAX_Y_PCT );
+    sup_DigRegInit( q_p, &(out_p->mv_y), ABTASTZEIT, 
+                    par_p->reg_kp, par_p->reg_ki, MIN_Y_PCT, MAX_Y_PCT );
 }
 
 /* Regler fuer den Waermetauscher, der den Heizkoerperheizkreis beheizt */
@@ -46,7 +47,7 @@ void hk_Run( const hk_param_t         *par_p,
     if( (in_p->tau_avg < par_p->at_start) &&            /* mittlere AT unter Betriebsschwelle */
         (out_p->tvl_sw > 30.0           )    )          /* VL-Temp. ab der HK wirklich heizt  */
         out_p->pu_sb = IO_EIN;                          /* Heizkreis Pumpe einschalten */
-    else if( in_p->tau_avg > par_p->at_start )
+    else if( in_p->tau_avg > par_p->at_start + 1.0 )
         out_p->pu_sb = IO_AUS;                          /* Heizkreis Pumpe ausschalten */
     else if (in_p->tau_mw < par_p->frostschutz )        /* AT unter Frostschutzmarke   */
         out_p->pu_sb = IO_EIN;                          /* Heizkreis Pumpe einschalten */

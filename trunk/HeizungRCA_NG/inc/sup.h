@@ -4,7 +4,7 @@
 #include "gen_types.h"
 
 /* <Konstanten> */
-#define VFULLSCALE 0x8000
+#define SUP_REG_STATEVARS 4
 /* <Konstanten/> */
 
 /* <Typen> */
@@ -17,8 +17,8 @@ typedef struct {
 } sup_digreg_coeff_t;
 
 typedef struct {
-    float y;            /**< Stellgroesse zum Zeitpunkt t   */
-    float x[4];         /**< Zustandsgroessen fuer Blockdarstellung des Anti Windup PI-Reglers */
+    float y;                    /**< Stellgroesse zum Zeitpunkt t   */
+    float x[SUP_REG_STATEVARS]; /**< Zustandsgroessen fuer Blockdarstellung des Anti Windup PI-Reglers */
 } sup_digreg_out_t;
 
 /* <Typen> */
