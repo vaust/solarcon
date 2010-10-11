@@ -27,7 +27,8 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )
     par_p->tvl_steigung = param_fb_tvl_steigung;
     par_p->tr_sw        = param_fb_tr_sw;
 
-    sup_DigRegInit( q_p, &(out_p->prim_mv_y), ABTASTZEIT, par_p->reg_kp, par_p->reg_ki, MIN_Y_PCT, MAX_Y_PCT );
+    sup_DigRegInit( q_p, &(out_p->prim_mv_y), ABTASTZEIT, 
+                    par_p->reg_kp, par_p->reg_ki, MIN_Y_PCT, MAX_Y_PCT );
     
     out_p->prim_pu_sb = IO_AUS;
     out_p->sek_pu_sb = IO_AUS;

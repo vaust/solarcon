@@ -66,7 +66,8 @@ void ww_Init( ww_param_t         *par_p,
     par_p->hzg_pu_y_min        = 11.0;
     par_p->schwachlastzeit_max = 300;
 
-    sup_DigRegInit( q_hzg_pu_p, &(out_p->hzg_pu_y), ABTASTZEIT, par_p->pu_reg_kp, par_p->pu_reg_ki, MIN_Y_PCT, MAX_Y_PCT );
+    sup_DigRegInit( q_hzg_pu_p, &(out_p->hzg_pu_y), ABTASTZEIT, 
+                    par_p->pu_reg_kp, par_p->pu_reg_ki, MIN_Y_PCT, MAX_Y_PCT );
 }
 
 void ww_Run( const ww_param_t         *par_p,
@@ -84,7 +85,8 @@ void ww_Run( const ww_param_t         *par_p,
     else
         out_p->zirk_pu_sb = IO_AUS;
 
-    if ( in_p->duschzeit == zJa ) {
+
+/*     if ( in_p->duschzeit == zJa ) {
         q_hzg_pu_p->upper_limit = MAX_Y_PCT;
         q_hzg_pu_p->lower_limit = MIN_Y_PCT;
     }
@@ -92,6 +94,7 @@ void ww_Run( const ww_param_t         *par_p,
         q_hzg_pu_p->upper_limit = par_p->hzg_pu_y_min;
         q_hzg_pu_p->lower_limit = MIN_Y_PCT;
     }
+ */    
     /* PI-Regler fuer WW Heizungspumpe */
     sup_DigRegler( q_hzg_pu_p, par_p->tww_sw, in_p->tww_mw, &(out_p->hzg_pu_y) );
 
