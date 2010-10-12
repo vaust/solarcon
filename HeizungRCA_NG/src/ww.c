@@ -34,22 +34,22 @@ static void ww_VV_Steuerung( const ww_param_t *par_p,
     }
 }
 
-static void ww_Schwachlast_Steuerung( const ww_param_t *par_p,
-                                            ww_out_t   *out_p )
-{
-    static u16_t    schwachlastzeit = 0;
+// static void ww_Schwachlast_Steuerung( const ww_param_t *par_p,
+                                            // ww_out_t   *out_p )
+// {
+    // static u16_t    schwachlastzeit = 0;
 
-    /* Pumpe waehrend Duschbetrieb nicht abschalten, wegen Schwingung */
-    if( out_p->hzg_pu_y.y < par_p->hzg_pu_y_min ) {
-        schwachlastzeit ++;
-        if( schwachlastzeit < par_p->schwachlastzeit_max ) {
-            out_p->hzg_pu_y.y = par_p->hzg_pu_y_min;
-        }
-    } /* nach 30s ununterbrochener Schwachlast darf die Pumpe abschalten */
-    else {
-        schwachlastzeit = 0;
-    }
-}
+    // /* Pumpe waehrend Duschbetrieb nicht abschalten, wegen Schwingung */
+    // if( out_p->hzg_pu_y.y < par_p->hzg_pu_y_min ) {
+        // schwachlastzeit ++;
+        // if( schwachlastzeit < par_p->schwachlastzeit_max ) {
+            // out_p->hzg_pu_y.y = par_p->hzg_pu_y_min;
+        // }
+    // } /* nach 30s ununterbrochener Schwachlast darf die Pumpe abschalten */
+    // else {
+        // schwachlastzeit = 0;
+    // }
+// }
 
 void ww_Init( ww_param_t         *par_p,
               sup_digreg_coeff_t *q_hzg_pu_p,
@@ -71,7 +71,7 @@ void ww_Init( ww_param_t         *par_p,
 }
 
 void ww_Run( const ww_param_t         *par_p,
-                   sup_digreg_coeff_t *q_hzg_pu_p,
+       /* const */ sup_digreg_coeff_t *q_hzg_pu_p,
              const ww_in_t            *in_p,
                    ww_out_t           *out_p )
 {
@@ -86,7 +86,7 @@ void ww_Run( const ww_param_t         *par_p,
         out_p->zirk_pu_sb = IO_AUS;
 
 
-/*     if ( in_p->duschzeit == zJa ) {
+/*  if ( in_p->duschzeit == zJa ) {
         q_hzg_pu_p->upper_limit = MAX_Y_PCT;
         q_hzg_pu_p->lower_limit = MIN_Y_PCT;
     }
