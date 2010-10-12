@@ -53,7 +53,7 @@ typedef struct {
 /* <Typen/> */
 
 /* <Prototypen> */
-#ifdef _WW_C_
+/* #ifdef _WW_C_
 static void ww_MV_Steuerung( const ww_param_t *par_p,
                              const ww_in_t    *in_p,
                                    ww_out_t   *out_p );
@@ -65,6 +65,7 @@ static void ww_VV_Steuerung( const ww_param_t *par_p,
 static void ww_Schwachlast_Steuerung( const ww_param_t *par_p,
                                             ww_out_t   *out_p );
 #endif // _WW_C_
+*/
 
 void ww_Init( ww_param_t         *par_p,
               sup_digreg_coeff_t *q_hzg_pu_p,
