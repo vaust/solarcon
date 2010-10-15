@@ -34,18 +34,21 @@ typedef struct {
 #define WOCHENZEIT(D, H, M)     ((M)+60*((H)+24*(D))) /* Wochentag, Stunde und Minute in Minuten umrechnen */
 #define TAGESZEIT(H, M)         ((M)+60*(H))          /* Tageszeit in Minuten                              */
 
-// #define ZEITPROGRAMMDATEI       "/home/wochenzeitprogramm.ini"
-#define ZEITPROGRAMMDATEI       "wochenzeitprogramm.ini"
+#ifdef __WAGO__
+    #define ZEITPROGRAMMDATEI       "/home/wochenzeitprogramm.ini"
+#else
+    #define ZEITPROGRAMMDATEI       "wochenzeitprogramm.ini"
+#endif
 /* <Makros/> */
 
 /* <Variablen> */
 #ifdef _ZEIT_C_
-/* Zeitprogramm_Heizk�rperheizkreis   */
+/* Zeitprogramm_Heizkoerperheizkreis   */
 #define HK_STATES_MAX 16
 zeit_schaltpunkt_t HK_Ein_Schaltzeiten[HK_STATES_MAX];
 zeit_schaltpunkt_t HK_Aus_Schaltzeiten[HK_STATES_MAX];
 
-/* Zeitprogramm Fu�bodenheizung       */
+/* Zeitprogramm Fussbodenheizung       */
 #define FB_STATES_MAX 16
 zeit_schaltpunkt_t FB_Ein_Schaltzeiten[FB_STATES_MAX];
 zeit_schaltpunkt_t FB_Aus_Schaltzeiten[FB_STATES_MAX];
@@ -60,7 +63,7 @@ zeit_schaltpunkt_t ZIRK_Aus_Schaltzeiten[ZIRK_STATES_MAX];
 zeit_schaltpunkt_t DUSCH_Ein_Schaltzeiten[DUSCH_STATES_MAX];
 zeit_schaltpunkt_t DUSCH_Aus_Schaltzeiten[DUSCH_STATES_MAX];
 
-/* Variablen f�r Anzahl der Schaltpunkte der einzelnen Zeitprogramme */
+/* Variablen fuer Anzahl der Schaltpunkte der einzelnen Zeitprogramme */
 u8_t    hk_states;
 u8_t    fb_states;
 u8_t    zirk_states;
