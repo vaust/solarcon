@@ -1,7 +1,5 @@
 #define _TELNET_C_
 
-#define VERSIONSTRING "0.6.5\n\tBuild 08.10.2010\n"
-
 #include <sys/types.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -25,7 +23,9 @@
 #include "cntrl.h"      /* Systemzustandsvariablen         */
 #include "zeit.h"
 #include "task.h"
+#include "version.h"    /* Versionsstring */
 #include "server.h"
+
 
 #define BFLN        96
 #define BFLSH()     write( fdesc, bufout, strlen( bufout ) )
