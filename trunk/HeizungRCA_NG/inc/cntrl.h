@@ -13,7 +13,7 @@
 #include "kes.h"
 
 
-typedef enable_modul_s {
+typedef struct enable_modul_s {
     u8_t sol_aktiv  : 1;
     u8_t fb_aktiv   : 1;
     u8_t hk_aktiv   : 1;
