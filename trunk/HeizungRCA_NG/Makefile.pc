@@ -8,10 +8,10 @@ VPATH := $(SRC):$(INC)
 #OBJECTS := cntrl.o task.o zeit.o param.o solar.o fb.o hk.o ww.o sup.o kes.o thread.o
 OBJECTS := cntrl.o task.o zeit.o param.o sol.o fb.o hk.o ww.o sup.o kes.o io.o telnet.o server.o
 
-all : clean test
 test : $(OBJECTS)
 	$(CC) -ggdb -o $@ -lpthread $(OBJECTS)
 #	$(CC) -fprofile-arcs -ftest-coverage -o $@ $(OBJECTS)
+all : clean test
 
 cntrl.o: cntrl.c \
   gen_types.h param.h zeit.h task.h zeit.h \
@@ -27,14 +27,14 @@ sol.o: sol.c sol.h gen_types.h param.h
 sup.o: sup.c sup.h gen_types.h gen_types.h
 task.o: task.c gen_types.h param.h zeit.h \
   gen_types.h task.h zeit.h
-telnet.o: telnet.c 
-server.o: server.c
+telnet.o: telnet.c server.h
+server.o: server.c server.h
 ww.o: ww.c param.h ww.h sup.h gen_types.h
 zeit.o: zeit.c \
   gen_types.h param.h zeit.h gen_types.h
 io.o: io.c io.h gen_types.h 
 
 clean :
-	rm *.o; rm test
+	python3 ./writeversion.py; rm *.o; rm test
 
 
