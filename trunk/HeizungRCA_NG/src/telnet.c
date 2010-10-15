@@ -276,7 +276,16 @@ void *telnet_thread( void *arg )
             else if( strncasecmp( "PUT", token, 3 ) == 0 ) {
                 printf( "TELNET.C: PUT Befehl erhalten\n" );
                 MUTEX_LOCK();
-                telnet_parsePut( fdesc, bufout );
+                if( strncasecmp( token, "SOL", 3 ) == 0 ) 
+                    telnet_putVars( telnet_sol_Vars, sizeof(telnet_sol_Vars)/sizeof(parse_set_t) );
+                else if( strncasecmp( token, "FB", 2 ) == 0 ) 
+                    telnet_putVars( telnet_fb_Vars, sizeof(telnet_fb_Vars)/sizeof(parse_set_t) );
+                else if( strncasecmp( token, "HK", 2 ) == 0 ) 
+                    telnet_putVars( telnet_hk_Vars, sizeof(telnet_hk_Vars)/sizeof(parse_set_t) );
+                else if( strncasecmp( token, "WW", 2 ) == 0 ) 
+                    telnet_putVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t) );
+                else if( strncasecmp( token, "KES", 3 ) == 0 ) 
+                    telnet_putVars( telnet_kes_Vars, sizeof(telnet_kes_Vars)/sizeof(parse_set_t) );
                 MUTEX_UNLOCK();
             }
             else if( strncasecmp( "INIT", token, 4 ) == 0 ) {
@@ -670,6 +679,35 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
                 break;
         }
         snprintf( bufout, BFLN, "\n" ); BFLSH();
+    }
+}
+
+void telnet_putVars( const parse_set_t Vars[], int len )
+{
+    char    *token;
+    int     var_no;
+    int     value_i;
+    float   value_f;
+    
+    token = strtok( NULL, "= " );
+    var_no = atoi( token );
+    if( var_no < len ) {
+        token = strtok( NULL, "\n\r" );
+        switch ( Vars[var_no].format[1] ) {
+            case 'd':
+            case 'x':
+                value_i = atoi( token );
+                *(int *)Vars[var_no].VarPointer = value_i;
+                break;
+            case 'f':
+            default:
+                value_f = atof( token );
+                *(float *)Vars[var_no].VarPointer = value_f;
+                break;
+        }
+    }
+    else {
+        // Fehler !!
     }
 }
 
