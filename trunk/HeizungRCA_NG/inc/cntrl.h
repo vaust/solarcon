@@ -12,6 +12,16 @@
 #include "ww.h"
 #include "kes.h"
 
+
+typedef enable_modul_s {
+    u8_t sol_aktiv  : 1;
+    u8_t fb_aktiv   : 1;
+    u8_t hk_aktiv   : 1;
+    u8_t ww_aktiv   : 1;
+    u8_t kes_aktiv  : 1;
+    u8_t            : 3;
+} enable_modul_t;
+
 /* <Globals> Sichtbar in cntrl.c und telnet.c */
 #undef PUBLIC
 #ifdef _CNTRL_C_
@@ -19,6 +29,8 @@
 #else
     #define PUBLIC extern
 #endif
+
+PUBLIC enable_modul_t   cntrl_mdl_aktiv;
 
 /* Variablen fuer Zeit */
 PUBLIC zeit_Betriebszustand_t  cntrl_zeit_absenkung;
