@@ -243,6 +243,36 @@ void *telnet_thread( void *arg )
                 telnet_parseGet( fdesc, bufout );
                 MUTEX_UNLOCK();
             }
+            else if( strncasecmp( "HAND", token, 4 ) == 0 ) {
+                printf( "TELNET.C: HAND Befehl erhalten\n" );
+                MUTEX_LOCK();
+                if( strncasecmp( token, "SOL", 3 ) == 0 ) 
+                    cntrl_mdl_aktiv.sol_aktiv = RESET;
+                else if( strncasecmp( token, "FB", 2 ) == 0 ) 
+                    cntrl_mdl_aktiv.fb_aktiv  = RESET;
+                else if( strncasecmp( token, "HK", 2 ) == 0 ) 
+                    cntrl_mdl_aktiv.hk_aktiv  = RESET;
+                else if( strncasecmp( token, "WW", 2 ) == 0 ) 
+                    cntrl_mdl_aktiv.ww_aktiv  = RESET;
+                else if( strncasecmp( token, "KES", 3 ) == 0 ) 
+                    cntrl_mdl_aktiv.kes_aktiv = RESET;
+                MUTEX_UNLOCK();
+            }
+            else if( strncasecmp( "AUTO", token, 4 ) == 0 ) {
+                printf( "TELNET.C: AUTO Befehl erhalten\n" );
+                MUTEX_LOCK();
+                if( strncasecmp( token, "SOL", 3 ) == 0 ) 
+                    cntrl_mdl_aktiv.sol_aktiv = SET;
+                else if( strncasecmp( token, "FB", 2 ) == 0 ) 
+                    cntrl_mdl_aktiv.fb_aktiv  = SET;
+                else if( strncasecmp( token, "HK", 2 ) == 0 ) 
+                    cntrl_mdl_aktiv.hk_aktiv  = SET;
+                else if( strncasecmp( token, "WW", 2 ) == 0 ) 
+                    cntrl_mdl_aktiv.ww_aktiv  = SET;
+                else if( strncasecmp( token, "KES", 3 ) == 0 ) 
+                    cntrl_mdl_aktiv.kes_aktiv = SET;
+                MUTEX_UNLOCK();
+            }
             else if( strncasecmp( "PUT", token, 3 ) == 0 ) {
                 printf( "TELNET.C: PUT Befehl erhalten\n" );
                 MUTEX_LOCK();
@@ -279,10 +309,13 @@ void telnet_writeHelp( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "\t GET WW    (Daten zu Warmwasserbereitung)\n" );         BFLSH();
     snprintf( bufout, BFLN, "\t GET SOL   (Daten zu Solarbeheizung)\n" );              BFLSH();
     snprintf( bufout, BFLN, "\t GET HK    (Daten zu Heizkoerper-Heizkreis)\n" );       BFLSH();
-    snprintf( bufout, BFLN, "\t INIT      (Initialisierungsdateien neu einlesen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t GET PAR   (Eingelesene Parameter ausgeben)\n" );       BFLSH();
     snprintf( bufout, BFLN, "\t GET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n" );   BFLSH();
     snprintf( bufout, BFLN, "\t GET ABS   (Absenkungen ausgeben)\n" );                 BFLSH();
+    snprintf( bufout, BFLN, "\t INIT      (Initialisierungsdateien neu einlesen)\n" ); BFLSH();
+    snprintf( bufout, BFLN, "\t AUTO mdl  (Modul SOL, FB, HK, WW, KES auf Automatik)\n" );         BFLSH();
+    snprintf( bufout, BFLN, "\t HAND mdl  (Modul SOL, FB, HK, WW, KES auf Handbetrieb)\n" );       BFLSH();
+    snprintf( bufout, BFLN, "\t PUT mdl var-nr=wert (Variable im Handbetrieb manuell setzen)\n" ); BFLSH();
     snprintf( bufout, BFLN, "\t HELP      (Diesen Hilfetext ausgeben)\n" );            BFLSH();
     snprintf( bufout, BFLN, "\t VERSION   (Software Version ausgeben)\n" );            BFLSH();
     snprintf( bufout, BFLN, "\n\t GET VFB   (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n" ); BFLSH();
@@ -621,6 +654,7 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
     int n;
     
     for( n=0; n<len; n++ ) {
+        snprintf( bufout, BFLN, "(%d) ", n ); BFLSH();
         snprintf( bufout, BFLN, Vars[n].VarName ); BFLSH();
         snprintf( bufout, BFLN, " = " ); BFLSH();
         switch ( Vars[n].format[1] ) {
