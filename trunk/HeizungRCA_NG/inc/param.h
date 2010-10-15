@@ -46,8 +46,13 @@
 #define WW_Tww_Tvl_Faktor        1.0    /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                       */
 #define WW_Tz_SW                40.0    /**< Temperatursollwert des Zirkulationswassers in Grad C                       */
 #define WW_MV_KORR               3.0    /**< Korrekturfaktor fuer MV-Kennlinie                                          */
-// #define VORGABENDATEI           "/home/vorgaben.ini"
-#define VORGABENDATEI           "vorgaben.ini"
+
+#ifdef __WAGO__
+    #define VORGABENDATEI           "/home/vorgaben.ini"
+#else
+    #define VORGABENDATEI           "vorgaben.ini"
+#endif
+
 #endif
 
 #define MAX_ALL_Tau_mittel_Zeit   48    /**< max. Wert aus Kommentar in vorgaben.ini                                    */
@@ -96,7 +101,7 @@ PUBLIC float param_hk_reg_kp;           /**< Heizkoerperheizkreis Verstaerkung P
 PUBLIC float param_hk_reg_ki;           /**< Heizkoerperheizkreis Verstaerkung PI-Regler I-Anteil PI-Regler in K/(s*%)           */
 PUBLIC float param_hk_reg_tn;           /**< Heizkoerperheizkreis Nachstellzeit PI-Regler in Minuten                             */
 PUBLIC float param_hk_tr_sw;            /**< Heizkoerperheizkreis Raumtemperatur Sollwert                                        */
-                                                                                                                              
+
 PUBLIC float param_fb_tvl_steigung;     /**< Fussbodenheizkreis Heizkurvensteigung                                               */
 PUBLIC float param_fb_tvl_niveau;       /**< Fussbodenheizkreis Heizkurven Parallelverschiebung                                  */
 PUBLIC float param_fb_tr_sw;            /**< Fussbodenheizkreis Raumtemperatursollwert in Grad C                                 */
@@ -110,7 +115,7 @@ PUBLIC float param_fb_reg_tn;           /**< Fussbodenheizkreis Nachstellzeit PI
 PUBLIC float param_ww_tww_sw;           /**< Warmwasser-Temperatur-Sollwert in Grad C                                            */
 PUBLIC float param_ww_tww_max;          /**< Warmwasser-Maximaltemperatur in Grad C                                              */
 PUBLIC float param_wz_faktor;           /**< Waermezaehler auf Pumpenstellbefehl                                                 */
-PUBLIC float param_wz_max;              /**< Max. Warmwasserdurchfluss in l/min                                                  */                                                                                                                         
+PUBLIC float param_wz_max;              /**< Max. Warmwasserdurchfluss in l/min                                                  */
 PUBLIC float param_ww_pu_reg_kp;        /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung Kp                                      */
 PUBLIC float param_ww_pu_reg_ki;        /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung Ki in K/(s*%)                           */
 PUBLIC float param_ww_pu_reg_tn;        /**< WW-Temperatur-Regelung (Pumpe) Nachlaufzeit Tn                                      */
@@ -121,7 +126,7 @@ PUBLIC float param_ww_tz_sw;            /**< Temperatursollwert des Zirkulations
 /* <Variablen/> */
 
 /* <Konstanten> */
-#ifdef _PARAM_C_ 
+#ifdef _PARAM_C_
 const parse_set_t param_Vorgaben[] = {
     { "ALL_Tau_mittel_Zeit", &param_all_tau_mittel_zeit, "%d" },
     { "ALL_Partydauer",      &param_all_partydauer,      "%d" },
