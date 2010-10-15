@@ -188,6 +188,7 @@ const parse_set_t telnet_kes_Vars[] =
     { "kes_out.sp2_to_sw",    &(cntrl_kes_out.sp2_to_sw),    "%f" },
     { "kes_out.tvl_sw_sp1",   &(cntrl_kes_out.tvl_sw_sp1),   "%f" },
     { "kes_out.tvl_sw_sp2",   &(cntrl_kes_out.tvl_sw_sp2),   "%f" },
+    { "kes_out.tvl_sw",       &(cntrl_kes_out.tvl_sw),       "%f" },
     { "kes_out.pu_sp1_sb",    &(cntrl_kes_out.pu_sp1_sb),    "%x" },
     { "kes_out.pu_sp2_sb",    &(cntrl_kes_out.pu_sp2_sb),    "%x" }
 };
@@ -299,7 +300,7 @@ void *telnet_thread( void *arg )
                     cntrl_mdl_aktiv.hk_aktiv   = SET;
                     cntrl_mdl_aktiv.ww_aktiv   = SET;
                     cntrl_mdl_aktiv.kes_aktiv  = SET;
-                    snprintf( bufout, BFLN, "\tAlle Modul auf AUTOMATIK Betrieb!\n" ); BFLSH();
+                    snprintf( bufout, BFLN, "\tAlle Module auf AUTOMATIK Betrieb!\n" ); BFLSH();
                 }
                 MUTEX_UNLOCK();
             }
@@ -370,8 +371,9 @@ const char *telnet_help_text[] = {
     "\t AUTO <mdl>    (Modul SOL, FB, HK, WW, KES auf Automatik)\n",
     "\t AUTO ALL      (alle Module auf Automatik)\n",
     "\t HAND <mdl>    (Modul SOL, FB, HK, WW, KES auf Handbetrieb)\n",
-    "\t PUT <mdl> var-nr=wert (Variable im Handbetrieb manuell setzen.\n",
-    "\t           var-nr aus Ausgabe von GET Vxxx)\n",
+    "\t PUT <mdl> var-nr=wert (Modul Variable manuell setzen.\n",
+    "\t           Ausgangsgroessen sind nur im Handbetrieb aenderbar.\n",
+    "\t           var-nr ergibt sich aus Ausgabe von GET Vxxx)\n",
     "\t GET VFB   (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
     "\t GET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
     "\t GET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
