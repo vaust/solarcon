@@ -45,7 +45,7 @@ void telnet_writeSchaltzeiten( int fdesc, char *bufout );
 void telnet_writeHelp( int fdesc, char *bufout );
 void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufout );
 void telnet_writeAbsenk( int fdesc, char *bufout );
-void telnet_putVars( const parse_set_t Vars[], int len );
+void telnet_putVars( const parse_set_t Vars[], int len, int fdesc, char *bufout );
 #endif
 /* </Prototypen> */
 
@@ -58,7 +58,7 @@ PUBLIC pthread_mutex_t mutex;
 
 #ifdef _SERVER_C_
 int             next_thread=0;
-#else 
+#else
 extern int      next_thread;
 #endif
 

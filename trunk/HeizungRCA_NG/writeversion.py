@@ -6,7 +6,7 @@ import datetime
 import time
 
 Filename_Prefix = str(int(time.time()))
-VERSION = '0.6.5'
+VERSION = '0.7.1'
 jetzt   = datetime.datetime.now().isoformat(' ')
  
 fd = open( './inc/version.h', 'w' )

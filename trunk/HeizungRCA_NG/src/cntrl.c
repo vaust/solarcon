@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <signal.h>
 
 #include "gen_types.h"
 #include "param.h"
@@ -45,6 +46,8 @@
 #endif
 
 #ifdef __REENTRANT__
+void terminate( int sig );
+
 extern pthread_mutex_t  mutex;
 
 void *cntrl_thread( void *arg )
@@ -52,6 +55,8 @@ void *cntrl_thread( void *arg )
 int main( void )
 #endif
 {
+    signal( SIGINT, terminate );
+
     KBUSOPEN();
     KBUSUPDATE();
 
@@ -77,7 +82,7 @@ int main( void )
     cntrl_mdl_aktiv.hk_aktiv  = SET;
     cntrl_mdl_aktiv.ww_aktiv  = SET;
     cntrl_mdl_aktiv.kes_aktiv = SET;
-    
+
     while( 1  ) {
         MUTEX_LOCK();
         KBUSUPDATE();   /*---------- Prozessabbild aktualisieren ----------*/
@@ -121,11 +126,11 @@ int main( void )
 
         /*---------- VERARBEITUNG DES PROZESSABBILDES -----------*/
         /* solar_Run(), fb_Run() und hk_Run() sind unabhaengig von einander */
-        if( SET == cntrl_mdl_aktiv.sol_aktiv ) 
+        if( SET == cntrl_mdl_aktiv.sol_aktiv )
             sol_Run( &cntrl_sol_par, &cntrl_sol_in, &cntrl_sol_out );
-        if( SET == cntrl_mdl_aktiv.fb_aktiv ) 
+        if( SET == cntrl_mdl_aktiv.fb_aktiv )
             fb_Run( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_in, &cntrl_fb_out );
-        if( SET == cntrl_mdl_aktiv.hk_aktiv ) 
+        if( SET == cntrl_mdl_aktiv.hk_aktiv )
             hk_Run( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_in, &cntrl_hk_out );
 
         /* ww_Run() Eingabewerte sind abhaengig von Ausgabewerten von hk_Run() */
@@ -133,14 +138,14 @@ int main( void )
             cntrl_ww_in.hk_tvl_sw  = cntrl_hk_out.tvl_sw;
             ww_Run( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_in, &cntrl_ww_out );
         }
-        
+
         /* kes_Run() Eingabewerte abhaengig von Ausgabewerten von hk_Run() und fb_Run() */
-        if( SET == cntrl_mdl_aktiv.kes_aktiv ) { 
+        if( SET == cntrl_mdl_aktiv.kes_aktiv ) {
             cntrl_kes_in.hk_tvl_sw = cntrl_hk_out.tvl_sw;
             cntrl_kes_in.fb_tvl_sw = cntrl_fb_out.tvl_sw;
             kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
         }
-        
+
         /*---------- AUSGABE DES PROZESSABBILDES ------------*/
         io_put_SOL_PU_SB( cntrl_sol_out.pu_sb[KO1] );
         io_put_SOL_SP1_AV_SB( cntrl_sol_out.av_sb[SP1] );
