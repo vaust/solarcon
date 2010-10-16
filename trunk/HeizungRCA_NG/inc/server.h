@@ -46,6 +46,7 @@ void telnet_writeHelp( int fdesc, char *bufout );
 void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufout );
 void telnet_writeAbsenk( int fdesc, char *bufout );
 void telnet_putVars( const parse_set_t Vars[], int len, int fdesc, char *bufout );
+void telnet_writeModuls( int fdesc, char *bufout );
 #endif
 /* </Prototypen> */
 

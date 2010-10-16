@@ -30,168 +30,7 @@
 #define BFLN        96
 #define BFLSH()     write( fdesc, bufout, strlen( bufout ) )
 
-const parse_set_t telnet_fb_Vars[] =
-{
-    { "fb_par.reg_kp",         &(cntrl_fb_par.reg_kp),         "%f" },
-    { "fb_par.reg_ki",         &(cntrl_fb_par.reg_ki),         "%f" },
-    { "fb_par.reg_tn",         &(cntrl_fb_par.reg_tn),         "%f" },
-    { "fb_par.TA",             &(cntrl_fb_par.TA),             "%f" },
-    { "fb_par.tvl_absenk",     &(cntrl_fb_par.tvl_absenk),     "%f" },
-    { "fb_par.tvl_steigung",   &(cntrl_fb_par.tvl_steigung),   "%f" },
-    { "fb_par.tvl_niveau",     &(cntrl_fb_par.tvl_niveau),     "%f" },
-    { "fb_par.tvl_min",        &(cntrl_fb_par.tvl_min),        "%f" },
-    { "fb_par.tvl_max",        &(cntrl_fb_par.tvl_max),        "%f" },
-    { "fb_par.at_start",       &(cntrl_fb_par.at_start),       "%f" },
-    { "fb_par.frostschutz",    &(cntrl_fb_par.frostschutz),    "%f" },
-    { "fb_par.tr_sw",          &(cntrl_fb_par.tr_sw),          "%f" },
-
-    { "fb_in.tau_mw",          &(cntrl_fb_in.tau_mw),          "%f" },
-    { "fb_in.sek_tvl_mw",      &(cntrl_fb_in.sek_tvl_mw),      "%f" },
-    { "fb_in.zustand",         &(cntrl_fb_in.zustand),         "%x" },
-    { "fb_in.partytime_flg",   &(cntrl_fb_in.partytime_flg),   "%x" },
-
-    { "fb_out.tvl_sw",         &(cntrl_fb_out.tvl_sw),         "%f" },
-    { "fb_out.prim_mv_y.y",    &(cntrl_fb_out.prim_mv_y.y),    "%f" },
-    { "fb_out.prim_mv_y.x[0]", &(cntrl_fb_out.prim_mv_y.x[0]), "%f" },
-    { "fb_out.prim_mv_y.x[1]", &(cntrl_fb_out.prim_mv_y.x[1]), "%f" },
-    { "fb_out.prim_mv_y.x[2]", &(cntrl_fb_out.prim_mv_y.x[2]), "%f" },
-    { "fb_out.prim_mv_y.x[3]", &(cntrl_fb_out.prim_mv_y.x[3]), "%f" },
-    { "fb_out.prim_pu_sb",     &(cntrl_fb_out.prim_pu_sb),     "%x" },
-    { "fb_out.sek_pu_sb",      &(cntrl_fb_out.sek_pu_sb),      "%x" },
-
-    { "fb_q.TA",               &(cntrl_fb_q.TA),               "%f" },
-    { "fb_q.kp",               &(cntrl_fb_q.kp),               "%f" },
-    { "fb_q.ki",               &(cntrl_fb_q.ki),               "%f" },
-    { "fb_q.lower_limit",      &(cntrl_fb_q.lower_limit),      "%f" },
-    { "fb_q.upper_limit",      &(cntrl_fb_q.upper_limit),      "%f" }
-};
-
-const parse_set_t telnet_hk_Vars[] =
-{
-    { "hk_par.reg_kp",         &(cntrl_hk_par.reg_kp),         "%f" },
-    { "hk_par.reg_ki",         &(cntrl_hk_par.reg_ki),         "%f" },
-    { "hk_par.reg_tn",         &(cntrl_hk_par.reg_tn),         "%f" },
-    { "hk_par.TA",             &(cntrl_hk_par.TA),             "%f" },
-    { "hk_par.tvl_absenk",     &(cntrl_hk_par.tvl_absenk),     "%f" },
-    { "hk_par.tvl_steigung",   &(cntrl_hk_par.tvl_steigung),   "%f" },
-    { "hk_par.tvl_niveau",     &(cntrl_hk_par.tvl_niveau),     "%f" },
-    { "hk_par.tvl_min",        &(cntrl_hk_par.tvl_min),        "%f" },
-    { "hk_par.tvl_max",        &(cntrl_hk_par.tvl_max),        "%f" },
-    { "hk_par.at_start",       &(cntrl_hk_par.at_start),       "%f" },
-    { "hk_par.frostschutz",    &(cntrl_hk_par.frostschutz),    "%f" },
-    { "hk_par.tr_sw",          &(cntrl_hk_par.tr_sw),          "%f" },
-
-    { "hk_in.tau_mw",          &(cntrl_hk_in.tau_mw),          "%f" },
-    { "hk_in.tau_avg",         &(cntrl_hk_in.tau_avg),         "%f" },
-    { "hk_in.tvl_mw",          &(cntrl_hk_in.tvl_mw),          "%f" },
-    { "hk_in.zustand",         &(cntrl_hk_in.zustand),         "%x" },
-    { "hk_in.partytime_flg",   &(cntrl_hk_in.partytime_flg),   "%x" },
-
-    { "hk_out.tvl_sw",         &(cntrl_hk_out.tvl_sw),         "%f" },
-    { "hk_out.mv_y.y",         &(cntrl_hk_out.mv_y.y),         "%f" },
-    { "hk_out.mv_y.x[0]",      &(cntrl_hk_out.mv_y.x[0]),      "%f" },
-    { "hk_out.mv_y.x[1]",      &(cntrl_hk_out.mv_y.x[1]),      "%f" },
-    { "hk_out.mv_y.x[2]",      &(cntrl_hk_out.mv_y.x[2]),      "%f" },
-    { "hk_out.mv_y.x[3]",      &(cntrl_hk_out.mv_y.x[3]),      "%f" },
-    { "hk_out.pu_sb",          &(cntrl_hk_out.pu_sb),          "%x" },
-
-    { "hk_q.TA",               &(cntrl_hk_q.TA),               "%f" },
-    { "hk_q.kp",               &(cntrl_hk_q.kp),               "%f" },
-    { "hk_q.ki",               &(cntrl_hk_q.ki),               "%f" },
-    { "hk_q.lower_limit",      &(cntrl_hk_q.lower_limit),      "%f" },
-    { "hk_q.upper_limit",      &(cntrl_hk_q.upper_limit),      "%f" }
-};
-
-const parse_set_t telnet_ww_Vars[] =
-{
-    { "ww_par.pu_reg_kp",           &(cntrl_ww_par.pu_reg_kp),           "%f" },
-    { "ww_par.pu_reg_ki",           &(cntrl_ww_par.pu_reg_ki),           "%f" },
-    { "ww_par.pu_reg_tn",           &(cntrl_ww_par.pu_reg_tn),           "%f" },
-    { "ww_par.TA",                  &(cntrl_ww_par.TA),                  "%f" },
-    { "ww_par.kes_sp_dt_sw",        &(cntrl_ww_par.kes_sp_dt_sw),        "%f" },
-    { "ww_par.tww_sw",              &(cntrl_ww_par.tww_sw),              "%f" },
-    { "ww_par.frostschutz",         &(cntrl_ww_par.frostschutz),         "%f" },
-    { "ww_par.at_start",            &(cntrl_ww_par.at_start),            "%f" },
-    { "ww_par.mv_korr",             &(cntrl_ww_par.mv_korr),             "%f" },
-    { "ww_par.hzg_pu_y_min",        &(cntrl_ww_par.hzg_pu_y_min),        "%f" },
-    { "ww_par.schwachlastzeit_max", &(cntrl_ww_par.schwachlastzeit_max), "%d" },
-
-    { "ww_in.tww_mw",          &(cntrl_ww_in.tww_mw),          "%f" },
-    { "ww_in.tau_mw",          &(cntrl_ww_in.tau_mw),          "%f" },
-    { "ww_in.tau_avg",         &(cntrl_ww_in.tau_avg),         "%f" },
-    { "ww_in.hzg_tvl_mw",      &(cntrl_ww_in.hzg_tvl_mw),      "%f" },
-    { "ww_in.hzg_trl_mw",      &(cntrl_ww_in.hzg_trl_mw),      "%f" },
-    { "ww_in.hk_tvl_sw",       &(cntrl_ww_in.hk_tvl_sw),       "%f" },
-    { "ww_in.sp1_to_mw",       &(cntrl_ww_in.sp1_to_mw),       "%f" },
-    { "ww_in.sp2_tu_mw",       &(cntrl_ww_in.sp2_tu_mw),       "%f" },
-    { "ww_in.zirkzustand",     &(cntrl_ww_in.zirkzustand),     "%x" },
-
-    { "ww_out.hzg_tvl_sw",     &(cntrl_ww_out.hzg_tvl_sw),     "%f" },
-    { "ww_out.hzg_mv_y.y",     &(cntrl_ww_out.hzg_mv_y.y),     "%f" },
-    { "ww_out.hzg_pu_y.y",     &(cntrl_ww_out.hzg_pu_y.y),     "%f" },
-    { "ww_out.hzg_pu_y.x[0]",  &(cntrl_ww_out.hzg_pu_y.x[0]),  "%f" },
-    { "ww_out.hzg_pu_y.x[1]",  &(cntrl_ww_out.hzg_pu_y.x[1]),  "%f" },
-    { "ww_out.hzg_pu_y.x[2]",  &(cntrl_ww_out.hzg_pu_y.x[2]),  "%f" },
-    { "ww_out.hzg_pu_y.x[3]",  &(cntrl_ww_out.hzg_pu_y.x[3]),  "%f" },
-    { "ww_out.hzg_pu_sb",      &(cntrl_ww_out.hzg_pu_sb),      "%x" },
-    { "ww_out.hzg_vv_sb",      &(cntrl_ww_out.hzg_vv_sb),      "%x" },
-
-    { "ww_q.TA",               &(cntrl_ww_q.TA),               "%f" },
-    { "ww_q.kp",               &(cntrl_ww_q.kp),               "%f" },
-    { "ww_q.ki",               &(cntrl_ww_q.ki),               "%f" },
-    { "ww_q.lower_limit",      &(cntrl_ww_q.lower_limit),      "%f" },
-    { "ww_q.upper_limit",      &(cntrl_ww_q.upper_limit),      "%f" }
-};
-
-const parse_set_t telnet_sol_Vars[] =
-{
-    { "sol_par.sp_t_max",       &(cntrl_sol_par.sp_t_max),       "%f" },
-    { "sol_par.dt_ein_sw",      &(cntrl_sol_par.dt_ein_sw),      "%f" },
-    { "sol_par.dt_aus_sw",      &(cntrl_sol_par.dt_aus_sw),      "%f" },
-
-    { "sol_in.koll_t_mw[KO1]",  &(cntrl_sol_in.koll_t_mw[KO1]),  "%f" },
-    { "sol_in.t_sp[SP1].to_mw", &(cntrl_sol_in.t_sp[SP1].to_mw), "%f" },
-    { "sol_in.t_sp[SP1].tu_mw", &(cntrl_sol_in.t_sp[SP1].tu_mw), "%f" },
-    { "sol_in.t_sp[SP2].to_mw", &(cntrl_sol_in.t_sp[SP2].to_mw), "%f" },
-    { "sol_in.t_sp[SP2].tu_mw", &(cntrl_sol_in.t_sp[SP2].tu_mw), "%f" },
-
-    { "sol_out.av_sb[SP1]",     &(cntrl_sol_out.av_sb[SP1]),     "%x" },
-    { "sol_out.av_sb[SP2]",     &(cntrl_sol_out.av_sb[SP2]),     "%x" },
-    { "sol_out.pu_sb[KO1]",     &(cntrl_sol_out.pu_sb[SP1]),     "%x" }
-};
-
-const parse_set_t telnet_kes_Vars[] =
-{
-    { "kes_par.TA",           &(cntrl_kes_par.TA),           "%f" },
-    { "kes_par.tvl_absenk",   &(cntrl_kes_par.tvl_absenk),   "%f" },
-    { "kes_par.tvl_steigung", &(cntrl_kes_par.tvl_steigung), "%f" },
-    { "kes_par.tvl_niveau",   &(cntrl_kes_par.tvl_niveau),   "%f" },
-    { "kes_par.tvl_min",      &(cntrl_kes_par.tvl_min),      "%f" },
-    { "kes_par.tvl_max",      &(cntrl_kes_par.tvl_max),      "%f" },
-    { "kes_par.at_start",     &(cntrl_kes_par.at_start),     "%f" },
-    { "kes_par.frostschutz",  &(cntrl_kes_par.frostschutz),  "%f" },
-    { "kes_par.sp_dt_sw",     &(cntrl_kes_par.sp_dt_sw),     "%f" },
-    { "kes_par.ww_tww_sw",    &(cntrl_kes_par.ww_tww_sw),    "%f" },
-
-    { "kes_in.sp1_to_mw",     &(cntrl_kes_in.sp1_to_mw),     "%f" },
-    { "kes_in.sp1_tu_mw" ,    &(cntrl_kes_in.sp1_tu_mw),     "%f" },
-    { "kes_in.sp2_to_mw",     &(cntrl_kes_in.sp2_to_mw),     "%f" },
-    { "kes_in.sp2_tu_mw" ,    &(cntrl_kes_in.sp2_tu_mw),     "%f" },
-    { "kes_in.tvl_mw",        &(cntrl_kes_in.tvl_mw),        "%f" },
-    { "kes_in.hk_tvl_sw",     &(cntrl_kes_in.hk_tvl_sw),     "%f" },
-    { "kes_in.fb_tvl_sw",     &(cntrl_kes_in.fb_tvl_sw),     "%f" },
-    { "kes_in.duschzeit",     &(cntrl_kes_in.duschzeit),     "%x" },
-    { "kes_in.partytime_flg", &(cntrl_kes_in.partytime_flg), "%x" },
-    { "kes_in.br_bm",         &(cntrl_kes_in.br_bm),         "%x" },
-
-    { "kes_out.sp1_to_sw",    &(cntrl_kes_out.sp1_to_sw),    "%f" },
-    { "kes_out.sp2_to_sw",    &(cntrl_kes_out.sp2_to_sw),    "%f" },
-    { "kes_out.tvl_sw_sp1",   &(cntrl_kes_out.tvl_sw_sp1),   "%f" },
-    { "kes_out.tvl_sw_sp2",   &(cntrl_kes_out.tvl_sw_sp2),   "%f" },
-    { "kes_out.tvl_sw",       &(cntrl_kes_out.tvl_sw),       "%f" },
-    { "kes_out.pu_sp1_sb",    &(cntrl_kes_out.pu_sp1_sb),    "%x" },
-    { "kes_out.pu_sp2_sb",    &(cntrl_kes_out.pu_sp2_sb),    "%x" }
-};
+#include "telnet_vars.h"
 
 /**
 server_thread.
@@ -222,167 +61,188 @@ void *telnet_thread( void *arg )
         }
         else {
             token = strtok( bufin, "\n\r " );
-            if( strncasecmp( "END", token, 3 ) == 0 ) {
-                printf( "TELNET.C: END Befehl erhalten\n" );
-                next_thread--;
-                close( fdesc );
-                pthread_exit( NULL );
-            }
-            if( strncasecmp( "HELP", token, 3 ) == 0 ) {
-                printf( "TELNET.C: HELP Befehl erhalten\n" );
-                telnet_writeHelp( fdesc, bufout );
-            }
-            if( strncasecmp( "VERSION", token, 7 ) == 0 ) {
-                printf( "TELNET.C: VERSION Befehl erhalten\n" );
-                snprintf( bufout, BFLN, "\tRCA Heizungssteuerung\n\tVersion " ); BFLSH();
-                snprintf( bufout, BFLN, VERSIONSTRING ); BFLSH();
-                snprintf( bufout, BFLN, "\tAndreas und Volker Stegmann\n" ); BFLSH();
-            }
-            else if( strncasecmp( "GET", token, 3 ) == 0 ) {
-                printf( "TELNET.C: GET Befehl erhalten\n" );
-                MUTEX_LOCK();
-                telnet_parseGet( fdesc, bufout );
-                MUTEX_UNLOCK();
-            }
-            else if( strncasecmp( "HAND", token, 4 ) == 0 ) {
-                printf( "TELNET.C: HAND Befehl erhalten\n" );
-                MUTEX_LOCK();
-                token = strtok( NULL, "\n\r " );
-                if( strncasecmp( token, "SOL", 3 ) == 0 ) {
-                    cntrl_mdl_aktiv.sol_aktiv = RESET;
-                    snprintf( bufout, BFLN, "\tSOL-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+            if( NULL != token ) {
+                if     ( strncasecmp( "END", token, 3 ) == 0 ) {
+                    printf( "TELNET.C: END Befehl erhalten\n" );
+                    next_thread--;
+                    close( fdesc );
+                    pthread_exit( NULL );
                 }
-                else if( strncasecmp( token, "FB", 2 ) == 0 ) {
-                    cntrl_mdl_aktiv.fb_aktiv  = RESET;
-                    snprintf( bufout, BFLN, "\tFB-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                else if( strncasecmp( "HELP", token, 3 ) == 0 ) {
+                    printf( "TELNET.C: HELP Befehl erhalten\n" );
+                    telnet_writeHelp( fdesc, bufout );
                 }
-                else if( strncasecmp( token, "HK", 2 ) == 0 ) {
-                    cntrl_mdl_aktiv.hk_aktiv  = RESET;
-                    snprintf( bufout, BFLN, "\tHK-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                else if( strncasecmp( "VERSION", token, 4 ) == 0 ) {
+                    printf( "TELNET.C: VERSION Befehl erhalten\n" );
+                    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung\n\tVersion " ); BFLSH();
+                    snprintf( bufout, BFLN, VERSIONSTRING ); BFLSH();
+                    snprintf( bufout, BFLN, "\tAndreas Stegmann\n\tVolker Stegmann\n" ); BFLSH();
                 }
-                else if( strncasecmp( token, "WW", 2 ) == 0 ) {
-                    cntrl_mdl_aktiv.ww_aktiv  = RESET;
-                    snprintf( bufout, BFLN, "\tWW-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                else if( strncasecmp( "GET", token, 3 ) == 0 ) {
+                    printf( "TELNET.C: GET Befehl erhalten\n" );
+                    MUTEX_LOCK();
+                    telnet_parseGet( fdesc, bufout );
+                    MUTEX_UNLOCK();
                 }
-                else if( strncasecmp( token, "KES", 3 ) == 0 ) {
-                    cntrl_mdl_aktiv.kes_aktiv = RESET;
-                    snprintf( bufout, BFLN, "\tKES-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                else if( strncasecmp( "MODULE", token, 3 ) == 0 ) {
+                    printf( "TELNET.C: MODULE Befehl erhalten\n" );
+                    MUTEX_LOCK();
+                    telnet_writeModuls( fdesc, bufout );
+                    MUTEX_UNLOCK();
                 }
-                MUTEX_UNLOCK();
-            }
-            else if( strncasecmp( "AUTO", token, 4 ) == 0 ) {
-                printf( "TELNET.C: AUTO Befehl erhalten\n" );
-                MUTEX_LOCK();
-                token = strtok( NULL, "\n\r " );
-                if( strncasecmp( token, "SOL", 3 ) == 0 ) {
-                    cntrl_mdl_aktiv.sol_aktiv = SET;
-                    snprintf( bufout, BFLN, "\tSOL-Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                else if( strncasecmp( "HAND", token, 4 ) == 0 ) {
+                    printf( "TELNET.C: HAND Befehl erhalten\n" );
+                    MUTEX_LOCK();
+                    token = strtok( NULL, "\n\r " );
+                    if( NULL != token ) {
+                        if     ( strncasecmp( token, "SOL", 3 ) == 0 ) {
+                            cntrl_mdl_aktiv.sol_aktiv = RESET;
+                            snprintf( bufout, BFLN, "\tSOL-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "FB", 2 ) == 0 ) {
+                            cntrl_mdl_aktiv.fb_aktiv  = RESET;
+                            snprintf( bufout, BFLN, "\tFB-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "HK", 2 ) == 0 ) {
+                            cntrl_mdl_aktiv.hk_aktiv  = RESET;
+                            snprintf( bufout, BFLN, "\tHK-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "WW", 2 ) == 0 ) {
+                            cntrl_mdl_aktiv.ww_aktiv  = RESET;
+                            snprintf( bufout, BFLN, "\tWW-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "KES", 3 ) == 0 ) {
+                            cntrl_mdl_aktiv.kes_aktiv = RESET;
+                            snprintf( bufout, BFLN, "\tKES-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                        }
+                    }
+                    MUTEX_UNLOCK();
                 }
-                else if( strncasecmp( token, "FB", 2 ) == 0 ) {
-                    cntrl_mdl_aktiv.fb_aktiv  = SET;
-                    snprintf( bufout, BFLN, "\tFB Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                else if( strncasecmp( "AUTO", token, 4 ) == 0 ) {
+                    printf( "TELNET.C: AUTO Befehl erhalten\n" );
+                    MUTEX_LOCK();
+                    token = strtok( NULL, "\n\r " );
+                    if( NULL != token ) {
+                        if( strncasecmp( token, "SOL", 3 ) == 0 ) {
+                            cntrl_mdl_aktiv.sol_aktiv = SET;
+                            snprintf( bufout, BFLN, "\tSOL-Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "FB", 2 ) == 0 ) {
+                            cntrl_mdl_aktiv.fb_aktiv  = SET;
+                            snprintf( bufout, BFLN, "\tFB Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "HK", 2 ) == 0 ) {
+                            cntrl_mdl_aktiv.hk_aktiv  = SET;
+                            snprintf( bufout, BFLN, "\tHK Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "WW", 2 ) == 0 ) {
+                            cntrl_mdl_aktiv.ww_aktiv  = SET;
+                            snprintf( bufout, BFLN, "\tWW Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "KES", 3 ) == 0 ) {
+                            cntrl_mdl_aktiv.kes_aktiv = SET;
+                            snprintf( bufout, BFLN, "\tKES Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "ALL", 3 ) == 0 ) {
+                            cntrl_mdl_aktiv.sol_aktiv  = SET;
+                            cntrl_mdl_aktiv.fb_aktiv   = SET;
+                            cntrl_mdl_aktiv.hk_aktiv   = SET;
+                            cntrl_mdl_aktiv.ww_aktiv   = SET;
+                            cntrl_mdl_aktiv.kes_aktiv  = SET;
+                            snprintf( bufout, BFLN, "\tAlle Module auf AUTOMATIK Betrieb!\n" ); BFLSH();
+                        }
+                    }
+                    MUTEX_UNLOCK();
                 }
-                else if( strncasecmp( token, "HK", 2 ) == 0 ) {
-                    cntrl_mdl_aktiv.hk_aktiv  = SET;
-                    snprintf( bufout, BFLN, "\tHK Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                else if( strncasecmp( "PUT", token, 3 ) == 0 ) {
+                    MUTEX_LOCK();
+                    token = strtok( NULL, "0123456789 " );
+                    if( NULL != token ) {
+                        if( strncasecmp( token, "SOL", 3 ) == 0 ) {
+                            telnet_putVars( telnet_sol_Vars, sizeof(telnet_sol_Vars)/sizeof(parse_set_t), fdesc, bufout );
+                            printf( "TELNET.C: PUT SOL Befehl erhalten\n" );
+                            // sol_Init( &cntrl_sol_par );
+                        }
+                        else if( strncasecmp( token, "FB", 2 ) == 0 ) {
+                            telnet_putVars( telnet_fb_Vars, sizeof(telnet_fb_Vars)/sizeof(parse_set_t), fdesc, bufout );
+                            printf( "TELNET.C: PUT FB Befehl erhalten\n" );
+                            // fb_Init( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_out );
+                        }
+                        else if( strncasecmp( token, "HK", 2 ) == 0 ) {
+                            telnet_putVars( telnet_hk_Vars, sizeof(telnet_hk_Vars)/sizeof(parse_set_t), fdesc, bufout );
+                            printf( "TELNET.C: PUT HK Befehl erhalten\n" );
+                            // hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
+                        }
+                        else if( strncasecmp( token, "WW", 2 ) == 0 ) {
+                            telnet_putVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t), fdesc, bufout );
+                            printf( "TELNET.C: PUT WW Befehl erhalten\n" );
+                            // ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
+                        }
+                        else if( strncasecmp( token, "KES", 3 ) == 0 ) {
+                            telnet_putVars( telnet_kes_Vars, sizeof(telnet_kes_Vars)/sizeof(parse_set_t), fdesc, bufout );
+                            printf( "TELNET.C: PUT KES Befehl erhalten\n" );
+                            // kes_Init( &cntrl_kes_par, &cntrl_kes_out );
+                        }
+                    }
+                    MUTEX_UNLOCK();
                 }
-                else if( strncasecmp( token, "WW", 2 ) == 0 ) {
-                    cntrl_mdl_aktiv.ww_aktiv  = SET;
-                    snprintf( bufout, BFLN, "\tWW Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                else if( strncasecmp( "INIT", token, 4 ) == 0 ) {
+                    printf( "TELNET.C: INIT Befehl erhalten\n" );
+                    MUTEX_LOCK();
+                    param_Init();
+                    zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
+                    task_Init( &cntrl_tau, io_get_ALL_Tau_MW() );
+                    sol_Init( &cntrl_sol_par );
+                    fb_Init( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_out );
+                    hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
+                    ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
+                    kes_Init( &cntrl_kes_par, &cntrl_kes_out );
+                    MUTEX_UNLOCK();
+                    snprintf( bufout, BFLN, "TELNET: Parameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
                 }
-                else if( strncasecmp( token, "KES", 3 ) == 0 ) {
-                    cntrl_mdl_aktiv.kes_aktiv = SET;
-                    snprintf( bufout, BFLN, "\tKES Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
-                }
-                else if( strncasecmp( token, "ALL", 3 ) == 0 ) {
-                    cntrl_mdl_aktiv.sol_aktiv  = SET;
-                    cntrl_mdl_aktiv.fb_aktiv   = SET;
-                    cntrl_mdl_aktiv.hk_aktiv   = SET;
-                    cntrl_mdl_aktiv.ww_aktiv   = SET;
-                    cntrl_mdl_aktiv.kes_aktiv  = SET;
-                    snprintf( bufout, BFLN, "\tAlle Module auf AUTOMATIK Betrieb!\n" ); BFLSH();
-                }
-                MUTEX_UNLOCK();
-            }
-            else if( strncasecmp( "PUT", token, 3 ) == 0 ) {
-                MUTEX_LOCK();
-                token = strtok( NULL, "0123456789 " );
-                if( strncasecmp( token, "SOL", 3 ) == 0 ) {
-                    telnet_putVars( telnet_sol_Vars, sizeof(telnet_sol_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                    printf( "TELNET.C: PUT SOL Befehl erhalten\n" );
-                    // sol_Init( &cntrl_sol_par );
-                }
-                else if( strncasecmp( token, "FB", 2 ) == 0 ) {
-                    telnet_putVars( telnet_fb_Vars, sizeof(telnet_fb_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                    printf( "TELNET.C: PUT FB Befehl erhalten\n" );
-                    // fb_Init( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_out );
-                }
-                else if( strncasecmp( token, "HK", 2 ) == 0 ) {
-                    telnet_putVars( telnet_hk_Vars, sizeof(telnet_hk_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                    printf( "TELNET.C: PUT HK Befehl erhalten\n" );
-                    // hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
-                }
-                else if( strncasecmp( token, "WW", 2 ) == 0 ) {
-                    telnet_putVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                    printf( "TELNET.C: PUT WW Befehl erhalten\n" );
-                    // ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
-                }
-                else if( strncasecmp( token, "KES", 3 ) == 0 ) {
-                    telnet_putVars( telnet_kes_Vars, sizeof(telnet_kes_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                    printf( "TELNET.C: PUT KES Befehl erhalten\n" );
-                    // kes_Init( &cntrl_kes_par, &cntrl_kes_out );
-                }
-                MUTEX_UNLOCK();
-            }
-            else if( strncasecmp( "INIT", token, 4 ) == 0 ) {
-                printf( "TELNET.C: INIT Befehl erhalten\n" );
-                MUTEX_LOCK();
-                param_Init();
-                zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
-                task_Init( &cntrl_tau, io_get_ALL_Tau_MW() );
-                sol_Init( &cntrl_sol_par );
-                fb_Init( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_out );
-                hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
-                ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
-                kes_Init( &cntrl_kes_par, &cntrl_kes_out );
-                MUTEX_UNLOCK();
-                snprintf( bufout, BFLN, "TELNET: Parameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
             }
         }
     }
 }
 
-const char *telnet_help_text[] = {
-    "\n Mögliche Befehle: \n\n",
-    "\t GET T     (alle Temperaturmesswerte)\n",
-    "\t GET T     (alle Temperaturmesswerte)\n",
-    "\t GET SW    (Sollwerte)\n",
-    "\t GET AO    (alle Analog-Ausgaenge)\n",
-    "\t GET DI    (alle Digital-Eingaenge)\n",
-    "\t GET DO    (alle Digital-Ausgaenge)\n",
-    "\t GET FB    (Daten zu FB-Heizung)\n",
-    "\t GET WW    (Daten zu Warmwasserbereitung)\n",
-    "\t GET SOL   (Daten zu Solarbeheizung)\n",
-    "\t GET HK    (Daten zu Heizkoerper-Heizkreis)\n",
-    "\t GET PAR   (Eingelesene Parameter ausgeben)\n",
-    "\t GET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n",
-    "\t GET ABS   (Absenkungen ausgeben)\n\n",
-    "\t INIT      (Initialisierungsdateien neu einlesen)\n\n",
-    "\t AUTO <mdl>    (Modul SOL, FB, HK, WW, KES auf Automatik)\n",
-    "\t AUTO ALL      (alle Module auf Automatik)\n",
-    "\t HAND <mdl>    (Modul SOL, FB, HK, WW, KES auf Handbetrieb)\n",
-    "\t PUT <mdl> var-nr=wert (Modul Variable manuell setzen.\n",
-    "\t           Ausgangsgroessen sind nur im Handbetrieb aenderbar.\n",
-    "\t           var-nr ergibt sich aus Ausgabe von GET Vxxx)\n",
-    "\t GET VFB   (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\t GET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\t GET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\t GET VSOL  (SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\t GET VKES  (KES Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n\n",
-    "\t HELP      (Diesen Hilfetext ausgeben)\n",
-    "\t VERSION   (Software Version ausgeben)\n",
-    "\t END       (Datenabfrage beenden)\n"
-};
+void telnet_writeModuls( int fdesc, char *bufout )
+{
+    snprintf( bufout, BFLN, "\tSOL-Modul auf " ); BFLSH();
+    if( cntrl_mdl_aktiv.sol_aktiv == SET ) {
+        snprintf( bufout, BFLN, "AUTO Betrieb (Closed Loop)\n" ); BFLSH();
+    }
+    else {
+        snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
+    }
+    snprintf( bufout, BFLN, "\tFB-Modul  auf " ); BFLSH();
+    if( cntrl_mdl_aktiv.fb_aktiv == SET ) {
+        snprintf( bufout, BFLN, "AUTO Betrieb (Closed Loop)\n" ); BFLSH();
+    }
+    else {
+        snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
+    }
+    snprintf( bufout, BFLN, "\tHK-Modul  auf " ); BFLSH();
+    if( cntrl_mdl_aktiv.hk_aktiv == SET ) {
+        snprintf( bufout, BFLN, "AUTO Betrieb (Closed Loop)\n" ); BFLSH();
+    }
+    else {
+        snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
+    }
+    snprintf( bufout, BFLN, "\tWW-Modul  auf " ); BFLSH();
+    if( cntrl_mdl_aktiv.ww_aktiv == SET ) {
+        snprintf( bufout, BFLN, "AUTO Betrieb (Closed Loop)\n" ); BFLSH();
+    }
+    else {
+        snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
+    }
+    snprintf( bufout, BFLN, "\tKES-Modul auf " ); BFLSH();
+    if( cntrl_mdl_aktiv.kes_aktiv == SET ) {
+        snprintf( bufout, BFLN, "AUTO Betrieb (Closed Loop)\n" ); BFLSH();
+    }
+    else {
+        snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
+    }
+}
 
 void telnet_writeHelp( int fdesc, char *bufout )
 {
@@ -397,56 +257,58 @@ void telnet_parseGet( int fdesc, char *bufout )
     char *token;
 
     token = strtok( NULL, "\n\r " );
-    if( strncasecmp( token, "T", 1 ) == 0 ) {
-        telnet_writeT( fdesc, bufout );
-    }
-    else if( strncasecmp( token, "SW", 2 ) == 0 ) {
-        telnet_writeSW( fdesc, bufout );
-    }
-    else if( strncasecmp( token, "DI", 2 ) == 0 ) {
-        telnet_writeDI( fdesc, bufout );
-    }
-    else if( strncasecmp( token, "DO", 2 ) == 0 ) {
-        telnet_writeDO( fdesc, bufout );
-    }
-    else if( strncasecmp( token, "AO", 2 ) == 0 ) {
-        telnet_writeAO( fdesc, bufout );
-    }
-    else if( strncasecmp( token, "FB", 2 ) == 0 ) {
-        telnet_writeFB( fdesc, bufout );
-    }
-    else if( strncasecmp( token, "WW", 2 ) == 0 ) {
-        telnet_writeWW( fdesc, bufout );
-    }
-    else if( strncasecmp( token, "HK", 2 ) == 0 ) {
-        telnet_writeHK( fdesc, bufout );
-    }
-    else if( strncasecmp( token, "SOL", 3 ) == 0 ) {
-        telnet_writeSOL( fdesc, bufout );
-    }
-    else if( strncasecmp( token, "PAR", 3 ) == 0 ) {
-        telnet_writeVorgabenparameter( fdesc, bufout );
-    }
-    else if( strncasecmp( token, "ZEIT", 4 ) == 0 ) {
-        telnet_writeSchaltzeiten( fdesc, bufout );
-    }
-    else if( strncasecmp( token, "ABS", 3 ) == 0 ) {
-        telnet_writeAbsenk( fdesc, bufout );
-    }
-    else if( strncasecmp( token, "VFB", 3 ) == 0 ) {
-        telnet_writeVars( telnet_fb_Vars, sizeof(telnet_fb_Vars)/sizeof(parse_set_t), fdesc, bufout );
-    }
-    else if( strncasecmp( token, "VHK", 3 ) == 0 ) {
-        telnet_writeVars( telnet_hk_Vars, sizeof(telnet_hk_Vars)/sizeof(parse_set_t), fdesc, bufout );
-    }
-    else if( strncasecmp( token, "VWW", 3 ) == 0 ) {
-        telnet_writeVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t), fdesc, bufout );
-    }
-    else if( strncasecmp( token, "VSOL", 4 ) == 0 ) {
-        telnet_writeVars( telnet_sol_Vars, sizeof(telnet_sol_Vars)/sizeof(parse_set_t), fdesc, bufout );
-    }
-    else if( strncasecmp( token, "VKES", 4 ) == 0 ) {
-        telnet_writeVars( telnet_kes_Vars, sizeof(telnet_kes_Vars)/sizeof(parse_set_t), fdesc, bufout );
+    if( NULL != token ) {
+        if( strncasecmp( token, "T", 1 ) == 0 ) {
+            telnet_writeT( fdesc, bufout );
+        }
+        else if( strncasecmp( token, "SW", 2 ) == 0 ) {
+            telnet_writeSW( fdesc, bufout );
+        }
+        else if( strncasecmp( token, "DI", 2 ) == 0 ) {
+            telnet_writeDI( fdesc, bufout );
+        }
+        else if( strncasecmp( token, "DO", 2 ) == 0 ) {
+            telnet_writeDO( fdesc, bufout );
+        }
+        else if( strncasecmp( token, "AO", 2 ) == 0 ) {
+            telnet_writeAO( fdesc, bufout );
+        }
+        else if( strncasecmp( token, "FB", 2 ) == 0 ) {
+            telnet_writeFB( fdesc, bufout );
+        }
+        else if( strncasecmp( token, "WW", 2 ) == 0 ) {
+            telnet_writeWW( fdesc, bufout );
+        }
+        else if( strncasecmp( token, "HK", 2 ) == 0 ) {
+            telnet_writeHK( fdesc, bufout );
+        }
+        else if( strncasecmp( token, "SOL", 3 ) == 0 ) {
+            telnet_writeSOL( fdesc, bufout );
+        }
+        else if( strncasecmp( token, "PAR", 3 ) == 0 ) {
+            telnet_writeVorgabenparameter( fdesc, bufout );
+        }
+        else if( strncasecmp( token, "ZEIT", 4 ) == 0 ) {
+            telnet_writeSchaltzeiten( fdesc, bufout );
+        }
+        else if( strncasecmp( token, "ABS", 3 ) == 0 ) {
+            telnet_writeAbsenk( fdesc, bufout );
+        }
+        else if( strncasecmp( token, "VFB", 3 ) == 0 ) {
+            telnet_writeVars( telnet_fb_Vars, sizeof(telnet_fb_Vars)/sizeof(parse_set_t), fdesc, bufout );
+        }
+        else if( strncasecmp( token, "VHK", 3 ) == 0 ) {
+            telnet_writeVars( telnet_hk_Vars, sizeof(telnet_hk_Vars)/sizeof(parse_set_t), fdesc, bufout );
+        }
+        else if( strncasecmp( token, "VWW", 3 ) == 0 ) {
+            telnet_writeVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t), fdesc, bufout );
+        }
+        else if( strncasecmp( token, "VSOL", 4 ) == 0 ) {
+            telnet_writeVars( telnet_sol_Vars, sizeof(telnet_sol_Vars)/sizeof(parse_set_t), fdesc, bufout );
+        }
+        else if( strncasecmp( token, "VKES", 4 ) == 0 ) {
+            telnet_writeVars( telnet_kes_Vars, sizeof(telnet_kes_Vars)/sizeof(parse_set_t), fdesc, bufout );
+        }
     }
 }
 
@@ -710,7 +572,7 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
     int n;
 
     for( n=0; n<len; n++ ) {
-        snprintf( bufout, BFLN, "(%d) ", n ); BFLSH();
+        snprintf( bufout, BFLN, "(%02d) ", n ); BFLSH();
         snprintf( bufout, BFLN, Vars[n].VarName ); BFLSH();
         snprintf( bufout, BFLN, " = " ); BFLSH();
         switch ( Vars[n].format[1] ) {
@@ -737,33 +599,37 @@ void telnet_putVars( const parse_set_t Vars[], int len, int fdesc, char *bufout 
     float   value_f;
 
     token = strtok( NULL, "= " );
-    var_no = atoi( token );
-    // printf( "TELNET.C PUT (%d) = \n", var_no);
-    if( var_no < len ) {
-        token = strtok( NULL, "\n\r" );
-        switch ( Vars[var_no].format[1] ) {
-            case 'd':
-            case 'x':
-                value_i = atoi( token );
-                *(int *)Vars[var_no].VarPointer = value_i;
-                snprintf( bufout, BFLN, Vars[var_no].VarName ); BFLSH();
-                snprintf( bufout, BFLN, " = " ); BFLSH();
-                snprintf( bufout, BFLN, Vars[var_no].format, *(int *)Vars[var_no].VarPointer ); BFLSH();
-                snprintf( bufout, BFLN, "\n" );  BFLSH();
-                break;
-            case 'f':
-            default:
-                value_f = atof( token );
-                *(float *)Vars[var_no].VarPointer = value_f;
-                snprintf( bufout, BFLN, Vars[var_no].VarName ); BFLSH();
-                snprintf( bufout, BFLN, " = " ); BFLSH();
-                snprintf( bufout, BFLN, "%8.3f", *(float *)Vars[var_no].VarPointer ); BFLSH();
-                snprintf( bufout, BFLN, "\n" );  BFLSH();
-                break;
+    if( NULL != token ) {
+        var_no = atoi( token );
+        // printf( "TELNET.C PUT (%d) = \n", var_no);
+        if( var_no < len ) {
+            token = strtok( NULL, "\n\r" );
+            if( NULL != token ) {
+                switch ( Vars[var_no].format[1] ) {
+                    case 'd':
+                    case 'x':
+                        value_i = atoi( token );
+                        *(int *)Vars[var_no].VarPointer = value_i;
+                        snprintf( bufout, BFLN, Vars[var_no].VarName ); BFLSH();
+                        snprintf( bufout, BFLN, " = " ); BFLSH();
+                        snprintf( bufout, BFLN, Vars[var_no].format, *(int *)Vars[var_no].VarPointer ); BFLSH();
+                        snprintf( bufout, BFLN, "\n" );  BFLSH();
+                        break;
+                    case 'f':
+                    default:
+                        value_f = atof( token );
+                        *(float *)Vars[var_no].VarPointer = value_f;
+                        snprintf( bufout, BFLN, Vars[var_no].VarName ); BFLSH();
+                        snprintf( bufout, BFLN, " = " ); BFLSH();
+                        snprintf( bufout, BFLN, "%8.3f", *(float *)Vars[var_no].VarPointer ); BFLSH();
+                        snprintf( bufout, BFLN, "\n" );  BFLSH();
+                        break;
+                }
+            }
         }
-    }
-    else {
-        snprintf( bufout, BFLN, "FEHLER bei der Befehlsauswertung!\n" );
+        else {
+            snprintf( bufout, BFLN, "FEHLER bei der Befehlsauswertung!\n" );
+        }
     }
 }
 
