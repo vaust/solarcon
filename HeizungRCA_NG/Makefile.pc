@@ -27,12 +27,12 @@ sol.o: sol.c sol.h gen_types.h param.h
 sup.o: sup.c sup.h gen_types.h gen_types.h
 task.o: task.c gen_types.h param.h zeit.h \
   gen_types.h task.h zeit.h
-telnet.o: telnet.c server.h
+telnet.o: telnet.c server.h telnet_vars.h
 server.o: server.c server.h
 ww.o: ww.c param.h ww.h sup.h gen_types.h
 zeit.o: zeit.c \
   gen_types.h param.h zeit.h gen_types.h
-io.o: io.c io.h gen_types.h 
+io.o: io.c io.h gen_types.h
 
 clean :
 	python3 ./writeversion.py; rm *.o; rm test

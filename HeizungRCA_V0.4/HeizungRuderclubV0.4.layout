@@ -7,8 +7,8 @@
 	<File name="fb.c" open="1" top="0" tabpos="5">
 		<Cursor position="2324" topLine="38" />
 	</File>
-	<File name="hk.c" open="1" top="0" tabpos="6">
-		<Cursor position="2142" topLine="31" />
+	<File name="hk.c" open="1" top="0" tabpos="4">
+		<Cursor position="2142" topLine="28" />
 	</File>
 	<File name="init_var.c" open="1" top="0" tabpos="4">
 		<Cursor position="18567" topLine="481" />
@@ -25,8 +25,8 @@
 	<File name="main.c" open="0" top="0" tabpos="15">
 		<Cursor position="18" topLine="2" />
 	</File>
-	<File name="server.c" open="1" top="0" tabpos="2">
-		<Cursor position="14959" topLine="316" />
+	<File name="server.c" open="1" top="0" tabpos="3">
+		<Cursor position="6169" topLine="175" />
 	</File>
 	<File name="server.h" open="0" top="0" tabpos="12">
 		<Cursor position="732" topLine="12" />
@@ -37,14 +37,14 @@
 	<File name="speicher.c" open="0" top="0" tabpos="12">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="task.c" open="1" top="0" tabpos="1">
-		<Cursor position="2059" topLine="60" />
+	<File name="task.c" open="1" top="0" tabpos="2">
+		<Cursor position="4414" topLine="138" />
 	</File>
-	<File name="variablen.h" open="1" top="0" tabpos="3">
-		<Cursor position="1942" topLine="38" />
+	<File name="variablen.h" open="1" top="0" tabpos="1">
+		<Cursor position="2496" topLine="27" />
 	</File>
 	<File name="vorgabe.h" open="0" top="0" tabpos="6">
-		<Cursor position="7948" topLine="78" />
+		<Cursor position="7948" topLine="62" />
 	</File>
 	<File name="vorgaben.ini" open="0" top="0" tabpos="2">
 		<Cursor position="2529" topLine="45" />
@@ -55,11 +55,11 @@
 	<File name="wochenzeitprogramm.ini" open="0" top="0" tabpos="0">
 		<Cursor position="816" topLine="0" />
 	</File>
-	<File name="ww.c" open="1" top="1" tabpos="7">
-		<Cursor position="3142" topLine="80" />
+	<File name="ww.c" open="1" top="1" tabpos="5">
+		<Cursor position="3142" topLine="77" />
 	</File>
-	<File name="zeit.c" open="0" top="0" tabpos="10">
-		<Cursor position="0" topLine="0" />
+	<File name="zeit.c" open="1" top="0" tabpos="6">
+		<Cursor position="2396" topLine="39" />
 	</File>
 	<File name="zeitprogramm.h" open="0" top="0" tabpos="3">
 		<Cursor position="1038" topLine="18" />
