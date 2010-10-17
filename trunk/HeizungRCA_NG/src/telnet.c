@@ -198,7 +198,7 @@ void *telnet_thread( void *arg )
                     ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
                     kes_Init( &cntrl_kes_par, &cntrl_kes_out );
                     MUTEX_UNLOCK();
-                    snprintf( bufout, BFLN, "TELNET: Parameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
+                    snprintf( bufout, BFLN, "\tParameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
                 }
             }
         }
