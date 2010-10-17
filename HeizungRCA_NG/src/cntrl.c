@@ -55,7 +55,7 @@ void *cntrl_thread( void *arg )
 int main( void )
 #endif
 {
-    signal( SIGINT, terminate );
+//    signal( SIGINT, terminate );
 
     KBUSOPEN();
     KBUSUPDATE();
