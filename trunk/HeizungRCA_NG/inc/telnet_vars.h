@@ -1,6 +1,7 @@
 #ifndef _TELNET_VARS_H_
 #define _TELNET_VARS_H_
 
+#ifdef _TELNET_C_
 const parse_set_t telnet_fb_Vars[] =
 {
     { "fb_par.reg_kp",         &(cntrl_fb_par.reg_kp),         "%f" },
@@ -166,36 +167,37 @@ const parse_set_t telnet_kes_Vars[] =
 
 const char *telnet_help_text[] = {
     "\n Mögliche Befehle: \n\n",
-    "\t GET T     (alle Temperaturmesswerte)\n",
-    "\t GET SW    (Sollwerte)\n",
-    "\t GET AO    (alle Analog-Ausgaenge)\n",
-    "\t GET DI    (alle Digital-Eingaenge)\n",
-    "\t GET DO    (alle Digital-Ausgaenge)\n",
-    "\t GET FB    (Daten zu FB-Heizung)\n",
-    "\t GET WW    (Daten zu Warmwasserbereitung)\n",
-    "\t GET SOL   (Daten zu Solarbeheizung)\n",
-    "\t GET HK    (Daten zu Heizkoerper-Heizkreis)\n",
-    "\t GET PAR   (Eingelesene Parameter ausgeben)\n",
-    "\t GET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n",
-    "\t GET ABS   (Absenkungen ausgeben)\n\n",
-    "\t INIT      (Initialisierungsdateien neu einlesen)\n\n",
-
-    "\t AUTO <mdl>    (Modul SOL, FB, HK, WW, KES auf Automatik)\n",
-    "\t AUTO ALL      (alle Module auf Automatik)\n",
-    "\t HAND <mdl>    (Modul SOL, FB, HK, WW, KES auf Handbetrieb)\n",
-    "\t MODUL         (Anzeige aller Module incl. Betriebszustand)\n",
-    "\t PUT <mdl> var-nr=wert (Modul Variable manuell setzen.\n",
-    "\t           Ausgangsgroessen sind nur im Handbetrieb aenderbar.\n",
-    "\t           var-nr ergibt sich aus Ausgabe von GET Vxxx)\n\n",
-
-    "\t GET VFB   (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\t GET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\t GET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\t GET VSOL  (SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\t GET VKES  (KES Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n\n",
-    "\t HELP      (Diesen Hilfetext ausgeben)\n",
-    "\t VERSION   (Software Version ausgeben)\n",
-    "\t END       (Datenabfrage beenden)\n\n"
+    
+    "\tGET T     (alle Temperaturmesswerte)\n",
+    "\tGET SW    (Sollwerte)\n",
+    "\tGET AO    (alle Analog-Ausgaenge)\n",
+    "\tGET DI    (alle Digital-Eingaenge)\n",
+    "\tGET DO    (alle Digital-Ausgaenge)\n",
+    "\tGET FB    (Daten zu FB-Heizung)\n",
+    "\tGET WW    (Daten zu Warmwasserbereitung)\n",
+    "\tGET SOL   (Daten zu Solarbeheizung)\n",
+    "\tGET HK    (Daten zu Heizkoerper-Heizkreis)\n",
+    "\tGET PAR   (Eingelesene Parameter ausgeben)\n",
+    "\tGET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n",
+    "\tGET ABS   (Absenkungen ausgeben)\n\n",
+    "\tINIT      (Initialisierungsdateien neu einlesen)\n\n",
+       
+    "\tAUTO <mdl>    (Modul SOL, FB, HK, WW, KES auf Automatik)\n",
+    "\tAUTO ALL      (alle Module auf Automatik)\n",
+    "\tHAND <mdl>    (Modul SOL, FB, HK, WW, KES auf Handbetrieb)\n",
+    "\tMODUL         (Anzeige aller Module incl. Betriebszustand)\n",
+    "\tPUT <mdl> var-nr=wert (Modul Variable manuell setzen.\n",
+    "\t          Ausgangsgroessen sind nur im Handbetrieb aenderbar.\n",
+    "\t          var-nr ergibt sich aus Ausgabe von GET Vxxx)\n\n",
+       
+    "\tGET VFB   (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
+    "\tGET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
+    "\tGET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
+    "\tGET VSOL  (SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
+    "\tGET VKES  (KES Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n\n",
+    "\tHELP      (Diesen Hilfetext ausgeben)\n",
+    "\tVERSION   (Software Version ausgeben)\n",
+    "\tEND       (Datenabfrage beenden)\n\n"
 };
-
+#endif // _TELNET_C_
 #endif // _TELNET_VARS_H_
