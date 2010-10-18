@@ -608,10 +608,10 @@ void telnet_putVars( const parse_set_t Vars[], int len, int fdesc, char *bufout 
                 switch ( Vars[var_no].format[1] ) {
                     case 'd':
                         value_i = atoi( token );
-                        *(int *)Vars[var_no].VarPointer = value_i;
+                        *(s16_t *)Vars[var_no].VarPointer = value_i;
                         snprintf( bufout, BFLN, Vars[var_no].VarName ); BFLSH();
                         snprintf( bufout, BFLN, " = " ); BFLSH();
-                        snprintf( bufout, BFLN, Vars[var_no].format, *(int *)Vars[var_no].VarPointer ); BFLSH();
+                        snprintf( bufout, BFLN, Vars[var_no].format, *(s16_t *)Vars[var_no].VarPointer ); BFLSH();
                         snprintf( bufout, BFLN, "\n" );  BFLSH();
                         break;
                     case 'f':
