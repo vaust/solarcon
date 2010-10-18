@@ -21,6 +21,7 @@ typedef struct {
     di_bitbyte_t    br_RueckMeldung;
     di_bitbyte_t    br_StoerMeldung;
     di_bitbyte_t    stb_Fussbodenheizung;
+    s16_t           sol_err;
 } err_in_t;
 
 

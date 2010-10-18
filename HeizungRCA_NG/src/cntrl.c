@@ -137,7 +137,7 @@ int main( void )
         /*---------- VERARBEITUNG DES PROZESSABBILDES -----------*/
         /* solar_Run(), fb_Run() und hk_Run() sind unabhaengig von einander */
         if( SET == cntrl_mdl_aktiv.sol_aktiv )
-            sol_Run( &cntrl_sol_par, &cntrl_sol_in, &cntrl_sol_out );
+            cntrl_err_in.sol_err = sol_Run( &cntrl_sol_par, &cntrl_sol_in, &cntrl_sol_out );
         if( SET == cntrl_mdl_aktiv.fb_aktiv )
             fb_Run( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_in, &cntrl_fb_out );
         if( SET == cntrl_mdl_aktiv.hk_aktiv )

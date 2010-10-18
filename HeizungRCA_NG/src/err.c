@@ -43,7 +43,8 @@ void err_Run( const err_param_t *par_p,
 
     if( (0    == out_p->br_Countdown       ) ||
         (SET  == in_p->br_StoerMeldung     ) ||
-        (SET  == in_p->stb_Fussbodenheizung)    ) {
+        (SET  == in_p->stb_Fussbodenheizung) ||
+        (0    != in_p->sol_err             )    ) {
 
         out_p->Sammelstoermeldung = SET;
     }
