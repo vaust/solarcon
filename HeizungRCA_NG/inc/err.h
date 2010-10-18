@@ -9,9 +9,9 @@
 
 /* <Typen> */
 typedef struct {
-    // float TA;       // Abtastzeit
-    u16_t           br_TimeOut;
-}   err_param_t;
+    s16_t   br_TimeOut;
+    float   dt;
+} err_param_t;
 
 
 typedef struct {
@@ -20,20 +20,22 @@ typedef struct {
     float           kes_tvl_mw;
     di_bitbyte_t    br_RueckMeldung;
     di_bitbyte_t    br_StoerMeldung;
-    di_bitbyte_t    stb_Fussbodenheizung;    
+    di_bitbyte_t    stb_Fussbodenheizung;
 } err_in_t;
-/* <Typen/> */
+
 
 typedef struct {
-    u16_t           br_Countdown;
+    s16_t           br_Countdown;
     do_bitbyte_t    Sammelstoermeldung;
-} sol_out_t;   
+} err_out_t;
+/* <Typen/> */
 
 /* <Prototypen> */
-void err_Init( sol_param_t *par_p );
-int err_Run(  const err_param_t  *par_p,
-              const err_in_t     *in_p,
-                    err_out_t    *out_p );
+void err_Init( err_param_t *par_p, err_out_t *out_p );
+
+void err_Run( const err_param_t *par_p,
+              const err_in_t    *in_p,
+                    err_out_t   *out_p );
 /* <Prototypen/> */
 
 
