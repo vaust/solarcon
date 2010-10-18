@@ -77,12 +77,14 @@ int main( void )
 #endif
 
     /*----- Module aktivieren ----*/
+    MUTEX_LOCK();
     cntrl_mdl_aktiv.sol_aktiv = SET;
     cntrl_mdl_aktiv.fb_aktiv  = SET;
     cntrl_mdl_aktiv.hk_aktiv  = SET;
     cntrl_mdl_aktiv.ww_aktiv  = SET;
     cntrl_mdl_aktiv.kes_aktiv = SET;
-
+    MUTEX_UNLOCK();
+    
     while( 1  ) {
         MUTEX_LOCK();
         KBUSUPDATE();   /*---------- Prozessabbild aktualisieren ----------*/
