@@ -50,6 +50,7 @@ void *telnet_thread( void *arg )
     snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version " );        BFLSH();
     snprintf( bufout, BFLN, VERSIONSTRING );                             BFLSH();
     snprintf( bufout, BFLN, "\tAndreas Stegmann\n\tVolker Stegmann\n\n" );       BFLSH();
+    snprintf( bufout, BFLN, "\tERR-Modul nicht aktiv. Bitte bei Bedarf mit \"AUTO ERR\" einschalten\n" ); BFLSH();
     snprintf( bufout, BFLN, "\tServer Prozess %d\n\n", arglist[1]+1 );   BFLSH();
     telnet_writeHelp( fdesc, bufout );
 
@@ -653,7 +654,7 @@ void telnet_putVars( const parse_set_t Vars[], int len, int fdesc, char *bufout 
                         *(u8_t *)Vars[var_no].VarPointer = (u8_t) value_i;
                         snprintf( bufout, BFLN, Vars[var_no].VarName ); BFLSH();
                         snprintf( bufout, BFLN, " = " ); BFLSH();
-                        snprintf( bufout, BFLN, Vars[var_no].format, *(int *)Vars[var_no].VarPointer ); BFLSH();
+                        snprintf( bufout, BFLN, Vars[var_no].format, *(u8_t *)Vars[var_no].VarPointer ); BFLSH();
                         snprintf( bufout, BFLN, "\n" );  BFLSH();
                         break;
                 }

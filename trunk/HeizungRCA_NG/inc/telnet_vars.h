@@ -175,6 +175,7 @@ const parse_set_t telnet_err_Vars[] =
     { "err_in.br_RueckMeldung",       &(cntrl_err_in.br_RueckMeldung),       "%x" },
     { "err_in.br_StoerMeldung",       &(cntrl_err_in.br_StoerMeldung),       "%x" },
     { "err_in.stb_Fussbodenheizung",  &(cntrl_err_in.stb_Fussbodenheizung),  "%x" },
+    { "err_in.sol_err",               &(cntrl_err_in.sol_err),               "%d" },
 
     { "err_out.br_Countdown",         &(cntrl_err_out.br_Countdown),         "%d" },
     { "err_out.Sammelstoermeldung",   &(cntrl_err_out.Sammelstoermeldung),   "%x" }
@@ -209,7 +210,9 @@ const char *telnet_help_text[] = {
     "\tGET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
     "\tGET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
     "\tGET VSOL  (SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\tGET VKES  (KES Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n\n",
+    "\tGET VKES  (KES Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
+    "\tGET VERR  (ERR Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n\n",
+
     "\tHELP      (Diesen Hilfetext ausgeben)\n",
     "\tVERSION   (Software Version ausgeben)\n",
     "\tEND       (Datenabfrage beenden)\n\n"
