@@ -635,7 +635,7 @@ void telnet_putVars( const parse_set_t Vars[], int len, int fdesc, char *bufout 
             }
         }
         else {
-            snprintf( bufout, BFLN, "FEHLER bei der Befehlsauswertung!\n" );
+            snprintf( bufout, BFLN, "FEHLER bei der Befehlsauswertung!\n" ); BFLSH();
         }
     }
 }
