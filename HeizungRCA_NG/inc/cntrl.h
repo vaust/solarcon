@@ -19,7 +19,8 @@ typedef struct enable_modul_s {
     u8_t hk_aktiv   : 1;
     u8_t ww_aktiv   : 1;
     u8_t kes_aktiv  : 1;
-    u8_t            : 3;
+    u8_t err_aktiv  : 1;
+    u8_t            : 2;
 } enable_modul_t;
 
 /* <Globals> Sichtbar in cntrl.c und telnet.c */
@@ -67,6 +68,11 @@ PUBLIC sup_digreg_coeff_t  cntrl_ww_q;
 PUBLIC kes_param_t         cntrl_kes_par; 
 PUBLIC kes_in_t            cntrl_kes_in;
 PUBLIC kes_out_t           cntrl_kes_out;
+
+/* Stoermeldung */
+PUBLIC err_param_t         cntrl_err_par;
+PUBLIC err_in_t            cntrl_err_in;
+PUBLIC err_out_t           cntrl_err_out;
 
 #endif
 

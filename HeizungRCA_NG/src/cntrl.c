@@ -69,6 +69,7 @@ int main( void )
     hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
     ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
     kes_Init( &cntrl_kes_par, &cntrl_kes_out );
+    err_Init( &cntrl_err_par );
     MUTEX_UNLOCK();
 
 #ifdef __TEST__
@@ -83,6 +84,7 @@ int main( void )
     cntrl_mdl_aktiv.hk_aktiv  = SET;
     cntrl_mdl_aktiv.ww_aktiv  = SET;
     cntrl_mdl_aktiv.kes_aktiv = SET;
+    cntrl_mdl_aktiv.err_aktiv = RESET; /* Default erst einmal AUS! */
     MUTEX_UNLOCK();
     
     while( 1  ) {
@@ -147,7 +149,12 @@ int main( void )
             cntrl_kes_in.fb_tvl_sw = cntrl_fb_out.tvl_sw;
             kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
         }
-
+        
+        /* Sammelstoermeldung bedienen */
+        if( SET == cntrl_mdl_aktiv.err_aktiv ) {
+            err_Run( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
+        }
+                
         /*---------- AUSGABE DES PROZESSABBILDES ------------*/
         io_put_SOL_PU_SB( cntrl_sol_out.pu_sb[KO1] );
         io_put_SOL_SP1_AV_SB( cntrl_sol_out.av_sb[SP1] );
