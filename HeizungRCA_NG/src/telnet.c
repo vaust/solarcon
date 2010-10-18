@@ -18,9 +18,9 @@
 #endif
 
 #include "gen_types.h"
-#include "param.h"      /* Parametrisierun aus INI-Dateien */
-#include "io.h"         /* Ein- und Ausgabe auf der PLC    */
-#include "cntrl.h"      /* Systemzustandsvariablen         */
+#include "param.h"      /* Parametrisierung aus INI-Dateien */
+#include "io.h"         /* Ein- und Ausgabe auf der PLC     */
+#include "cntrl.h"      /* Systemzustandsvariablen          */
 #include "zeit.h"
 #include "task.h"
 #include "version.h"    /* Versionsstring */
@@ -607,7 +607,6 @@ void telnet_putVars( const parse_set_t Vars[], int len, int fdesc, char *bufout 
             if( NULL != token ) {
                 switch ( Vars[var_no].format[1] ) {
                     case 'd':
-                    case 'x':
                         value_i = atoi( token );
                         *(int *)Vars[var_no].VarPointer = value_i;
                         snprintf( bufout, BFLN, Vars[var_no].VarName ); BFLSH();
@@ -616,12 +615,20 @@ void telnet_putVars( const parse_set_t Vars[], int len, int fdesc, char *bufout 
                         snprintf( bufout, BFLN, "\n" );  BFLSH();
                         break;
                     case 'f':
-                    default:
                         value_f = atof( token );
                         *(float *)Vars[var_no].VarPointer = value_f;
                         snprintf( bufout, BFLN, Vars[var_no].VarName ); BFLSH();
                         snprintf( bufout, BFLN, " = " ); BFLSH();
                         snprintf( bufout, BFLN, "%8.3f", *(float *)Vars[var_no].VarPointer ); BFLSH();
+                        snprintf( bufout, BFLN, "\n" );  BFLSH();
+                        break;
+                    case 'x':
+                    default :
+                        value_i = atoi( token );
+                        *(u8_t *)Vars[var_no].VarPointer = (u8_t) value_i;
+                        snprintf( bufout, BFLN, Vars[var_no].VarName ); BFLSH();
+                        snprintf( bufout, BFLN, " = " ); BFLSH();
+                        snprintf( bufout, BFLN, Vars[var_no].format, *(int *)Vars[var_no].VarPointer ); BFLSH();
                         snprintf( bufout, BFLN, "\n" );  BFLSH();
                         break;
                 }
