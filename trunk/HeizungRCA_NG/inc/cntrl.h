@@ -11,7 +11,7 @@
 #include "hk.h"
 #include "ww.h"
 #include "kes.h"
-
+#include "err.h"
 
 typedef struct enable_modul_s {
     u8_t sol_aktiv  : 1;
@@ -20,7 +20,6 @@ typedef struct enable_modul_s {
     u8_t ww_aktiv   : 1;
     u8_t kes_aktiv  : 1;
     u8_t err_aktiv  : 1;
-    u8_t            : 2;
 } enable_modul_t;
 
 /* <Globals> Sichtbar in cntrl.c und telnet.c */
@@ -65,7 +64,7 @@ PUBLIC ww_out_t            cntrl_ww_out;
 PUBLIC sup_digreg_coeff_t  cntrl_ww_q;
 
 /* Variablen fuer Kessel Steuerung */
-PUBLIC kes_param_t         cntrl_kes_par; 
+PUBLIC kes_param_t         cntrl_kes_par;
 PUBLIC kes_in_t            cntrl_kes_in;
 PUBLIC kes_out_t           cntrl_kes_out;
 

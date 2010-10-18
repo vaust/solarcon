@@ -115,6 +115,10 @@ void *telnet_thread( void *arg )
                             cntrl_mdl_aktiv.kes_aktiv = RESET;
                             snprintf( bufout, BFLN, "\tKES-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
                         }
+                        else if( strncasecmp( token, "ERR", 3 ) == 0 ) {
+                            cntrl_mdl_aktiv.err_aktiv = RESET;
+                            snprintf( bufout, BFLN, "\tERR-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                        }
                     }
                     MUTEX_UNLOCK();
                 }
@@ -123,7 +127,7 @@ void *telnet_thread( void *arg )
                     MUTEX_LOCK();
                     token = strtok( NULL, "\n\r " );
                     if( NULL != token ) {
-                        if( strncasecmp( token, "SOL", 3 ) == 0 ) {
+                        if     ( strncasecmp( token, "SOL", 3 ) == 0 ) {
                             cntrl_mdl_aktiv.sol_aktiv = SET;
                             snprintf( bufout, BFLN, "\tSOL-Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
                         }
@@ -143,12 +147,17 @@ void *telnet_thread( void *arg )
                             cntrl_mdl_aktiv.kes_aktiv = SET;
                             snprintf( bufout, BFLN, "\tKES Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
                         }
+                        else if( strncasecmp( token, "ERR", 3 ) == 0 ) {
+                            cntrl_mdl_aktiv.err_aktiv = SET;
+                            snprintf( bufout, BFLN, "\tERR Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                        }
                         else if( strncasecmp( token, "ALL", 3 ) == 0 ) {
                             cntrl_mdl_aktiv.sol_aktiv  = SET;
                             cntrl_mdl_aktiv.fb_aktiv   = SET;
                             cntrl_mdl_aktiv.hk_aktiv   = SET;
                             cntrl_mdl_aktiv.ww_aktiv   = SET;
                             cntrl_mdl_aktiv.kes_aktiv  = SET;
+                            cntrl_mdl_aktiv.err_aktiv  = SET;
                             snprintf( bufout, BFLN, "\tAlle Module auf AUTOMATIK Betrieb!\n" ); BFLSH();
                         }
                     }
@@ -181,6 +190,11 @@ void *telnet_thread( void *arg )
                         else if( strncasecmp( token, "KES", 3 ) == 0 ) {
                             telnet_putVars( telnet_kes_Vars, sizeof(telnet_kes_Vars)/sizeof(parse_set_t), fdesc, bufout );
                             printf( "TELNET.C: PUT KES Befehl erhalten\n" );
+                            // kes_Init( &cntrl_kes_par, &cntrl_kes_out );
+                        }
+                        else if( strncasecmp( token, "ERR", 3 ) == 0 ) {
+                            telnet_putVars( telnet_err_Vars, sizeof(telnet_err_Vars)/sizeof(parse_set_t), fdesc, bufout );
+                            printf( "TELNET.C: PUT ERR Befehl erhalten\n" );
                             // kes_Init( &cntrl_kes_par, &cntrl_kes_out );
                         }
                     }
@@ -242,6 +256,14 @@ void telnet_writeModuls( int fdesc, char *bufout )
     else {
         snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
     }
+    snprintf( bufout, BFLN, "\tERR-Modul auf " ); BFLSH();
+    if( cntrl_mdl_aktiv.err_aktiv == SET ) {
+        snprintf( bufout, BFLN, "AUTO Betrieb (Closed Loop)\n" ); BFLSH();
+    }
+    else {
+        snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
+    }
+
 }
 
 void telnet_writeHelp( int fdesc, char *bufout )
@@ -308,6 +330,9 @@ void telnet_parseGet( int fdesc, char *bufout )
         }
         else if( strncasecmp( token, "VKES", 4 ) == 0 ) {
             telnet_writeVars( telnet_kes_Vars, sizeof(telnet_kes_Vars)/sizeof(parse_set_t), fdesc, bufout );
+        }
+        else if( strncasecmp( token, "VERR", 4 ) == 0 ) {
+            telnet_writeVars( telnet_err_Vars, sizeof(telnet_err_Vars)/sizeof(parse_set_t), fdesc, bufout );
         }
     }
 }
@@ -577,7 +602,7 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
         snprintf( bufout, BFLN, " = " ); BFLSH();
         switch ( Vars[n].format[1] ) {
             case 'd':
-                snprintf( bufout, BFLN, Vars[n].format, *(int *)Vars[n].VarPointer ); BFLSH();
+                snprintf( bufout, BFLN, Vars[n].format, *(s16_t *)Vars[n].VarPointer ); BFLSH();
                 break;
             case 'x':
                 snprintf( bufout, BFLN, Vars[n].format, *(u8_t *)Vars[n].VarPointer ); BFLSH();

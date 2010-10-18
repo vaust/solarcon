@@ -165,9 +165,24 @@ const parse_set_t telnet_kes_Vars[] =
     { "kes_out.pu_sp2_sb",    &(cntrl_kes_out.pu_sp2_sb),    "%x" }
 };
 
+const parse_set_t telnet_err_Vars[] =
+{
+    { "err_par.br_TimeOut",           &(cntrl_err_par.br_TimeOut),           "%d" },
+
+    { "err_in.koll_Uebertemperatur",  &(cntrl_err_in.koll_Uebertemperatur),  "%x" },
+    { "err_in.kes_tvl_sw",            &(cntrl_err_in.kes_tvl_sw),            "%f" },
+    { "err_in.kes_tvl_mw",            &(cntrl_err_in.kes_tvl_mw),            "%f" },
+    { "err_in.br_RueckMeldung",       &(cntrl_err_in.br_RueckMeldung),       "%x" },
+    { "err_in.br_StoerMeldung",       &(cntrl_err_in.br_StoerMeldung),       "%x" },
+    { "err_in.stb_Fussbodenheizung",  &(cntrl_err_in.stb_Fussbodenheizung),  "%x" },
+
+    { "err_out.br_Countdown",         &(cntrl_err_out.br_Countdown),         "%d" },
+    { "err_out.Sammelstoermeldung",   &(cntrl_err_out.Sammelstoermeldung),   "%x" }
+};
+
 const char *telnet_help_text[] = {
     "\n Mögliche Befehle: \n\n",
-    
+
     "\tGET T     (alle Temperaturmesswerte)\n",
     "\tGET SW    (Sollwerte)\n",
     "\tGET AO    (alle Analog-Ausgaenge)\n",
@@ -181,15 +196,15 @@ const char *telnet_help_text[] = {
     "\tGET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n",
     "\tGET ABS   (Absenkungen ausgeben)\n\n",
     "\tINIT      (Initialisierungsdateien neu einlesen)\n\n",
-       
-    "\tAUTO <mdl>    (Modul SOL, FB, HK, WW, KES auf Automatik)\n",
+
+    "\tAUTO <mdl>    (Modul SOL, FB, HK, WW, KES, ERR auf Automatik)\n",
     "\tAUTO ALL      (alle Module auf Automatik)\n",
-    "\tHAND <mdl>    (Modul SOL, FB, HK, WW, KES auf Handbetrieb)\n",
+    "\tHAND <mdl>    (Modul SOL, FB, HK, WW, KES, ERR auf Handbetrieb)\n",
     "\tMODUL         (Anzeige aller Module incl. Betriebszustand)\n",
     "\tPUT <mdl> var-nr=wert (Modul Variable manuell setzen.\n",
     "\t          Ausgangsgroessen sind nur im Handbetrieb aenderbar.\n",
     "\t          var-nr ergibt sich aus Ausgabe von GET Vxxx)\n\n",
-       
+
     "\tGET VFB   (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
     "\tGET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
     "\tGET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",

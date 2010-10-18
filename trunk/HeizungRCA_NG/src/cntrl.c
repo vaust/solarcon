@@ -14,6 +14,7 @@
 #include "ww.h"
 #include "kes.h"
 #include "io.h"
+#include "err.h"
 #include "cntrl.h"
 
 #ifdef __WIN__
@@ -55,7 +56,7 @@ void *cntrl_thread( void *arg )
 int main( void )
 #endif
 {
-//    signal( SIGINT, terminate );
+    signal( SIGINT, terminate );
 
     KBUSOPEN();
     KBUSUPDATE();
@@ -69,7 +70,7 @@ int main( void )
     hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
     ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
     kes_Init( &cntrl_kes_par, &cntrl_kes_out );
-    err_Init( &cntrl_err_par );
+    err_Init( &cntrl_err_par, &cntrl_err_out );
     MUTEX_UNLOCK();
 
 #ifdef __TEST__
@@ -86,7 +87,7 @@ int main( void )
     cntrl_mdl_aktiv.kes_aktiv = SET;
     cntrl_mdl_aktiv.err_aktiv = RESET; /* Default erst einmal AUS! */
     MUTEX_UNLOCK();
-    
+
     while( 1  ) {
         MUTEX_LOCK();
         KBUSUPDATE();   /*---------- Prozessabbild aktualisieren ----------*/
@@ -128,6 +129,11 @@ int main( void )
         cntrl_kes_in.br_bm           = io_get_KES_BR_BM();
         cntrl_kes_in.partytime_flg   = cntrl_zeit_party.ww_partytime_flg;
 
+        cntrl_err_in.br_RueckMeldung = io_get_KES_BR_BM();
+        cntrl_err_in.br_StoerMeldung = io_get_KES_SSM();
+        cntrl_err_in.kes_tvl_mw      = io_get_KES_Tvl_MW();
+        cntrl_err_in.stb_Fussbodenheizung = io_get_FB_SEK_TW();
+
         /*---------- VERARBEITUNG DES PROZESSABBILDES -----------*/
         /* solar_Run(), fb_Run() und hk_Run() sind unabhaengig von einander */
         if( SET == cntrl_mdl_aktiv.sol_aktiv )
@@ -149,12 +155,13 @@ int main( void )
             cntrl_kes_in.fb_tvl_sw = cntrl_fb_out.tvl_sw;
             kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
         }
-        
+
         /* Sammelstoermeldung bedienen */
         if( SET == cntrl_mdl_aktiv.err_aktiv ) {
+            cntrl_err_in.kes_tvl_sw = cntrl_kes_out.tvl_sw;
             err_Run( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
         }
-                
+
         /*---------- AUSGABE DES PROZESSABBILDES ------------*/
         io_put_SOL_PU_SB( cntrl_sol_out.pu_sb[KO1] );
         io_put_SOL_SP1_AV_SB( cntrl_sol_out.av_sb[SP1] );
@@ -180,6 +187,14 @@ int main( void )
         /* Lebenszeichen der Steuerung */
         io_put_CONTROL_AKTIV( !io_get_CONTROL_AKTIV() );
         /* Ausgabe des Prozessabbildes auf den K-Bus */
+
+        if( cntrl_err_out.Sammelstoermeldung == RESET ) {
+            io_put_STOERUNG( IO_AUS );              /* Stoermeldung AUS */
+        }
+        else {
+            io_put_STOERUNG( !io_get_STOERUNG() );  /* Stoermeldung blinken lassen */
+        }
+
         KBUSUPDATE();   /*---------- Prozessabbild aktualisieren ----------*/
         MUTEX_UNLOCK();
 
