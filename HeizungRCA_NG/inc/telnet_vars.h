@@ -199,5 +199,7 @@ const char *telnet_help_text[] = {
     "\tVERSION   (Software Version ausgeben)\n",
     "\tEND       (Datenabfrage beenden)\n\n"
 };
+#else
+#perror "Header nicht von telnet.c eingebunden"
 #endif // _TELNET_C_
 #endif // _TELNET_VARS_H_
