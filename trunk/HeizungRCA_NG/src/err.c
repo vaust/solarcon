@@ -5,10 +5,10 @@
 
 /*
 SAMMELSTOERMELDUNG =
-    Kollektorübertemperatur ||
+    Kollektoruebertemperatur ||
     Brennermeldung kommt nicht nach max 1 min nach Anforderung ||
-    Kesselstörmeldung ist gesetzt ||
-    STB Fussbodenheizung hat ausgelöst ||
+    Kesselstoermeldung ist gesetzt ||
+    STB Fussbodenheizung hat ausgeloest ||
 
     ...
 
