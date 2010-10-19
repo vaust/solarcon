@@ -48,6 +48,9 @@ void err_Run( const err_param_t *par_p,
 
         out_p->Sammelstoermeldung = SET;
     }
+    else {
+        out_p->Sammelstoermeldung = RESET;
+    }
 }
 
 
