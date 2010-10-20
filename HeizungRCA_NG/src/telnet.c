@@ -220,51 +220,36 @@ void *telnet_thread( void *arg )
     }
 }
 
+inline 
+void telnet_write_Auto_Hand( u8_t flag, int fdesc, char *bufout )
+{
+    if( flag == SET ) {
+        snprintf( bufout, BFLN, "AUTO Betrieb (Closed Loop)\n" ); BFLSH();
+    }
+    else {
+        snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
+    }
+}
+
 void telnet_writeModuls( int fdesc, char *bufout )
 {
     snprintf( bufout, BFLN, "\tSOL-Modul auf " ); BFLSH();
-    if( cntrl_mdl_aktiv.sol_aktiv == SET ) {
-        snprintf( bufout, BFLN, "AUTO Betrieb (Closed Loop)\n" ); BFLSH();
-    }
-    else {
-        snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
-    }
+    telnet_write_Auto_Hand( cntrl_mdl_aktiv.sol_aktiv, fdesc, bufout );
+    
     snprintf( bufout, BFLN, "\tFB-Modul  auf " ); BFLSH();
-    if( cntrl_mdl_aktiv.fb_aktiv == SET ) {
-        snprintf( bufout, BFLN, "AUTO Betrieb (Closed Loop)\n" ); BFLSH();
-    }
-    else {
-        snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
-    }
-    snprintf( bufout, BFLN, "\tHK-Modul  auf " ); BFLSH();
-    if( cntrl_mdl_aktiv.hk_aktiv == SET ) {
-        snprintf( bufout, BFLN, "AUTO Betrieb (Closed Loop)\n" ); BFLSH();
-    }
-    else {
-        snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
-    }
-    snprintf( bufout, BFLN, "\tWW-Modul  auf " ); BFLSH();
-    if( cntrl_mdl_aktiv.ww_aktiv == SET ) {
-        snprintf( bufout, BFLN, "AUTO Betrieb (Closed Loop)\n" ); BFLSH();
-    }
-    else {
-        snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
-    }
-    snprintf( bufout, BFLN, "\tKES-Modul auf " ); BFLSH();
-    if( cntrl_mdl_aktiv.kes_aktiv == SET ) {
-        snprintf( bufout, BFLN, "AUTO Betrieb (Closed Loop)\n" ); BFLSH();
-    }
-    else {
-        snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
-    }
-    snprintf( bufout, BFLN, "\tERR-Modul auf " ); BFLSH();
-    if( cntrl_mdl_aktiv.err_aktiv == SET ) {
-        snprintf( bufout, BFLN, "AUTO Betrieb (Closed Loop)\n" ); BFLSH();
-    }
-    else {
-        snprintf( bufout, BFLN, "HAND Betrieb (Open Loop)\n" ); BFLSH();
-    }
+    telnet_write_Auto_Hand( cntrl_mdl_aktiv.fb_aktiv, fdesc, bufout );
 
+    snprintf( bufout, BFLN, "\tHK-Modul  auf " ); BFLSH();
+    telnet_write_Auto_Hand( cntrl_mdl_aktiv.hk_aktiv, fdesc, bufout );
+
+    snprintf( bufout, BFLN, "\tWW-Modul  auf " ); BFLSH();
+    telnet_write_Auto_Hand( cntrl_mdl_aktiv.ww_aktiv, fdesc, bufout );
+
+    snprintf( bufout, BFLN, "\tKES-Modul auf " ); BFLSH();
+    telnet_write_Auto_Hand( cntrl_mdl_aktiv.kes_aktiv, fdesc, bufout );
+
+    snprintf( bufout, BFLN, "\tERR-Modul auf " ); BFLSH();
+    telnet_write_Auto_Hand( cntrl_mdl_aktiv.err_aktiv, fdesc, bufout );
 }
 
 void telnet_writeHelp( int fdesc, char *bufout )
