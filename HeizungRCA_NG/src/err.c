@@ -18,7 +18,7 @@ SAMMELSTOERMELDUNG =
 void err_Init( err_param_t *par_p, err_out_t *out_p )
 {
     par_p->br_TimeOut   = 240;      /* 240 entspr. 4 min */
-    par_p->dt           =   5.0;    /* Tvl_MW muss um diesen Betrag hoeher sein */
+    par_p->dt           = param_kes_sp_dt_sw / 2.0;    /* Tvl_MW muss um diesen Betrag hoeher sein */
     out_p->br_Countdown = par_p->br_TimeOut;
 }
 
