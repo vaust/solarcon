@@ -168,6 +168,7 @@ const parse_set_t telnet_kes_Vars[] =
 const parse_set_t telnet_err_Vars[] =
 {
     { "err_par.br_TimeOut",           &(cntrl_err_par.br_TimeOut),           "%d" },
+    { "err_par.dt",                   &(cntrl_err_par.dt),                   "%f" },
 
     { "err_in.koll_Uebertemperatur",  &(cntrl_err_in.koll_Uebertemperatur),  "%x" },
     { "err_in.kes_tvl_sw",            &(cntrl_err_in.kes_tvl_sw),            "%f" },
@@ -218,6 +219,6 @@ const char *telnet_help_text[] = {
     "\tEND       (Datenabfrage beenden)\n\n"
 };
 #else
-#perror "Header nicht von telnet.c eingebunden"
+#error "Header nicht von telnet.c eingebunden"
 #endif // _TELNET_C_
 #endif // _TELNET_VARS_H_
