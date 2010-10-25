@@ -73,11 +73,6 @@ int main( void )
     err_Init( &cntrl_err_par, &cntrl_err_out );
     MUTEX_UNLOCK();
 
-#ifdef __TEST__
-    zeit_TEST_Schaltzeiten();
-    param_TEST_Vorgaben();
-#endif
-
     /*----- Module aktivieren ----*/
     MUTEX_LOCK();
     cntrl_mdl_aktiv.sol_aktiv = SET;
@@ -90,7 +85,8 @@ int main( void )
 
     while( 1  ) {
         MUTEX_LOCK();
-        KBUSUPDATE();   /*---------- Prozessabbild aktualisieren ----------*/
+        /*----------- Prozessabbild aktualisieren -----------*/
+        KBUSUPDATE();   
 
         /*---------- EINGABE DES PROZESSABBILDES ------------*/
         /* alles was im Sekunden-, Minuten- und Stundenraster ablaufen muss und *
@@ -193,30 +189,10 @@ int main( void )
         else {
             io_put_STOERUNG( !io_get_STOERUNG() );  /* Stoermeldung blinken lassen */
         }
-
-        KBUSUPDATE();   /*---------- Prozessabbild aktualisieren ----------*/
+        
+        /*---------- Prozessabbild aktualisieren ----------*/
+        KBUSUPDATE();   
         MUTEX_UNLOCK();
-
-        /*---------- TESTAUSGABE DES PROZESSABBILDES ----------*/
-#ifdef __TEST__
-        printf( "CNTRL.C: TEST: ZEIT : Absenkung Fussbodenheizung: %d\n", cntrl_zeit_absenkung.FB_Zustand );
-        printf( "CNTRL.C: TEST: ZEIT : Absenkung Duschzeit       : %d\n", cntrl_zeit_absenkung.Duschzeit );
-        printf( "CNTRL.C: TEST: SOLAR: sp1_av_sb=%d sp2_av_sb=%u sol_pu_sb=%d\n",
-                cntrl_sol_out.av_sb[SP1], cntrl_sol_out.av_sb[SP2], cntrl_sol_out.pu_sb[KO1] );
-        printf( "CNTRL.C: TEST: FB   : tvl_sw=%f prim_mv_y=%f prim_pu_sb=%d sek_pu_sb=%d\n",
-                cntrl_fb_out.tvl_sw, cntrl_fb_out.prim_mv_y.y, cntrl_fb_out.prim_pu_sb, cntrl_fb_out.sek_pu_sb );
-        printf( "CNTRL.C: TEST: HK   : tvl_sw=%f mv_y=%f pu_sb=%d\n",
-                cntrl_hk_out.tvl_sw, cntrl_hk_out.mv_y.y, cntrl_hk_out.pu_sb );
-        printf( "CNTRL.C: TEST: WW   : hzg_tvl_sw=%f hzg_mv_y=%f hzg_pu_y=%f zirk_pu_sb=%d hzg_pu_sb=%d hzg_vv_sb=%d\n",
-                cntrl_ww_out.hzg_tvl_sw, cntrl_ww_out.hzg_mv_y.y, cntrl_ww_out.hzg_pu_y.y,
-                cntrl_ww_out.zirk_pu_sb, cntrl_ww_out.hzg_pu_sb, cntrl_ww_out.hzg_vv_sb );
-        printf( "CNTRL.C: TEST: KES  : sp1_to_sw=%f sp2_to_sw=%f tvl_sw_sp1=%f tvl_sw_=%f \n",
-                cntrl_kes_out.sp1_to_sw, cntrl_kes_out.sp2_to_sw,
-                cntrl_kes_out.tvl_sw_sp1, cntrl_kes_out.tvl_sw_sp2 );
-        printf( "CNTRL.C: TEST: KES  : tvl_sw=%f pu_sp1_sb=%d pu_sp2_sb=%d\n",
-                cntrl_kes_out.tvl_sw, cntrl_kes_out.pu_sp1_sb, cntrl_kes_out.pu_sp2_sb );
-        printf( "\n" );
-#endif /* __TEST__ */
 
         /* Abtastzeit abwarten. ACHTUNG: Rechenzeit nicht beruecksichtigt.
            Muesste eigentlich ueber Timerfunktion laufen */
