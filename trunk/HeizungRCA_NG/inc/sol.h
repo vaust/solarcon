@@ -40,9 +40,9 @@ typedef struct {
 
 /* <Prototypen> */
 void sol_Init( sol_param_t *par_p );
-int sol_Run(  const sol_param_t  *par_p,
-              const sol_in_t     *in_p,
-                    sol_out_t    *out_p );
+s16_t sol_Run(  const sol_param_t  *par_p,
+                const sol_in_t     *in_p,
+                      sol_out_t    *out_p );
 /* <Prototypen/> */
 
 

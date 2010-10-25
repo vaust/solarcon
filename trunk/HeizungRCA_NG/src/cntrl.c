@@ -186,7 +186,6 @@ int main( void )
 
         /* Lebenszeichen der Steuerung */
         io_put_CONTROL_AKTIV( !io_get_CONTROL_AKTIV() );
-        /* Ausgabe des Prozessabbildes auf den K-Bus */
 
         if( cntrl_err_out.Sammelstoermeldung == RESET ) {
             io_put_STOERUNG( IO_AUS );              /* Stoermeldung AUS */
