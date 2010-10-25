@@ -3,9 +3,20 @@
 #include "param.h"
 #include "ww.h"
 
-static void ww_MV_Steuerung( const ww_param_t *par_p,
-                             const ww_in_t    *in_p,
-                                   ww_out_t   *out_p )
+// #define __SCHWACHLAST__
+
+/** 
+  * Steuert die Stellung des Mischventils, das die Vorlauftemperatur fuer den Warmwasser-
+  * Waermetauscher
+  * \param par_p Pointer auf Struktur mit Parametern
+  * \param in_p  Pointer auf Struktur mit den Eingangsgroessen
+  * \param out_p Pointer auf Struktur mit der Ausgangsgroesse Stellwert  
+  * \return kein
+  */
+static 
+void ww_MV_Steuerung( const ww_param_t *par_p,
+                      const ww_in_t    *in_p,
+                            ww_out_t   *out_p )
 {
     out_p->hzg_tvl_sw = par_p->tww_sw + par_p->kes_sp_dt_sw;
     if( in_p->sp1_to_mw > in_p->hzg_trl_mw ) {
@@ -20,9 +31,10 @@ static void ww_MV_Steuerung( const ww_param_t *par_p,
     sup_Limit( &(out_p->hzg_mv_y.y), MIN_Y_PCT, MAX_Y_PCT );
 }
 
-static void ww_VV_Steuerung( const ww_param_t *par_p,
-                             const ww_in_t    *in_p,
-                                   ww_out_t   *out_p )
+static 
+void ww_VV_Steuerung( const ww_param_t *par_p,
+                      const ww_in_t    *in_p,
+                            ww_out_t   *out_p )
 {
     if( in_p->tau_avg        > par_p->at_start ) {
         if( in_p->hzg_trl_mw < in_p->sp2_tu_mw ) out_p->hzg_vv_sb = WW_VV_SP2;
@@ -34,8 +46,10 @@ static void ww_VV_Steuerung( const ww_param_t *par_p,
     }
 }
 
-static void ww_Schwachlast_Steuerung( const ww_param_t *par_p,
-                                            ww_out_t   *out_p )
+#ifdef __SCHWACHLAST__
+static 
+void ww_Schwachlast_Steuerung( const ww_param_t *par_p,
+                                     ww_out_t   *out_p )
 {
     static u16_t    schwachlastzeit = 0;
 
@@ -50,6 +64,7 @@ static void ww_Schwachlast_Steuerung( const ww_param_t *par_p,
         schwachlastzeit = 0;
     }
 }
+#endif
 
 void ww_Init( ww_param_t         *par_p,
               sup_digreg_coeff_t *q_hzg_pu_p,
@@ -71,7 +86,7 @@ void ww_Init( ww_param_t         *par_p,
 }
 
 void ww_Run( const ww_param_t         *par_p,
-       /* const */ sup_digreg_coeff_t *q_hzg_pu_p,
+             const sup_digreg_coeff_t *q_hzg_pu_p,
              const ww_in_t            *in_p,
                    ww_out_t           *out_p )
 {
@@ -85,16 +100,6 @@ void ww_Run( const ww_param_t         *par_p,
     else
         out_p->zirk_pu_sb = IO_AUS;
 
-
-/*  if ( in_p->duschzeit == zJa ) {
-        q_hzg_pu_p->upper_limit = MAX_Y_PCT;
-        q_hzg_pu_p->lower_limit = MIN_Y_PCT;
-    }
-    else {
-        q_hzg_pu_p->upper_limit = par_p->hzg_pu_y_min;
-        q_hzg_pu_p->lower_limit = MIN_Y_PCT;
-    }
- */    
     /* PI-Regler fuer WW Heizungspumpe */
     sup_DigRegler( q_hzg_pu_p, par_p->tww_sw, in_p->tww_mw, &(out_p->hzg_pu_y) );
 
@@ -102,8 +107,9 @@ void ww_Run( const ww_param_t         *par_p,
     ww_MV_Steuerung( par_p, in_p, out_p );
 
     /* Schwachlast Steuerung */
-    // ww_Schwachlast_Steuerung( par_p, out_p );
-
+#ifdef __SCHWACHLAST__
+    ww_Schwachlast_Steuerung( par_p, out_p );
+#endif
     /* Kriterium fuer Warmwasser Heizungsverteilventil */
     ww_VV_Steuerung( par_p, in_p, out_p );
 }
