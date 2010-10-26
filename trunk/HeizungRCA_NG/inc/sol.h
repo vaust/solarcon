@@ -28,14 +28,14 @@ typedef struct {
 } sol_sp_t_mw_t;
 
 typedef struct {
-    float           koll_t_mw[SOL_N_KO];
-    sol_sp_t_mw_t   t_sp[SOL_N_SP];
+    float           koll_t_mw[SOL_N_KO];    /**< Array von Kollektortemperaturen (aktuell nur ein Element) */
+    sol_sp_t_mw_t   t_sp[SOL_N_SP];         /**< Array auf Speichertemperaturpaare (aktuell 2 Elemente)    */
 } sol_in_t;
 /* <Typen/> */
 
 typedef struct {
-    do_bitbyte_t    av_sb[SOL_N_SP];
-    do_bitbyte_t    pu_sb[SOL_N_KO];
+    do_bitbyte_t    av_sb[SOL_N_SP];        /**< Array auf Absperrventilzustaende  (aktuell 2 Elemente)       */
+    do_bitbyte_t    pu_sb[SOL_N_KO];        /**< Array auf Kollektorpumpenzustaende (aktuell nur ein Element) */
 } sol_out_t;   
 
 /* <Prototypen> */
