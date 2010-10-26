@@ -71,10 +71,8 @@ int main( void )
     ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
     kes_Init( &cntrl_kes_par, &cntrl_kes_out );
     err_Init( &cntrl_err_par, &cntrl_err_out );
-    MUTEX_UNLOCK();
 
     /*----- Module aktivieren ----*/
-    MUTEX_LOCK();
     cntrl_mdl_aktiv.sol_aktiv = SET;
     cntrl_mdl_aktiv.fb_aktiv  = SET;
     cntrl_mdl_aktiv.hk_aktiv  = SET;

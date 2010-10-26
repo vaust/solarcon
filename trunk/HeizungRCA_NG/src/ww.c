@@ -7,7 +7,7 @@
 
 /** 
   * Steuert die Stellung des Mischventils, das die Vorlauftemperatur fuer den Warmwasser-
-  * Waermetauscher
+  * Waermetauscher.
   * \param par_p Pointer auf Struktur mit Parametern
   * \param in_p  Pointer auf Struktur mit den Eingangsgroessen
   * \param out_p Pointer auf Struktur mit der Ausgangsgroesse Stellwert  
@@ -31,6 +31,14 @@ void ww_MV_Steuerung( const ww_param_t *par_p,
     sup_Limit( &(out_p->hzg_mv_y.y), MIN_Y_PCT, MAX_Y_PCT );
 }
 
+/** 
+  * Verteilventil zwischen den Speichern 1 und 2 entsprechend der Speichertemperaturen
+  * einstellen.
+  * \param par_p Pointer auf Struktur mit Parametern
+  * \param in_p  Pointer auf Struktur mit den Eingangsgroessen
+  * \param out_p Pointer auf Struktur mit der Ausgangsgroesse Stellwert  
+  * \return kein
+  */
 static 
 void ww_VV_Steuerung( const ww_param_t *par_p,
                       const ww_in_t    *in_p,
@@ -47,6 +55,13 @@ void ww_VV_Steuerung( const ww_param_t *par_p,
 }
 
 #ifdef __SCHWACHLAST__
+/** 
+  * Schwachlaststeuerung soll eingreifen, wenn nur wenig Warmwasser gebraucht wird und 10% 
+  * Pumpenleistung fuer den Waermetauscher bereits zu viel Leistung bringt
+  * \param par_p Pointer auf Struktur mit Parametern
+  * \param out_p Pointer auf Struktur mit der Ausgangsgroesse Stellwert  
+  * \return kein
+  */
 static 
 void ww_Schwachlast_Steuerung( const ww_param_t *par_p,
                                      ww_out_t   *out_p )
@@ -66,6 +81,15 @@ void ww_Schwachlast_Steuerung( const ww_param_t *par_p,
 }
 #endif
 
+/**
+  * \brief Initialisierung der ww-Task.
+  * Die minimale Pumpenleistung wird bei 11% Stellgroesse erreicht. Unter 10% ist die 
+  * Pumpe aus. Der PI-Regler der fuer die wird hier mit initialisiert.
+  * \param par_p Pointer auf Struktur mit Parametern
+  * \param out_p Pointer auf Struktur mit der Ausgangsgroesse Stellwert  
+  * \param q_hzg_pu_p Pointer auf Struktur mit den PI-Regler-Parametern
+  * \return kein
+  */
 void ww_Init( ww_param_t         *par_p,
               sup_digreg_coeff_t *q_hzg_pu_p,
               ww_out_t           *out_p )
@@ -85,6 +109,14 @@ void ww_Init( ww_param_t         *par_p,
                     par_p->pu_reg_kp, par_p->pu_reg_ki, MIN_Y_PCT, MAX_Y_PCT );
 }
 
+/**
+  * \brief Eigentlicher Warmwasser Task
+  * \param par_p Pointer auf Struktur mit Parametern
+  * \param q_hzg_pu_p Pointer auf Struktur mit den PI-Regler-Parametern der Pumpe
+  * \param in_p  Pointer auf Struktur mit den Eingangsgroessen fuer WW
+  * \param out_p Pointer auf Struktur mit allen Ausgangsgroessen fuer WW
+  * \return kein  
+  */
 void ww_Run( const ww_param_t         *par_p,
              const sup_digreg_coeff_t *q_hzg_pu_p,
              const ww_in_t            *in_p,
