@@ -39,9 +39,9 @@ void sup_DigRegInit( sup_digreg_coeff_t *q_p,
  */
 
 float sup_DigRegler( const sup_digreg_coeff_t *q_p, 
-                      const float               soll, 
-                      const float               ist, 
-                            sup_digreg_out_t   *y_p )
+                     const float               soll, 
+                     const float               ist, 
+                            sup_digreg_out_t  *y_p )
 {
     /* x[0] : x Eingangsgroesse */
     /* x[2] : y Ausgangsgroesse ohne Begrenzung */
