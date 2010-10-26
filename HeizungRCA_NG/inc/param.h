@@ -53,7 +53,7 @@
     #define VORGABENDATEI           "vorgaben.ini"
 #endif
 
-#endif
+#endif /* _PARAM_C_ */
 
 #define MAX_ALL_Tau_mittel_Zeit   48    /**< max. Wert aus Kommentar in vorgaben.ini                                    */
 #define ABTASTZEIT_USEC      1000000L   /**< das gleiche als LONG in Mikrosekunden fuer usleep Operation                */
