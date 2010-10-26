@@ -61,6 +61,7 @@ void *telnet_thread( void *arg )
             pthread_exit( NULL );
         }
         else {
+            MUTEX_LOCK();
             token = strtok( bufin, "\n\r " );
             if( NULL != token ) {
                 if     ( strncasecmp( "END", token, 3 ) == 0 ) {
@@ -81,19 +82,14 @@ void *telnet_thread( void *arg )
                 }
                 else if( strncasecmp( "GET", token, 3 ) == 0 ) {
                     printf( "TELNET.C: GET Befehl erhalten\n" );
-                    MUTEX_LOCK();
                     telnet_parseGet( fdesc, bufout );
-                    MUTEX_UNLOCK();
                 }
                 else if( strncasecmp( "MODULE", token, 3 ) == 0 ) {
                     printf( "TELNET.C: MODULE Befehl erhalten\n" );
-                    MUTEX_LOCK();
                     telnet_writeModuls( fdesc, bufout );
-                    MUTEX_UNLOCK();
                 }
                 else if( strncasecmp( "HAND", token, 4 ) == 0 ) {
                     printf( "TELNET.C: HAND Befehl erhalten\n" );
-                    MUTEX_LOCK();
                     token = strtok( NULL, "\n\r " );
                     if( NULL != token ) {
                         if     ( strncasecmp( token, "SOL", 3 ) == 0 ) {
@@ -121,11 +117,9 @@ void *telnet_thread( void *arg )
                             snprintf( bufout, BFLN, "\tERR-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
                         }
                     }
-                    MUTEX_UNLOCK();
                 }
                 else if( strncasecmp( "AUTO", token, 4 ) == 0 ) {
                     printf( "TELNET.C: AUTO Befehl erhalten\n" );
-                    MUTEX_LOCK();
                     token = strtok( NULL, "\n\r " );
                     if( NULL != token ) {
                         if     ( strncasecmp( token, "SOL", 3 ) == 0 ) {
@@ -162,10 +156,8 @@ void *telnet_thread( void *arg )
                             snprintf( bufout, BFLN, "\tAlle Module auf AUTOMATIK Betrieb!\n" ); BFLSH();
                         }
                     }
-                    MUTEX_UNLOCK();
                 }
                 else if( strncasecmp( "PUT", token, 3 ) == 0 ) {
-                    MUTEX_LOCK();
                     token = strtok( NULL, "0123456789 " );
                     if( NULL != token ) {
                         if( strncasecmp( token, "SOL", 3 ) == 0 ) {
@@ -199,11 +191,9 @@ void *telnet_thread( void *arg )
                             // kes_Init( &cntrl_kes_par, &cntrl_kes_out );
                         }
                     }
-                    MUTEX_UNLOCK();
                 }
                 else if( strncasecmp( "INIT", token, 4 ) == 0 ) {
                     printf( "TELNET.C: INIT Befehl erhalten\n" );
-                    MUTEX_LOCK();
                     param_Init();
                     zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
                     task_Init( &cntrl_tau, io_get_ALL_Tau_MW() );
@@ -212,10 +202,10 @@ void *telnet_thread( void *arg )
                     hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
                     ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
                     kes_Init( &cntrl_kes_par, &cntrl_kes_out );
-                    MUTEX_UNLOCK();
                     snprintf( bufout, BFLN, "\tParameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
                 }
             }
+            MUTEX_UNLOCK();
         }
     }
 }
