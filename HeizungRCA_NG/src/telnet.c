@@ -210,7 +210,7 @@ void *telnet_thread( void *arg )
     }
 }
 
-inline 
+static inline 
 void telnet_write_Auto_Hand( u8_t flag, int fdesc, char *bufout )
 {
     if( flag == SET ) {
@@ -221,6 +221,7 @@ void telnet_write_Auto_Hand( u8_t flag, int fdesc, char *bufout )
     }
 }
 
+static
 void telnet_writeModuls( int fdesc, char *bufout )
 {
     snprintf( bufout, BFLN, "\tSOL-Modul auf " ); BFLSH();
@@ -242,6 +243,7 @@ void telnet_writeModuls( int fdesc, char *bufout )
     telnet_write_Auto_Hand( cntrl_mdl_aktiv.err_aktiv, fdesc, bufout );
 }
 
+static
 void telnet_writeHelp( int fdesc, char *bufout )
 {
     int n;
@@ -250,6 +252,7 @@ void telnet_writeHelp( int fdesc, char *bufout )
     }
  }
 
+static
 void telnet_parseGet( int fdesc, char *bufout )
 {
     char *token;
@@ -313,6 +316,7 @@ void telnet_parseGet( int fdesc, char *bufout )
     }
 }
 
+static
 void telnet_writeVorgabenparameter( int fdesc, char *bufout )
 {
     int n;
@@ -333,6 +337,7 @@ void telnet_writeVorgabenparameter( int fdesc, char *bufout )
     }
 }
 
+static
 void telnet_minToTime( s16_t t, s16_t *d, s16_t *h, s16_t *m )
 {
     s16_t tmp;
@@ -345,6 +350,7 @@ void telnet_minToTime( s16_t t, s16_t *d, s16_t *h, s16_t *m )
     *d = tmp % 7;
 }
 
+static
 void telnet_writeSchaltzeiten( int fdesc, char *bufout )
 {
     s16_t n;
@@ -383,6 +389,7 @@ void telnet_writeSchaltzeiten( int fdesc, char *bufout )
     BFLSH();
 }
 
+static
 void telnet_writeT( int fdesc, char *bufout )
 {
     snprintf( bufout, BFLN, "ALL_Tau_MW     = %5.1f °C\n", io_get_ALL_Tau_MW() );       BFLSH();
@@ -404,6 +411,7 @@ void telnet_writeT( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "Tau_36h_mittel = %6.2f °C\n", cntrl_tau.t_36h_mittel );    BFLSH();
 }
 
+static
 void telnet_writeSW( int fdesc, char *bufout )
 {
     snprintf( bufout, BFLN, "kes_out.tvl_sw_sp1 = %5.1f °C\t kes_out.sp1_to_sw = %5.1f °C\n",
@@ -435,6 +443,7 @@ void telnet_writeSW( int fdesc, char *bufout )
     BFLSH();
 }
 
+static
 void telnet_writeAbsenk( int fdesc, char *bufout )
 {
     snprintf( bufout, BFLN, "HK_Zustand       = %s\n",
@@ -458,6 +467,7 @@ void telnet_writeAbsenk( int fdesc, char *bufout )
     }
 }
 
+static
 void telnet_writeDI( int fdesc, char *bufout )
 {
     /* Allgemeiner Partyschalter */
@@ -482,6 +492,7 @@ void telnet_writeDI( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "FB_SEK_TW = %s\n", (io_get_FB_SEK_TW() == IO_AUS) ?  "STÖRUNG (0)" : "NORMAL (1)" ); BFLSH();
 }
 
+static
 void telnet_writeDO( int fdesc, char *bufout )
 {
     snprintf( bufout, BFLN, "SOL_PU_SB = %s\n", (io_get_SOL_PU_SB() == IO_AUS) ? "AUS" : "EIN" );         BFLSH();
@@ -497,6 +508,7 @@ void telnet_writeDO( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "WW_ZIRK_PU_SB = %s\n", (io_get_WW_ZIRK_PU_SB() == IO_AUS) ? "AUS" : "EIN" ); BFLSH();
 }
 
+static
 void telnet_writeAO( int fdesc, char *bufout )
 {
     snprintf( bufout, BFLN, "KES_Tvl_Y    = %5.1f pct\n", io_get_KES_Tvl_Y() );        BFLSH();
@@ -506,6 +518,7 @@ void telnet_writeAO( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "WW_HZG_PU_Y  = %5.1f pct\n", io_get_WW_HZG_PU_Y() );      BFLSH();
 }
 
+static
 void telnet_writeFB( int fdesc, char *bufout )
 {
     snprintf( bufout, BFLN, "FB_PRIM_Trl_MW = %5.1f °C\n", io_get_FB_PRIM_Trl_MW() );                      BFLSH();
@@ -521,6 +534,7 @@ void telnet_writeFB( int fdesc, char *bufout )
     }
 }
 
+static
 void telnet_writeWW( int fdesc, char *bufout )
 {
     snprintf( bufout, BFLN, "ww_tww_sw        = %5.1f °C", cntrl_ww_par.tww_sw ); BFLSH();
@@ -548,6 +562,7 @@ void telnet_writeWW( int fdesc, char *bufout )
     }
 }
 
+static
 void telnet_writeHK( int fdesc, char *bufout )
 {
     snprintf( bufout, BFLN, "HK_Tvl_MW = %5.1f °C\n", io_get_HK_Tvl_MW() );                      BFLSH();
@@ -556,6 +571,7 @@ void telnet_writeHK( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "HK_PU_SB  = %s\n", (io_get_HK_PU_SB() == IO_AUS) ? "AUS" : "EIN" ); BFLSH();
 }
 
+static
 void telnet_writeSOL( int fdesc, char *bufout )
 {
     snprintf( bufout, BFLN, "SOL_KOLL_T_MW = %5.1f °C\n", io_get_SOL_KOLL_T_MW() );                     BFLSH();
@@ -568,6 +584,7 @@ void telnet_writeSOL( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "SOL_SP2_AV_SB = %s\n", (io_get_SOL_SP2_AV_SB() == IO_ZU) ? "ZU" : "AUF" ); BFLSH();
 }
 
+static
 void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufout )
 {
     int n;
@@ -592,6 +609,7 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
     }
 }
 
+static
 void telnet_putVars( const parse_set_t Vars[], int len, int fdesc, char *bufout )
 {
     char    *token;
