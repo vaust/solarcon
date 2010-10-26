@@ -17,14 +17,14 @@
 
 /* <Typen> */
 typedef struct {
-    float sp_t_max;
-    float dt_ein_sw;
-    float dt_aus_sw;
+    float sp_t_max;     /**< Maximal zulässige Speichertemperatur                                       */
+    float dt_ein_sw;    /**< Temperaturdifferenz zwischen Kollektor- und Speicher, die Ventil öffnet    */
+    float dt_aus_sw;    /**< Temperaturdifferenz zwischen Kollektor- und Speicher, die Ventil schliesst */
 }   sol_param_t;
 
 typedef struct {
-    float to_mw;
-    float tu_mw;
+    float to_mw;        /**< Obere Speichertemperatur  */
+    float tu_mw;        /**< Untere Speichertemperatur */
 } sol_sp_t_mw_t;
 
 typedef struct {
