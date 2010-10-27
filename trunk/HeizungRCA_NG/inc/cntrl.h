@@ -14,12 +14,18 @@
 #include "err.h"
 
 typedef struct enable_modul_s {
-    u8_t sol_aktiv  : 1;
-    u8_t fb_aktiv   : 1;
-    u8_t hk_aktiv   : 1;
-    u8_t ww_aktiv   : 1;
-    u8_t kes_aktiv  : 1;
-    u8_t err_aktiv  : 1;
+    u16_t sol_aktiv       : 1;  /**< Statusbit Solarkollektor aktiv             */
+    u16_t fb_aktiv        : 1;  /**< Statusbit Fussbodenheizung aktiv           */
+    u16_t hk_aktiv        : 1;  /**< Statusbit Heizkoerperheizkreis aktiv       */
+    u16_t ww_aktiv        : 1;  /**< Statusbit Warmwassersteuerung aktiv        */
+    u16_t kes_aktiv       : 1;  /**< Statusbit Kesselsteuerung aktiv            */
+    u16_t err_aktiv       : 1;  /**< Statusbit Sammelstoermeldung aktiv         */
+    u16_t inp_sol_aktiv   : 1;  /**< Statusbit Solar-Eingabe aktiv              */
+    u16_t inp_fb_aktiv    : 1;  /**< Statusbit Fussbodenheizung-Eingabe aktiv   */
+    u16_t inp_hk_aktiv    : 1;  /**< Statusbit Heizkoerper-Eingabe aktiv        */
+    u16_t inp_ww_aktiv    : 1;  /**< Statusbit Warmwasser-Eingabe aktiv         */
+    u16_t inp_kes_aktiv   : 1;  /**< Statusbit Kessel-Eingabe aktiv             */
+    u16_t inp_err_aktiv   : 1;  /**< Statusbit Sammelstoermeldung Eingabe aktiv */
 } enable_modul_t;
 
 /* <Globals> Sichtbar in cntrl.c und telnet.c */
