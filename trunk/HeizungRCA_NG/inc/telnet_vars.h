@@ -203,7 +203,8 @@ const char *telnet_help_text[] = {
     "\tAUTO ALL      (alle Module auf Automatik)\n",
     "\tHAND <mdl>    (Modul SOL, FB, HK, WW, KES, ERR auf Handbetrieb)\n",
     "\tMODUL         (Anzeige aller Module incl. Betriebszustand)\n",
-    "\tPUT <mdl> var-nr=wert (Modul Variable manuell setzen.\n",
+    "\tPUT <mdl> <var-nr> <=| > <wert> (Modul Variable manuell setzen.\n",
+    "\t          Beispiel: put ww 23 0.0 \n",
     "\t          Ausgangsgroessen sind nur im Handbetrieb aenderbar.\n",
     "\t          var-nr ergibt sich aus Ausgabe von GET Vxxx)\n\n",
 
