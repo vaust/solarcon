@@ -53,16 +53,16 @@ void sol_Pumpe( sol_out_t *out_p )
     }
 }
 
-int sol_Run(  const sol_param_t  *par_p,
-              const sol_in_t     *in_p,
-                    sol_out_t    *out_p )
+s16_t sol_Run(  const sol_param_t  *par_p,
+                const sol_in_t     *in_p,
+                      sol_out_t    *out_p )
 {
     int errorcode = 0;
-    
+
     /* Absperrventil Speicher 1 */
     errorcode += sol_Speicherabsperrventil( par_p, in_p->koll_t_mw[KO1], &(in_p->t_sp[SP1]), &(out_p->av_sb[SP1]) ); 
     /* Absperrventil Speicher 2 */
-    errorcode += sol_Speicherabsperrventil( par_p, in_p->koll_t_mw[KO1], &(in_p->t_sp[SP2]), &(out_p->av_sb[SP2]) ); 
+    errorcode += sol_Speicherabsperrventil( par_p, in_p->koll_t_mw[KO1], &(in_p->t_sp[SP2]), &(out_p->av_sb[SP2]) );
     /* Pumpe entsprechend des Absperrventilzustands schalten */
     sol_Pumpe( out_p );
     return( errorcode );

@@ -116,6 +116,31 @@ void *telnet_thread( void *arg )
                             cntrl_mdl_aktiv.err_aktiv = RESET;
                             snprintf( bufout, BFLN, "\tERR-Modul auf HAND Betrieb (Open Loop)\n" ); BFLSH();
                         }
+                        /* Eingabe sperren */
+                        else if( strncasecmp( token, "INSOL", 5 ) == 0 ) {
+                            cntrl_mdl_aktiv.inp_sol_aktiv = RESET;
+                            snprintf( bufout, BFLN, "\tSOL-Eingabe auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "INFB", 4 ) == 0 ) {
+                            cntrl_mdl_aktiv.inp_fb_aktiv = RESET;
+                            snprintf( bufout, BFLN, "\tFB-Eingabe auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "INHK", 4 ) == 0 ) {
+                            cntrl_mdl_aktiv.inp_hk_aktiv = RESET;
+                            snprintf( bufout, BFLN, "\tHK-Eingabe auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "INWW", 4 ) == 0 ) {
+                            cntrl_mdl_aktiv.inp_ww_aktiv = RESET;
+                            snprintf( bufout, BFLN, "\tWW-Eingabe auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "INKES", 5 ) == 0 ) {
+                            cntrl_mdl_aktiv.inp_kes_aktiv = RESET;
+                            snprintf( bufout, BFLN, "\tKES-Eingabe auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "INERR", 5 ) == 0 ) {
+                            cntrl_mdl_aktiv.inp_err_aktiv = RESET;
+                            snprintf( bufout, BFLN, "\tERR-Eingabe auf HAND Betrieb (Open Loop)\n" ); BFLSH();
+                        }
                     }
                 }
                 else if( strncasecmp( "AUTO", token, 4 ) == 0 ) {
@@ -146,14 +171,44 @@ void *telnet_thread( void *arg )
                             cntrl_mdl_aktiv.err_aktiv = SET;
                             snprintf( bufout, BFLN, "\tERR Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
                         }
+                        /* Eingabe auf Autmatik */
+                        if     ( strncasecmp( token, "INSOL", 5 ) == 0 ) {
+                            cntrl_mdl_aktiv.inp_sol_aktiv = SET;
+                            snprintf( bufout, BFLN, "\tSOL-Eingabe auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "INFB", 4 ) == 0 ) {
+                            cntrl_mdl_aktiv.inp_fb_aktiv  = SET;
+                            snprintf( bufout, BFLN, "\tFB-Eingabe auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "INHK", 4 ) == 0 ) {
+                            cntrl_mdl_aktiv.inp_hk_aktiv  = SET;
+                            snprintf( bufout, BFLN, "\tHK-Eingabe auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "INWW", 4 ) == 0 ) {
+                            cntrl_mdl_aktiv.inp_ww_aktiv  = SET;
+                            snprintf( bufout, BFLN, "\tWW-Eingabe auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "INKES", 5 ) == 0 ) {
+                            cntrl_mdl_aktiv.inp_kes_aktiv = SET;
+                            snprintf( bufout, BFLN, "\tKES-Eingabe auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                        }
+                        else if( strncasecmp( token, "INERR", 3 ) == 0 ) {
+                            cntrl_mdl_aktiv.inp_err_aktiv = SET;
+                            snprintf( bufout, BFLN, "\tERR-Eingabe auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                        }
                         else if( strncasecmp( token, "ALL", 3 ) == 0 ) {
-                            cntrl_mdl_aktiv.sol_aktiv  = SET;
-                            cntrl_mdl_aktiv.fb_aktiv   = SET;
-                            cntrl_mdl_aktiv.hk_aktiv   = SET;
-                            cntrl_mdl_aktiv.ww_aktiv   = SET;
-                            cntrl_mdl_aktiv.kes_aktiv  = SET;
-                            cntrl_mdl_aktiv.err_aktiv  = SET;
-                            snprintf( bufout, BFLN, "\tAlle Module auf AUTOMATIK Betrieb!\n" ); BFLSH();
+                            cntrl_mdl_aktiv.sol_aktiv     = SET;
+                            cntrl_mdl_aktiv.fb_aktiv      = SET;
+                            cntrl_mdl_aktiv.hk_aktiv      = SET;
+                            cntrl_mdl_aktiv.ww_aktiv      = SET;
+                            cntrl_mdl_aktiv.kes_aktiv     = SET;
+                            cntrl_mdl_aktiv.err_aktiv     = SET;
+                            cntrl_mdl_aktiv.inp_sol_aktiv = SET;
+                            cntrl_mdl_aktiv.inp_fb_aktiv  = SET;
+                            cntrl_mdl_aktiv.inp_hk_aktiv  = SET;
+                            cntrl_mdl_aktiv.inp_ww_aktiv  = SET;
+                            cntrl_mdl_aktiv.inp_kes_aktiv = SET;
+                            snprintf( bufout, BFLN, "\tAlle Module und Eingaben auf AUTOMATIK Betrieb!\n" ); BFLSH();
                         }
                     }
                 }
@@ -210,7 +265,7 @@ void *telnet_thread( void *arg )
     }
 }
 
-static inline 
+static inline
 void telnet_write_Auto_Hand( u8_t flag, int fdesc, char *bufout )
 {
     if( flag == SET ) {
@@ -224,23 +279,35 @@ void telnet_write_Auto_Hand( u8_t flag, int fdesc, char *bufout )
 static
 void telnet_writeModuls( int fdesc, char *bufout )
 {
-    snprintf( bufout, BFLN, "\tSOL-Modul auf " ); BFLSH();
+    snprintf( bufout, BFLN, "\tSOL-Modul   auf " ); BFLSH();
     telnet_write_Auto_Hand( cntrl_mdl_aktiv.sol_aktiv, fdesc, bufout );
-    
-    snprintf( bufout, BFLN, "\tFB-Modul  auf " ); BFLSH();
+    snprintf( bufout, BFLN, "\tSOL-Eingabe auf " ); BFLSH();
+    telnet_write_Auto_Hand( cntrl_mdl_aktiv.inp_sol_aktiv, fdesc, bufout );
+
+    snprintf( bufout, BFLN, "\tFB-Modul    auf " ); BFLSH();
     telnet_write_Auto_Hand( cntrl_mdl_aktiv.fb_aktiv, fdesc, bufout );
+    snprintf( bufout, BFLN, "\tFB-Eingabe  auf " ); BFLSH();
+    telnet_write_Auto_Hand( cntrl_mdl_aktiv.inp_fb_aktiv, fdesc, bufout );
 
-    snprintf( bufout, BFLN, "\tHK-Modul  auf " ); BFLSH();
+    snprintf( bufout, BFLN, "\tHK-Modul    auf " ); BFLSH();
     telnet_write_Auto_Hand( cntrl_mdl_aktiv.hk_aktiv, fdesc, bufout );
+    snprintf( bufout, BFLN, "\tHK-Eingabe  auf " ); BFLSH();
+    telnet_write_Auto_Hand( cntrl_mdl_aktiv.inp_hk_aktiv, fdesc, bufout );
 
-    snprintf( bufout, BFLN, "\tWW-Modul  auf " ); BFLSH();
+    snprintf( bufout, BFLN, "\tWW-Modul    auf " ); BFLSH();
     telnet_write_Auto_Hand( cntrl_mdl_aktiv.ww_aktiv, fdesc, bufout );
+    snprintf( bufout, BFLN, "\tWW-Eingabe  auf " ); BFLSH();
+    telnet_write_Auto_Hand( cntrl_mdl_aktiv.inp_ww_aktiv, fdesc, bufout );
 
-    snprintf( bufout, BFLN, "\tKES-Modul auf " ); BFLSH();
+    snprintf( bufout, BFLN, "\tKES-Modul   auf " ); BFLSH();
     telnet_write_Auto_Hand( cntrl_mdl_aktiv.kes_aktiv, fdesc, bufout );
+    snprintf( bufout, BFLN, "\tKES-Eingabe auf " ); BFLSH();
+    telnet_write_Auto_Hand( cntrl_mdl_aktiv.inp_kes_aktiv, fdesc, bufout );
 
-    snprintf( bufout, BFLN, "\tERR-Modul auf " ); BFLSH();
+    snprintf( bufout, BFLN, "\tERR-Modul   auf " ); BFLSH();
     telnet_write_Auto_Hand( cntrl_mdl_aktiv.err_aktiv, fdesc, bufout );
+    snprintf( bufout, BFLN, "\tERR-Eingabe auf " ); BFLSH();
+    telnet_write_Auto_Hand( cntrl_mdl_aktiv.inp_err_aktiv, fdesc, bufout );
 }
 
 static

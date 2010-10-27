@@ -37,6 +37,10 @@ void err_Init( err_param_t *par_p, err_out_t *out_p );
 void err_Run( const err_param_t *par_p,
               const err_in_t    *in_p,
                     err_out_t   *out_p );
+
+void err_Reset_Sammelstoermeldung( err_param_t *par_p,
+                                   err_out_t   *out_p );
+
 /* <Prototypen/> */
 
 
