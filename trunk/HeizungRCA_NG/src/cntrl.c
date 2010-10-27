@@ -84,12 +84,13 @@ int main( void )
     cntrl_mdl_aktiv.inp_hk_aktiv  = SET;
     cntrl_mdl_aktiv.inp_ww_aktiv  = SET;
     cntrl_mdl_aktiv.inp_kes_aktiv = SET;
+    cntrl_mdl_aktiv.inp_err_aktiv = SET;
     MUTEX_UNLOCK();
 
     while( 1  ) {
         MUTEX_LOCK();
         /*----------- Prozessabbild aktualisieren -----------*/
-        KBUSUPDATE();   
+        KBUSUPDATE();
 
         /*---------- EINGABE DES PROZESSABBILDES ------------*/
         /* alles was im Sekunden-, Minuten- und Stundenraster ablaufen muss und *
@@ -210,9 +211,9 @@ int main( void )
         else {
             io_put_STOERUNG( !io_get_STOERUNG() );  /* Stoermeldung blinken lassen */
         }
-        
+
         /*---------- Prozessabbild aktualisieren ----------*/
-        KBUSUPDATE();   
+        KBUSUPDATE();
         MUTEX_UNLOCK();
 
         /* Abtastzeit abwarten. ACHTUNG: Rechenzeit nicht beruecksichtigt.

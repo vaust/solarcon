@@ -54,5 +54,8 @@ void err_Run( const err_param_t *par_p,
     }
 }
 
-
-
+void err_Reset_Sammelstoermeldung( err_param_t *par_p, err_out_t *out_p )
+{
+    out_p->br_Countdown = par_p->br_TimeOut;
+    out_p->Sammelstoermeldung = RESET;
+}

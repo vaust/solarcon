@@ -58,7 +58,7 @@ void ww_Init( ww_param_t         *par_p,
               ww_out_t           *out_p );
 
 void ww_Run( const ww_param_t         *par_p,
-       /* const */ sup_digreg_coeff_t *q_hzg_pu_p,
+             const sup_digreg_coeff_t *q_hzg_pu_p,
              const ww_in_t            *in_p,
                    ww_out_t           *out_p );
 /* <Prototypen/> */
