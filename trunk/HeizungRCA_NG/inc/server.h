@@ -40,7 +40,6 @@ static void telnet_writeHK( int fdesc, char *bufout );
 static void telnet_writeWW( int fdesc, char *bufout );
 static void telnet_writeVorgabenparameter( int fdesc, char *bufout );
 static void telnet_parseGet( int fdesc, char *bufout );
-static void telnet_parsePut( int fdesc, char *bufout );
 static void telnet_writeSchaltzeiten( int fdesc, char *bufout );
 static void telnet_writeHelp( int fdesc, char *bufout );
 static void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufout );
