@@ -29,24 +29,24 @@ extern void *cntrl_thread( void *arg );
 void *telnet_thread( void *arg );
 
 #ifdef _TELNET_C_
-void telnet_writeT( int fdesc, char *bufout );
-void telnet_writeAO( int fdesc, char *bufout );
-void telnet_writeDI( int fdesc, char *bufout );
-void telnet_writeDO( int fdesc, char *bufout );
-void telnet_writeSW( int fdesc, char *bufout );
-void telnet_writeFB( int fdesc, char *bufout );
-void telnet_writeSOL( int fdesc, char *bufout );
-void telnet_writeHK( int fdesc, char *bufout );
-void telnet_writeWW( int fdesc, char *bufout );
-void telnet_writeVorgabenparameter( int fdesc, char *bufout );
-void telnet_parseGet( int fdesc, char *bufout );
-void telnet_parsePut( int fdesc, char *bufout );
-void telnet_writeSchaltzeiten( int fdesc, char *bufout );
-void telnet_writeHelp( int fdesc, char *bufout );
-void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufout );
-void telnet_writeAbsenk( int fdesc, char *bufout );
-void telnet_putVars( const parse_set_t Vars[], int len, int fdesc, char *bufout );
-void telnet_writeModuls( int fdesc, char *bufout );
+static void telnet_writeT( int fdesc, char *bufout );
+static void telnet_writeAO( int fdesc, char *bufout );
+static void telnet_writeDI( int fdesc, char *bufout );
+static void telnet_writeDO( int fdesc, char *bufout );
+static void telnet_writeSW( int fdesc, char *bufout );
+static void telnet_writeFB( int fdesc, char *bufout );
+static void telnet_writeSOL( int fdesc, char *bufout );
+static void telnet_writeHK( int fdesc, char *bufout );
+static void telnet_writeWW( int fdesc, char *bufout );
+static void telnet_writeVorgabenparameter( int fdesc, char *bufout );
+static void telnet_parseGet( int fdesc, char *bufout );
+static void telnet_parsePut( int fdesc, char *bufout );
+static void telnet_writeSchaltzeiten( int fdesc, char *bufout );
+static void telnet_writeHelp( int fdesc, char *bufout );
+static void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufout );
+static void telnet_writeAbsenk( int fdesc, char *bufout );
+static void telnet_putVars( const parse_set_t Vars[], int len, int fdesc, char *bufout );
+static void telnet_writeModuls( int fdesc, char *bufout );
 #endif
 /* </Prototypen> */
 
