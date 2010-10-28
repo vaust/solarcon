@@ -1,53 +1,95 @@
-#define _IO_C_
+#define _IO_V2_C_
 
 #include "gen_types.h"
 #include "io_plc.h"
-#include "io.h"
+#include "io_v2.h"
 
-/* Temperaturen werden ueber Pt1000 Klemmen gemessen, die einen 16bit mit Vorzeichen ausgeben.  *
- * 0°C entspricht 0x0000 mit 0.1K entsprechend einem Bit                                        */
-#define TF(x) ((float)(x)/10.0)
 
-/** Aussentemperatur, AI, Pt1000     */
-float io_get_ALL_Tau_MW( void )
+static
+void io_InitTemperaturSensor( io_tempsens_obj_t *obj,
+                               float             messbereich_anfang,
+                               float             messbereich_ende,
+                               // float             aufloesung,
+                               io_obj_status_t   status,
+                               temp10_pt1000_t   *kbus_adresse_p
+                              )
 {
-    return TF(pabIn_p->ain.all_tau_mw);
+    obj->messbereich_anfang = messbereich_anfang;
+    obj->messbereich_ende   = messbereich_ende;
+ //   obj->aufloesung         = aufloesung;
+    obj->status             = status;
+    obj->kbus_adresse_p     = kbus_adresse_p;
 }
+
+void io_InitAlleTemperaturSensoren( void )
+{
+    io_InitTemperaturSensor( &io_ALL_Tau_MW    , -50.0,  50.0, zNormal, &(pabIn_p->ain.all_tau_mw) );
+    io_InitTemperaturSensor( &io_SOL_KOLL_T_MW , -50.0, 150.0, zNormal, &(pabIn_p->ain.sol_koll_t_mw) );
+    io_InitTemperaturSensor( &io_SOL_SP1_Tu_MW ,   0.0, 150.0, zNormal, &(pabIn_p->ain.sol_sp1_tu_mw) );
+    io_InitTemperaturSensor( &io_SOL_SP1_To_MW ,   0.0, 150.0, zNormal, &(pabIn_p->ain.sol_sp1_to_mw) );
+    io_InitTemperaturSensor( &io_SOL_SP2_Tu_MW ,   0.0, 150.0, zNormal, &(pabIn_p->ain.sol_sp2_tu_mw) );
+    io_InitTemperaturSensor( &io_SOL_SP2_To_MW ,   0.0, 150.0, zNormal, &(pabIn_p->ain.sol_sp2_to_mw) );
+    io_InitTemperaturSensor( &io_KES_Tvl_MW    ,   0.0, 100.0, zNormal, &(pabIn_p->ain.kes_tvl_mw) );
+    io_InitTemperaturSensor( &io_KES_Trl_MW    ,   0.0, 100.0, zNormal, &(pabIn_p->ain.kes_trl_mw) );
+    io_InitTemperaturSensor( &io_HK_Tvl_MW     ,   0.0, 100.0, zNormal, &(pabIn_p->ain.hk_tvl_mw) );
+    io_InitTemperaturSensor( &io_HK_Trl_MW     ,   0.0, 100.0, zNormal, &(pabIn_p->ain.hk_trl_mw) );
+    io_InitTemperaturSensor( &io_FB_PRIM_Trl_MW,   0.0, 100.0, zNormal, &(pabIn_p->ain.fb_prim_trl_mw) );
+    io_InitTemperaturSensor( &io_FB_SEK_Tvl_MW ,   0.0, 100.0, zNormal, &(pabIn_p->ain.fb_sek_tvl_mw) );
+    io_InitTemperaturSensor( &io_WW_HZG_Tvl_MW ,   0.0, 100.0, zNormal, &(pabIn_p->ain.ww_hzg_tvl_mw) );
+    io_InitTemperaturSensor( &io_WW_HZG_Trl_MW ,   0.0, 100.0, zNormal, &(pabIn_p->ain.ww_hzg_trl_mw) );
+    io_InitTemperaturSensor( &io_WW_Tww_MW     ,   0.0, 100.0, zNormal, &(pabIn_p->ain.ww_tww_mw) );
+}
+
+/** \brief Methode zur Abfrage der Temperaturmessstellen.
+  * Der Messwert wird in de Objektstruktur abgelegt und im Normalfall auch zurückgeben.
+  * Bei unplausiblen Messwerten wird der rohe Messwert zurückgegeben und in der Objektstruktur
+  * die jeweilige Messbereichsgrenze abgelegt, so dass noch sinnvoll weitergerechnet werden kann
+  * \param this Pointer auf ein Temperaturmessobjekt
+  */
+
+float io_MesseTemperatur( io_tempsens_obj_t *this )
+{
+    float temp_val;
+
+    switch( this->status ) {
+        case obj_ManuelleZuweisung:
+            temp_val = this->messwert;
+            break;
+        case obj_Normal:
+            temp_val = TF(*(obj->kbus_adresse_p));
+            if( temp_val < IO_MIN_TEMP ) {
+                this->status = obj_Kurzschluss;
+                temp_val = this->messwert;          /* in diesem Fall alten Messwert behalten */
+            }
+            else if( temp_val < this->messbereich_anfang ) {
+                this->status = obj_Unplausibel;
+                this->messwert = this->messbereich_anfang;
+            }
+            else if( temp_val > IO_MAX_TEMP ) {
+                this->status = obj_Kabelbruch;
+                temp_val = this->messwert;          /* in diesem Fall alten Messwert behalten */
+
+            else if( temp_val > obj->messbereich_ende ) {
+                this->status = obj_Unplausibel;
+                this->messwert = obj->messbereich_ende;
+            }
+            else {
+                this->status = obj_Normal;  /* Nur solange Messwert in den Grenzen liegt bleibt der Zustand normal */
+                this->messwert = temp_val;
+            }
+            break;
+        case default:
+            temp_val = this->messwert;  /* in diesem Fall alten Messwert behalten */
+            break;
+    }
+    return (temp_val);
+}
+
 
 /** FBH, Partyschalter, DI, Taster   */
 u8_t io_get_ALL_PARTY( void )
 {
     return (pabIn_p->din.all_party);
-}
-
-/** Kollektortemperatur, AI, Pt1000  */
-float io_get_SOL_KOLL_T_MW( void )
-{
-    return TF(pabIn_p->ain.sol_koll_t_mw);
-}
-
-/** Temperatur im Speicher 1 unten, AI, Pt1000 */
-float io_get_SOL_SP1_Tu_MW( void )
-{
-    return TF(pabIn_p->ain.sol_sp1_tu_mw);
-}
-
-/** Temperatur im Speicher 1 oben, AI, Pt1000  */
-float io_get_SOL_SP1_To_MW( void )
-{
-    return TF(pabIn_p->ain.sol_sp1_to_mw);
-}
-
-/** Temperatur im Speicher 2 unten, AI, Pt1000 */
-float io_get_SOL_SP2_Tu_MW( void )
-{
-    return TF(pabIn_p->ain.sol_sp2_tu_mw);
-}
-
-/** Temperatur im Speicher 2 oben, AI, Pt1000  */
-float io_get_SOL_SP2_To_MW( void )
-{
-   return TF(pabIn_p->ain.sol_sp2_to_mw);
 }
 
 /** Solarkreislaufpumpe (ein/aus), DO, 24V Ausgang auf Relais */
@@ -84,18 +126,6 @@ di_bitbyte_t io_put_SOL_SP2_AV_SB( do_bitbyte_t sb )
 di_bitbyte_t io_get_SOL_SP2_AV_SB( void )
 {
     return (pabOut_p->dout.sol_sp2_av_sb);
-}
-
-/** Kesselvorlauftemperatur, AI, Pt1000   */
-float io_get_KES_Tvl_MW( void )
-{
-    return TF(pabIn_p->ain.kes_tvl_mw);
-}
-
-/** Kesselruecklauftemperatur, AI, Pt1000 */
-float io_get_KES_Trl_MW( void )
-{
-    return TF(pabIn_p->ain.kes_trl_mw);
 }
 
 /** Kesselvorlauftemperaturvorgabe, AO, 0-10V */
@@ -145,18 +175,6 @@ di_bitbyte_t io_get_KES_BR_BM( void )
     return (pabIn_p->din.kes_br_bm);
 }
 
-/** Heizkoerper-Heizkreis Vorlauftemperatur, AI, Pt1000 */
-float io_get_HK_Tvl_MW( void )
-{
-    return TF(pabIn_p->ain.hk_tvl_mw);
-}
-
-/** Heizkoerper-Heizkreis Ruecklauftemperatur, AI, Pt1000 */
-float io_get_HK_Trl_MW( void )
-{
-    return TF(pabIn_p->ain.hk_trl_mw);
-}
-
 /** Heizkoerper-Heizkreis Mischventil-Ansteuerung, AO, 0-10V */
 void io_put_HK_MV_Y( float pct )
 {
@@ -178,18 +196,6 @@ di_bitbyte_t io_put_HK_PU_SB( do_bitbyte_t sb )
 di_bitbyte_t io_get_HK_PU_SB( void )
 {
     return (pabOut_p->dout.hk_pu_sb);
-}
-
-/** Fussbodenheizung, Primaerseite, Ruecklauftemperatur, AI, Pt1000 */
-float io_get_FB_PRIM_Trl_MW( void )
-{
-    return TF(pabIn_p->ain.fb_prim_trl_mw);
-}
-
-/** Fussbodenheizung, Sekundaerseite, Vorlauftemperatur, AI, Pt1000 */
-float io_get_FB_SEK_Tvl_MW( void )
-{
-    return TF(pabIn_p->ain.fb_sek_tvl_mw);
 }
 
 /** Fussbodenheizung, Primaerseite, Mischerventilansteuerung, AO, 0-10V */
