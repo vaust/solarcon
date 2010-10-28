@@ -41,7 +41,7 @@ void io_InitAlleTemperaturSensoren( void )
 }
 
 /** \brief Methode zur Abfrage der Temperaturmessstellen.
-  * Der Messwert wird in de Objektstruktur abgelegt und im Normalfall auch zurückgeben.
+  * Der Messwert wird in der Objektstruktur abgelegt und im Normalfall auch zurückgeben.
   * Bei unplausiblen Messwerten wird der rohe Messwert zurückgegeben und in der Objektstruktur
   * die jeweilige Messbereichsgrenze abgelegt, so dass noch sinnvoll weitergerechnet werden kann
   * \param this Pointer auf ein Temperaturmessobjekt
@@ -56,7 +56,7 @@ float io_MesseTemperatur( io_tempsens_obj_t *this )
             temp_val = this->messwert;
             break;
         case obj_Normal:
-            temp_val = TF(*(obj->kbus_adresse_p));
+            temp_val = TF(*(this->kbus_adresse_p));
             if( temp_val < IO_MIN_TEMP ) {
                 this->status = obj_Kurzschluss;
                 temp_val = this->messwert;          /* in diesem Fall alten Messwert behalten */
@@ -68,7 +68,7 @@ float io_MesseTemperatur( io_tempsens_obj_t *this )
             else if( temp_val > IO_MAX_TEMP ) {
                 this->status = obj_Kabelbruch;
                 temp_val = this->messwert;          /* in diesem Fall alten Messwert behalten */
-
+            }
             else if( temp_val > obj->messbereich_ende ) {
                 this->status = obj_Unplausibel;
                 this->messwert = obj->messbereich_ende;
