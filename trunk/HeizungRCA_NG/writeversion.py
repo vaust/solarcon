@@ -5,8 +5,9 @@ import sys
 import datetime
 import time
 
-SVN_ID = '$Revision$'
-VERSION = '0.7.2 SVN'+' '
+SVN     = '$Revision$'
+SVN_REV = SVN.split(':')[1].split('$')[0]
+VERSION = '0.7.2 SVN:'+SVN_REV
 now = datetime.datetime.now()
 now = datetime.datetime( now.year, now.month, now.day, now.hour, now.minute, now.second )
 jetzt1  = now.isoformat(' ')
