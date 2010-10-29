@@ -4,15 +4,14 @@
 #include "io_plc.h"
 #include "io_v2.h"
 
-
 static
-void io_InitTemperaturSensor( io_tempsens_obj_t *obj,
-                               float             messbereich_anfang,
-                               float             messbereich_ende,
-                               // float             aufloesung,
-                               io_obj_status_t   status,
-                               temp10_pt1000_t   *kbus_adresse_p
-                              )
+void io_InitTempSens( io_tempsens_obj_t *obj,
+                      float             messbereich_anfang,
+                      float             messbereich_ende,
+                      // float             aufloesung,
+                      io_obj_status_t   status,
+                      temp10_pt1000_t   *kbus_adresse_p
+                     )
 {
     obj->messbereich_anfang = messbereich_anfang;
     obj->messbereich_ende   = messbereich_ende;
@@ -21,23 +20,23 @@ void io_InitTemperaturSensor( io_tempsens_obj_t *obj,
     obj->kbus_adresse_p     = kbus_adresse_p;
 }
 
-void io_InitAlleTemperaturSensoren( void )
+void io_InitAllTempSens( void )
 {
-    io_InitTemperaturSensor( &io_ALL_Tau_MW    , -50.0,  50.0, zNormal, &(pabIn_p->ain.all_tau_mw) );
-    io_InitTemperaturSensor( &io_SOL_KOLL_T_MW , -50.0, 150.0, zNormal, &(pabIn_p->ain.sol_koll_t_mw) );
-    io_InitTemperaturSensor( &io_SOL_SP1_Tu_MW ,   0.0, 150.0, zNormal, &(pabIn_p->ain.sol_sp1_tu_mw) );
-    io_InitTemperaturSensor( &io_SOL_SP1_To_MW ,   0.0, 150.0, zNormal, &(pabIn_p->ain.sol_sp1_to_mw) );
-    io_InitTemperaturSensor( &io_SOL_SP2_Tu_MW ,   0.0, 150.0, zNormal, &(pabIn_p->ain.sol_sp2_tu_mw) );
-    io_InitTemperaturSensor( &io_SOL_SP2_To_MW ,   0.0, 150.0, zNormal, &(pabIn_p->ain.sol_sp2_to_mw) );
-    io_InitTemperaturSensor( &io_KES_Tvl_MW    ,   0.0, 100.0, zNormal, &(pabIn_p->ain.kes_tvl_mw) );
-    io_InitTemperaturSensor( &io_KES_Trl_MW    ,   0.0, 100.0, zNormal, &(pabIn_p->ain.kes_trl_mw) );
-    io_InitTemperaturSensor( &io_HK_Tvl_MW     ,   0.0, 100.0, zNormal, &(pabIn_p->ain.hk_tvl_mw) );
-    io_InitTemperaturSensor( &io_HK_Trl_MW     ,   0.0, 100.0, zNormal, &(pabIn_p->ain.hk_trl_mw) );
-    io_InitTemperaturSensor( &io_FB_PRIM_Trl_MW,   0.0, 100.0, zNormal, &(pabIn_p->ain.fb_prim_trl_mw) );
-    io_InitTemperaturSensor( &io_FB_SEK_Tvl_MW ,   0.0, 100.0, zNormal, &(pabIn_p->ain.fb_sek_tvl_mw) );
-    io_InitTemperaturSensor( &io_WW_HZG_Tvl_MW ,   0.0, 100.0, zNormal, &(pabIn_p->ain.ww_hzg_tvl_mw) );
-    io_InitTemperaturSensor( &io_WW_HZG_Trl_MW ,   0.0, 100.0, zNormal, &(pabIn_p->ain.ww_hzg_trl_mw) );
-    io_InitTemperaturSensor( &io_WW_Tww_MW     ,   0.0, 100.0, zNormal, &(pabIn_p->ain.ww_tww_mw) );
+    io_InitTempSens( &io_ALL_Tau_MW    , -50.0,  50.0, zNormal, &(pabIn_p->ain.all_tau_mw) );
+    io_InitTempSens( &io_SOL_KOLL_T_MW , -50.0, 150.0, zNormal, &(pabIn_p->ain.sol_koll_t_mw) );
+    io_InitTempSens( &io_SOL_SP1_Tu_MW ,   0.0, 150.0, zNormal, &(pabIn_p->ain.sol_sp1_tu_mw) );
+    io_InitTempSens( &io_SOL_SP1_To_MW ,   0.0, 150.0, zNormal, &(pabIn_p->ain.sol_sp1_to_mw) );
+    io_InitTempSens( &io_SOL_SP2_Tu_MW ,   0.0, 150.0, zNormal, &(pabIn_p->ain.sol_sp2_tu_mw) );
+    io_InitTempSens( &io_SOL_SP2_To_MW ,   0.0, 150.0, zNormal, &(pabIn_p->ain.sol_sp2_to_mw) );
+    io_InitTempSens( &io_KES_Tvl_MW    ,   0.0, 100.0, zNormal, &(pabIn_p->ain.kes_tvl_mw) );
+    io_InitTempSens( &io_KES_Trl_MW    ,   0.0, 100.0, zNormal, &(pabIn_p->ain.kes_trl_mw) );
+    io_InitTempSens( &io_HK_Tvl_MW     ,   0.0, 100.0, zNormal, &(pabIn_p->ain.hk_tvl_mw) );
+    io_InitTempSens( &io_HK_Trl_MW     ,   0.0, 100.0, zNormal, &(pabIn_p->ain.hk_trl_mw) );
+    io_InitTempSens( &io_FB_PRIM_Trl_MW,   0.0, 100.0, zNormal, &(pabIn_p->ain.fb_prim_trl_mw) );
+    io_InitTempSens( &io_FB_SEK_Tvl_MW ,   0.0, 100.0, zNormal, &(pabIn_p->ain.fb_sek_tvl_mw) );
+    io_InitTempSens( &io_WW_HZG_Tvl_MW ,   0.0, 100.0, zNormal, &(pabIn_p->ain.ww_hzg_tvl_mw) );
+    io_InitTempSens( &io_WW_HZG_Trl_MW ,   0.0, 100.0, zNormal, &(pabIn_p->ain.ww_hzg_trl_mw) );
+    io_InitTempSens( &io_WW_Tww_MW     ,   0.0, 100.0, zNormal, &(pabIn_p->ain.ww_tww_mw) );
 }
 
 /** \brief Methode zur Abfrage der Temperaturmessstellen.
@@ -47,7 +46,7 @@ void io_InitAlleTemperaturSensoren( void )
   * \param this Pointer auf ein Temperaturmessobjekt
   */
 
-float io_MesseTemperatur( io_tempsens_obj_t *this )
+float io_Temp( io_tempsens_obj_t *this )
 {
     float temp_val;
 
@@ -237,24 +236,6 @@ di_bitbyte_t io_get_FB_SEK_PU_SB( void )
 di_bitbyte_t io_get_FB_SEK_TW( void )
 {
     return (pabIn_p->din.fb_sek_tw);
-}
-
-/** Warmwasser, Heizungsvorlauftemperatur, AI, Pt1000 */
-float io_get_WW_HZG_Tvl_MW( void )
-{
-    return TF(pabIn_p->ain.ww_hzg_tvl_mw);
-}
-
-/** Warmwasser, Heizungsruecklauftemperatur, AI, Pt1000 */
-float io_get_WW_HZG_Trl_MW( void )
-{
-    return TF(pabIn_p->ain.ww_hzg_trl_mw);
-}
-
-/** Warmwasser-Temperatur, AI, Pt1000 */
-float io_get_WW_Tww_MW( void )
-{
-    return TF(pabIn_p->ain.ww_tww_mw);
 }
 
 /** Warmwasserzaehler, Zaehlereingang */

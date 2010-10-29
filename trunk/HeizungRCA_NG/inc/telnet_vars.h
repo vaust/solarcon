@@ -196,18 +196,7 @@ const char *telnet_help_text[] = {
     "\tGET HK    (Daten zu Heizkoerper-Heizkreis)\n",
     "\tGET PAR   (Eingelesene Parameter ausgeben)\n",
     "\tGET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n",
-    "\tGET ABS   (Absenkungen ausgeben)\n\n",
-    "\tINIT      (Initialisierungsdateien neu einlesen)\n\n",
-
-    "\tAUTO <mdl>    (Modul SOL, FB, HK, WW, KES, ERR auf Automatik)\n",
-    "\tAUTO ALL      (alle Module auf Automatik)\n",
-    "\tHAND <mdl>    (Modul SOL, FB, HK, WW, KES, ERR auf Handbetrieb)\n",
-    "\tMODUL         (Anzeige aller Module incl. Betriebszustand)\n",
-    "\tPUT <mdl> <var-nr> <=| > <wert> (Modul Variable manuell setzen)\n",
-    "\t          Beispiel: put ww 23 0.0 \n",
-    "\t          Ausgangsgroessen sind nur im Handbetrieb aenderbar.\n",
-    "\t          var-nr ergibt sich aus Ausgabe von GET Vxxx)\n\n",
-
+    "\tGET ABS   (Absenkungen ausgeben)\n",
     "\tGET VFB   (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
     "\tGET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
     "\tGET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
@@ -215,6 +204,19 @@ const char *telnet_help_text[] = {
     "\tGET VKES  (KES Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
     "\tGET VERR  (ERR Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n\n",
 
+    "\tAUTO <mdl>    (Modul SOL, FB, HK, WW, KES, ERR auf Automatik)\n",
+    "\tAUTO IN<mdl>  (Prozesseingabe SOL, FB, HK, WW, KES, ERR auf Automatik)\n",
+    "\tAUTO ALL      (alle Prozesseingaben und Module auf Automatik)\n",
+    "\tHAND <mdl>    (Modul SOL, FB, HK, WW, KES, ERR auf Handbetrieb)\n",
+    "\tHAND IN<mdl>  (Modul SOL, FB, HK, WW, KES, ERR auf Handbetrieb)\n",
+    "\tMODUL         (Anzeige aller Module incl. Betriebszustand)\n",
+    "\tPUT <mdl> <var-nr> <=| > <wert> (Modul Variable manuell setzen)\n",
+    "\t          Beispiel: put ww 23 0.0 \n",
+    "\t          Ausgangsgroessen sind nur im Handbetrieb aenderbar.\n",
+    "\t          var-nr ergibt sich aus Ausgabe von GET Vxxx)\n\n",
+
+    "\tINIT      (Initialisierungsdateien neu einlesen)\n\n",
+    
     "\tHELP      (Diesen Hilfetext ausgeben)\n",
     "\tVERSION   (Software Version ausgeben)\n",
     "\tEND       (Datenabfrage beenden)\n\n"
