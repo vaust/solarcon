@@ -72,7 +72,7 @@ void io_InitTempAll( void );
 void io_InitYAll( void );
 void io_Init( void );
 
-io_obj_status_t io_Temp( io_temp_obj_t *this );
+io_obj_status_t io_Temp( io_temp_obj_t *this, float *mw );
 io_obj_status_t io_Y( io_ao10V_obj_t *this, float val );
 /* </Prototypen> */
 
