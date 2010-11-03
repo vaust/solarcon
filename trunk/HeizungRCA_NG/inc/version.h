@@ -1,6 +1,7 @@
 #ifndef _VERSION_H_
 #define _VERSION_H_
 
-#define VERSIONSTRING "0.7.2\n\tBuild 35575 2010-10-29 08:59:35\n"
+#define VERSIONSTRING "0.7.2 SVN: 277 \n\tBuild 2010-11-03 17:43:51\n"
+#define VERSIONDEVPATH "/svn/trunk/HeizungRCA_NG"
 
 #endif

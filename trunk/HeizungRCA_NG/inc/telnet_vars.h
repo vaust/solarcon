@@ -208,12 +208,12 @@ const char *telnet_help_text[] = {
     "\tAUTO IN<mdl>  (Prozesseingabe SOL, FB, HK, WW, KES, ERR auf Automatik)\n",
     "\tAUTO ALL      (alle Prozesseingaben und Module auf Automatik)\n",
     "\tHAND <mdl>    (Modul SOL, FB, HK, WW, KES, ERR auf Handbetrieb)\n",
-    "\tHAND IN<mdl>  (Modul SOL, FB, HK, WW, KES, ERR auf Handbetrieb)\n",
+    "\tHAND IN<mdl>  (Prozesseingabe SOL, FB, HK, WW, KES, ERR auf Handbetrieb)\n",
     "\tMODUL         (Anzeige aller Module incl. Betriebszustand)\n",
     "\tPUT <mdl> <var-nr> <=| > <wert> (Modul Variable manuell setzen)\n",
     "\t          Beispiel: put ww 23 0.0 \n",
     "\t          Ausgangsgroessen sind nur im Handbetrieb aenderbar.\n",
-    "\t          var-nr ergibt sich aus Ausgabe von GET Vxxx)\n\n",
+    "\t          var-nr ergibt sich aus Ausgabe von GET Vxxx\n\n",
 
     "\tINIT      (Initialisierungsdateien neu einlesen)\n\n",
     
