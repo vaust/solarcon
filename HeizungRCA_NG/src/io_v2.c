@@ -3,6 +3,7 @@
 
 #include "gen_types.h"
 #include "io_plc.h"
+#include "io.h"
 #include "io_v2.h"
 
 static  

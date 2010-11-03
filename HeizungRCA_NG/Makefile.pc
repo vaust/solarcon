@@ -33,7 +33,7 @@ server.o: server.c server.h
 ww.o: ww.c param.h ww.h sup.h gen_types.h
 zeit.o: zeit.c \
   gen_types.h param.h zeit.h gen_types.h
-io.o: io.c io.h gen_types.h
+io.o: io.c io.h io_plc.h gen_types.h
 err.o: err.c err.h gen_types.h
 
 clean :
