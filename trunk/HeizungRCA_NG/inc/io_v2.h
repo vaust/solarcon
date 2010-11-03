@@ -9,6 +9,8 @@ typedef enum io_obj_status_e { io_Normal,             /**< Sensor-/Aktorwert ist
                                io_Kabelbruch,         /**< Es liegt eine Kabelbruch vor */
                                io_Kurzschluss,        /**< Der Sensor/Aktor ist kurzgeschlossen */
                                io_Unplausibel,        /**< Der Wert ist unplausibel */
+                               io_Ueberlauf,          /**< Der Wert ist zu gross */
+                               io_Unterlauf,          /**< Der Wert ist zu klein */
                                io_AllgemeinerFehler,  /**< Es liegt ein allgemeiner, nicht naeher spezifizierter Fehler vor */
                                io_ManuelleZuweisung   /**< Der Mess-/Stellwert kann in der Diagnose manuell zugewiesen werden */
                               } io_obj_status_t;

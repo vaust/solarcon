@@ -49,44 +49,40 @@ io_obj_status_t io_Temp( io_temp_obj_t *this, float *mw )
 
     switch( this->status ) {
         case io_ManuelleZuweisung:
-            temp_val = this->messwert;
+            *mw = this->messwert;  
+            /* Aus diesem Zustand kommt man nur durch Benutzerinteraktion (telnet.c) */
             break;
         case io_Normal:
             temp_val = TF(*(this->kbus_adresse_p));
             if( temp_val < IO_MIN_TEMP ) {
-                this->status = io_Kurzschluss;
-                temp_val = this->messwert;          /* in diesem Fall alten Messwert behalten */
+                this->status = io_Kurzschluss; 
+                /* alten Messwert behalten */
             }
             else if( temp_val < this->messbereich_anfang ) {
                 this->status = io_Unplausibel;
-                this->messwert = this->messbereich_anfang;
+                this->messwert = this->messbereich_anfang; /* Messwert begrenzen */
             }
             else if( temp_val > IO_MAX_TEMP ) {
                 this->status = io_Kabelbruch;
-                temp_val = this->messwert;          /* in diesem Fall alten Messwert behalten */
+                /* alten Messwert behalten */
             }
             else if( temp_val > this->messbereich_ende ) {
                 this->status = io_Unplausibel;
-                this->messwert = this->messbereich_ende;
+                this->messwert = this->messbereich_ende;   /* Messwert begrenzen */
             }
             else {
-                this->status = io_Normal;  /* Nur solange Messwert in den Grenzen liegt bleibt der Zustand normal */
+                /* Nur solange der Messwert in den Grenzen liegt bleibt der Zustand normal */
+                this->status = io_Normal;  
                 this->messwert = temp_val;
             }
             break;
-        case io_Kabelbruch:
-        case io_Kurzschluss:
-        case io_Unplausibel:
-        case io_AllgemeinerFehler:
+        default:        
             temp_val = TF(*(this->kbus_adresse_p));
             if( (temp_val >= this->messbereich_anfang) &&  
                 (temp_val <  this->messbereich_ende)      ) {
                 this->status = io_Normal;  /* Messwert liegt wieder in den normalen Grenzen */
                 this->messwert = temp_val;
             }
-            break;
-        default:
-            temp_val = this->messwert;  /* in diesem Fall alten Messwert behalten */
             break;
     }
     
@@ -102,18 +98,18 @@ void io_InitY( io_ao10V_obj_t   *this,
                ao_0_10V_t       *kbus_adresse_p )
 {
     this->stellbereich_anfang = stellbereich_anfang;
-    this->stellbereich_ende = stellbereich_ende;
-    this->status = io_Normal;
-    this->kbus_adresse_p = kbus_adresse_p;
+    this->stellbereich_ende   = stellbereich_ende;
+    this->status              = io_Normal;
+    this->kbus_adresse_p      = kbus_adresse_p;
 }
 
 void io_InitYAll( void )
 {
-    io_InitY( &io_KES_Tvl_Y, MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.kes_tvl_y) );
-    io_InitY( &io_HK_MV_Y, MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.hk_mv_y) );
+    io_InitY( &io_KES_Tvl_Y,    MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.kes_tvl_y)    );
+    io_InitY( &io_HK_MV_Y,      MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.hk_mv_y)      );
     io_InitY( &io_FB_PRIM_MV_Y, MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.fb_prim_mv_y) );
-    io_InitY( &io_WW_HZG_MV_Y, MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.ww_hzg_mv_y) );
-    io_InitY( &io_WW_HZG_PU_Y, MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.ww_hzg_pu_y) );
+    io_InitY( &io_WW_HZG_MV_Y,  MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.ww_hzg_mv_y)  );
+    io_InitY( &io_WW_HZG_PU_Y,  MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.ww_hzg_pu_y)  );
 }
 
 /** \brief Analogen Stellwert ausgeben mit Ueberprüfung auf Plausibilitaet.
@@ -121,30 +117,27 @@ void io_InitYAll( void )
   * \param val Auszugebender Wert 
   * Der Stellwert wird auf der PLC ausgegeben und im Feld stellwert abgelegt.
   * Weiterhin wird geprueft, ob der gewuenschte Stellwert im plausiblen Bereich liegt.
-  * Ueber den Zustandautomat ist auch Handbetrieb möglich
   */
 io_obj_status_t io_Y( io_ao10V_obj_t *this, float val )
 {
-    switch( this->status ) {
-        case io_Normal:
-            if( (val >= this->stellbereich_anfang) && 
-                (val <= this->stellbereich_ende)      ) {
-                this->stellwert = val;
-                *(this->kbus_adresse_p) = (this->stellwert*AO_FULLSCALE)/100;
-                this->status = io_Normal;
-            }
-            else{
-                this->status = io_Unplausibel;
-                /* Stellwert und Ausgabewert in diesem Fall nicht aendern! */
-            }
-            break;
-        case io_ManuelleZuweisung:
-            break;
+    this->stellwert = val;
+    if( val < this->stellbereich_anfang ) {
+        *(this->kbus_adresse_p) = (this->stellbereich_anfang *AO_FULLSCALE)/100;
+        this->status            = io_Unterlauf;
+    }
+    else if( val > this->stellbereich_ende ) {
+        *(this->kbus_adresse_p) = (this->stellbereich_ende   *AO_FULLSCALE)/100;
+        this->status            = io_Ueberlauf;
+    }
+    else { /* Angeforderter Stellwert im plausiblen Bereich */
+        *(this->kbus_adresse_p) = (val*AO_FULLSCALE)/100;
+        this->status            = io_Normal;
     }
     
     return(this->status);
 }
 
+/** \brief Alle IO´s (Temperaturen und 0-10V Ausgänge) initialisieren. */
 void io_Init( void )
 {
     io_InitYAll();
