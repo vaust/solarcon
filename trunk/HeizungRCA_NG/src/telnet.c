@@ -64,13 +64,13 @@ void *telnet_thread( void *arg )
             MUTEX_LOCK();
             token = strtok( bufin, "\n\r " );
             if( NULL != token ) {
-                if     ( strncasecmp( "END", token, 3 ) == 0 ) {
+                if     ( strncasecmp( "END",     token, 3 ) == 0 ) {
                     printf( "TELNET.C: END Befehl erhalten\n" );
                     next_thread--;
                     close( fdesc );
                     pthread_exit( NULL );
                 }
-                else if( strncasecmp( "HELP", token, 3 ) == 0 ) {
+                else if( strncasecmp( "HELP",    token, 3 ) == 0 ) {
                     printf( "TELNET.C: HELP Befehl erhalten\n" );
                     telnet_writeHelp( fdesc, bufout );
                 }
@@ -78,17 +78,19 @@ void *telnet_thread( void *arg )
                     printf( "TELNET.C: VERSION Befehl erhalten\n" );
                     snprintf( bufout, BFLN, "\tRCA Heizungssteuerung\n\tVersion " ); BFLSH();
                     snprintf( bufout, BFLN, VERSIONSTRING ); BFLSH();
+                    snprintf( bufout, BFLN, "\tEntwicklungspfad: \n\t" ); BFLSH();
+                    snprintf( bufout, BFLN, VERSIONDEVPATH ); BFLSH();                    
                     snprintf( bufout, BFLN, "\tAndreas Stegmann\n\tVolker Stegmann\n" ); BFLSH();
                 }
-                else if( strncasecmp( "GET", token, 3 ) == 0 ) {
+                else if( strncasecmp( "GET",     token, 3 ) == 0 ) {
                     printf( "TELNET.C: GET Befehl erhalten\n" );
                     telnet_parseGet( fdesc, bufout );
                 }
-                else if( strncasecmp( "MODULE", token, 3 ) == 0 ) {
+                else if( strncasecmp( "MODULE",  token, 3 ) == 0 ) {
                     printf( "TELNET.C: MODULE Befehl erhalten\n" );
                     telnet_writeModuls( fdesc, bufout );
                 }
-                else if( strncasecmp( "HAND", token, 4 ) == 0 ) {
+                else if( strncasecmp( "HAND",    token, 4 ) == 0 ) {
                     printf( "TELNET.C: HAND Befehl erhalten\n" );
                     token = strtok( NULL, "\n\r " );
                     if( NULL != token ) {
@@ -143,7 +145,7 @@ void *telnet_thread( void *arg )
                         }
                     }
                 }
-                else if( strncasecmp( "AUTO", token, 4 ) == 0 ) {
+                else if( strncasecmp( "AUTO",    token, 4 ) == 0 ) {
                     printf( "TELNET.C: AUTO Befehl erhalten\n" );
                     token = strtok( NULL, "\n\r " );
                     if( NULL != token ) {
@@ -212,42 +214,36 @@ void *telnet_thread( void *arg )
                         }
                     }
                 }
-                else if( strncasecmp( "PUT", token, 3 ) == 0 ) {
+                else if( strncasecmp( "PUT",     token, 3 ) == 0 ) {
                     token = strtok( NULL, "0123456789 " );
                     if( NULL != token ) {
                         if( strncasecmp( token, "SOL", 3 ) == 0 ) {
                             telnet_putVars( telnet_sol_Vars, sizeof(telnet_sol_Vars)/sizeof(parse_set_t), fdesc, bufout );
                             printf( "TELNET.C: PUT SOL Befehl erhalten\n" );
-                            // sol_Init( &cntrl_sol_par );
                         }
                         else if( strncasecmp( token, "FB", 2 ) == 0 ) {
                             telnet_putVars( telnet_fb_Vars, sizeof(telnet_fb_Vars)/sizeof(parse_set_t), fdesc, bufout );
                             printf( "TELNET.C: PUT FB Befehl erhalten\n" );
-                            // fb_Init( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_out );
                         }
                         else if( strncasecmp( token, "HK", 2 ) == 0 ) {
                             telnet_putVars( telnet_hk_Vars, sizeof(telnet_hk_Vars)/sizeof(parse_set_t), fdesc, bufout );
                             printf( "TELNET.C: PUT HK Befehl erhalten\n" );
-                            // hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
                         }
                         else if( strncasecmp( token, "WW", 2 ) == 0 ) {
                             telnet_putVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t), fdesc, bufout );
                             printf( "TELNET.C: PUT WW Befehl erhalten\n" );
-                            // ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
                         }
                         else if( strncasecmp( token, "KES", 3 ) == 0 ) {
                             telnet_putVars( telnet_kes_Vars, sizeof(telnet_kes_Vars)/sizeof(parse_set_t), fdesc, bufout );
                             printf( "TELNET.C: PUT KES Befehl erhalten\n" );
-                            // kes_Init( &cntrl_kes_par, &cntrl_kes_out );
                         }
                         else if( strncasecmp( token, "ERR", 3 ) == 0 ) {
                             telnet_putVars( telnet_err_Vars, sizeof(telnet_err_Vars)/sizeof(parse_set_t), fdesc, bufout );
                             printf( "TELNET.C: PUT ERR Befehl erhalten\n" );
-                            // kes_Init( &cntrl_kes_par, &cntrl_kes_out );
                         }
                     }
                 }
-                else if( strncasecmp( "INIT", token, 4 ) == 0 ) {
+                else if( strncasecmp( "INIT",    token, 4 ) == 0 ) {
                     printf( "TELNET.C: INIT Befehl erhalten\n" );
                     param_Init();
                     zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
