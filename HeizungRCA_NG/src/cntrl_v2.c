@@ -107,11 +107,11 @@ int main( void )
 
         /* Prozessdaten */
         if( SET == cntrl_mdl_aktiv.inp_sol_aktiv ) {
-            io_Temp(&io_SOL_KOLL_T_MW, &(cntrl_sol_in.koll_t_mw[KO1])) );
-            io_Temp(&io_SOL_SP1_To_MW, &(cntrl_sol_in.t_sp[SP1].to_mw)) );
-            io_Temp(&io_SOL_SP1_Tu_MW, &(cntrl_sol_in.t_sp[SP1].tu_mw)) );
-            io_Temp(&io_SOL_SP2_To_MW, &(cntrl_sol_in.t_sp[SP2].to_mw)) );
-            io_Temp(&io_SOL_SP2_Tu_MW, &(cntrl_sol_in.t_sp[SP2].tu_mw)) );
+            io_Temp(&io_SOL_KOLL_T_MW, &(cntrl_sol_in.koll_t_mw[KO1])  );
+            io_Temp(&io_SOL_SP1_To_MW, &(cntrl_sol_in.t_sp[SP1].to_mw) );
+            io_Temp(&io_SOL_SP1_Tu_MW, &(cntrl_sol_in.t_sp[SP1].tu_mw) );
+            io_Temp(&io_SOL_SP2_To_MW, &(cntrl_sol_in.t_sp[SP2].to_mw) );
+            io_Temp(&io_SOL_SP2_Tu_MW, &(cntrl_sol_in.t_sp[SP2].tu_mw) );
         }
         if( SET == cntrl_mdl_aktiv.inp_fb_aktiv ) {
             cntrl_fb_in.tau_mw           = io_get_ALL_Tau_MW();
