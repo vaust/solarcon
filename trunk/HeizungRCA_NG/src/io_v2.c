@@ -43,7 +43,6 @@ void io_InitTempAll( void )
   * die jeweilige Messbereichsgrenze abgelegt, so dass noch sinnvoll weitergerechnet werden kann
   * \param this Pointer auf ein Temperaturmessobjekt
   */
-
 io_obj_status_t io_Temp( io_temp_obj_t *this, float *mw )
 {
     float temp_val;
@@ -87,7 +86,7 @@ io_obj_status_t io_Temp( io_temp_obj_t *this, float *mw )
             break;
     }
     
-    *mw = this->messwert;
+    *mw = this->messwert;  /* Strukturwert in die Arbeitsvariable kopieren */
     return (this->status);
 }
 
@@ -138,7 +137,8 @@ io_obj_status_t io_Y( io_ao10V_obj_t *this, float val )
     return(this->status);
 }
 
-/** \brief Alle IO´s (Temperaturen und 0-10V Ausgänge) initialisieren. */
+/** \brief Alle IO´s (Temperaturen und 0-10V Ausgänge) initialisieren. 
+  */
 void io_Init( void )
 {
     io_InitYAll();

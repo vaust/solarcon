@@ -33,12 +33,12 @@
 #include "telnet_vars.h"
 
 /**
-server_thread.
-Server Threads die mit dem Client (Telnet, Heizungsregler oder Visualisierung)
-kommunizieren
-\param Client Socket Descriptor
-\return Status
-*/
+  * \brief server_thread.
+  * Server Threads die mit dem Client (Telnet, Heizungsregler oder Visualisierung)
+  * kommunizieren
+  * \param Client Socket Descriptor
+  * \return Status
+  */
 void *telnet_thread( void *arg )
 {
     char    bufin[BFLN], bufout[BFLN], *token;
@@ -47,11 +47,11 @@ void *telnet_thread( void *arg )
     arglist = (int *) arg;
     fdesc = arglist[0];
 
-    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version " );        BFLSH();
-    snprintf( bufout, BFLN, VERSIONSTRING );                             BFLSH();
-    snprintf( bufout, BFLN, "\tAndreas Stegmann\n\tVolker Stegmann\n\n" );       BFLSH();
+    snprintf( bufout, BFLN, "\tRCA Heizungssteuerung Version " );                                         BFLSH();
+    snprintf( bufout, BFLN, VERSIONSTRING );                                                              BFLSH();
+    snprintf( bufout, BFLN, "\tAndreas Stegmann\n\tVolker Stegmann\n\n" );                                BFLSH();
     snprintf( bufout, BFLN, "\tERR-Modul nicht aktiv. Bitte bei Bedarf mit \"AUTO ERR\" einschalten\n" ); BFLSH();
-    snprintf( bufout, BFLN, "\tServer Prozess %d\n\n", arglist[1]+1 );   BFLSH();
+    snprintf( bufout, BFLN, "\tServer Prozess %d\n\n", arglist[1]+1 );                                    BFLSH();
     telnet_writeHelp( fdesc, bufout );
 
     while( 1 ) {
@@ -78,7 +78,7 @@ void *telnet_thread( void *arg )
                     printf( "TELNET.C: VERSION Befehl erhalten\n" );
                     snprintf( bufout, BFLN, "\tRCA Heizungssteuerung\n\tVersion " ); BFLSH();
                     snprintf( bufout, BFLN, VERSIONSTRING ); BFLSH();
-                    snprintf( bufout, BFLN, "\tEntwicklungspfad: \n\t" ); BFLSH();
+                    snprintf( bufout, BFLN, "\tEntwicklungszweig: " ); BFLSH();
                     snprintf( bufout, BFLN, VERSIONDEVPATH ); BFLSH();                    
                     snprintf( bufout, BFLN, "\tAndreas Stegmann\n\tVolker Stegmann\n" ); BFLSH();
                 }
