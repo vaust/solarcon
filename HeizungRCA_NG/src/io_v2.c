@@ -7,15 +7,15 @@
 #include "io_v2.h"
 
 static  
-void io_InitTemp( io_temp_obj_t     *this,
+void io_InitTemp( io_temp_obj_t     *self,
                   float             messbereich_anfang,
                   float             messbereich_ende,
                   temp10_pt1000_t   *kbus_adresse_p )
 {
-    this->messbereich_anfang = messbereich_anfang;
-    this->messbereich_ende   = messbereich_ende;
-    this->status             = io_Normal;
-    this->kbus_adresse_p     = kbus_adresse_p;
+    self->messbereich_anfang = messbereich_anfang;
+    self->messbereich_ende   = messbereich_ende;
+    self->status             = io_Normal;
+    self->kbus_adresse_p     = kbus_adresse_p;
 }
 
 void io_InitTempAll( void )
@@ -41,66 +41,66 @@ void io_InitTempAll( void )
   * Der Messwert wird in der Objektstruktur abgelegt und im Normalfall auch zurückgeben.
   * Bei unplausiblen Messwerten wird der rohe Messwert zurückgegeben und in der Objektstruktur
   * die jeweilige Messbereichsgrenze abgelegt, so dass noch sinnvoll weitergerechnet werden kann
-  * \param this Pointer auf ein Temperaturmessobjekt
+  * \param self Pointer auf ein Temperaturmessobjekt
   */
-io_obj_status_t io_Temp( io_temp_obj_t *this, float *mw )
+io_obj_status_t io_Temp( io_temp_obj_t *self, float *mw )
 {
     float temp_val;
 
-    switch( this->status ) {
+    switch( self->status ) {
         case io_ManuelleZuweisung:
-            *mw = this->messwert;  
+            *mw = self->messwert;  
             /* Aus diesem Zustand kommt man nur durch Benutzerinteraktion (telnet.c) */
             break;
         case io_Normal:
-            temp_val = TF(*(this->kbus_adresse_p));
+            temp_val = TF(*(self->kbus_adresse_p));
             if( temp_val < IO_MIN_TEMP ) {
-                this->status = io_Kurzschluss; 
+                self->status = io_Kurzschluss; 
                 /* alten Messwert behalten */
             }
-            else if( temp_val < this->messbereich_anfang ) {
-                this->status = io_Unplausibel;
-                this->messwert = this->messbereich_anfang; /* Messwert begrenzen */
+            else if( temp_val < self->messbereich_anfang ) {
+                self->status = io_Unplausibel;
+                self->messwert = self->messbereich_anfang; /* Messwert begrenzen */
             }
             else if( temp_val > IO_MAX_TEMP ) {
-                this->status = io_Kabelbruch;
+                self->status = io_Kabelbruch;
                 /* alten Messwert behalten */
             }
-            else if( temp_val > this->messbereich_ende ) {
-                this->status = io_Unplausibel;
-                this->messwert = this->messbereich_ende;   /* Messwert begrenzen */
+            else if( temp_val > self->messbereich_ende ) {
+                self->status = io_Unplausibel;
+                self->messwert = self->messbereich_ende;   /* Messwert begrenzen */
             }
             else {
                 /* Nur solange der Messwert in den Grenzen liegt bleibt der Zustand normal */
-                this->status = io_Normal;  
-                this->messwert = temp_val;
+                self->status = io_Normal;  
+                self->messwert = temp_val;
             }
             break;
         default:        
-            temp_val = TF(*(this->kbus_adresse_p));
-            if( (temp_val >= this->messbereich_anfang) &&  
-                (temp_val <  this->messbereich_ende)      ) {
-                this->status = io_Normal;  /* Messwert liegt wieder in den normalen Grenzen */
-                this->messwert = temp_val;
+            temp_val = TF(*(self->kbus_adresse_p));
+            if(    (temp_val >= self->messbereich_anfang)  
+                && (temp_val <  self->messbereich_ende  ) ) {
+                self->status = io_Normal;  /* Messwert liegt wieder in den normalen Grenzen */
+                self->messwert = temp_val;
             }
             break;
     }
     
-    *mw = this->messwert;  /* Strukturwert in die Arbeitsvariable kopieren */
-    return (this->status);
+    *mw = self->messwert;  /* Strukturwert in die Arbeitsvariable kopieren */
+    return (self->status);
 }
 
 static
-void io_InitY( io_ao10V_obj_t   *this, 
+void io_InitY( io_ao10V_obj_t   *self, 
                float            stellbereich_anfang, 
                float            stellbereich_ende,
                io_obj_status_t  status,
                ao_0_10V_t       *kbus_adresse_p )
 {
-    this->stellbereich_anfang = stellbereich_anfang;
-    this->stellbereich_ende   = stellbereich_ende;
-    this->status              = io_Normal;
-    this->kbus_adresse_p      = kbus_adresse_p;
+    self->stellbereich_anfang = stellbereich_anfang;
+    self->stellbereich_ende   = stellbereich_ende;
+    self->status              = io_Normal;
+    self->kbus_adresse_p      = kbus_adresse_p;
 }
 
 void io_InitYAll( void )
@@ -113,28 +113,28 @@ void io_InitYAll( void )
 }
 
 /** \brief Analogen Stellwert ausgeben mit Ueberprüfung auf Plausibilitaet.
-  * \param this Pointer auf Ausgabeobjekt 
+  * \param self Pointer auf Ausgabeobjekt 
   * \param val Auszugebender Wert 
   * Der Stellwert wird auf der PLC ausgegeben und im Feld stellwert abgelegt.
   * Weiterhin wird geprueft, ob der gewuenschte Stellwert im plausiblen Bereich liegt.
   */
-io_obj_status_t io_Y( io_ao10V_obj_t *this, float val )
+io_obj_status_t io_Y( io_ao10V_obj_t *self, float val )
 {
-    this->stellwert = val;
-    if( val < this->stellbereich_anfang ) {
-        *(this->kbus_adresse_p) = (this->stellbereich_anfang *AO_FULLSCALE)/100;
-        this->status            = io_Unterlauf;
+    self->stellwert = val;
+    if( val < self->stellbereich_anfang ) {
+        *(self->kbus_adresse_p) = (self->stellbereich_anfang *AO_FULLSCALE)/100;
+        self->status            = io_Unterlauf;
     }
-    else if( val > this->stellbereich_ende ) {
-        *(this->kbus_adresse_p) = (this->stellbereich_ende   *AO_FULLSCALE)/100;
-        this->status            = io_Ueberlauf;
+    else if( val > self->stellbereich_ende ) {
+        *(self->kbus_adresse_p) = (self->stellbereich_ende   *AO_FULLSCALE)/100;
+        self->status            = io_Ueberlauf;
     }
     else { /* Angeforderter Stellwert im plausiblen Bereich */
-        *(this->kbus_adresse_p) = (val*AO_FULLSCALE)/100;
-        this->status            = io_Normal;
+        *(self->kbus_adresse_p) = (val*AO_FULLSCALE)/100;
+        self->status            = io_Normal;
     }
     
-    return(this->status);
+    return(self->status);
 }
 
 /** \brief Alle IO´s (Temperaturen und 0-10V Ausgänge) initialisieren. 
