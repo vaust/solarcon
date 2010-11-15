@@ -35,13 +35,14 @@ void sup_DigRegInit( sup_digreg_coeff_t *q_p,
 
 
 /*
- * Implementierung mit Anti Windup und Zustandgroessen 
+ * \brief Digitaler PI-Regler mit Anti Windup.
+ * Array x[] enthaelt die Zustandsgroessen.
  */
 
 float sup_DigRegler( const sup_digreg_coeff_t *q_p, 
                      const float               soll, 
                      const float               ist, 
-                            sup_digreg_out_t  *y_p )
+                           sup_digreg_out_t   *y_p )
 {
     /* x[0] : x Eingangsgroesse */
     /* x[2] : y Ausgangsgroesse ohne Begrenzung */
