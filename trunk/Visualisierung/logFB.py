@@ -67,7 +67,7 @@ tn.open(HOST, PORT)
 
 tn.read_very_eager()     # lese Ueberschriftenblock
           
-fd = open( Filename_Prefix+"_IO.csv", "w" )
+fd = open( "FB_"+Filename_Prefix+"_IO.csv", "w" )
 
 # Kopfzeile der Tabelle schreiben
 kopfstr = "Zeit;"
@@ -98,7 +98,7 @@ while (time.time() < (startTime+logTime)):
     for line in lines:
         i = 0
         for name in FB_varnames:
-            if (line.startswith(name)):
+            if (line.find(name)>0):
                 FB_v[i] = float(line.split('=')[1])
             i += 1
 
@@ -108,10 +108,10 @@ while (time.time() < (startTime+logTime)):
     now = datetime.datetime( now.year, now.month, now.day, now.hour, now.minute, now.second )
     csvstr = now.isoformat(' ') + ";";
 
-    for i in range(len(TEMPNAMES)):
-        csvstr += "{0:.1f};".format( temp[i] )
+    for i in range(len(FB_varnames)):
+        csvstr += "{0:.3f};".format( FB_v[i] )
                    
-    fd = open( Filename_Prefix+"_IO.csv", "a" )
+    fd = open( "FB_"+Filename_Prefix+"_IO.csv", "a" )
     fd.write( csvstr + "\n" )
     fd.close()
     print( csvstr )
