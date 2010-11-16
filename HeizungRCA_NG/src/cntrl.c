@@ -138,9 +138,9 @@ int main( void )
         }
         if( SET == cntrl_mdl_aktiv.inp_kes_aktiv ) {
             cntrl_kes_in.sp1_to_mw       = io_get_SOL_SP1_To_MW();
-            cntrl_kes_in.sp1_tu_mw       = io_get_SOL_SP1_Tu_MW();
+//            cntrl_kes_in.sp1_tu_mw       = io_get_SOL_SP1_Tu_MW();
             cntrl_kes_in.sp2_to_mw       = io_get_SOL_SP2_To_MW();
-            cntrl_kes_in.sp2_tu_mw       = io_get_SOL_SP2_Tu_MW();
+//            cntrl_kes_in.sp2_tu_mw       = io_get_SOL_SP2_Tu_MW();
             cntrl_kes_in.tvl_mw          = io_get_KES_Tvl_MW();
             cntrl_kes_in.br_bm           = io_get_KES_BR_BM();
             cntrl_kes_in.partytime_flg   = cntrl_zeit_party.ww_partytime_flg;
