@@ -134,26 +134,15 @@ const parse_set_t telnet_sol_Vars[] =
 
 const parse_set_t telnet_kes_Vars[] =
 {
-//    { "kes_par.TA",           &(cntrl_kes_par.TA),           "%f" },
-//    { "kes_par.tvl_absenk",   &(cntrl_kes_par.tvl_absenk),   "%f" },
-//    { "kes_par.tvl_steigung", &(cntrl_kes_par.tvl_steigung), "%f" },
-//    { "kes_par.tvl_niveau",   &(cntrl_kes_par.tvl_niveau),   "%f" },
-//    { "kes_par.tvl_min",      &(cntrl_kes_par.tvl_min),      "%f" },
-//    { "kes_par.tvl_max",      &(cntrl_kes_par.tvl_max),      "%f" },
-//    { "kes_par.at_start",     &(cntrl_kes_par.at_start),     "%f" },
-//    { "kes_par.frostschutz",  &(cntrl_kes_par.frostschutz),  "%f" },
     { "kes_par.sp_dt_sw",     &(cntrl_kes_par.sp_dt_sw),     "%f" },
     { "kes_par.ww_tww_sw",    &(cntrl_kes_par.ww_tww_sw),    "%f" },
 
     { "kes_in.sp1_to_mw",     &(cntrl_kes_in.sp1_to_mw),     "%f" },
-//    { "kes_in.sp1_tu_mw" ,    &(cntrl_kes_in.sp1_tu_mw),     "%f" },
     { "kes_in.sp2_to_mw",     &(cntrl_kes_in.sp2_to_mw),     "%f" },
-//    { "kes_in.sp2_tu_mw" ,    &(cntrl_kes_in.sp2_tu_mw),     "%f" },
     { "kes_in.tvl_mw",        &(cntrl_kes_in.tvl_mw),        "%f" },
     { "kes_in.hk_tvl_sw",     &(cntrl_kes_in.hk_tvl_sw),     "%f" },
     { "kes_in.fb_tvl_sw",     &(cntrl_kes_in.fb_tvl_sw),     "%f" },
     { "kes_in.duschzeit",     &(cntrl_kes_in.duschzeit),     "%x" },
-    { "kes_in.partytime_flg", &(cntrl_kes_in.partytime_flg), "%x" },
     { "kes_in.br_bm",         &(cntrl_kes_in.br_bm),         "%x" },
 
     { "kes_out.sp1_to_sw",    &(cntrl_kes_out.sp1_to_sw),    "%f" },

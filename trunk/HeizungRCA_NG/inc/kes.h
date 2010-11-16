@@ -23,11 +23,11 @@ typedef struct {
     float        sp2_to_mw;
 //    float        sp2_tu_mw;
     float        tvl_mw;
-    u32_t        gz_mw;         /**< Gaszaehlerstand (noch nicht in Verwendung */
+//    u32_t        gz_mw;         /**< Gaszaehlerstand (noch nicht in Verwendung */
     float        hk_tvl_sw;     
     float        fb_tvl_sw;
     nutzzeit_t   duschzeit;
-    u8_t         partytime_flg;
+//    u8_t         partytime_flg;
     di_bitbyte_t br_bm;
 } kes_in_t;
 
