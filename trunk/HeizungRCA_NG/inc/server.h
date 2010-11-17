@@ -26,6 +26,7 @@ int create_server_sock( int port );
 void terminate( int sig );
 void *server_thread( void *arg );
 extern void *cntrl_thread( void *arg );
+extern void cntrl_main( void );
 void *telnet_thread( void *arg );
 
 #ifdef _TELNET_C_
@@ -50,11 +51,14 @@ static void telnet_writeModuls( int fdesc, char *bufout );
 /* </Prototypen> */
 
 /* <Global> */
-/* - Globale Threadvariablen -*/
+/* - Globale Threadvariablen - */
 PUBLIC pthread_t       threadlist[MAX_CON];
 PUBLIC pthread_attr_t  threadattr;
 PUBLIC int             thread_args[2];
 PUBLIC pthread_mutex_t mutex;
+
+/* - Timer Variablen - */
+PUBLIC struct timeval  intervalltimer;
 
 #ifdef _SERVER_C_
 int             next_thread=0;

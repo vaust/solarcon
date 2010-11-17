@@ -12,10 +12,11 @@
 #include <netdb.h>
 
 #include <pthread.h>        /* Fuer Threadfunktionalitaet */
+#include <sys/time.h>       /* Fuer Timerintervalle */
 #include <semaphore.h>
 
 #include <string.h>
-
+#include "param.h"          /* Wegen Abtastzeit */
 #include "server.h"
 
 /*-----------------------------------------------
@@ -81,7 +82,13 @@ void terminate( int sig )
 
 int main( void )
 {
+    intervalltimer.tv_sec = 0;
+    intervalltimer.tv_usec = ABTASTZEIT_USEC;
+    if( 0 != setitimer( ITIMER_REAL, &intervalltimer ) ) terminate();
+
     signal( SIGINT, terminate );
+    signal( SIGALRM, cntrl_main );
+    
     server_sock_fd = create_server_sock( TCP_PORT );
 
     if( pthread_attr_init( &threadattr ) != 0 ) {
@@ -99,12 +106,12 @@ int main( void )
         exit( -1 );
     }
 
-    /* Main Thread erzeugen */
-    if( (pthread_create( &(threadlist[next_thread]), &threadattr,
-                         cntrl_thread, (void *)thread_args ) ) != 0 ) {
-        perror( "SERVER.C: Threaderzeugung schlug fehl" );
-        exit( -1 );
-    }
+    // /* Main Thread erzeugen */
+    // if( (pthread_create( &(threadlist[next_thread]), &threadattr,
+                         // cntrl_thread, (void *)thread_args ) ) != 0 ) {
+        // perror( "SERVER.C: Threaderzeugung schlug fehl" );
+        // exit( -1 );
+    // }
 
     while( 1 ) {
         /* Auf Verbindung mit Client warten */
