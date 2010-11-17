@@ -80,7 +80,7 @@ PUBLIC err_in_t            cntrl_err_in;
 PUBLIC err_out_t           cntrl_err_out;
 
 /* --DEBUG Variablen -- */
-PUBLIC s16_t    cntrl_cnt;
+PUBLIC u16_t    cntrl_cnt;
 PUBLIC s16_t    cntrl_DEBUG01;
 #endif
 
