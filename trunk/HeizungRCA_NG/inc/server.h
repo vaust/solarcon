@@ -67,7 +67,7 @@ int             next_thread=0;
 extern int      next_thread;
 #endif
 
-PUBLIC int             server_sock_fd, client_sock_fd;
+PUBLIC int      server_sock_fd, client_sock_fd;
 
 /* </Global> */
 

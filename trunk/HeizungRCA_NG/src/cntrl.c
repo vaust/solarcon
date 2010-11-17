@@ -225,6 +225,7 @@ void cntrl_main( int sig )
     KBUSCLOSE();
     
     counter ++;
+    printf( "CNTRL.C: counter = %d\n", counter );
     
     return( 0 );
 }
