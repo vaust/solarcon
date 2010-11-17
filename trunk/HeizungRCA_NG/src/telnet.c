@@ -660,7 +660,7 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
     token = strtok( NULL, "\n\r " );
     if( NULL != token ) {
         n = atoi( token );
-        if( n < len ) {
+        if( (n >= 0) && (n < len) ) {
             snprintf( bufout, BFLN, Vars[n].VarName ); BFLSH();
             snprintf( bufout, BFLN, " = " ); BFLSH();
             switch ( Vars[n].format[1] ) {
@@ -676,29 +676,29 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
                     break;
             }
             snprintf( bufout, BFLN, "\n" ); BFLSH();
+        }
+        else if( n == -1) {
+            for( n=0; n<len; n++ ) {
+                snprintf( bufout, BFLN, "(%02d) ", n ); BFLSH();
+                snprintf( bufout, BFLN, Vars[n].VarName ); BFLSH();
+                snprintf( bufout, BFLN, " = " ); BFLSH();
+                switch ( Vars[n].format[1] ) {
+                    case 'd':
+                        snprintf( bufout, BFLN, Vars[n].format, *(s16_t *)Vars[n].VarPointer ); BFLSH();
+                        break;
+                    case 'x':
+                        snprintf( bufout, BFLN, Vars[n].format, *(u8_t *)Vars[n].VarPointer ); BFLSH();
+                        break;
+                    case 'f':
+                    default:
+                        snprintf( bufout, BFLN, "%8.3f", *(float *)Vars[n].VarPointer ); BFLSH();
+                        break;
+                }
+                snprintf( bufout, BFLN, "\n" ); BFLSH();
+            }
         }
         else {
-            snprintf( bufout, BFLN, "FEHLER: n < 0 oder keine Zahl!\n" ); BFLSH();            
-        }
-    }
-    else {
-        for( n=0; n<len; n++ ) {
-            snprintf( bufout, BFLN, "(%02d) ", n ); BFLSH();
-            snprintf( bufout, BFLN, Vars[n].VarName ); BFLSH();
-            snprintf( bufout, BFLN, " = " ); BFLSH();
-            switch ( Vars[n].format[1] ) {
-                case 'd':
-                    snprintf( bufout, BFLN, Vars[n].format, *(s16_t *)Vars[n].VarPointer ); BFLSH();
-                    break;
-                case 'x':
-                    snprintf( bufout, BFLN, Vars[n].format, *(u8_t *)Vars[n].VarPointer ); BFLSH();
-                    break;
-                case 'f':
-                default:
-                    snprintf( bufout, BFLN, "%8.3f", *(float *)Vars[n].VarPointer ); BFLSH();
-                    break;
-            }
-            snprintf( bufout, BFLN, "\n" ); BFLSH();
+            snprintf( bufout, BFLN, "FEHLER: n nicht plausibel\n" ); BFLSH();        
         }
     }
 }
