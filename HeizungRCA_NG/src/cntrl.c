@@ -46,18 +46,17 @@
 #define MUTEX_UNLOCK()
 #endif
 
-#ifdef __REENTRANT__
-void terminate( int sig );
+// #ifdef __REENTRANT__
+// void terminate( int sig );
 
-extern pthread_mutex_t  mutex;
+// extern pthread_mutex_t  mutex;
 
-void *cntrl_thread( void *arg )
-#else
-int main( void )
-#endif
+// void *cntrl_thread( void *arg )
+// #else
+// int main( void )
+// #endif
+void cntrl_main( void )
 {
-    signal( SIGINT, terminate );
-
     KBUSOPEN();
     KBUSUPDATE();
 
@@ -215,7 +214,7 @@ int main( void )
 
         /* Abtastzeit abwarten. ACHTUNG: Rechenzeit nicht beruecksichtigt.
            Muesste eigentlich ueber Timerfunktion laufen */
-        SLEEP( ABTASTZEIT_USEC );
+        // SLEEP( ABTASTZEIT_USEC );
     }
 
     KBUSCLOSE();
