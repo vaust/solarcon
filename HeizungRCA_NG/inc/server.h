@@ -27,7 +27,7 @@ void terminate( int sig );
 void *server_thread( void *arg );
 
 void cntrl_open( void );
-void cntrl_main( int sig );
+void cntrl_run( int sig );
 void cntrl_close( void );
 
 void *telnet_thread( void *arg );
