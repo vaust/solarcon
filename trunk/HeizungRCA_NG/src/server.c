@@ -70,6 +70,8 @@ Rueckgabewert:  keine
 ----------------------------------------------------------*/
 void terminate( int sig )
 {
+    cntrl_close();
+    
     shutdown( client_sock_fd, SHUT_RDWR );
     shutdown( server_sock_fd, SHUT_RDWR );
     close( client_sock_fd );
@@ -81,6 +83,8 @@ void terminate( int sig )
 
 int main( void )
 {
+    cntrl_open();
+    
     signal( SIGINT, terminate );
     signal( SIGALRM, cntrl_main );
     
@@ -106,13 +110,6 @@ int main( void )
         perror( "SERVER.C: Mutex konnte nicht initialisiert werden" );
         exit( -1 );
     }
-
-    // /* Main Thread erzeugen */
-    // if( (pthread_create( &(threadlist[next_thread]), &threadattr,
-                         // cntrl_thread, (void *)thread_args ) ) != 0 ) {
-        // perror( "SERVER.C: Threaderzeugung schlug fehl" );
-        // exit( -1 );
-    // }
 
     while( 1 ) {
         /* Auf Verbindung mit Client warten */
