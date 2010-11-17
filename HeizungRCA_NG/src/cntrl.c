@@ -91,7 +91,7 @@ void cntrl_main( int sig )
     cntrl_mdl_aktiv.inp_err_aktiv = SET;
     MUTEX_UNLOCK();
 
-    while( 1  ) {
+//    while( 1  ) {
         MUTEX_LOCK();
         /*----------- Prozessabbild aktualisieren -----------*/
         KBUSUPDATE();
@@ -220,7 +220,7 @@ void cntrl_main( int sig )
         /* Abtastzeit abwarten. ACHTUNG: Rechenzeit nicht beruecksichtigt.
            Muesste eigentlich ueber Timerfunktion laufen */
         // SLEEP( ABTASTZEIT_USEC );
-    }
+//    }
 
     KBUSCLOSE();
     
