@@ -11,7 +11,7 @@ SVN_URL = '$HeadURL$'
 SVN_REV = SVN.split(':')[1].split('$')[0]
 VERSION = '0.7.2 SVN:'+SVN_REV
 
-L = ['svn', 'update', '>svn.lst']
+L = ['svn', 'info', '>svn.info']
 os.spawnve( os.P_WAIT, 'svn', L, os.environ)
 
 DEVPATH = SVN_URL.split('.com')[1].split('/write')[0]
