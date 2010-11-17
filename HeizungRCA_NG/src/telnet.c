@@ -68,6 +68,7 @@ void *telnet_thread( void *arg )
                     printf( "TELNET.C: END Befehl erhalten\n" );
                     next_thread--;
                     close( fdesc );
+                    MUTEX_UNLOCK();
                     pthread_exit( NULL );
                 }
                 else if( strncasecmp( "HELP",    token, 3 ) == 0 ) {
