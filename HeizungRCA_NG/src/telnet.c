@@ -657,7 +657,7 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
     int     n;
     char    *token;
 
-    token = strtok( NULL, "\n\r" );
+    token = strtok( NULL, " " );
     if( NULL != token ) {
         n = atoi( token );
         if( n < len ) {
