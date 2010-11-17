@@ -210,6 +210,14 @@ const char *telnet_help_text[] = {
     "\tVERSION   (Software Version ausgeben)\n",
     "\tEND       (Datenabfrage beenden)\n\n"
 };
+
+const parse_set_t telnet_dbg_Vars[] =
+{
+    { "cntrl_cnt",     &cntrl_cnt,     "%d" },
+    { "cntrl_DEBUG01", &cntrl_DEBUG01, "%d" }
+}
+
+
 #else
 #error "Header nicht von telnet.c eingebunden"
 #endif // _TELNET_C_

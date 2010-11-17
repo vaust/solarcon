@@ -85,8 +85,6 @@ void cntrl_open( void )
 
 void cntrl_main( int sig )
 {
-    static int counter = 0;
-    
     MUTEX_LOCK();
     /*----------- Prozessabbild aktualisieren -----------*/
     KBUSUPDATE();
@@ -212,10 +210,7 @@ void cntrl_main( int sig )
     KBUSUPDATE();
     MUTEX_UNLOCK();
     
-    counter ++;
-    printf( "CNTRL.C: counter = %d\n", counter );
-    
-    return( 0 );
+    cntrl_cnt ++; /* Aufrufzaehler incr. */
 }
 
 void cntrl_close( void )
