@@ -678,7 +678,7 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
             snprintf( bufout, BFLN, "\n" ); BFLSH();
         }
         else {
-            snprintf( bufout, BFLN, "TELNET.C: n < 0 oder keine Zahl!\n" ); BFLSH();            
+            snprintf( bufout, BFLN, "FEHLER: n < 0 oder keine Zahl!\n" ); BFLSH();            
         }
     }
     else {
