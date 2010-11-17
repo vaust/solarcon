@@ -378,7 +378,7 @@ void telnet_parseGet( int fdesc, char *bufout )
             telnet_writeVars( telnet_err_Vars, sizeof(telnet_err_Vars)/sizeof(parse_set_t), fdesc, bufout );
         }
         else if( strncasecmp( token, "VDBG", 4 ) == 0 ) {
-            telnet_writeVars( telnet_err_Vars, sizeof(telnet_dbg_Vars)/sizeof(parse_set_t), fdesc, bufout );
+            telnet_writeVars( telnet_dbg_Vars, sizeof(telnet_dbg_Vars)/sizeof(parse_set_t), fdesc, bufout );
         }
     }   
 }
