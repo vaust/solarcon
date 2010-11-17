@@ -59,7 +59,6 @@ PUBLIC pthread_mutex_t mutex;
 
 /* - Timer Variablen - */
 PUBLIC struct itimerval   timer;
-PUBLIC struct sigaction   sa;
 
 #ifdef _SERVER_C_
 int             next_thread=0;

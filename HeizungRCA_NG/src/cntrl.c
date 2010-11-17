@@ -60,7 +60,7 @@ extern pthread_mutex_t  mutex;
 
 void cntrl_main( int sig )
 {
-    static counter = 0;
+    static int counter = 0;
     
     KBUSOPEN();
     KBUSUPDATE();

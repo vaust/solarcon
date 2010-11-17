@@ -81,19 +81,14 @@ void terminate( int sig )
 
 int main( void )
 {
-    /* Install timer_handler as the signal handler for SIGVTALRM.  */ 
-    memset (&sa, 0, sizeof (sa)); 
-    sa.sa_handler = cntrl_main; 
-    sigaction (SIGALRM, &sa, NULL); 
+    signal( SIGINT, terminate );
+    signal( SIGALRM, cntrl_main );
     
     timer.it_value.tv_sec = 0;
     timer.it_value.tv_usec = 500000L;
     timer.it_interval.tv_sec = 0;
     timer.it_interval.tv_usec = 500000L;
     setitimer( ITIMER_REAL, &timer, NULL );
-
-    signal( SIGINT, terminate );
-    
 
     server_sock_fd = create_server_sock( TCP_PORT );
 
