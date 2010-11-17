@@ -186,13 +186,13 @@ const char *telnet_help_text[] = {
     "\tGET PAR   (Eingelesene Parameter ausgeben)\n",
     "\tGET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n",
     "\tGET ABS   (Absenkungen ausgeben)\n",
-    "\tGET VFB   (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\tGET VHK   (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\tGET VWW   (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\tGET VSOL  (SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\tGET VKES  (KES Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\tGET VERR  (ERR Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n\n",
-
+    "\tGET VFB <n>  (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
+    "\tGET VHK <n>  (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
+    "\tGET VWW <n>  (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
+    "\tGET VSOL <n> (SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
+    "\tGET VKES <n> (KES Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
+    "\tGET VERR <n> (ERR Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
+    "\t             n Nummer der Variablen oder -1 für komplette Liste\n\n"
     "\tAUTO <mdl>    (Modul SOL, FB, HK, WW, KES, ERR auf Automatik)\n",
     "\tAUTO IN<mdl>  (Prozesseingabe SOL, FB, HK, WW, KES, ERR auf Automatik)\n",
     "\tAUTO ALL      (alle Prozesseingaben und Module auf Automatik)\n",
@@ -202,7 +202,7 @@ const char *telnet_help_text[] = {
     "\tPUT V<mdl> <var-nr> <=| > <wert> (Modul Variable manuell setzen)\n",
     "\t          Beispiel: put vww 23 0.0 \n",
     "\t          Ausgangsgroessen sind nur im Handbetrieb aenderbar.\n",
-    "\t          var-nr ergibt sich aus Ausgabe von GET Vxxx\n\n",
+    "\t          var-nr ergibt sich aus Ausgabe von GET Vxxx -1\n\n",
 
     "\tINIT      (Initialisierungsdateien neu einlesen)\n\n",
     
