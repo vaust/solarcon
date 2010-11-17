@@ -83,7 +83,7 @@ void cntrl_open( void )
     KBUSUPDATE();
 }
 
-void cntrl_main( int sig )
+void cntrl_run( int sig )
 {
     MUTEX_LOCK();
     /*----------- Prozessabbild aktualisieren -----------*/

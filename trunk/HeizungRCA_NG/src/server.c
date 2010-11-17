@@ -16,14 +16,14 @@
 #include <semaphore.h>
 
 #include <string.h>
+#include "param.h"
 #include "server.h"
 
-/*-----------------------------------------------
-Funktion:       create_server_sock
-                Socket zur Kommunikation erzeugen
-Parameter:      int port: Portnummer fuer Socket
-Rueckgabewert:  Filedescriptor fuer Zugriff
-------------------------------------------------*/
+/**
+ * \brief Erzeugen eines Telnet Server Sockets.
+ * \param port[in] Portnummer fuer Socket
+ * \return Filedescriptor fuer Zugriff
+ */
 int create_server_sock( int port )
 {
     int                 sock_fd;
@@ -62,12 +62,12 @@ int create_server_sock( int port )
     return( sock_fd );
 }
 
-/*---------------------------------------------------------
-Funktion:       terminate
-                Server gezielt auf Signal beenden
-Parameter:      keine
-Rueckgabewert:  keine
-----------------------------------------------------------*/
+/**
+ * \brief Terminiere System.
+ * Server gezielt auf Signal beenden
+ * \param keine
+ * \return kein
+ */
 void terminate( int sig )
 {
     cntrl_close();
@@ -81,17 +81,23 @@ void terminate( int sig )
     exit( sig );
 }
 
+/**
+ * \brief Main (internes Betriebssystem).
+ * Hier wird der Intervalltimer fuer das zyklische Aufrufen der Steuerung
+ * gestartet, der Mutex fuer das parallele Zugreifen auf globale Variablen erzeugt und
+ * in der Endlosschleife auf eine Telnetverbindung gewartet.
+ */
 int main( void )
 {
     cntrl_open();
     
     signal( SIGINT, terminate );
-    signal( SIGALRM, cntrl_main );
+    signal( SIGALRM, cntrl_run );
     
     timer.it_value.tv_sec = 0;
-    timer.it_value.tv_usec = 500000L;
+    timer.it_value.tv_usec = ABTASTZEIT_USEC;
     timer.it_interval.tv_sec = 0;
-    timer.it_interval.tv_usec = 500000L;
+    timer.it_interval.tv_usec = ABTASTZEIT_USEC;
     setitimer( ITIMER_REAL, &timer, NULL );
 
     server_sock_fd = create_server_sock( TCP_PORT );
