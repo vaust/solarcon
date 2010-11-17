@@ -128,8 +128,4 @@ int main( void )
             exit( -1 );
         }
     }
-    shutdown( client_sock_fd, SHUT_RDWR );
-    shutdown( server_sock_fd, SHUT_RDWR );
-    close( client_sock_fd );
-    close( server_sock_fd );
 }
