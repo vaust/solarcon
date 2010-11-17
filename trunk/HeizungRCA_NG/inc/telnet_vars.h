@@ -215,8 +215,7 @@ const parse_set_t telnet_dbg_Vars[] =
 {
     { "cntrl_cnt",     &cntrl_cnt,     "%d" },
     { "cntrl_DEBUG01", &cntrl_DEBUG01, "%d" }
-}
-
+};
 
 #else
 #error "Header nicht von telnet.c eingebunden"
