@@ -58,8 +58,10 @@
 
 extern pthread_mutex_t  mutex;
 
-void cntrl_main( void )
+void cntrl_main( int sig )
 {
+    static counter = 0;
+    
     KBUSOPEN();
     KBUSUPDATE();
 
@@ -221,6 +223,9 @@ void cntrl_main( void )
     }
 
     KBUSCLOSE();
+    
+    counter ++;
+    
     return( 0 );
 }
 
