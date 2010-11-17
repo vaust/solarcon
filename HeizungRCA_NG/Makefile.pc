@@ -2,7 +2,7 @@
 INC := ./inc
 SRC := ./src
 #CC := $(TOOL)/gcc.exe
-CFLAGS := -I$(INC) -D__REENTRANT__ -Wall -ggdb
+CFLAGS := -I$(INC) -D__REENTRANT__ -Wall 
 #CFLAGS := -I$(INC) -D__TEST__ -Wall
 VPATH := $(SRC):$(INC)
 
