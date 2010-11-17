@@ -654,18 +654,14 @@ void telnet_writeSOL( int fdesc, char *bufout )
 static
 void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufout )
 {
-    int n;
-
+    int     n;
     char    *token;
-    int     var_no;
-    int     value_i;
-    float   value_f;
 
     token = strtok( NULL, "\n\r" );
     if( NULL != token ) {
-        var_no = atoi( token );
-        if( var_no < len ) {
-            snprintf( bufout, BFLN, Vars[var_no].VarName ); BFLSH();
+        n = atoi( token );
+        if( n < len ) {
+            snprintf( bufout, BFLN, Vars[n].VarName ); BFLSH();
             snprintf( bufout, BFLN, " = " ); BFLSH();
             switch ( Vars[n].format[1] ) {
                 case 'd':
