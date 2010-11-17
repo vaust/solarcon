@@ -678,28 +678,28 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
             snprintf( bufout, BFLN, "\n" ); BFLSH();
         }
         else {
-            for( n=0; n<len; n++ ) {
-                snprintf( bufout, BFLN, "(%02d) ", n ); BFLSH();
-                snprintf( bufout, BFLN, Vars[n].VarName ); BFLSH();
-                snprintf( bufout, BFLN, " = " ); BFLSH();
-                switch ( Vars[n].format[1] ) {
-                    case 'd':
-                        snprintf( bufout, BFLN, Vars[n].format, *(s16_t *)Vars[n].VarPointer ); BFLSH();
-                        break;
-                    case 'x':
-                        snprintf( bufout, BFLN, Vars[n].format, *(u8_t *)Vars[n].VarPointer ); BFLSH();
-                        break;
-                    case 'f':
-                    default:
-                        snprintf( bufout, BFLN, "%8.3f", *(float *)Vars[n].VarPointer ); BFLSH();
-                        break;
-                }
-                snprintf( bufout, BFLN, "\n" ); BFLSH();
-            }
+            snprintf( bufout, BFLN, "TELNET.C: n < 0 oder keine Zahl!\n" ); BFLSH();            
         }
     }
     else {
-        snprintf( bufout, BFLN, "TELNET.C: Fehler bei der Befehlseingabe\n" ); BFLSH();
+        for( n=0; n<len; n++ ) {
+            snprintf( bufout, BFLN, "(%02d) ", n ); BFLSH();
+            snprintf( bufout, BFLN, Vars[n].VarName ); BFLSH();
+            snprintf( bufout, BFLN, " = " ); BFLSH();
+            switch ( Vars[n].format[1] ) {
+                case 'd':
+                    snprintf( bufout, BFLN, Vars[n].format, *(s16_t *)Vars[n].VarPointer ); BFLSH();
+                    break;
+                case 'x':
+                    snprintf( bufout, BFLN, Vars[n].format, *(u8_t *)Vars[n].VarPointer ); BFLSH();
+                    break;
+                case 'f':
+                default:
+                    snprintf( bufout, BFLN, "%8.3f", *(float *)Vars[n].VarPointer ); BFLSH();
+                    break;
+            }
+            snprintf( bufout, BFLN, "\n" ); BFLSH();
+        }
     }
 }
 
