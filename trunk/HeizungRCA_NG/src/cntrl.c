@@ -55,6 +55,9 @@
 // #else
 // int main( void )
 // #endif
+
+extern pthread_mutex_t  mutex;
+
 void cntrl_main( void )
 {
     KBUSOPEN();
