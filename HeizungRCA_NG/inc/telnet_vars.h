@@ -192,7 +192,7 @@ const char *telnet_help_text[] = {
     "\tGET VSOL <n> (SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
     "\tGET VKES <n> (KES Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
     "\tGET VERR <n> (ERR Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\t             n Nummer der Variablen oder -1 für komplette Liste\n\n"
+    "\t             n Nummer der Variablen oder -1 für komplette Liste\n\n",
     "\tAUTO <mdl>    (Modul SOL, FB, HK, WW, KES, ERR auf Automatik)\n",
     "\tAUTO IN<mdl>  (Prozesseingabe SOL, FB, HK, WW, KES, ERR auf Automatik)\n",
     "\tAUTO ALL      (alle Prozesseingaben und Module auf Automatik)\n",
