@@ -90,12 +90,11 @@ int main( void )
     timer.it_value.tv_usec = 500000L;
     timer.it_interval.tv_sec = 0;
     timer.it_interval.tv_usec = 500000L;
-    
     setitimer( ITIMER_REAL, &timer, NULL );
 
     signal( SIGINT, terminate );
-    signal( SIGALRM, cntrl_main );
     
+
     server_sock_fd = create_server_sock( TCP_PORT );
 
     if( pthread_attr_init( &threadattr ) != 0 ) {
@@ -107,7 +106,7 @@ int main( void )
         exit( -1 );
     }
 
-/* Ein Mutex erzeugen */
+    /* Ein Mutex erzeugen */
     if( pthread_mutex_init( &mutex, NULL ) != 0 ) {
         perror( "SERVER.C: Mutex konnte nicht initialisiert werden" );
         exit( -1 );
