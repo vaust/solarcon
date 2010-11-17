@@ -218,27 +218,27 @@ void *telnet_thread( void *arg )
                 else if( strncasecmp( "PUT",     token, 3 ) == 0 ) {
                     token = strtok( NULL, "0123456789 " );
                     if( NULL != token ) {
-                        if( strncasecmp( token, "SOL", 3 ) == 0 ) {
+                        if( strncasecmp( token, "VSOL", 4 ) == 0 ) {
                             telnet_putVars( telnet_sol_Vars, sizeof(telnet_sol_Vars)/sizeof(parse_set_t), fdesc, bufout );
                             printf( "TELNET.C: PUT SOL Befehl erhalten\n" );
                         }
-                        else if( strncasecmp( token, "FB", 2 ) == 0 ) {
+                        else if( strncasecmp( token, "VFB", 3 ) == 0 ) {
                             telnet_putVars( telnet_fb_Vars, sizeof(telnet_fb_Vars)/sizeof(parse_set_t), fdesc, bufout );
                             printf( "TELNET.C: PUT FB Befehl erhalten\n" );
                         }
-                        else if( strncasecmp( token, "HK", 2 ) == 0 ) {
+                        else if( strncasecmp( token, "VHK", 3 ) == 0 ) {
                             telnet_putVars( telnet_hk_Vars, sizeof(telnet_hk_Vars)/sizeof(parse_set_t), fdesc, bufout );
                             printf( "TELNET.C: PUT HK Befehl erhalten\n" );
                         }
-                        else if( strncasecmp( token, "WW", 2 ) == 0 ) {
+                        else if( strncasecmp( token, "VWW", 3 ) == 0 ) {
                             telnet_putVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t), fdesc, bufout );
                             printf( "TELNET.C: PUT WW Befehl erhalten\n" );
                         }
-                        else if( strncasecmp( token, "KES", 3 ) == 0 ) {
+                        else if( strncasecmp( token, "VKES", 4 ) == 0 ) {
                             telnet_putVars( telnet_kes_Vars, sizeof(telnet_kes_Vars)/sizeof(parse_set_t), fdesc, bufout );
                             printf( "TELNET.C: PUT KES Befehl erhalten\n" );
                         }
-                        else if( strncasecmp( token, "ERR", 3 ) == 0 ) {
+                        else if( strncasecmp( token, "VERR", 4 ) == 0 ) {
                             telnet_putVars( telnet_err_Vars, sizeof(telnet_err_Vars)/sizeof(parse_set_t), fdesc, bufout );
                             printf( "TELNET.C: PUT ERR Befehl erhalten\n" );
                         }
@@ -656,23 +656,54 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
 {
     int n;
 
-    for( n=0; n<len; n++ ) {
-        snprintf( bufout, BFLN, "(%02d) ", n ); BFLSH();
-        snprintf( bufout, BFLN, Vars[n].VarName ); BFLSH();
-        snprintf( bufout, BFLN, " = " ); BFLSH();
-        switch ( Vars[n].format[1] ) {
-            case 'd':
-                snprintf( bufout, BFLN, Vars[n].format, *(s16_t *)Vars[n].VarPointer ); BFLSH();
-                break;
-            case 'x':
-                snprintf( bufout, BFLN, Vars[n].format, *(u8_t *)Vars[n].VarPointer ); BFLSH();
-                break;
-            case 'f':
-            default:
-                snprintf( bufout, BFLN, "%8.3f", *(float *)Vars[n].VarPointer ); BFLSH();
-                break;
+    char    *token;
+    int     var_no;
+    int     value_i;
+    float   value_f;
+
+    token = strtok( NULL, "\n\r" );
+    if( NULL != token ) {
+        var_no = atoi( token );
+        if( var_no < len ) {
+            snprintf( bufout, BFLN, Vars[var_no].VarName ); BFLSH();
+            snprintf( bufout, BFLN, " = " ); BFLSH();
+            switch ( Vars[n].format[1] ) {
+                case 'd':
+                    snprintf( bufout, BFLN, Vars[n].format, *(s16_t *)Vars[n].VarPointer ); BFLSH();
+                    break;
+                case 'x':
+                    snprintf( bufout, BFLN, Vars[n].format, *(u8_t *)Vars[n].VarPointer ); BFLSH();
+                    break;
+                case 'f':
+                default:
+                    snprintf( bufout, BFLN, "%8.3f", *(float *)Vars[n].VarPointer ); BFLSH();
+                    break;
+            }
+            snprintf( bufout, BFLN, "\n" ); BFLSH();
         }
-        snprintf( bufout, BFLN, "\n" ); BFLSH();
+        else {
+            snprintf( bufout, BFLN, "TELNET.C: Fehler in Befehlseingabe\n" ); BFLSH();
+        }
+    }
+    else {
+        for( n=0; n<len; n++ ) {
+            snprintf( bufout, BFLN, "(%02d) ", n ); BFLSH();
+            snprintf( bufout, BFLN, Vars[n].VarName ); BFLSH();
+            snprintf( bufout, BFLN, " = " ); BFLSH();
+            switch ( Vars[n].format[1] ) {
+                case 'd':
+                    snprintf( bufout, BFLN, Vars[n].format, *(s16_t *)Vars[n].VarPointer ); BFLSH();
+                    break;
+                case 'x':
+                    snprintf( bufout, BFLN, Vars[n].format, *(u8_t *)Vars[n].VarPointer ); BFLSH();
+                    break;
+                case 'f':
+                default:
+                    snprintf( bufout, BFLN, "%8.3f", *(float *)Vars[n].VarPointer ); BFLSH();
+                    break;
+            }
+            snprintf( bufout, BFLN, "\n" ); BFLSH();
+        }
     }
 }
 
