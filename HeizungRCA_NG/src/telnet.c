@@ -677,7 +677,7 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
             }
             snprintf( bufout, BFLN, "\n" ); BFLSH();
         }
-        else if( n == -1) {
+        else if( n < 0 ) {
             for( n=0; n<len; n++ ) {
                 snprintf( bufout, BFLN, "(%02d) ", n ); BFLSH();
                 snprintf( bufout, BFLN, Vars[n].VarName ); BFLSH();
