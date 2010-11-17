@@ -26,7 +26,7 @@ int create_server_sock( int port );
 void terminate( int sig );
 void *server_thread( void *arg );
 extern void *cntrl_thread( void *arg );
-extern void cntrl_main( void );
+extern void cntrl_main( int sig );
 void *telnet_thread( void *arg );
 
 #ifdef _TELNET_C_
@@ -58,7 +58,8 @@ PUBLIC int             thread_args[2];
 PUBLIC pthread_mutex_t mutex;
 
 /* - Timer Variablen - */
-PUBLIC struct timeval  intervalltimer;
+PUBLIC struct itimerval   timer;
+PUBLIc struct sigaction   sa;
 
 #ifdef _SERVER_C_
 int             next_thread=0;
