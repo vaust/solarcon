@@ -213,7 +213,7 @@ const char *telnet_help_text[] = {
 
 const parse_set_t telnet_dbg_Vars[] =
 {
-    { "cntrl_cnt",     &cntrl_cnt,     "%d" },
+    { "cntrl_cnt",     &cntrl_cnt,     "%u" },
     { "cntrl_DEBUG01", &cntrl_DEBUG01, "%d" }
 };
 
