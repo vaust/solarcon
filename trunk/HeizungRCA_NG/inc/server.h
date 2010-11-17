@@ -2,6 +2,7 @@
 #define _TELNET_H_
 
 /* <Makros> */
+#undef PUBLIC
 #ifdef _SERVER_C_
     #define PUBLIC
 #else
