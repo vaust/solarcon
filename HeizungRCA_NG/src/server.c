@@ -121,6 +121,7 @@ int main( void )
         /* Auf Verbindung mit Client warten */
         if( (client_sock_fd = accept( server_sock_fd, NULL, NULL )) < 0 ) {
             perror( "SERVER.C: Verbindungsanforderung abgelehnt" );
+            close( server_sock_fd );
         }
         else {
 			thread_args[0] = client_sock_fd;
