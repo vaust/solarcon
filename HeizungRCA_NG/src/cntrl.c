@@ -47,8 +47,9 @@ extern pthread_mutex_t  mutex;
 #define MUTEX_UNLOCK()
 #endif
 
-void terminate( int sig );
-
+/**
+ * \brief Steuerung initialisieren.
+ */
 void cntrl_open( void )
 {
     KBUSOPEN();
@@ -83,6 +84,11 @@ void cntrl_open( void )
     KBUSUPDATE();
 }
 
+/**
+ * \brief eigentlicher Steuerungsprozess.
+ * cntrl_run() wird zyklisch über Systemtimer aufgerufen.
+ * \param sig enthaelt das auslösende Signal. Dieser Parameter wird aber nicht benötigt.
+ */
 void cntrl_run( int sig )
 {
     MUTEX_LOCK();

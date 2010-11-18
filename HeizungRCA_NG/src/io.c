@@ -4,8 +4,10 @@
 #include "io_plc.h"
 #include "io.h"
 
-/* Temperaturen werden ueber Pt1000 Klemmen gemessen, die einen 16bit mit Vorzeichen ausgeben.  *
- * 0°C entspricht 0x0000 mit 0.1K entsprechend einem Bit                                        */
+/**
+ * Temperaturen werden ueber Pt1000 Klemmen gemessen, die einen 16bit Wert
+ * mit Vorzeichen ausgeben. 0Â°C entspricht 0x0000 mit 0.1K entsprechend einem Bit.
+ */
 #define TF(x) ((float)(x)/10.0)
 
 /** Aussentemperatur, AI, Pt1000     */
@@ -323,7 +325,7 @@ di_bitbyte_t io_get_WW_PARTY( void )
     return (pabIn_p->din.ww_party);
 }
 
-/** Gesamtstörmeldung */
+/** Gesamtstï¿½rmeldung */
 di_bitbyte_t io_put_STOERUNG( do_bitbyte_t sb )
 {
     pabOut_p->dout.stoerung = sb;

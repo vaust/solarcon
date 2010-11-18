@@ -29,7 +29,13 @@ void hk_Init( hk_param_t         *par_p,
                     par_p->reg_kp, par_p->reg_ki, MIN_Y_PCT, MAX_Y_PCT );
 }
 
-/* Regler fuer den Waermetauscher, der den Heizkoerperheizkreis beheizt */
+/**
+ * \brief Regler fuer den Waermetauscher, der den Heizkoerperheizkreis beheizt.
+ * \param par_p[in]
+ * \param q_p[in]
+ * \param in_p[in]
+ * \param out_p[out]
+ */
 void hk_Run( const hk_param_t         *par_p,
              const sup_digreg_coeff_t *q_p,
              const hk_in_t            *in_p,
