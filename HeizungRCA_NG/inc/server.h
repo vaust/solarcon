@@ -12,7 +12,7 @@
 /* </Makros> */
 
 /* <Konstanten> */
-#define MAX_CON         3
+#define MAX_CON         0
 #define MAX_NAME_LEN    6
 #define MAX_STR_LEN     128
 
