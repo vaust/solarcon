@@ -89,7 +89,7 @@ def getValues( cmdstr ):
 
 while (time.time() < (startTime+logTime)):
 
-    lines = getValues( b"GET VFB\n" )
+    lines = getValues( b"GET VFB -1\n" )
     # alle Variablen auf unplausible Werte initialisieren
     FB_v = []
     for i in range(len(FB_varnames)):
