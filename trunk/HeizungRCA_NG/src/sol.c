@@ -10,6 +10,16 @@ void sol_Init( sol_param_t *par_p )
     par_p->dt_aus_sw = param_sol_dt_aus_sw;
 }
 
+/**
+ * \brief Solarspeicherabsperrventil entsprechend der Temperaturdifferenzen
+ * zwischen Speicher und Kollektor betätigen.
+ * \param par_p[in] Parametrisierung
+ * \param koll_t_mw[in] Vorlauftemperatur des speisenden Kollektors
+ * \param t_sp_p[in] Pointer auf Struktur mit oberer und unterer Kollektortemperatur
+ * \param sp_av_sb_p[out] Zustand des Absperrventils (offen/geschlossen)
+ * \return Fehlercode z.B Speicherübertemperatur: Die Speicher können die Wärme nicht
+ *         mehr aufnehmen
+ */
 static 
 int sol_Speicherabsperrventil( const sol_param_t   *par_p, 
                                const float         koll_t_mw,
@@ -41,6 +51,10 @@ int sol_Speicherabsperrventil( const sol_param_t   *par_p,
     return( errorcode );
 }
 
+/**
+ * \brief Die Pumpe eines Kollektors einschalten, wenn mind. 1 Ventil zum Speicher offen ist.
+ * \param out_p Eingangsgrößen Ventilstellung, Ausgangsgrößen Pumpe ein/aus
+ */
 static 
 void sol_Pumpe( sol_out_t *out_p )
 {
@@ -53,6 +67,13 @@ void sol_Pumpe( sol_out_t *out_p )
     }
 }
 
+/**
+ * \brief eigentlicher Solarregler. Absperrventile steuern und die Pumpen entsprechend betätigen.
+ * \param par_p[in]
+ * \param in_p[in]
+ * \param out_p[out]
+ * \return Fehlercode für Sammelstörungsauswertung.
+ */
 s16_t sol_Run(  const sol_param_t  *par_p,
                 const sol_in_t     *in_p,
                       sol_out_t    *out_p )

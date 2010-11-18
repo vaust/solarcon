@@ -7,14 +7,6 @@
 void kes_Init( kes_param_t *par_p, 
                kes_out_t   *out_p )
 {
-//    par_p->TA           = ABTASTZEIT;
-//    par_p->tvl_absenk   = param_hk_tvl_absenk;
-//    par_p->tvl_steigung = param_hk_tvl_steigung;
-//    par_p->tvl_niveau   = param_hk_tvl_niveau;
-//    par_p->tvl_min      = param_hk_tvl_min;
-//    par_p->tvl_max      = param_hk_tvl_max;
-//    par_p->at_start     = param_all_at_start;
-//    par_p->frostschutz  = param_all_frostschutz;
     par_p->sp_dt_sw     = param_kes_sp_dt_sw;       
     par_p->ww_tww_sw    = param_ww_tww_sw;
 
@@ -78,10 +70,10 @@ void kes_Run( const kes_param_t *par_p,
         if( in_p->br_bm == IO_EIN ) out_p->pu_sp2_sb = IO_EIN;
     }
     
-    /* Sollwertvorgabe f�r den Kessel:
-     * %-Zahl entspricht Vorlauftemperatur in �C
-     * 100% entspr. 100�C
-     * 10%  entpsr.  10�C
+    /* Sollwertvorgabe für den Kessel:
+     * %-Zahl entspricht Vorlauftemperatur in °C
+     * 100% entspr. 100°C
+     * 10%  entpsr.  10°C
      * Werte kleiner 10%: Kessel ist abgeschaltet
      */
 

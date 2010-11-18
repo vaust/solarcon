@@ -5,14 +5,6 @@
 
 /* <Typen> */
 typedef struct {
-//    float TA;
-//    float tvl_absenk;
-//    float tvl_steigung;
-//    float tvl_niveau;
-//    float tvl_min;
-//    float tvl_max;
-//    float at_start;
-//    float frostschutz;
     float sp_dt_sw;                 /**< Globaler Wert div 2 !! */
     float ww_tww_sw;
 } kes_param_t;

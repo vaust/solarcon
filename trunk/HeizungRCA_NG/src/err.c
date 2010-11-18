@@ -6,25 +6,22 @@
 
 /*
 SAMMELSTOERMELDUNG =
-    Kollektoruebertemperatur ||
-    Brennermeldung kommt nicht nach max 1 min nach Anforderung ||
-    Kesselstoermeldung ist gesetzt ||
-    STB Fussbodenheizung hat ausgeloest ||
-
-    ...
-
-
+    	Kollektoruebertemperatur
+  oder  Brennermeldung kommt nicht nach max 1 min nach Anforderung
+  oder  Kesselstoermeldung ist gesetzt
+  oder  STB der Fussbodenheizung hat ausgeloest
+  oder  ...
 */
 
 void err_Init( err_param_t *par_p, err_out_t *out_p )
 {
-    par_p->br_TimeOut   = 240;      /* 240 entspr. 4 min */
-    par_p->dt           = param_kes_sp_dt_sw / 2.0;    /* Tvl_MW muss um diesen Betrag hoeher sein */
+    par_p->br_TimeOut   = 240;                       /* 240 entspr. bei 1sec Zyklus 4 min        */
+    par_p->dt           = param_kes_sp_dt_sw / 2.0;  /* Tvl_MW muss um diesen Betrag hoeher sein */
     out_p->br_Countdown = par_p->br_TimeOut;
 }
 
 /** 
-  * err_Run(): Betriebszustaende lesen und auf Plausibiliteat prufen.
+  * \brief Betriebszustaende lesen und auf Plausibiliteat prufen.
   * Falls nicht plausibel: Sammelstoermeldung setzen
   */
 void err_Run( const err_param_t *par_p,
@@ -55,6 +52,12 @@ void err_Run( const err_param_t *par_p,
     }
 }
 
+/**
+ * \brief Sammelstörmeldung zurücksetzen.
+ * Dies Funktion soll vom Benutzerinterface aufgerufen werden.
+ * \param par_p[in] enthält timeout für Anforderungscountdown
+ * \param out_p[out] Störmeldung zurücksetzen.
+ */
 void err_Reset_Sammelstoermeldung( err_param_t *par_p, err_out_t *out_p )
 {
     out_p->br_Countdown = par_p->br_TimeOut;
