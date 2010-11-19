@@ -114,9 +114,10 @@ void cntrl_run( int sig )
                                      io_get_SOL_SP2_Tu_MW()  );
     }
     /* Solarregler Task */
-    if( SET == cntrl_mdl_aktiv.sol_aktiv )
+    if( SET == cntrl_mdl_aktiv.sol_aktiv ) {
         cntrl_err_in.sol_err = sol_Run( &cntrl_sol_par, &cntrl_sol_in, &cntrl_sol_out );
-
+    }
+    
     /* Prozessdaten für Fussbodenheizungsregelung */
     if( SET == cntrl_mdl_aktiv.inp_fb_aktiv ) {
         fb_WriteInp( &cntrl_fb_in, io_get_ALL_Tau_MW(),
@@ -126,9 +127,10 @@ void cntrl_run( int sig )
                                    cntrl_zeit_party.all_partytime_flg );
     }
     /* Fussbodenheizungsregelung Task */
-    if( SET == cntrl_mdl_aktiv.fb_aktiv )
+    if( SET == cntrl_mdl_aktiv.fb_aktiv ) {
         fb_Run( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_in, &cntrl_fb_out );
-
+    }
+    
     /* Prozessdaten für Heizkörperheizkreisregelung */
     if( SET == cntrl_mdl_aktiv.inp_hk_aktiv ) {
         hk_WriteInp( &cntrl_hk_in, io_get_ALL_Tau_MW(),
@@ -138,9 +140,9 @@ void cntrl_run( int sig )
                                    cntrl_zeit_party.all_partytime_flg );
     }
     /* Heizkörperheizkreisregelung Task */
-    if( SET == cntrl_mdl_aktiv.hk_aktiv )
+    if( SET == cntrl_mdl_aktiv.hk_aktiv ) {
         hk_Run( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_in, &cntrl_hk_out );
-
+    }
 
     /* Prozessdaten für Warmwasserheizkreisregelung */
     if( SET == cntrl_mdl_aktiv.inp_ww_aktiv ) {
@@ -158,9 +160,10 @@ void cntrl_run( int sig )
 
     }
     /* Warmwasserheizkreisregelung Task */
-    if( SET == cntrl_mdl_aktiv.ww_aktiv )
+    if( SET == cntrl_mdl_aktiv.ww_aktiv ) {
         ww_Run( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_in, &cntrl_ww_out );
-
+    }
+    
     /* Prozessdaten für Kesselsteuerung */
     if( SET == cntrl_mdl_aktiv.inp_kes_aktiv ) {
         kes_WriteInp( &cntrl_kes_in, io_get_SOL_SP1_To_MW(),
@@ -174,9 +177,10 @@ void cntrl_run( int sig )
 
     }
     /* Kesselsteuerung Task */
-    if( SET == cntrl_mdl_aktiv.kes_aktiv )
+    if( SET == cntrl_mdl_aktiv.kes_aktiv ) {
         kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
-
+    }
+    
     /* Prozessdaten für Sammelstörmeldung */
     if( SET == cntrl_mdl_aktiv.inp_err_aktiv ) {
         cntrl_err_in.br_RueckMeldung      = io_get_KES_BR_BM();
@@ -184,12 +188,13 @@ void cntrl_run( int sig )
         cntrl_err_in.kes_tvl_mw           = io_get_KES_Tvl_MW();
         cntrl_err_in.stb_Fussbodenheizung = io_get_FB_SEK_TW();
         cntrl_err_in.kes_tvl_sw           = cntrl_kes_out.tvl_sw;
-    }
+    }    
     /* Sammelstoermeldung bedienen */
-    if( SET == cntrl_mdl_aktiv.err_aktiv ) 
+    if( SET == cntrl_mdl_aktiv.err_aktiv ) {
         err_Run( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
-
-    /*---------- AUSGABE DES PROZESSABBILDES ------------*/
+    }
+    
+    /*---------- Ausgabe des Prozessabbildes ------------*/
     io_put_SOL_PU_SB( cntrl_sol_out.pu_sb[KO1] );
     io_put_SOL_SP1_AV_SB( cntrl_sol_out.av_sb[SP1] );
     io_put_SOL_SP2_AV_SB( cntrl_sol_out.av_sb[SP2] );
