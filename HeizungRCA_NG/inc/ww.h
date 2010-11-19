@@ -61,6 +61,19 @@ void ww_Run( const ww_param_t         *par_p,
              const sup_digreg_coeff_t *q_hzg_pu_p,
              const ww_in_t            *in_p,
                    ww_out_t           *out_p );
+                   
+void ww_WriteInp(       ww_in_t    *in_p,
+                  const float       tww_mw,
+                  const float       tau_mw,
+                  const float       tau_avg,
+                  const u32_t       wz_mw,
+                  const float       hzg_tvl_mw,
+                  const float       hzg_trl_mw,
+                  const float       hk_tvl_sw,
+                  const float       sp1_to_mw,
+                  const float       sp2_tu_mw,
+                  const ein_aus_t   zirkzustand,
+                  const nutzzeit_t  duschzeit    );
 /* <Prototypen/> */
 
 #endif /* _WW_H_ */
