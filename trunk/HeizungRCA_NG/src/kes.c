@@ -83,3 +83,27 @@ void kes_Run( const kes_param_t *par_p,
         out_p->tvl_sw = out_p->tvl_sw_sp2;
 }
 
+
+
+void kes_WriteInp(       kes_in_t     *in_p,
+		           const float         sp1_to_mw,
+		           const float         sp2_to_mw,
+		           const float         tvl_mw,
+		           const u32_t         gz_mw,
+		           const float         hk_tvl_sw,
+		           const float         fb_tvl_sw,
+		           const nutzzeit_t    duschzeit,
+		           const di_bitbyte_t  br_bm      )
+{
+	in_p->sp1_to_mw = sp1_to_mw;
+	in_p->sp2_to_mw = sp2_to_mw;
+	in_p->tvl_mw    = tvl_mw;
+	in_p->gz_mw     = gz_mw;
+	in_p->hk_tvl_sw = hk_tvl_sw;
+	in_p->fb_tvl_sw = fb_tvl_sw;
+	in_p->duschzeit = duschzeit;
+	in_p->br_bm     = br_bm;
+}
+
+
+
