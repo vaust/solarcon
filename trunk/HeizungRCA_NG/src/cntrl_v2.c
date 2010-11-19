@@ -186,7 +186,7 @@ void cntrl_run( int sig )
         cntrl_err_in.kes_tvl_sw           = cntrl_kes_out.tvl_sw;
     }
     /* Sammelstoermeldung bedienen */
-    if( SET == cntrl_mdl_aktiv.err_aktiv ) {
+    if( SET == cntrl_mdl_aktiv.err_aktiv ) 
         err_Run( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
 
     /*---------- AUSGABE DES PROZESSABBILDES ------------*/
