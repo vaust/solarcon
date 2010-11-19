@@ -77,13 +77,13 @@ void fb_Run( const fb_param_t *par_p,
  * \brief Befüllen des Eingangsvektors
  */
 void fb_WriteInp(       fb_in_t     *in_p,
-		          const float        tau_mw,                  const float        tau_avg,                  const float        sek_tvl_mw,                  const abgesenkt_t  zustand,                  const u8_t         partytime_flg )
+                  const float        tau_mw,                  const float        tau_avg,                  const float        sek_tvl_mw,                  const abgesenkt_t  zustand,                  const u8_t         partytime_flg )
 {
-	in_p->tau_mw         = tau_mw;
+    in_p->tau_mw         = tau_mw;
     in_p->sek_tvl_mw     = tau_avg;
-	in_p->tau_avg        = sek_tvl_mw;
-	in_p->zustand        = zustand;
-	in_p->partytime_flg  = partytime_flg;
+    in_p->tau_avg        = sek_tvl_mw;
+    in_p->zustand        = zustand;
+    in_p->partytime_flg  = partytime_flg;
 }
 
 

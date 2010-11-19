@@ -162,15 +162,16 @@ void ww_WriteInp(           ww_in_t    *in_p,
                       const ein_aus_t   zirkzustand,
                       const nutzzeit_t  duschzeit    )
 {
-	in_p->tww_mw       = tww_mw;
-	in_p->tau_mw       = tau_mw;
-	in_p->tau_avg      = tau_avg;
-	in_p->wz_mw        = wz_mw,
-	in_p->hzg_tvl_mw   = hzg_tvl_mw;
-	in_p->hzg_trl_mw   = hzg_trl_mw;
-	in_p->hk_tvl_sw    = hk_tvl_sw;
-	in_p->sp1_to_mw    = sp1_to_mw;
-	in_p->sp2_tu_mw    = sp2_tu_mw,
-	in_p->zirkzustand  = zirkzustand;
-	in_p->duschzeit    = duschzeit;
+    in_p->tww_mw       = tww_mw;
+    in_p->tau_mw       = tau_mw;
+    in_p->tau_avg      = tau_avg;
+    in_p->wz_mw        = wz_mw,
+    in_p->hzg_tvl_mw   = hzg_tvl_mw;
+    in_p->hzg_trl_mw   = hzg_trl_mw;
+    in_p->hk_tvl_sw    = hk_tvl_sw;
+    in_p->sp1_to_mw    = sp1_to_mw;
+    in_p->sp2_tu_mw    = sp2_tu_mw,
+    in_p->zirkzustand  = zirkzustand;
+    in_p->duschzeit    = duschzeit;
 }
+

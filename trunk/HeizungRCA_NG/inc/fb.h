@@ -40,7 +40,7 @@ typedef struct {
 void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p );
 void fb_Run( const fb_param_t *par_p, const sup_digreg_coeff_t *q_p, const fb_in_t *in_p, fb_out_t *out_p );
 void fb_WriteInp(       fb_in_t     *in_p,
-		          const float        tau_mw,
+                  const float        tau_mw,
                   const float        tau_avg,
                   const float        sek_tvl_mw,
                   const abgesenkt_t  zustand,

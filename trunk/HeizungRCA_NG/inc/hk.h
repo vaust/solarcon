@@ -41,8 +41,8 @@ void hk_Run( const hk_param_t         *par_p,
              const hk_in_t            *in_p, 
                    hk_out_t           *out_p );
 void hk_WriteInp(       hk_in_t     *in_p,
-		          const float        tau_mw,
-		          const float        tau_avg,
+                  const float        tau_mw,
+                  const float        tau_avg,
                   const float        tvl_mw,
                   const abgesenkt_t  zustand,
                   const u8_t         partytime_flg );

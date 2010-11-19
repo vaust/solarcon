@@ -97,12 +97,12 @@ s16_t sol_Run(  const sol_param_t  *par_p,
  * \param sp2_to_mw[in] Obere Temperatur des Speicher 2
  * \param sp2_tu_mw[in] Untere Temperatur des Speicher 2
  */
-void sol_WriteInp( sol_in_t    *in_p,
-		           const float  koll_t_mw,
-		           const float  sp1_to_mw,
-		           const float  sp1_tu_mw,
-		           const float  sp2_to_mw,
-		           const float  sp2_tu_mw )
+void sol_WriteInp(       sol_in_t *in_p,
+                   const float     koll_t_mw,
+                   const float     sp1_to_mw,
+                   const float     sp1_tu_mw,
+                   const float     sp2_to_mw,
+                   const float     sp2_tu_mw )
 {
     in_p->koll_t_mw[KO1]  = koll_t_mw;
     in_p->t_sp[SP1].to_mw = sp1_to_mw;
@@ -110,5 +110,7 @@ void sol_WriteInp( sol_in_t    *in_p,
     in_p->t_sp[SP2].to_mw = sp2_to_mw;
     in_p->t_sp[SP2].tu_mw = sp2_tu_mw;
 }
+
+
 
 
