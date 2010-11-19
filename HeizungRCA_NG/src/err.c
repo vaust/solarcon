@@ -6,7 +6,7 @@
 
 /*
 SAMMELSTOERMELDUNG =
-    	Kollektoruebertemperatur
+        Kollektoruebertemperatur
   oder  Brennermeldung kommt nicht nach max 1 min nach Anforderung
   oder  Kesselstoermeldung ist gesetzt
   oder  STB der Fussbodenheizung hat ausgeloest

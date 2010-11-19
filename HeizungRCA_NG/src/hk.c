@@ -63,15 +63,15 @@ void hk_Run( const hk_param_t         *par_p,
  * \brief Befüllen des Eingangsvektors
  */
 void fb_WriteInp(       hk_in_t     *in_p,
-		          const float        tau_mw,
-		          const float        tau_avg,
+                  const float        tau_mw,
+                  const float        tau_avg,
                   const float        tvl_mw,
                   const abgesenkt_t  zustand,
                   const u8_t         partytime_flg )
 {
-	in_p->tau_mw           = tau_mw;
-	in_p->tau_avg          = tau_avg;
-	in_p->tvl_mw           = tvl_mw;
-	in_p->zustand          = zustand;
-	in_p->partytime_flg    = partytime_flg;
+    in_p->tau_mw           = tau_mw;
+    in_p->tau_avg          = tau_avg;
+    in_p->tvl_mw           = tvl_mw;
+    in_p->zustand          = zustand;
+    in_p->partytime_flg    = partytime_flg;
 }

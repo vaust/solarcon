@@ -37,14 +37,14 @@ void kes_Run( const kes_param_t *par_p,
               const kes_in_t    *in_p,
                     kes_out_t   *out_p );
 void kes_WriteInp(       kes_in_t     *in_p,
-		           const float         sp1_to_mw,
-		           const float         sp2_to_mw,
-		           const float         tvl_mw,
-		           const u32_t         gz_mw,
-		           const float         hk_tvl_sw,
-		           const float         fb_tvl_sw,
-		           const nutzzeit_t    duschzeit,
-		           const di_bitbyte_t  br_bm      );
+                   const float         sp1_to_mw,
+                   const float         sp2_to_mw,
+                   const float         tvl_mw,
+                   const u32_t         gz_mw,
+                   const float         hk_tvl_sw,
+                   const float         fb_tvl_sw,
+                   const nutzzeit_t    duschzeit,
+                   const di_bitbyte_t  br_bm      );
 /* <Prototypen/> */
 
 #endif /* _KES_H_ */

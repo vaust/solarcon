@@ -45,11 +45,11 @@ s16_t sol_Run(  const sol_param_t  *par_p,
                       sol_out_t    *out_p );
 
 void sol_WriteInp(       sol_in_t *in_p,
-		           const float     koll_t_mw,
-		           const float     sp1_to_mw,
-		           const float     sp1_tu_mw,
-		           const float     sp2_to_mw,
-		           const float     sp2_tu_mw );
+                   const float     koll_t_mw,
+                   const float     sp1_to_mw,
+                   const float     sp1_tu_mw,
+                   const float     sp2_to_mw,
+                   const float     sp2_tu_mw );
 /* <Prototypen/> */
 
 
