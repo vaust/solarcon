@@ -146,4 +146,31 @@ void ww_Run( const ww_param_t         *par_p,
     ww_VV_Steuerung( par_p, in_p, out_p );
 }
 
-
+/**
+ * \brief Befüllen des Eingangsvektors
+ */
+void ww_WriteInp(           fb_in_t    *in_p,
+                      const float 		tww_mw,
+                      const float 		tau_mw,
+                      const float 		tau_avg,
+                      const u32_t 		wz_mw,
+                      const float 		hzg_tvl_mw,
+                      const float 		hzg_trl_mw,
+                      const float 		hk_tvl_sw,
+                      const float 		sp1_to_mw,
+                      const float 		sp2_tu_mw,
+                      const ein_aus_t   zirkzustand,
+                      const nutzzeit_t  duschzeit    )
+{
+	in_p->tww_mw       = tww_mw;
+	in_p->tau_mw       = tau_mw;
+	in_p->tau_avg      = tau_avg;
+	in_p->wz_mw        = wz_mw,
+	in_p->hzg_tvl_mw   = hzg_tvl_mw;
+	in_p->hzg_trl_mw   = hzg_trl_mw;
+	in_p->hk_tvl_sw    = hk_tvl_sw;
+	in_p->sp1_to_mw    = sp1_to_mw;
+	in_p->sp2_tu_mw    = sp2_tu_mw,
+	in_p->zirkzustand  = zirkzustand;
+	in_p->duschzeit    = duschzeit;
+}

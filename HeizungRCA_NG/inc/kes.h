@@ -11,15 +11,12 @@ typedef struct {
 
 typedef struct {
     float        sp1_to_mw;
-//    float        sp1_tu_mw;
     float        sp2_to_mw;
-//    float        sp2_tu_mw;
     float        tvl_mw;
-//    u32_t        gz_mw;         /**< Gaszaehlerstand (noch nicht in Verwendung */
+    u32_t        gz_mw;         /**< Gaszaehlerstand (noch nicht in Verwendung */
     float        hk_tvl_sw;     
     float        fb_tvl_sw;
     nutzzeit_t   duschzeit;
-//    u8_t         partytime_flg;
     di_bitbyte_t br_bm;
 } kes_in_t;
 
@@ -39,6 +36,15 @@ void kes_Init( kes_param_t *par_p, kes_out_t *out_p );
 void kes_Run( const kes_param_t *par_p, 
               const kes_in_t    *in_p,
                     kes_out_t   *out_p );
+void kes_WriteInp(       kes_in_t     *in_p,
+		           const float         sp1_to_mw,
+		           const float         sp2_to_mw,
+		           const float         tvl_mw,
+		           const u32_t         gz_mw,
+		           const float         hk_tvl_sw,
+		           const float         fb_tvl_sw,
+		           const nutzzeit_t    duschzeit,
+		           const di_bitbyte_t  br_bm      );
 /* <Prototypen/> */
 
 #endif /* _KES_H_ */
