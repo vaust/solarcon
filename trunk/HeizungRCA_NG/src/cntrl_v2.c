@@ -136,9 +136,14 @@ void cntrl_run( int sig )
     
     /* Prozessdaten für Fussbodenheizungsregelung */
     if( SET == cntrl_mdl_aktiv.inp_fb_aktiv ) {
-        fb_WriteInp( &cntrl_fb_in, io_get_ALL_Tau_MW(),
+        if( io_Normal != io_Temp( &io_ALL_Tau_MW, NULL ) ) 
+            cntrl_err_in.fb_err += ERR_NOK;
+        if( io_Normal != io_Temp( &ioFB_SEK_Tvl_MW, NULL ) ) 
+            cntrl_err_in.fb_err += ERR_NOK;
+
+        fb_WriteInp( &cntrl_fb_in, io_ALL_Tau_MW.messwert,
                                    cntrl_tau.t_36h_mittel,
-                                   io_get_FB_SEK_Tvl_MW(),
+                                   ioFB_SEK_Tvl_MW.messwert,
                                    cntrl_zeit_absenkung.FB_Zustand,
                                    cntrl_zeit_party.all_partytime_flg );
     }
