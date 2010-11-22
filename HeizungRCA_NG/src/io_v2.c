@@ -49,7 +49,8 @@ io_obj_status_t io_Temp( io_temp_obj_t *self, float *mw )
 
     switch( self->status ) {
         case io_ManuelleZuweisung:
-            *mw = self->messwert;  
+            if( (void *)mw != NULL )
+                *mw = self->messwert;  
             /* Aus diesem Zustand kommt man nur durch Benutzerinteraktion (telnet.c) */
             break;
         case io_Normal:
@@ -86,7 +87,8 @@ io_obj_status_t io_Temp( io_temp_obj_t *self, float *mw )
             break;
     }
     
-    *mw = self->messwert;  /* Strukturwert in die Arbeitsvariable kopieren */
+    if( (void *)mw != NULL )
+        *mw = self->messwert;  /* Strukturwert in die Arbeitsvariable kopieren */
     return (self->status);
 }
 

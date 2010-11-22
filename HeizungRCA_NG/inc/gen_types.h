@@ -12,6 +12,9 @@
 
 #define MAX_Y_PCT       99.9
 #define MIN_Y_PCT        0.1
+
+#define ERR_OK             0
+#define ERR_NOK           -1
 /* <Defines/> */
 
 /* <Typen> */
@@ -35,7 +38,6 @@ typedef enum { zAbgesenkt, zNormal } abgesenkt_t;
 typedef enum { zAus, zEin } ein_aus_t;
 typedef enum { zGesperrt, zFreigegeben } freigabe_t;
 typedef enum { zNein, zJa } nutzzeit_t;
-
 /* <Typen/> */
 
 #endif /* _GEN_TYPES_H_ */

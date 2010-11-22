@@ -65,7 +65,7 @@ void cntrl_open( void )
     hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
     ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
     kes_Init( &cntrl_kes_par, &cntrl_kes_out );
-    err_Init( &cntrl_err_par, &cntrl_err_out );
+    err_Init( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
 
 #ifdef _IO_V2_H_    
     io_Init();
@@ -112,15 +112,26 @@ void cntrl_run( int sig )
 
     /* Prozessdaten für Solarregler */
     if( SET == cntrl_mdl_aktiv.inp_sol_aktiv ) {
-        sol_WriteInp( &cntrl_sol_in, io_get_SOL_KOLL_T_MW(),
-                                     io_get_SOL_SP1_To_MW(),
-                                     io_get_SOL_SP1_Tu_MW(),
-                                     io_get_SOL_SP2_To_MW(),
-                                     io_get_SOL_SP2_Tu_MW()  );
+        if( io_Normal != io_Temp( &io_SOL_KOLL_T_MW, NULL ) ) 
+            cntrl_err_in.sol_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_SOL_SP1_To_MW, NULL ) )
+            cntrl_err_in.sol_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_SOL_SP1_Tu_MW, NULL ) )
+            cntrl_err_in.sol_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_SOL_SP2_To_MW, NULL ) )
+            cntrl_err_in.sol_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_SOL_SP2_Tu_MW, NULL ) )
+            cntrl_err_in.sol_err += ERR_NOK;
+            
+        sol_WriteInp( &cntrl_sol_in, io_SOL_KOLL_T_MW.messwert,
+                                     io_SOL_SP1_To_MW.messwert,
+                                     io_SOL_SP1_Tu_MW.messwert,
+                                     io_SOL_SP2_To_MW.messwert,
+                                     io_SOL_SP2_Tu_MW.messwert );
     }
     /* Solarregler Task */
     if( SET == cntrl_mdl_aktiv.sol_aktiv ) {
-        cntrl_err_in.sol_err = sol_Run( &cntrl_sol_par, &cntrl_sol_in, &cntrl_sol_out );
+        cntrl_err_in.sol_err += sol_Run( &cntrl_sol_par, &cntrl_sol_in, &cntrl_sol_out );
     }
     
     /* Prozessdaten für Fussbodenheizungsregelung */
