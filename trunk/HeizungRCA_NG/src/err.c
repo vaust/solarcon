@@ -13,11 +13,18 @@ SAMMELSTOERMELDUNG =
   oder  ...
 */
 
-void err_Init( err_param_t *par_p, err_out_t *out_p )
+void err_Init( err_param_t *par_p, err_in_t *in_p, err_out_t *out_p )
 {
     par_p->br_TimeOut   = 240;                       /* 240 entspr. bei 1sec Zyklus 4 min        */
     par_p->dt           = param_kes_sp_dt_sw / 2.0;  /* Tvl_MW muss um diesen Betrag hoeher sein */
+
     out_p->br_Countdown = par_p->br_TimeOut;
+    
+    in_p->sol_err = 0;    
+    in_p->fb_err  = 0;    
+    in_p->hk_err  = 0;    
+    in_p->ww_err  = 0;    
+    in_p->kes_err = 0;    
 }
 
 /** 

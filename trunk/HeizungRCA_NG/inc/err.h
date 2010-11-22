@@ -2,6 +2,7 @@
 #define _ERR_H_
 
 #include "gen_types.h"
+#include "io_v2.h"
 
 /* <Defines> */
 #define SOL_NORMAL  0
@@ -22,6 +23,10 @@ typedef struct {
     di_bitbyte_t    br_StoerMeldung;
     di_bitbyte_t    stb_Fussbodenheizung;
     s16_t           sol_err;
+    s16_t           fb_err;
+    s16_t           hk_err;
+    s16_t           ww_err;
+    s16_t           kes_err;
 } err_in_t;
 
 
@@ -32,7 +37,9 @@ typedef struct {
 /* <Typen/> */
 
 /* <Prototypen> */
-void err_Init( err_param_t *par_p, err_out_t *out_p );
+void err_Init( err_param_t *par_p, 
+               err_in_t    *in_p, 
+               err_out_t   *out_p );
 
 void err_Run( const err_param_t *par_p,
               const err_in_t    *in_p,

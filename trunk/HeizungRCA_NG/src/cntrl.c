@@ -64,7 +64,7 @@ void cntrl_open( void )
     hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
     ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
     kes_Init( &cntrl_kes_par, &cntrl_kes_out );
-    err_Init( &cntrl_err_par, &cntrl_err_out );
+    err_Init( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
 
     /*----- Module aktivieren ----*/
     cntrl_mdl_aktiv.sol_aktiv     = SET;
