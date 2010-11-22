@@ -14,6 +14,7 @@
 #include "ww.h"
 #include "kes.h"
 #include "io.h"
+#include "io_v2.h"
 #include "err.h"
 #include "cntrl.h"
 
@@ -65,6 +66,10 @@ void cntrl_open( void )
     ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
     kes_Init( &cntrl_kes_par, &cntrl_kes_out );
     err_Init( &cntrl_err_par, &cntrl_err_out );
+
+#ifdef _IO_V2_H_    
+    io_Init();
+#endif
 
     /*----- Module aktivieren ----*/
     cntrl_mdl_aktiv.sol_aktiv     = SET;

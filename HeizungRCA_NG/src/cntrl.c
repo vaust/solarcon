@@ -95,6 +95,7 @@ void cntrl_run( int sig )
     /*----------- Prozessabbild aktualisieren -----------*/
     KBUSUPDATE();
 
+    /*---------- EINGABE DES PROZESSABBILDES ------------*/
     /* alles was im Sekunden-, Minuten- und Stundenraster ablaufen muss und *
      * Aussentemperaturmittelwerte ermitteln                                */
     task_Run( param_all_partydauer,
@@ -105,96 +106,81 @@ void cntrl_run( int sig )
     /* Absenkzeiten ermitteln */
     zeit_Run( &cntrl_zeit_absenkung, &cntrl_zeit_event );
 
-    /* Prozessdaten für Solarregler */
+    /* Prozessdaten */
     if( SET == cntrl_mdl_aktiv.inp_sol_aktiv ) {
-        sol_WriteInp( &cntrl_sol_in, io_get_SOL_KOLL_T_MW(),
-                                     io_get_SOL_SP1_To_MW(),
-                                     io_get_SOL_SP1_Tu_MW(),
-                                     io_get_SOL_SP2_To_MW(),
-                                     io_get_SOL_SP2_Tu_MW()  );
+        cntrl_sol_in.koll_t_mw[KO1]  = io_get_SOL_KOLL_T_MW();
+        cntrl_sol_in.t_sp[SP1].to_mw = io_get_SOL_SP1_To_MW();
+        cntrl_sol_in.t_sp[SP1].tu_mw = io_get_SOL_SP1_Tu_MW();
+        cntrl_sol_in.t_sp[SP2].to_mw = io_get_SOL_SP2_To_MW();
+        cntrl_sol_in.t_sp[SP2].tu_mw = io_get_SOL_SP2_Tu_MW();
     }
-    /* Solarregler Task */
-    if( SET == cntrl_mdl_aktiv.sol_aktiv ) {
-        cntrl_err_in.sol_err = sol_Run( &cntrl_sol_par, &cntrl_sol_in, &cntrl_sol_out );
-    }
-    
-    /* Prozessdaten für Fussbodenheizungsregelung */
     if( SET == cntrl_mdl_aktiv.inp_fb_aktiv ) {
-        fb_WriteInp( &cntrl_fb_in, io_get_ALL_Tau_MW(),
-                                   cntrl_tau.t_36h_mittel,
-                                   io_get_FB_SEK_Tvl_MW(),
-                                   cntrl_zeit_absenkung.FB_Zustand,
-                                   cntrl_zeit_party.all_partytime_flg );
+        cntrl_fb_in.tau_mw           = io_get_ALL_Tau_MW();
+        cntrl_fb_in.sek_tvl_mw       = io_get_FB_SEK_Tvl_MW();
+        cntrl_fb_in.tau_avg          = cntrl_tau.t_36h_mittel;
+        cntrl_fb_in.zustand          = cntrl_zeit_absenkung.FB_Zustand;
+        cntrl_fb_in.partytime_flg    = cntrl_zeit_party.all_partytime_flg;
     }
-    /* Fussbodenheizungsregelung Task */
-    if( SET == cntrl_mdl_aktiv.fb_aktiv ) {
-        fb_Run( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_in, &cntrl_fb_out );
-    }
-    
-    /* Prozessdaten für Heizkörperheizkreisregelung */
     if( SET == cntrl_mdl_aktiv.inp_hk_aktiv ) {
-        hk_WriteInp( &cntrl_hk_in, io_get_ALL_Tau_MW(),
-                                   cntrl_tau.t_36h_mittel,
-                                   io_get_HK_Tvl_MW(),
-                                   cntrl_zeit_absenkung.HK_Zustand,
-                                   cntrl_zeit_party.all_partytime_flg );
+        cntrl_hk_in.tau_mw           = io_get_ALL_Tau_MW();
+        cntrl_hk_in.tvl_mw           = io_get_HK_Tvl_MW();
+        cntrl_hk_in.tau_avg          = cntrl_tau.t_36h_mittel;
+        cntrl_hk_in.zustand          = cntrl_zeit_absenkung.HK_Zustand;
+        cntrl_hk_in.partytime_flg    = cntrl_zeit_party.all_partytime_flg;
     }
-    /* Heizkörperheizkreisregelung Task */
-    if( SET == cntrl_mdl_aktiv.hk_aktiv ) {
-        hk_Run( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_in, &cntrl_hk_out );
-    }
-
-    /* Prozessdaten für Warmwasserheizkreisregelung */
     if( SET == cntrl_mdl_aktiv.inp_ww_aktiv ) {
-        ww_WriteInp( &cntrl_ww_in, io_get_WW_Tww_MW(),
-                                   io_get_ALL_Tau_MW(),
-                                   cntrl_tau.t_36h_mittel,
-                                   0,  /* Wasserzähler ist noch nicht genutzt */
-                                   io_get_HK_Tvl_MW(),
-                                   io_get_HK_Trl_MW(),
-                                   cntrl_hk_out.tvl_sw, /* ww_Run() abhängig von Ausgabe hk_Run() */
-                                   io_get_SOL_SP1_To_MW(),
-                                   io_get_SOL_SP2_Tu_MW(),
-                                   cntrl_zeit_absenkung.Zirk_Zustand,
-                                   cntrl_zeit_absenkung.Duschzeit     );
-
+        cntrl_ww_in.hzg_tvl_mw       = io_get_HK_Tvl_MW();
+        cntrl_ww_in.sp1_to_mw        = io_get_SOL_SP1_Tu_MW();
+        cntrl_ww_in.sp2_tu_mw        = io_get_SOL_SP2_Tu_MW();
+        cntrl_ww_in.tau_mw           = io_get_ALL_Tau_MW();
+        cntrl_ww_in.tau_avg          = cntrl_tau.t_36h_mittel;
+        cntrl_ww_in.tww_mw           = io_get_WW_Tww_MW();
+        cntrl_ww_in.hzg_trl_mw       = io_get_HK_Trl_MW();
+        cntrl_ww_in.zirkzustand      = cntrl_zeit_absenkung.Zirk_Zustand;
+        cntrl_ww_in.duschzeit        = cntrl_zeit_absenkung.Duschzeit;
     }
-    /* Warmwasserheizkreisregelung Task */
-    if( SET == cntrl_mdl_aktiv.ww_aktiv ) {
-        ww_Run( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_in, &cntrl_ww_out );
-    }
-    
-    /* Prozessdaten für Kesselsteuerung */
     if( SET == cntrl_mdl_aktiv.inp_kes_aktiv ) {
-        kes_WriteInp( &cntrl_kes_in, io_get_SOL_SP1_To_MW(),
-                                     io_get_SOL_SP2_To_MW(),
-                                     io_get_KES_Tvl_MW(),
-                                     0,  /* Gaszähler noch nicht genutzt */
-                                     cntrl_hk_out.tvl_sw, /* kes_Run() abhängig von Ausgabe hk_Run() */
-                                     cntrl_fb_out.tvl_sw, /* kes_Run() abhängig von Ausgabe fb_Run() */
-                                     cntrl_zeit_absenkung.Duschzeit,
-                                     io_get_KES_BR_BM()              );
-
+        cntrl_kes_in.sp1_to_mw       = io_get_SOL_SP1_To_MW();
+        cntrl_kes_in.sp2_to_mw       = io_get_SOL_SP2_To_MW();
+        cntrl_kes_in.tvl_mw          = io_get_KES_Tvl_MW();
+        cntrl_kes_in.br_bm           = io_get_KES_BR_BM();
+        cntrl_kes_in.duschzeit       = cntrl_zeit_absenkung.Duschzeit;
     }
-    /* Kesselsteuerung Task */
-    if( SET == cntrl_mdl_aktiv.kes_aktiv ) {
-        kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
-    }
-    
-    /* Prozessdaten für Sammelstörmeldung */
     if( SET == cntrl_mdl_aktiv.inp_err_aktiv ) {
         cntrl_err_in.br_RueckMeldung      = io_get_KES_BR_BM();
         cntrl_err_in.br_StoerMeldung      = io_get_KES_SSM();
         cntrl_err_in.kes_tvl_mw           = io_get_KES_Tvl_MW();
         cntrl_err_in.stb_Fussbodenheizung = io_get_FB_SEK_TW();
-        cntrl_err_in.kes_tvl_sw           = cntrl_kes_out.tvl_sw;
-    }    
+    }
+    /*---------- VERARBEITUNG DES PROZESSABBILDES -----------*/
+    /* solar_Run(), fb_Run() und hk_Run() sind unabhaengig von einander */
+    if( SET == cntrl_mdl_aktiv.sol_aktiv )
+        cntrl_err_in.sol_err = sol_Run( &cntrl_sol_par, &cntrl_sol_in, &cntrl_sol_out );
+    if( SET == cntrl_mdl_aktiv.fb_aktiv )
+        fb_Run( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_in, &cntrl_fb_out );
+    if( SET == cntrl_mdl_aktiv.hk_aktiv )
+        hk_Run( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_in, &cntrl_hk_out );
+
+    /* ww_Run() Eingabewerte sind abhaengig von Ausgabewerten von hk_Run() */
+    if( SET == cntrl_mdl_aktiv.ww_aktiv ) {
+        cntrl_ww_in.hk_tvl_sw  = cntrl_hk_out.tvl_sw;
+        ww_Run( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_in, &cntrl_ww_out );
+    }
+
+    /* kes_Run() Eingabewerte abhaengig von Ausgabewerten von hk_Run() und fb_Run() */
+    if( SET == cntrl_mdl_aktiv.kes_aktiv ) {
+        cntrl_kes_in.hk_tvl_sw = cntrl_hk_out.tvl_sw;
+        cntrl_kes_in.fb_tvl_sw = cntrl_fb_out.tvl_sw;
+        kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
+    }
+
     /* Sammelstoermeldung bedienen */
     if( SET == cntrl_mdl_aktiv.err_aktiv ) {
+        cntrl_err_in.kes_tvl_sw = cntrl_kes_out.tvl_sw;
         err_Run( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
     }
-    
-    /*---------- Ausgabe des Prozessabbildes ------------*/
+
+    /*---------- AUSGABE DES PROZESSABBILDES ------------*/
     io_put_SOL_PU_SB( cntrl_sol_out.pu_sb[KO1] );
     io_put_SOL_SP1_AV_SB( cntrl_sol_out.av_sb[SP1] );
     io_put_SOL_SP2_AV_SB( cntrl_sol_out.av_sb[SP2] );
@@ -237,5 +223,5 @@ void cntrl_close( void )
 {
     KBUSCLOSE();
 }
-
+ 
     
