@@ -24,6 +24,7 @@
  * \param port[in] Portnummer fuer Socket
  * \return Filedescriptor fuer Zugriff
  */
+static
 int create_server_sock( int port )
 {
     int                 sock_fd;
@@ -89,6 +90,8 @@ void terminate( int sig )
  */
 int main( void )
 {
+    next_thread = 0;
+    
     cntrl_open();
     
     signal( SIGINT, terminate );

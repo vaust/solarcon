@@ -1,6 +1,6 @@
 #define _IO_V2_C_
 
-#define _IO_MASTER_
+#define _IO_MASTER_ 
 
 #include "gen_types.h"
 #include "io_pab_types.h"
@@ -19,6 +19,7 @@ void io_InitTemp( io_temp_obj_t     *self,
     self->kbus_adresse_p     = kbus_adresse_p;
 }
 
+static
 void io_InitTempAll( void )
 {
     io_InitTemp( &io_ALL_Tau_MW    , -50.0,  50.0, (temp10_pt1000_t *) &(pabIn_p->ain.all_tau_mw) );
@@ -106,6 +107,7 @@ void io_InitY( io_ao10V_obj_t   *self,
     self->kbus_adresse_p      = kbus_adresse_p;
 }
 
+static
 void io_InitYAll( void )
 {
     io_InitY( &io_KES_Tvl_Y,    MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.kes_tvl_y)    );
