@@ -20,11 +20,8 @@ void err_Init( err_param_t *par_p, err_in_t *in_p, err_out_t *out_p )
 
     out_p->br_Countdown = par_p->br_TimeOut;
     
-    in_p->sol_err = 0;    
-    in_p->fb_err  = 0;    
-    in_p->hk_err  = 0;    
-    in_p->ww_err  = 0;    
-    in_p->kes_err = 0;    
+    in_p->sol_err      = 0;    
+    in_p->tempsens_err = 0;
 }
 
 /** 

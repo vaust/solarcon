@@ -3,8 +3,6 @@
 
 #include "gen_types.h"
 
-#ifdef _IO_C_
-
 /* Abbildung der Hardwarepunkte auf das Speicherabbild der KBus Klemmen: */
 
 /* Eingangsgroessen */
@@ -79,31 +77,7 @@ typedef struct {
     } dout;
 } Control_Output_t;
 
-/*
- *   PAB In:         00ffe060         PAB Size: 2040 bytes
- *   PAB Out:        00ffe858         PAB Size: 2040 bytes
-*/
-
-#define PAB_IN  ((volatile Control_Input_t  *) 0xFFE060)
-#define PAB_OUT ((volatile Control_Output_t *) 0xFFE858)
-
-#ifdef __WAGO__
-volatile Control_Output_t    *pabOut_p = PAB_OUT;
-volatile Control_Input_t     *pabIn_p  = PAB_IN;
-#else /* __WAGO__ */
-volatile Control_Output_t    pab_Dbg_Out;
-volatile Control_Input_t     pab_Dbg_In;
-volatile Control_Output_t    *pabOut_p = &pab_Dbg_Out;
-volatile Control_Input_t     *pabIn_p  = &pab_Dbg_In;
-#endif /* __WAGO__ */
-
-#define AO_FULLSCALE         0x8000
-
-#else
-#error "io_plc.h soll nur von io.c eingebunden werden"
-#endif /* _IO_C_ */
+#define TF(x) ((float)(x)/10.0) 
 
 #endif /* _IO_PLC_H_ */
-
-
 
