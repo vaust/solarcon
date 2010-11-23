@@ -42,7 +42,7 @@ typedef struct io_digin_obj_s {
 #ifdef _IO_V2_C_
     #define PUBLIC
 #else
-    #define PUBLIC extern const
+    #define PUBLIC extern
 #endif
 /* Temperaturmesswertobjekte */
 PUBLIC io_temp_obj_t    io_ALL_Tau_MW;
