@@ -62,7 +62,7 @@ void hk_Run( const hk_param_t         *par_p,
 /**
  * \brief Befüllen des Eingangsvektors
  */
-void fb_WriteInp(       hk_in_t     *in_p,
+void hk_WriteInp(       hk_in_t     *in_p,
                   const float        tau_mw,
                   const float        tau_avg,
                   const float        tvl_mw,

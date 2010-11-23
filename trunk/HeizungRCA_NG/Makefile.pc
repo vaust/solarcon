@@ -1,20 +1,23 @@
-#TOOL := D:/Tools/MinGW/bin
+TOOL := D:/Tools/MinGW/bin
 INC := ./inc
 SRC := ./src
-#CC := $(TOOL)/gcc.exe
-CFLAGS := -I$(INC) -D__REENTRANT__ -Wall 
+CC := $(TOOL)/gcc.exe
+CFLAGS := -I$(INC) -Wall -D__REENTRANT__
 #CFLAGS := -I$(INC) -D__TEST__ -Wall
 VPATH := $(SRC):$(INC)
 
-OBJECTS := cntrl.o task.o zeit.o param.o sol.o fb.o hk.o ww.o sup.o kes.o io.o telnet.o \
- server.o err.o
+OBJECTS := cntrl_v2.o task.o zeit.o param.o sol.o fb.o hk.o ww.o sup.o kes.o io.o io_v2.o err.o
 
 test : $(OBJECTS)
-	$(CC) -ggdb -o $@ -lpthread $(OBJECTS)
+#   $(CC) -ggdb -o $@ -lpthread $(OBJECTS)
+	$(CC) -ggdb -o $@ $(OBJECTS)
 #	$(CC) -fprofile-arcs -ftest-coverage -o $@ $(OBJECTS)
 all : clean test
 
 cntrl.o: cntrl.c \
+  gen_types.h param.h zeit.h task.h zeit.h \
+  sol.h fb.h sup.h hk.h ww.h kes.h
+cntrl_v2.o: cntrl_v2.c \
   gen_types.h param.h zeit.h task.h zeit.h \
   sol.h fb.h sup.h hk.h ww.h kes.h
 fb.o: fb.c gen_types.h fb.h gen_types.h sup.h \
@@ -33,7 +36,8 @@ server.o: server.c server.h
 ww.o: ww.c param.h ww.h sup.h gen_types.h
 zeit.o: zeit.c \
   gen_types.h param.h zeit.h gen_types.h
-io.o: io.c io.h io_plc.h gen_types.h
+io.o: io.c io.h io_pab_types.h gen_types.h
+io_v2.o: io_v2.c io.h io_v2.h io_pab_types.h gen_types.h
 err.o: err.c err.h gen_types.h
 
 clean :

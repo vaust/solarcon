@@ -2,7 +2,6 @@
 #define _ERR_H_
 
 #include "gen_types.h"
-#include "io_v2.h"
 
 /* <Defines> */
 #define SOL_NORMAL  0
