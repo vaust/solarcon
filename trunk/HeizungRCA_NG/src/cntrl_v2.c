@@ -67,9 +67,7 @@ void cntrl_open( void )
     kes_Init( &cntrl_kes_par, &cntrl_kes_out );
     err_Init( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
 
-#ifdef _IO_V2_H_    
     io_Init();
-#endif
 
     /*----- Module aktivieren ----*/
     cntrl_mdl_aktiv.sol_aktiv     = SET;
@@ -112,16 +110,11 @@ void cntrl_run( int sig )
 
     /* Prozessdaten für Solarregler */
     if( SET == cntrl_mdl_aktiv.inp_sol_aktiv ) {
-        if( io_Normal != io_Temp( &io_SOL_KOLL_T_MW, NULL ) ) 
-            cntrl_err_in.sol_err += ERR_NOK;
-        if( io_Normal != io_Temp( &io_SOL_SP1_To_MW, NULL ) )
-            cntrl_err_in.sol_err += ERR_NOK;
-        if( io_Normal != io_Temp( &io_SOL_SP1_Tu_MW, NULL ) )
-            cntrl_err_in.sol_err += ERR_NOK;
-        if( io_Normal != io_Temp( &io_SOL_SP2_To_MW, NULL ) )
-            cntrl_err_in.sol_err += ERR_NOK;
-        if( io_Normal != io_Temp( &io_SOL_SP2_Tu_MW, NULL ) )
-            cntrl_err_in.sol_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_SOL_KOLL_T_MW, NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_SOL_SP1_To_MW, NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_SOL_SP1_Tu_MW, NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_SOL_SP2_To_MW, NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
             
         sol_WriteInp( &cntrl_sol_in, io_SOL_KOLL_T_MW.messwert,
                                      io_SOL_SP1_To_MW.messwert,
@@ -136,10 +129,8 @@ void cntrl_run( int sig )
     
     /* Prozessdaten für Fussbodenheizungsregelung */
     if( SET == cntrl_mdl_aktiv.inp_fb_aktiv ) {
-        if( io_Normal != io_Temp( &io_ALL_Tau_MW, NULL ) ) 
-            cntrl_err_in.fb_err += ERR_NOK;
-        if( io_Normal != io_Temp( &ioFB_SEK_Tvl_MW, NULL ) ) 
-            cntrl_err_in.fb_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_ALL_Tau_MW,    NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_FB_SEK_Tvl_MW, NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
 
         fb_WriteInp( &cntrl_fb_in, io_ALL_Tau_MW.messwert,
                                    cntrl_tau.t_36h_mittel,
@@ -154,9 +145,12 @@ void cntrl_run( int sig )
     
     /* Prozessdaten für Heizkörperheizkreisregelung */
     if( SET == cntrl_mdl_aktiv.inp_hk_aktiv ) {
-        hk_WriteInp( &cntrl_hk_in, io_get_ALL_Tau_MW(),
+        if( io_Normal != io_Temp( &io_ALL_Tau_MW, NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_HK_Tvl_MW,  NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+
+        hk_WriteInp( &cntrl_hk_in, io_ALL_Tau_MW.messwert,
                                    cntrl_tau.t_36h_mittel,
-                                   io_get_HK_Tvl_MW(),
+                                   io_HK_Tvl_MW.messwert,
                                    cntrl_zeit_absenkung.HK_Zustand,
                                    cntrl_zeit_party.all_partytime_flg );
     }
@@ -167,18 +161,24 @@ void cntrl_run( int sig )
 
     /* Prozessdaten für Warmwasserheizkreisregelung */
     if( SET == cntrl_mdl_aktiv.inp_ww_aktiv ) {
-        ww_WriteInp( &cntrl_ww_in, io_get_WW_Tww_MW(),
-                                   io_get_ALL_Tau_MW(),
+        if( io_Normal != io_Temp( &io_ALL_Tau_MW,    NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_WW_Tww_MW,     NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_HK_Tvl_MW,     NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_HK_Trl_MW,     NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_SOL_SP1_To_MW, NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        
+        ww_WriteInp( &cntrl_ww_in, io_WW_Tww_MW.messwert,
+                                   io_ALL_Tau_MW.messwert,
                                    cntrl_tau.t_36h_mittel,
-                                   0,  /* Wasserzähler ist noch nicht genutzt */
-                                   io_get_HK_Tvl_MW(),
-                                   io_get_HK_Trl_MW(),
-                                   cntrl_hk_out.tvl_sw, /* ww_Run() abhängig von Ausgabe hk_Run() */
-                                   io_get_SOL_SP1_To_MW(),
-                                   io_get_SOL_SP2_Tu_MW(),
+                                   0,  /* Wasserzaehler ist noch nicht genutzt */
+                                   io_HK_Tvl_MW.messwert,
+                                   io_HK_Trl_MW.messwert,
+                                   cntrl_hk_out.tvl_sw, /* ww_Run() abhaengig von Ausgabe hk_Run() */
+                                   iot_SOL_SP1_To_MW.messwert,
+                                   io_SOL_SP2_Tu_MW.messwert,
                                    cntrl_zeit_absenkung.Zirk_Zustand,
                                    cntrl_zeit_absenkung.Duschzeit     );
-
     }
     /* Warmwasserheizkreisregelung Task */
     if( SET == cntrl_mdl_aktiv.ww_aktiv ) {
@@ -187,26 +187,31 @@ void cntrl_run( int sig )
     
     /* Prozessdaten für Kesselsteuerung */
     if( SET == cntrl_mdl_aktiv.inp_kes_aktiv ) {
-        kes_WriteInp( &cntrl_kes_in, io_get_SOL_SP1_To_MW(),
-                                     io_get_SOL_SP2_To_MW(),
-                                     io_get_KES_Tvl_MW(),
-                                     0,  /* Gaszähler noch nicht genutzt */
-                                     cntrl_hk_out.tvl_sw, /* kes_Run() abhängig von Ausgabe hk_Run() */
-                                     cntrl_fb_out.tvl_sw, /* kes_Run() abhängig von Ausgabe fb_Run() */
+        if( io_Normal != io_Temp( &io_SOL_SP1_To_MW, NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+        if( io_Normal != io_Temp( &io_KES_Tvl_MW,    NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+
+        kes_WriteInp( &cntrl_kes_in, io_SOL_SP1_To_MW.messwert,
+                                     io_SOL_SP2_To_MW.messwert,
+                                     io_KES_Tvl_MW.messwert,
+                                     0,  /* Gaszaehler noch nicht genutzt */
+                                     cntrl_hk_out.tvl_sw, /* kes_Run() abhaengig von Ausgabe hk_Run() */
+                                     cntrl_fb_out.tvl_sw, /* kes_Run() abhaengig von Ausgabe fb_Run() */
                                      cntrl_zeit_absenkung.Duschzeit,
                                      io_get_KES_BR_BM()              );
-
     }
     /* Kesselsteuerung Task */
     if( SET == cntrl_mdl_aktiv.kes_aktiv ) {
         kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
     }
     
-    /* Prozessdaten für Sammelstörmeldung */
+    /* Prozessdaten für Sammelstoermeldung */
     if( SET == cntrl_mdl_aktiv.inp_err_aktiv ) {
+        if( io_Normal != io_Temp( &io_KES_Tvl_MW, NULL ) ) cntrl_err_in.tempsens_err += ERR_NOK;
+
         cntrl_err_in.br_RueckMeldung      = io_get_KES_BR_BM();
         cntrl_err_in.br_StoerMeldung      = io_get_KES_SSM();
-        cntrl_err_in.kes_tvl_mw           = io_get_KES_Tvl_MW();
+        cntrl_err_in.kes_tvl_mw           = io_KES_Tvl_MW.messwert;
         cntrl_err_in.stb_Fussbodenheizung = io_get_FB_SEK_TW();
         cntrl_err_in.kes_tvl_sw           = cntrl_kes_out.tvl_sw;
     }    
@@ -251,7 +256,7 @@ void cntrl_run( int sig )
     KBUSUPDATE();
     MUTEX_UNLOCK();
     
-    cntrl_cnt ++; /* Aufrufzaehler incr. */
+    cntrl_cnt++; /* Aufrufzaehler inkrementieren */
 }
 
 void cntrl_close( void )
