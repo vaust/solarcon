@@ -1,16 +1,16 @@
-TOOL := D:/Tools/MinGW/bin
+# TOOL := D:/Tools/MinGW/bin
 INC := ./inc
 SRC := ./src
-CC := $(TOOL)/gcc.exe
+# CC := $(TOOL)/gcc.exe
 CFLAGS := -I$(INC) -Wall -D__REENTRANT__
 #CFLAGS := -I$(INC) -D__TEST__ -Wall
 VPATH := $(SRC):$(INC)
 
-OBJECTS := cntrl_v2.o task.o zeit.o param.o sol.o fb.o hk.o ww.o sup.o kes.o io.o io_v2.o err.o
+OBJECTS := cntrl_v2.o task.o zeit.o param.o sol.o fb.o hk.o ww.o sup.o kes.o io.o io_v2.o err.o telnet.o server.o
 
 test : $(OBJECTS)
-#   $(CC) -ggdb -o $@ -lpthread $(OBJECTS)
-	$(CC) -ggdb -o $@ $(OBJECTS)
+	$(CC) -ggdb -o $@ -lpthread $(OBJECTS)
+#	$(CC) -ggdb -o $@ $(OBJECTS)
 #	$(CC) -fprofile-arcs -ftest-coverage -o $@ $(OBJECTS)
 all : clean test
 
