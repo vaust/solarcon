@@ -134,7 +134,7 @@ void cntrl_run( int sig )
 
         fb_WriteInp( &cntrl_fb_in, io_ALL_Tau_MW.messwert,
                                    cntrl_tau.t_36h_mittel,
-                                   ioFB_SEK_Tvl_MW.messwert,
+                                   io_FB_SEK_Tvl_MW.messwert,
                                    cntrl_zeit_absenkung.FB_Zustand,
                                    cntrl_zeit_party.all_partytime_flg );
     }
@@ -175,7 +175,7 @@ void cntrl_run( int sig )
                                    io_HK_Tvl_MW.messwert,
                                    io_HK_Trl_MW.messwert,
                                    cntrl_hk_out.tvl_sw, /* ww_Run() abhaengig von Ausgabe hk_Run() */
-                                   iot_SOL_SP1_To_MW.messwert,
+                                   io_SOL_SP1_To_MW.messwert,
                                    io_SOL_SP2_Tu_MW.messwert,
                                    cntrl_zeit_absenkung.Zirk_Zustand,
                                    cntrl_zeit_absenkung.Duschzeit     );
