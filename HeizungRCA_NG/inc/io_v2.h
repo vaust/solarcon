@@ -70,8 +70,6 @@ PUBLIC io_ao10V_obj_t   io_WW_HZG_PU_Y;
 /* </Variablen> */
 
 /* <Prototypen> */
-void io_InitTempAll( void );
-void io_InitYAll( void );
 void io_Init( void );
 
 io_obj_status_t io_Temp( io_temp_obj_t *this, float *mw );

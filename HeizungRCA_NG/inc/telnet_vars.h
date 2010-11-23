@@ -165,8 +165,9 @@ const parse_set_t telnet_err_Vars[] =
     { "err_in.br_RueckMeldung",       &(cntrl_err_in.br_RueckMeldung),       "%x" },
     { "err_in.br_StoerMeldung",       &(cntrl_err_in.br_StoerMeldung),       "%x" },
     { "err_in.stb_Fussbodenheizung",  &(cntrl_err_in.stb_Fussbodenheizung),  "%x" },
+    { "err_in.tempsens_err",          &(cntrl_err_in.tempsens_err),          "%d" },
     { "err_in.sol_err",               &(cntrl_err_in.sol_err),               "%d" },
-
+    
     { "err_out.br_Countdown",         &(cntrl_err_out.br_Countdown),         "%d" },
     { "err_out.Sammelstoermeldung",   &(cntrl_err_out.Sammelstoermeldung),   "%x" }
 };
@@ -174,35 +175,38 @@ const parse_set_t telnet_err_Vars[] =
 const char *telnet_help_text[] = {
     "\n Mögliche Befehle: \n\n",
 
-    "\tGET T     (alle Temperaturmesswerte)\n",
-    "\tGET SW    (Sollwerte)\n",
-    "\tGET AO    (alle Analog-Ausgaenge)\n",
-    "\tGET DI    (alle Digital-Eingaenge)\n",
-    "\tGET DO    (alle Digital-Ausgaenge)\n",
-    "\tGET FB    (Daten zu FB-Heizung)\n",
-    "\tGET WW    (Daten zu Warmwasserbereitung)\n",
-    "\tGET SOL   (Daten zu Solarbeheizung)\n",
-    "\tGET HK    (Daten zu Heizkoerper-Heizkreis)\n",
-    "\tGET PAR   (Eingelesene Parameter ausgeben)\n",
-    "\tGET ZEIT  (Eingelesenes Zeitprogramm ausgeben)\n",
-    "\tGET ABS   (Absenkungen ausgeben)\n",
-    "\tGET VFB <n>  (FB Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\tGET VHK <n>  (HK Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\tGET VWW <n>  (WW Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\tGET VSOL <n> (SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\tGET VKES <n> (KES Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\tGET VERR <n> (ERR Modul: Parameter-, Eingangs- und Ausgangsvariablen)\n",
-    "\t             n Nummer der Variablen oder -1 für komplette Liste\n\n",
-    "\tAUTO <mdl>    (Modul SOL, FB, HK, WW, KES, ERR auf Automatik)\n",
-    "\tAUTO IN<mdl>  (Prozesseingabe SOL, FB, HK, WW, KES, ERR auf Automatik)\n",
-    "\tAUTO ALL      (alle Prozesseingaben und Module auf Automatik)\n",
-    "\tHAND <mdl>    (Modul SOL, FB, HK, WW, KES, ERR auf Handbetrieb)\n",
-    "\tHAND IN<mdl>  (Prozesseingabe SOL, FB, HK, WW, KES, ERR auf Handbetrieb)\n",
-    "\tMODUL         (Anzeige aller Module incl. Betriebszustand)\n",
-    "\tPUT V<mdl> <var-nr> <=| > <wert> (Modul Variable manuell setzen)\n",
-    "\t          Beispiel: put vww 23 0.0 \n",
-    "\t          Ausgangsgroessen sind nur im Handbetrieb aenderbar.\n",
-    "\t          var-nr ergibt sich aus Ausgabe von GET Vxxx -1\n\n",
+    "\tGET T        : alle Temperaturmesswerte\n",
+    "\tGET SW       : alle Sollwerte\n",
+    "\tGET AO       : alle Analog-Ausgaenge\n",
+    "\tGET DI       : alle Digital-Eingaenge\n",
+    "\tGET DO       : alle Digital-Ausgaenge\n",
+    "\tGET FB       : Daten zur FB-Heizung\n",
+    "\tGET WW       : Daten zu Warmwasserbereitung\n",
+    "\tGET SOL      : Daten zu Solarbeheizung\n",
+    "\tGET HK       : Daten zu Heizkoerper-Heizkreis\n",
+    "\tGET PAR      : Eingelesene Parameter ausgeben\n",
+    "\tGET ZEIT     : Eingelesenes Zeitprogramm ausgeben\n",
+    "\tGET ABS      : Absenkungen ausgeben\n",
+    "\tGET VFB <n>  : FB Modul: Parameter-, Eingangs- und Ausgangsvariablen\n",
+    "\tGET VHK <n>  : HK Modul: Parameter-, Eingangs- und Ausgangsvariablen\n",
+    "\tGET VWW <n>  : WW Modul: Parameter-, Eingangs- und Ausgangsvariablen\n",
+    "\tGET VSOL <n> : SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen\n",
+    "\tGET VKES <n> : KES Modul: Parameter-, Eingangs- und Ausgangsvariablen\n",
+    "\tGET VERR <n> : ERR Modul: Parameter-, Eingangs- und Ausgangsvariablen\n",
+    "\t               <n> Nummer der Variablen oder -1 für komplette Liste\n\n",
+
+    "\tPUT V<mdl> <var-nr> <=| > <wert> \n",
+    "\t             : Modul Variable manuell setzen\n",
+    "\t               Beispiel: put vww 23 0.0 \n",
+    "\t               Ausgangsgroessen sind nur im Handbetrieb aenderbar.\n",
+    "\t               <var-nr> ergibt sich aus Ausgabe von GET Vxxx -1\n\n",
+
+    "\tAUTO <mdl>   : Modul SOL, FB, HK, WW, KES, ERR auf Automatik\n",
+    "\tAUTO IN<mdl> : Prozesseingabe SOL, FB, HK, WW, KES, ERR auf Automatik\n",
+    "\tAUTO ALL     : alle Prozesseingaben und Module auf Automatik\n",
+    "\tHAND <mdl>   : Modul SOL, FB, HK, WW, KES, ERR auf Handbetrieb\n",
+    "\tHAND IN<mdl> : Prozesseingabe SOL, FB, HK, WW, KES, ERR auf Handbetrieb\n",
+    "\tMODUL        : Anzeige aller Module incl. Betriebszustand\n",
 
     "\tINIT      (Initialisierungsdateien neu einlesen)\n\n",
     
@@ -213,8 +217,8 @@ const char *telnet_help_text[] = {
 
 const parse_set_t telnet_dbg_Vars[] =
 {
-    { "cntrl_cnt",     &cntrl_cnt,     "%d" },
-    { "cntrl_DEBUG01", &cntrl_DEBUG01, "%d" }
+    { "cntrl_cnt",     &cntrl_cnt,     "%d" } /*,
+    { "cntrl_DEBUG01", &cntrl_DEBUG01, "%d" }    */
 };
 
 #else

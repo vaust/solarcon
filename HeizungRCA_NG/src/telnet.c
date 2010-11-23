@@ -25,7 +25,7 @@
 #include "task.h"
 #include "version.h"    /* Versionsstring */
 #include "server.h"
-
+#include "telnet.h"
 
 #define BFLN        96
 #define BFLSH()     write( fdesc, bufout, strlen( bufout ) )
@@ -220,27 +220,31 @@ void *telnet_thread( void *arg )
                     if( NULL != token ) {
                         if( strncasecmp( token, "VSOL", 4 ) == 0 ) {
                             telnet_putVars( telnet_sol_Vars, sizeof(telnet_sol_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                            printf( "TELNET.C: PUT SOL Befehl erhalten\n" );
+                            printf( "TELNET.C: PUT VSOL Befehl erhalten\n" );
                         }
                         else if( strncasecmp( token, "VFB", 3 ) == 0 ) {
                             telnet_putVars( telnet_fb_Vars, sizeof(telnet_fb_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                            printf( "TELNET.C: PUT FB Befehl erhalten\n" );
+                            printf( "TELNET.C: PUT VFB Befehl erhalten\n" );
                         }
                         else if( strncasecmp( token, "VHK", 3 ) == 0 ) {
                             telnet_putVars( telnet_hk_Vars, sizeof(telnet_hk_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                            printf( "TELNET.C: PUT HK Befehl erhalten\n" );
+                            printf( "TELNET.C: PUT VHK Befehl erhalten\n" );
                         }
                         else if( strncasecmp( token, "VWW", 3 ) == 0 ) {
                             telnet_putVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                            printf( "TELNET.C: PUT WW Befehl erhalten\n" );
+                            printf( "TELNET.C: PUT VWW Befehl erhalten\n" );
                         }
                         else if( strncasecmp( token, "VKES", 4 ) == 0 ) {
                             telnet_putVars( telnet_kes_Vars, sizeof(telnet_kes_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                            printf( "TELNET.C: PUT KES Befehl erhalten\n" );
+                            printf( "TELNET.C: PUT VKES Befehl erhalten\n" );
                         }
                         else if( strncasecmp( token, "VERR", 4 ) == 0 ) {
                             telnet_putVars( telnet_err_Vars, sizeof(telnet_err_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                            printf( "TELNET.C: PUT ERR Befehl erhalten\n" );
+                            printf( "TELNET.C: PUT VERR Befehl erhalten\n" );
+                        }
+                        else if( strncasecmp( token, "VDBG", 4 ) == 0 ) {
+                            telnet_putVars( telnet_err_Vars, sizeof(telnet_dbg_Vars)/sizeof(parse_set_t), fdesc, bufout );
+                            printf( "TELNET.C: PUT VDBG Befehl erhalten\n" );
                         }
                     }
                 }
