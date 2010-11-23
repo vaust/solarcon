@@ -15,6 +15,10 @@
 
 #define ERR_OK             0
 #define ERR_NOK           -1
+
+#ifndef NULL
+    #define NULL            ((void *)(0))
+#endif
 /* <Defines/> */
 
 /* <Typen> */

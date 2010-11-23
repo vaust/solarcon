@@ -22,11 +22,8 @@ typedef struct {
     di_bitbyte_t    br_RueckMeldung;
     di_bitbyte_t    br_StoerMeldung;
     di_bitbyte_t    stb_Fussbodenheizung;
-    s16_t           sol_err;
-    s16_t           fb_err;
-    s16_t           hk_err;
-    s16_t           ww_err;
-    s16_t           kes_err;
+    s16_t           tempsens_err;           /**< Fehlerzaehler fuer Temperatursensoren */
+    s16_t           sol_err;                /**< Fehlerzaehler fuer Solarregler        */
 } err_in_t;
 
 
