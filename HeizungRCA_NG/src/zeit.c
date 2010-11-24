@@ -1,3 +1,6 @@
+/** \file Zeitini Datei einlesen und waehrend Laufzeit Absenkungen ermitteln
+ *  \author Andreas und Volker Stegmann
+ */
 #define _ZEIT_C_
 
 #include <stdio.h>
@@ -5,12 +8,11 @@
 #include <time.h>
 
 #include "gen_types.h"
-
 #include "param.h"
-// #include "variablen.h"
 #include "zeit.h"
 
-static int zeit_einlesen( int states_max, zeit_schaltpunkt_t schaltzeiten[] )
+static
+int zeit_einlesen( int states_max, zeit_schaltpunkt_t schaltzeiten[] )
 {   int     states = 0;
     int     wday, hour, min;
     char    *value;

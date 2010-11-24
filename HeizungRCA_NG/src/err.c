@@ -1,3 +1,7 @@
+/** \file Sammelstörmeldung bedienen
+ * \author Volker Stegmann
+ */
+
 #define _ERR_C_
 
 #include "gen_types.h"
@@ -25,7 +29,7 @@ void err_Init( err_param_t *par_p, err_in_t *in_p, err_out_t *out_p )
 }
 
 /** 
-  * \brief Betriebszustaende lesen und auf Plausibiliteat prufen.
+  * \brief Betriebszustaende lesen und auf Plausibiliteat pruefen.
   * Falls nicht plausibel: Sammelstoermeldung setzen
   */
 void err_Run( const err_param_t *par_p,
@@ -47,7 +51,8 @@ void err_Run( const err_param_t *par_p,
     if( (0    == out_p->br_Countdown       ) ||
         (SET  == in_p->br_StoerMeldung     ) ||
         (SET  == in_p->stb_Fussbodenheizung) ||
-        (0    != in_p->sol_err             )    ) {
+        (0    != in_p->sol_err             ) ||
+        (0    != in_p->tempsens_err        )   ) {
 
         out_p->Sammelstoermeldung = SET;
     }

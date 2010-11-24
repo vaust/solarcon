@@ -79,7 +79,7 @@ void task_minute( const di_bitbyte_t  all_party,
 {
     static int  index = 0;
 
-    /* Partyflags nach Ablauf der Nachlaufzeit oder manuellem Rücksetzen löschen */
+    /* Partyflags nach Ablauf der Nachlaufzeit oder manuellem Ruecksetzen loeschen */
     task_test_partytime( all_party, &partytime->all );
     task_test_partytime( ww_party,  &partytime->ww  );
     
