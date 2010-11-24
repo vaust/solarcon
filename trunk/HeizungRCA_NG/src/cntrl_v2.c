@@ -136,7 +136,7 @@ void cntrl_run( int sig )
                                    cntrl_tau.t_36h_mittel,
                                    io_FB_SEK_Tvl_MW.messwert,
                                    cntrl_zeit_absenkung.FB_Zustand,
-                                   cntrl_zeit_party.all_partytime_flg );
+                                   cntrl_zeit_party.all.partytime_flg );
     }
     /* Fussbodenheizungsregelung Task */
     if( SET == cntrl_mdl_aktiv.fb_aktiv ) {
@@ -152,7 +152,7 @@ void cntrl_run( int sig )
                                    cntrl_tau.t_36h_mittel,
                                    io_HK_Tvl_MW.messwert,
                                    cntrl_zeit_absenkung.HK_Zustand,
-                                   cntrl_zeit_party.all_partytime_flg );
+                                   cntrl_zeit_party.all.partytime_flg );
     }
     /* Heizkörperheizkreisregelung Task */
     if( SET == cntrl_mdl_aktiv.hk_aktiv ) {

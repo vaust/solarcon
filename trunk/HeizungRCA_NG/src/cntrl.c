@@ -119,14 +119,14 @@ void cntrl_run( int sig )
         cntrl_fb_in.sek_tvl_mw       = io_get_FB_SEK_Tvl_MW();
         cntrl_fb_in.tau_avg          = cntrl_tau.t_36h_mittel;
         cntrl_fb_in.zustand          = cntrl_zeit_absenkung.FB_Zustand;
-        cntrl_fb_in.partytime_flg    = cntrl_zeit_party.all_partytime_flg;
+        cntrl_fb_in.partytime_flg    = cntrl_zeit_party.all.partytime_flg;
     }
     if( SET == cntrl_mdl_aktiv.inp_hk_aktiv ) {
         cntrl_hk_in.tau_mw           = io_get_ALL_Tau_MW();
         cntrl_hk_in.tvl_mw           = io_get_HK_Tvl_MW();
         cntrl_hk_in.tau_avg          = cntrl_tau.t_36h_mittel;
         cntrl_hk_in.zustand          = cntrl_zeit_absenkung.HK_Zustand;
-        cntrl_hk_in.partytime_flg    = cntrl_zeit_party.all_partytime_flg;
+        cntrl_hk_in.partytime_flg    = cntrl_zeit_party.all.partytime_flg;
     }
     if( SET == cntrl_mdl_aktiv.inp_ww_aktiv ) {
         cntrl_ww_in.hzg_tvl_mw       = io_get_HK_Tvl_MW();
