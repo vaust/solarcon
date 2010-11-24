@@ -656,7 +656,7 @@ void telnet_writeSOL( int fdesc, char *bufout )
 }
 
 static
-void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufout )
+void telnet_writeVars( const parse_set_t Vars[], const int len, int fdesc, char *bufout )
 {
     int     n;
     char    *token;
@@ -708,7 +708,7 @@ void telnet_writeVars( const parse_set_t Vars[], int len, int fdesc, char *bufou
 }
 
 static
-void telnet_putVars( const parse_set_t Vars[], int len, int fdesc, char *bufout )
+void telnet_putVars( const parse_set_t Vars[], const int len, int fdesc, char *bufout )
 {
     char    *token;
     int     var_no;
