@@ -11,25 +11,15 @@
 #include "task.h"
 
 static 
-void task_partytime_schalter_read( const int                        all_partydauer,
-                                   const di_bitbyte_t               schaltzustand,
-                                         zeit_partytime_schalter_t *status          )
+void task_partytime_schalter_lesen( const int                        all_partydauer,
+                                    const di_bitbyte_t               schaltzustand,
+                                          zeit_partytime_schalter_t *status          )
 {
     if( ( schaltzustand >= IO_EIN ) && ( status->alterwert == IO_AUS ) ) {
         status->partytime_flg = SET;   /* Ruecksetzen in task_min() */
         status->party_restzeit_min = all_partydauer;
     }
     status->alterwert = schaltzustand;
-}
-
-static 
-void task_partytime_schalter( const int           all_partydauer,
-                              const di_bitbyte_t  all_party,
-                              const di_bitbyte_t  ww_party,
-                                    zeit_party_t *partytime      )
-{
-    task_partytime_schalter_read( all_partydauer, all_party, &partytime->all );
-    task_partytime_schalter_read( all_partydauer, ww_party,  &partytime->ww  );   
 }
 
 void task_Run( const int          all_partydauer,
@@ -40,7 +30,8 @@ void task_Run( const int          all_partydauer,
                      zeit_event_t *schedule,
                      zeit_party_t *partytime )
 {
-    task_partytime_schalter( all_partydauer, all_party, ww_party, partytime );
+    task_partytime_schalter_lesen( all_partydauer, all_party, &partytime->all );
+    task_partytime_schalter_lesen( all_partydauer, ww_party,  &partytime->ww  );   
 
     if( schedule->min_flg == SET ) {
         task_minute( all_party, ww_party, all_tau_mw, partytime, tau );
