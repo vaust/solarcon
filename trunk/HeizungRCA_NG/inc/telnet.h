@@ -1,7 +1,9 @@
+/** \file Prototypen fuer lokale telnet Funktionen 
+  * \author Volker Stegmann
+  */
+
 #ifndef _TELNET_H_
 #define _TELNET_H_
-
-/* Prototypen fuer lokale telnet Funktionen */
 
 static void telnet_writeT( int fdesc, char *bufout );
 static void telnet_writeAO( int fdesc, char *bufout );

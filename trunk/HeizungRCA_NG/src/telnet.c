@@ -1,3 +1,8 @@
+/** \file Implementierung des Benutzerinterfaces ueber Telnet Protokoll
+  * \author Volker Stegmann
+  */
+
+
 #define _TELNET_C_
 
 #include <sys/types.h>
@@ -21,7 +26,7 @@
 #include "param.h"      /* Parametrisierung aus INI-Dateien */
 #include "io.h"         /* Ein- und Ausgabe auf der PLC     */
 #include "cntrl.h"      /* Systemzustandsvariablen          */
-#include "zeit.h"
+#include "zeit.h"       
 #include "task.h"
 #include "version.h"    /* Versionsstring */
 #include "server.h"
@@ -30,11 +35,11 @@
 #define BFLN        96
 #define BFLSH()     write( fdesc, bufout, strlen( bufout ) )
 
-#include "telnet_vars.h"
+#include "telnet_vars.h"    /* Arrays zur Ausgabe und Manipulierung der Systemzustandsvariablen */
 
 /**
   * \brief server_thread.
-  * Server Threads die mit dem Client (Telnet, Heizungsregler oder Visualisierung)
+  * Server Threads (bis zu 3) die mit dem Client (Telnet, Heizungsregler oder Visualisierung)
   * kommunizieren
   * \param Client Socket Descriptor
   * \return Status
@@ -145,6 +150,9 @@ void *telnet_thread( void *arg )
                             snprintf( bufout, BFLN, "\tERR-Eingabe auf HAND Betrieb (Open Loop)\n" ); BFLSH();
                         }
                     }
+                    else {
+                        snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (2)\n" ); BFLSH();
+                    }
                 }
                 else if( strncasecmp( "AUTO",    token, 4 ) == 0 ) {
                     printf( "TELNET.C: AUTO Befehl erhalten\n" );
@@ -214,6 +222,9 @@ void *telnet_thread( void *arg )
                             snprintf( bufout, BFLN, "\tAlle Module und Eingaben auf AUTOMATIK Betrieb!\n" ); BFLSH();
                         }
                     }
+                    else {
+                        snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (3)\n" ); BFLSH();
+                    }
                 }
                 else if( strncasecmp( "PUT",     token, 3 ) == 0 ) {
                     token = strtok( NULL, "0123456789 " );
@@ -247,6 +258,10 @@ void *telnet_thread( void *arg )
                             printf( "TELNET.C: PUT VDBG Befehl erhalten\n" );
                         }
                     }
+                    else {
+                        snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (4)\n" ); BFLSH();
+                    }
+
                 }
                 else if( strncasecmp( "INIT",    token, 4 ) == 0 ) {
                     printf( "TELNET.C: INIT Befehl erhalten\n" );
@@ -260,6 +275,9 @@ void *telnet_thread( void *arg )
                     kes_Init( &cntrl_kes_par, &cntrl_kes_out );
                     snprintf( bufout, BFLN, "\tParameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
                 }
+            }
+            else {
+                snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (1)\n" ); BFLSH();
             }
             MUTEX_UNLOCK();
         }
