@@ -172,7 +172,8 @@ const parse_set_t telnet_err_Vars[] =
     { "err_out.Sammelstoermeldung",   &(cntrl_err_out.Sammelstoermeldung),   "%x" }
 };
 
-const char *telnet_help_text[] = {
+const char *telnet_help_text[] = 
+{
     "\n Mögliche Befehle: \n\n",
 
     "\tGET T        : alle Temperaturmesswerte\n",
@@ -225,3 +226,6 @@ const parse_set_t telnet_dbg_Vars[] =
 #error "Header nicht von telnet.c eingebunden"
 #endif // _TELNET_C_
 #endif // _TELNET_VARS_H_
+
+
+
