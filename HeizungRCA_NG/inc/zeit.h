@@ -22,10 +22,14 @@ typedef struct {
 } zeit_event_t;
 
 typedef struct {
-    u8_t    all_partytime_flg;
-    u8_t    ww_partytime_flg;
-    u16_t   all_party_restzeit_min;
-    u16_t   ww_party_restzeit_min;
+    u8_t    partytime_flg;
+    u16_t   party_restzeit_min;
+    u8_t    alterwert;
+} zeit_partytime_schalter_t;
+
+typedef struct {
+    zeit_partytime_schalter_t   all;
+    zeit_partytime_schalter_t   ww;
 } zeit_party_t;
 
 /* <Typen/> */

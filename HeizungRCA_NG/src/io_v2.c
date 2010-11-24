@@ -1,3 +1,7 @@
+/** \file Messwert Verarbeitung mit Plausiblitaetspruefung
+  * \author Volker Stegmann
+  */
+
 #define _IO_V2_C_
 
 #define _IO_MASTER_ 

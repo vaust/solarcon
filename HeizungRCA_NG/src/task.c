@@ -1,33 +1,35 @@
-/* Modul mit allen Methoden, die in einem bestimmten Zeitraster aufgerufen
- * werden muessen.
- */
- #define _TASK_C_
+/** \file Modul mit allen Methoden, die in einem bestimmten Zeitraster aufgerufen
+  * werden muessen.
+  * \author Volker Stegmann 
+  */
+  
+#define _TASK_C_
 
 #include "gen_types.h"
 #include "param.h"
 #include "zeit.h"
 #include "task.h"
 
-static void task_partytime_schalter( const int          all_partydauer,
-                                     const di_bitbyte_t all_party,
-                                     const di_bitbyte_t ww_party,
-                                           zeit_party_t *partytime )
+static 
+void task_partytime_schalter_read( const int                        all_partydauer,
+                                   const di_bitbyte_t               schaltzustand,
+                                         zeit_partytime_schalter_t *status          )
 {
-    static di_bitbyte_t  old_all_party = IO_AUS;
-    static di_bitbyte_t  old_ww_party = IO_AUS;
-
-    if( ( all_party >= IO_EIN ) && ( old_all_party == IO_AUS ) ) {
-        partytime->all_partytime_flg = SET;  /* Ruecksetzen in task_min() */
-        partytime->all_party_restzeit_min = all_partydauer;
+    if( ( schaltzustand >= IO_EIN ) && ( status->alterwert == IO_AUS ) ) {
+        status->partytime_flg = SET;   /* Ruecksetzen in task_min() */
+        status->party_restzeit_min = all_partydauer;
     }
-    old_all_party = all_party;
+    status->alterwert = schaltzustand;
+}
 
-    /* WW_Party Flag ermitteln */
-    if( ( ww_party >= IO_EIN ) && ( old_ww_party == IO_AUS ) ) {
-        partytime->ww_partytime_flg = SET;  /* Ruecksetzen in task_min() */
-        partytime->ww_party_restzeit_min = all_partydauer;
-    }
-    old_ww_party = ww_party;
+static 
+void task_partytime_schalter( const int           all_partydauer,
+                              const di_bitbyte_t  all_party,
+                              const di_bitbyte_t  ww_party,
+                                    zeit_party_t *partytime      )
+{
+    task_partytime_schalter_read( all_partydauer, all_party, &partytime->all );
+    task_partytime_schalter_read( all_partydauer, ww_party,  &partytime->ww  );   
 }
 
 void task_Run( const int          all_partydauer,
@@ -50,43 +52,39 @@ void task_Run( const int          all_partydauer,
     }
 }
 
-static void task_minute( const di_bitbyte_t all_party,
-                         const di_bitbyte_t ww_party,
-                         const float        all_tau_mw,
-                               zeit_party_t *partytime,
-                               task_tau_t   *tau       )
+static 
+void task_test_partytime( const di_bitbyte_t               schaltzustand,
+                                zeit_partytime_schalter_t *status         )
+{
+    /* Partyflag Ruecksetzzeitpunkt ermitteln */
+    if(  status->party_restzeit_min > 0 ) {
+        status->party_restzeit_min --;
+    }
+    else {
+        status->partytime_flg = RESET;
+    }
+    /* Partyflag auf jeden Fall zuruecksetzen,
+     * wenn Partyschalter wieder ausgeschaltet wird */
+    if( schaltzustand == IO_AUS ) {
+        status->partytime_flg = RESET;
+    }
+}
+                         
+static 
+void task_minute( const di_bitbyte_t  all_party,
+                  const di_bitbyte_t  ww_party,
+                  const float         all_tau_mw,
+                        zeit_party_t *partytime,
+                        task_tau_t   *tau       )
 {
     static int  index = 0;
 
-    /* Partyflag Ruecksetzzeitpunkt ermitteln */
-    if(  partytime->all_party_restzeit_min > 0 ) {
-        partytime->all_party_restzeit_min --;
-    }
-    else {
-        partytime->all_partytime_flg = RESET;
-    }
-    /* Partyflag auf jeden Fall zuruecksetzen,
-     * wenn Partyschalter wieder ausgeschaltet wird */
-    if( all_party == IO_AUS ) {
-        partytime->all_partytime_flg = RESET;
-    }
-
-    /* Warmwasser Partyflag Ruecksetzzeitpunkt ermitteln */
-    if( partytime->ww_party_restzeit_min > 0 ) {
-        partytime->ww_party_restzeit_min --;
-    }
-    else {
-        partytime->ww_partytime_flg = RESET;
-    }
-    /* Partyflag auf jeden Fall zuruecksetzen,
-     * wenn Partyschalter wieder ausgeschaltet wird */
-    if( ww_party == IO_AUS ) {
-        partytime->ww_partytime_flg = RESET;
-    }
-
+    /* Partyflags nach Ablauf der Nachlaufzeit oder manuellem Rücksetzen löschen */
+    task_test_partytime( all_party, &partytime->all );
+    task_test_partytime( ww_party,  &partytime->ww  );
+    
     /* Berechnung des 1 Stundenmittelwerts der Aussentemperatur
      * aus 60 Werten alle Minuten */
-
     tau->t_1h_summe += all_tau_mw - tau->t_1min_Intervall[index];
     tau->t_1min_Intervall[index] = all_tau_mw;
     index ++;
@@ -95,7 +93,8 @@ static void task_minute( const di_bitbyte_t all_party,
     tau->t_1h_mittel = tau->t_1h_summe/60.0;
  }
 
-static void task_stunde( task_tau_t *tau )
+static 
+void task_stunde( task_tau_t *tau )
 {
     static int index = 0;
 
