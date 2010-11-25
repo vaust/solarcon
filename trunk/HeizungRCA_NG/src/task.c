@@ -11,24 +11,25 @@
 #include "task.h"
 
 static 
-void task_partytime_schalter_lesen( const int                        all_partydauer,
-                                    const di_bitbyte_t               schaltzustand,
-                                          zeit_partytime_schalter_t *status          )
+void task_partytime_schalter_lesen( const int                               all_partydauer,
+                                    const di_bitbyte_t                      schaltzustand,
+                                          zeit_partytime_schalter_t * const status          )
 {
-    if( ( schaltzustand >= IO_EIN ) && ( status->alterwert == IO_AUS ) ) {
+    if(    ( schaltzustand     >= IO_EIN ) 
+        && ( status->alterwert == IO_AUS ) ) {
         status->partytime_flg = SET;   /* Ruecksetzen in task_min() */
         status->party_restzeit_min = all_partydauer;
     }
     status->alterwert = schaltzustand;
 }
 
-void task_Run( const int          all_partydauer,
-               const di_bitbyte_t all_party,
-               const di_bitbyte_t ww_party,
-               const float        all_tau_mw,
-                     task_tau_t   *tau,
-                     zeit_event_t *schedule,
-                     zeit_party_t *partytime )
+void task_Run( const int                  all_partydauer,
+               const di_bitbyte_t         all_party,
+               const di_bitbyte_t         ww_party,
+               const float                all_tau_mw,
+                     task_tau_t   * const tau,
+                     zeit_event_t * const schedule,
+                     zeit_party_t * const partytime       )
 {
     task_partytime_schalter_lesen( all_partydauer, all_party, &partytime->all );
     task_partytime_schalter_lesen( all_partydauer, ww_party,  &partytime->ww  );   
@@ -44,8 +45,8 @@ void task_Run( const int          all_partydauer,
 }
 
 static 
-void task_test_partytime( const di_bitbyte_t               schaltzustand,
-                                zeit_partytime_schalter_t *status         )
+void task_test_partytime( const di_bitbyte_t                      schaltzustand,
+                                zeit_partytime_schalter_t * const status         )
 {
     /* Partyflag Ruecksetzzeitpunkt ermitteln */
     if(  status->party_restzeit_min > 0 ) {
@@ -60,13 +61,13 @@ void task_test_partytime( const di_bitbyte_t               schaltzustand,
         status->partytime_flg = RESET;
     }
 }
-                         
+
 static 
-void task_minute( const di_bitbyte_t  all_party,
-                  const di_bitbyte_t  ww_party,
-                  const float         all_tau_mw,
-                        zeit_party_t *partytime,
-                        task_tau_t   *tau       )
+void task_minute( const di_bitbyte_t         all_party,
+                  const di_bitbyte_t         ww_party,
+                  const float                all_tau_mw,
+                        zeit_party_t * const partytime,
+                        task_tau_t   * const tau        )
 {
     static int  index = 0;
 
@@ -85,7 +86,7 @@ void task_minute( const di_bitbyte_t  all_party,
  }
 
 static 
-void task_stunde( task_tau_t *tau )
+void task_stunde( task_tau_t * const tau )
 {
     static int index = 0;
 
@@ -98,8 +99,8 @@ void task_stunde( task_tau_t *tau )
     tau->t_36h_mittel = tau->t_36h_summe / param_all_tau_mittel_zeit;
 }
 
-void task_Init( task_tau_t *tau, 
-                float      all_tau_mw )
+void task_Init(       task_tau_t * const tau, 
+                const float              all_tau_mw )
 {
     int i;
 
