@@ -225,20 +225,20 @@ void cntrl_run( int sig )
     io_put_SOL_SP1_AV_SB( cntrl_sol_out.av_sb[SP1] );
     io_put_SOL_SP2_AV_SB( cntrl_sol_out.av_sb[SP2] );
 
-    io_put_FB_PRIM_MV_Y( cntrl_fb_out.prim_mv_y.y );
+    if( io_Normal != io_Y( &io_FB_PRIM_MV_Y, cntrl_fb_out.prim_mv_y.y ) ) cntrl_err_in.ao_err += ERR_NOK;
     io_put_FB_PRIM_PU_SB( cntrl_fb_out.prim_pu_sb );
     io_put_FB_SEK_PU_SB( cntrl_fb_out.sek_pu_sb );
 
-    io_put_HK_MV_Y( cntrl_hk_out.mv_y.y );
+    if( io_Normal != io_Y( &io_HK_MV_Y, cntrl_hk_out.mv_y.y ) ) cntrl_err_in.ao_err += ERR_NOK;
     io_put_HK_PU_SB( cntrl_hk_out.pu_sb );
 
-    io_put_WW_HZG_MV_Y( cntrl_ww_out.hzg_mv_y.y );
+    if( io_Normal != io_Y( &io_WW_HZG_MV_Y, cntrl_ww_out.hzg_mv_y.y ) ) cntrl_err_in.ao_err += ERR_NOK;
     io_put_WW_HZG_VV_SB( cntrl_ww_out.hzg_vv_sb );
     io_put_WW_HZG_PU_SB( cntrl_ww_out.hzg_pu_sb );
-    io_put_WW_HZG_PU_Y( cntrl_ww_out.hzg_pu_y.y );
+    if( io_Normal != io_Y( &io_WW_HZG_PU_Y, cntrl_ww_out.hzg_pu_y.y ) ) cntrl_err_in.ao_err += ERR_NOK;
     io_put_WW_ZIRK_PU_SB( cntrl_ww_out.zirk_pu_sb );
 
-    io_put_KES_Tvl_Y( cntrl_kes_out.tvl_sw );
+    if( io_Normal != io_Y( &io_KES_Tvl_Y, cntrl_kes_out.tvl_sw ) ) cntrl_err_in.ao_err += ERR_NOK;
     io_put_KES_PU_SP1_SB( cntrl_kes_out.pu_sp1_sb );
     io_put_KES_PU_SP2_SB( cntrl_kes_out.pu_sp2_sb );
 
