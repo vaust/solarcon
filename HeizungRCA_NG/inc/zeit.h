@@ -103,11 +103,11 @@ extern int     zeit_hour_offset;
 
 
 /* <Prototypen> */
-void zeit_Init( zeit_Betriebszustand_t *absenkung,
-                zeit_event_t           *schedule );
+void zeit_Init( zeit_Betriebszustand_t * const absenkung,
+                zeit_event_t           * const schedule   );
 
-void zeit_Run( zeit_Betriebszustand_t *absenkung,
-               zeit_event_t           *schedule );
+void zeit_Run( zeit_Betriebszustand_t * const absenkung,
+               zeit_event_t           * const schedule   );
 
 
 /** TESTCODE */

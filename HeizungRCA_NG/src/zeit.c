@@ -12,7 +12,7 @@
 #include "zeit.h"
 
 static
-int zeit_einlesen( int states_max, zeit_schaltpunkt_t schaltzeiten[] )
+int zeit_einlesen( const int states_max, zeit_schaltpunkt_t schaltzeiten[] )
 {   int     states = 0;
     int     wday, hour, min;
     char    *value;
@@ -42,7 +42,8 @@ int zeit_einlesen( int states_max, zeit_schaltpunkt_t schaltzeiten[] )
     return( states );
 }
 
-void zeit_Init( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
+void zeit_Init( zeit_Betriebszustand_t * const absenkung, 
+                zeit_event_t           * const schedule   )
 {
     FILE    *handle;
     char    linestr[128];
@@ -105,7 +106,8 @@ void zeit_Init( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
     absenkung->Zirk_Zustand     = zEin;
 }
 
-void zeit_Run( zeit_Betriebszustand_t *absenkung, zeit_event_t *schedule )
+void zeit_Run( zeit_Betriebszustand_t * const absenkung, 
+               zeit_event_t           * const schedule   )
 {
     time_t      aktZeit;
     struct tm   *aktZeitElemente_p;

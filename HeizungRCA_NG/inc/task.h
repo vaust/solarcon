@@ -32,32 +32,32 @@ PUBLIC u32_t     task_kes_Betriebszeit_sec;   /**< Betriebszeitzähler Kessel in
 
 /* <Prototypen> */
 #ifdef _TASK_C_
-static void task_partytime_schalter_lesen( const int                        all_partydauer,
-                                           const di_bitbyte_t               schaltzustand,
-                                                 zeit_partytime_schalter_t *status          );
+static void task_partytime_schalter_lesen( const int                               all_partydauer,
+                                           const di_bitbyte_t                      schaltzustand,
+                                                 zeit_partytime_schalter_t * const status          );
 
-static void task_test_partytime( const di_bitbyte_t               schaltzustand,
-                                       zeit_partytime_schalter_t *status         );
+static void task_test_partytime( const di_bitbyte_t                      schaltzustand,
+                                       zeit_partytime_schalter_t * const status         );
                                            
-static void task_minute( const di_bitbyte_t all_party,
-                         const di_bitbyte_t ww_party,
-                         const float        all_tau_mw,
-                               zeit_party_t *partytime,
-                               task_tau_t   *tau        );
+static void task_minute( const di_bitbyte_t         all_party,
+                         const di_bitbyte_t         ww_party,
+                         const float                all_tau_mw,
+                               zeit_party_t * const partytime,
+                               task_tau_t   * const tau        );
 
-static void task_stunde( task_tau_t *tau );
+static void task_stunde( task_tau_t * const tau );
 #endif
 
 void task_Init( task_tau_t *tau,
                 float all_tau_mw );
 
-void task_Run( const int          all_partydauer,
-               const di_bitbyte_t all_party,
-               const di_bitbyte_t ww_party,
-               const float        all_tau_mw,
-                     task_tau_t   *tau,
-                     zeit_event_t *schedule,
-                     zeit_party_t *partytime );
+void task_Run( const int                  all_partydauer,
+               const di_bitbyte_t         all_party,
+               const di_bitbyte_t         ww_party,
+               const float                all_tau_mw,
+                     task_tau_t   * const tau,
+                     zeit_event_t * const schedule,
+                     zeit_party_t * const partytime      );
 
 /* <Prototypen/> */
 

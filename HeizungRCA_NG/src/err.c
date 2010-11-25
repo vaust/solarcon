@@ -62,7 +62,7 @@ void err_Run( const err_param_t *par_p,
 }
 
 /**
- * \brief Sammelstörmeldung zurücksetzen.
+ * \brief Sammelstoermeldung zurücksetzen.
  * Dies Funktion soll vom Benutzerinterface aufgerufen werden.
  * \param par_p[in] enthält timeout für Anforderungscountdown
  * \param out_p[out] Störmeldung zurücksetzen.
