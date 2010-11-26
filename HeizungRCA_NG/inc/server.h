@@ -16,7 +16,9 @@
 #define MAX_NAME_LEN    6
 #define MAX_STR_LEN     128
 
-#define TCP_PORT        1969
+// #define TCP_PORT        1969
+#define TCP_PORT        9691
+
 /* </Konstanten> */
 
 /* <Typen> */
@@ -24,12 +26,6 @@
 
 /* <Prototypen> */
 void terminate( int sig );
-
-void cntrl_open( void );
-void cntrl_run( int sig );
-void cntrl_close( void );
-
-void *telnet_thread( void *arg );
 /* </Prototypen> */
 
 /* <Global> */
@@ -41,7 +37,7 @@ PUBLIC pthread_mutex_t mutex;
 PUBLIC int             next_thread;
 
 /* - Timer Variablen - */
-PUBLIC struct itimerval   timer;
+PUBLIC struct itimerval   timer; /**< Timer fuer zyklischen Aufruf von cntrl_run() */
 
 /* - Socket Descriptoren - */
 PUBLIC int      server_sock_fd, client_sock_fd;

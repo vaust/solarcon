@@ -12,7 +12,7 @@
 #include "io_v2.h"
 
 static  
-void io_InitTemp( io_temp_obj_t     *self,
+void io_InitT( io_temp_obj_t     *self,
                   float             messbereich_anfang,
                   float             messbereich_ende,
                   temp10_pt1000_t   *kbus_adresse_p )
@@ -24,32 +24,32 @@ void io_InitTemp( io_temp_obj_t     *self,
 }
 
 static
-void io_InitTempAll( void )
+void io_InitTall( void )
 {
-    io_InitTemp( &io_ALL_Tau_MW    , -50.0,  50.0, (temp10_pt1000_t *) &(pabIn_p->ain.all_tau_mw) );
-    io_InitTemp( &io_SOL_KOLL_T_MW , -50.0, 150.0, (temp10_pt1000_t *) &(pabIn_p->ain.sol_koll_t_mw) );
-    io_InitTemp( &io_SOL_SP1_Tu_MW ,   0.0, 150.0, (temp10_pt1000_t *) &(pabIn_p->ain.sol_sp1_tu_mw) );
-    io_InitTemp( &io_SOL_SP1_To_MW ,   0.0, 150.0, (temp10_pt1000_t *) &(pabIn_p->ain.sol_sp1_to_mw) );
-    io_InitTemp( &io_SOL_SP2_Tu_MW ,   0.0, 150.0, (temp10_pt1000_t *) &(pabIn_p->ain.sol_sp2_tu_mw) );
-    io_InitTemp( &io_SOL_SP2_To_MW ,   0.0, 150.0, (temp10_pt1000_t *) &(pabIn_p->ain.sol_sp2_to_mw) );
-    io_InitTemp( &io_KES_Tvl_MW    ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.kes_tvl_mw) );
-    io_InitTemp( &io_KES_Trl_MW    ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.kes_trl_mw) );
-    io_InitTemp( &io_HK_Tvl_MW     ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.hk_tvl_mw) );
-    io_InitTemp( &io_HK_Trl_MW     ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.hk_trl_mw) );
-    io_InitTemp( &io_FB_PRIM_Trl_MW,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.fb_prim_trl_mw) );
-    io_InitTemp( &io_FB_SEK_Tvl_MW ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.fb_sek_tvl_mw) );
-    io_InitTemp( &io_WW_HZG_Tvl_MW ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.ww_hzg_tvl_mw) );
-    io_InitTemp( &io_WW_HZG_Trl_MW ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.ww_hzg_trl_mw) );
-    io_InitTemp( &io_WW_Tww_MW     ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.ww_tww_mw) );
+    io_InitT( &io_ALL_Tau_MW    , -50.0,  50.0, (temp10_pt1000_t *) &(pabIn_p->ain.all_tau_mw) );
+    io_InitT( &io_SOL_KOLL_T_MW , -50.0, 150.0, (temp10_pt1000_t *) &(pabIn_p->ain.sol_koll_t_mw) );
+    io_InitT( &io_SOL_SP1_Tu_MW ,   0.0, 150.0, (temp10_pt1000_t *) &(pabIn_p->ain.sol_sp1_tu_mw) );
+    io_InitT( &io_SOL_SP1_To_MW ,   0.0, 150.0, (temp10_pt1000_t *) &(pabIn_p->ain.sol_sp1_to_mw) );
+    io_InitT( &io_SOL_SP2_Tu_MW ,   0.0, 150.0, (temp10_pt1000_t *) &(pabIn_p->ain.sol_sp2_tu_mw) );
+    io_InitT( &io_SOL_SP2_To_MW ,   0.0, 150.0, (temp10_pt1000_t *) &(pabIn_p->ain.sol_sp2_to_mw) );
+    io_InitT( &io_KES_Tvl_MW    ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.kes_tvl_mw) );
+    io_InitT( &io_KES_Trl_MW    ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.kes_trl_mw) );
+    io_InitT( &io_HK_Tvl_MW     ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.hk_tvl_mw) );
+    io_InitT( &io_HK_Trl_MW     ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.hk_trl_mw) );
+    io_InitT( &io_FB_PRIM_Trl_MW,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.fb_prim_trl_mw) );
+    io_InitT( &io_FB_SEK_Tvl_MW ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.fb_sek_tvl_mw) );
+    io_InitT( &io_WW_HZG_Tvl_MW ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.ww_hzg_tvl_mw) );
+    io_InitT( &io_WW_HZG_Trl_MW ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.ww_hzg_trl_mw) );
+    io_InitT( &io_WW_Tww_MW     ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.ww_tww_mw) );
 }
 
 /** \brief Methode zur Abfrage der Temperaturmessstellen.
-  * Der Messwert wird in der Objektstruktur abgelegt und im Normalfall auch zurückgeben.
-  * Bei unplausiblen Messwerten wird der rohe Messwert zurückgegeben und in der Objektstruktur
+  * Der Messwert wird in der Objektstruktur abgelegt und im Normalfall auch zurï¿½ckgeben.
+  * Bei unplausiblen Messwerten wird der rohe Messwert zurï¿½ckgegeben und in der Objektstruktur
   * die jeweilige Messbereichsgrenze abgelegt, so dass noch sinnvoll weitergerechnet werden kann
   * \param self Pointer auf ein Temperaturmessobjekt
   */
-io_obj_status_t io_Temp( io_temp_obj_t *self, float *mw )
+io_obj_status_t io_ReadT( io_temp_obj_t *self, float *mw )
 {
     float temp_val;
 
@@ -112,7 +112,7 @@ void io_InitY( io_ao10V_obj_t   *self,
 }
 
 static
-void io_InitYAll( void )
+void io_InitYall( void )
 {
     io_InitY( &io_KES_Tvl_Y,    MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.kes_tvl_y)    );
     io_InitY( &io_HK_MV_Y,      MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.hk_mv_y)      );
@@ -121,13 +121,13 @@ void io_InitYAll( void )
     io_InitY( &io_WW_HZG_PU_Y,  MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.ww_hzg_pu_y)  );
 }
 
-/** \brief Analogen Stellwert ausgeben mit Ueberprüfung auf Plausibilitaet.
+/** \brief Analogen Stellwert ausgeben mit Ueberprï¿½fung auf Plausibilitaet.
   * \param self Pointer auf Ausgabeobjekt 
   * \param val Auszugebender Wert 
   * Der Stellwert wird auf der PLC ausgegeben und im Feld stellwert abgelegt.
   * Weiterhin wird geprueft, ob der gewuenschte Stellwert im plausiblen Bereich liegt.
   */
-io_obj_status_t io_Y( io_ao10V_obj_t *self, float val )
+io_obj_status_t io_WriteY( io_ao10V_obj_t *self, float val )
 {
     self->stellwert = val;
     if( val < self->stellbereich_anfang ) {
@@ -146,11 +146,11 @@ io_obj_status_t io_Y( io_ao10V_obj_t *self, float val )
     return(self->status);
 }
 
-/** \brief Alle IO´s (Temperaturen und 0-10V Ausgänge) initialisieren. 
+/** \brief Alle IOï¿½s (Temperaturen und 0-10V Ausgï¿½nge) initialisieren.
   */
 void io_Init( void )
 {
-    io_InitYAll();
-    io_InitTempAll();
+    io_InitYall();
+    io_InitTall();
 }
 

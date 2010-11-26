@@ -17,6 +17,8 @@
 
 #include <string.h>
 #include "param.h"
+#include "cntrl.h"
+#include "telnet.h"
 #include "server.h"
 
 /**
@@ -129,7 +131,7 @@ int main( void )
             thread_args[0] = client_sock_fd;
             thread_args[1] = next_thread++;
             if( (pthread_create( &(threadlist[next_thread]), &threadattr,
-                            telnet_thread, (void *)thread_args ) ) != 0 ) {
+                            telnet_Task, (void *)thread_args ) ) != 0 ) {
                 perror( "SERVER.C: Threaderzeugung schlug fehl" );
                 close( server_sock_fd );
                 exit( -1 );

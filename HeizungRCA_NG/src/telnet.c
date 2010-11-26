@@ -28,6 +28,7 @@
 #include "cntrl.h"      /* Systemzustandsvariablen          */
 #include "zeit.h"       
 #include "task.h"
+#include "err.h"		/* Bekanntmachen der Funktion zum Ruecksetzen der Sammelstoermeldung */
 #include "version.h"    /* Versionsstring */
 #include "server.h"
 #include "telnet.h"
@@ -35,16 +36,18 @@
 #define BFLN        96
 #define BFLSH()     write( fdesc, bufout, strlen( bufout ) )
 
+#define ENDLOSBLOCK	while( 1 )
+
 #include "telnet_vars.h"    /* Arrays zur Ausgabe und Manipulierung der Systemzustandsvariablen */
 
 /**
-  * \brief server_thread.
+  * \brief Thread mit dem Telnet Interface.
   * Server Threads (bis zu 3) die mit dem Client (Telnet, Heizungsregler oder Visualisierung)
   * kommunizieren
   * \param Client Socket Descriptor
   * \return Status
   */
-void *telnet_thread( void *arg )
+void *telnet_Task( void *arg )
 {
     char    bufin[BFLN], bufout[BFLN], *token;
     int     fdesc, *arglist;
@@ -59,7 +62,7 @@ void *telnet_thread( void *arg )
     snprintf( bufout, BFLN, "\tServer Prozess %d\n\n", arglist[1]+1 );                                    BFLSH();
     telnet_writeHelp( fdesc, bufout );
 
-    while( 1 ) {
+    ENDLOSBLOCK {
         if( read( fdesc, bufin, BFLN-1 ) == 0 ) {
             next_thread--;
             close( fdesc );
@@ -275,6 +278,11 @@ void *telnet_thread( void *arg )
                     kes_Init( &cntrl_kes_par, &cntrl_kes_out );
                     snprintf( bufout, BFLN, "\tParameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
                 }
+                else if( strncasecmp( "ENTSTOEREN", token, 8 ) == 0 ) {
+                	printf( "TELNET.C: ENTSTOEREN Befehl erhalten\n" );
+                	err_Reset_Sammelstoermeldung( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
+                	snprintf( bufout, BFLN, "\tSammelstoermeldung zurueckgesetzt!\n\n" ); BFLSH();
+                }
             }
             else {
                 snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (1)\n" ); BFLSH();
@@ -426,7 +434,7 @@ void telnet_writeVorgabenparameter( int fdesc, char *bufout )
     }
 }
 
-static
+static inline
 void telnet_minToTime( s16_t t, s16_t *d, s16_t *h, s16_t *m )
 {
     s16_t tmp;

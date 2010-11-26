@@ -5,6 +5,9 @@
 #ifndef _TELNET_H_
 #define _TELNET_H_
 
+void *telnet_Task( void *arg );
+
+#ifdef _TELNET_C_
 static void telnet_writeT( int fdesc, char *bufout );
 static void telnet_writeAO( int fdesc, char *bufout );
 static void telnet_writeDI( int fdesc, char *bufout );
@@ -22,6 +25,7 @@ static void telnet_writeAbsenk( int fdesc, char *bufout );
 static void telnet_writeVars( const parse_set_t Vars[], const int len, int fdesc, char *bufout );
 static void telnet_putVars( const parse_set_t Vars[], const int len, int fdesc, char *bufout );
 static void telnet_writeModuls( int fdesc, char *bufout );
+#endif /* _TELNET_C_ */
 
 #endif /* _TELNET_H_ */
 
