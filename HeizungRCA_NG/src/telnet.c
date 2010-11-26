@@ -267,7 +267,6 @@ void *telnet_Task( void *arg )
 						else {
 							snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (4)\n" ); BFLSH();
 						}
-
 					}
 					else if( strncasecmp( "INIT",    token, 4 ) == 0 ) {
 						printf( "TELNET.C: INIT Befehl erhalten\n" );
