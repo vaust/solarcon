@@ -64,7 +64,8 @@ void *telnet_Task( void *arg )
     snprintf( bufout, BFLN, "\tServer Prozess %d\n\n", arglist[1]+1 );                                    BFLSH();
     telnet_writeHelp( fdesc, bufout );
 
-    ENDLOSBLOCK {
+    ENDLOSBLOCK
+    {
         if( read( fdesc, bufin, BFLN-1 ) == 0 ) {
             next_thread--;
             close( fdesc );
