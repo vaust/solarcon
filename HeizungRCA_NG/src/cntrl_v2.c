@@ -96,7 +96,7 @@ void cntrl_open( void )
 void cntrl_run( int sig )
 {
     MUTEX_BEGIN
-        /*----------- Prozessabbild aktualisieren -----------*/
+        /* Prozessabbild aktualisieren */
         KBUSUPDATE();
 
         /* alles was im Sekunden-, Minuten- und Stundenraster ablaufen muss und *
@@ -222,7 +222,7 @@ void cntrl_run( int sig )
             err_Run( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
         }
 
-        /*---------- Ausgabe des Prozessabbildes ------------*/
+        /* Ausgabe des Prozessabbildes */
         io_put_SOL_PU_SB( cntrl_sol_out.pu_sb[KO1] );
         io_put_SOL_SP1_AV_SB( cntrl_sol_out.av_sb[SP1] );
         io_put_SOL_SP2_AV_SB( cntrl_sol_out.av_sb[SP2] );
@@ -254,7 +254,7 @@ void cntrl_run( int sig )
             io_put_STOERUNG( !io_get_STOERUNG() );  /* Stoermeldung blinken lassen */
         }
 
-        /*---------- Prozessabbild aktualisieren ----------*/
+        /* Prozessabbild aktualisieren */
         KBUSUPDATE();
     MUTEX_END
     
