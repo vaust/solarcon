@@ -174,7 +174,7 @@ const parse_set_t telnet_err_Vars[] =
 
 const char *telnet_help_text[] = 
 {
-    "\n Mögliche Befehle: \n\n",
+    "\nMögliche Befehle: \n\n",
 
     "\tGET T        : alle Temperaturmesswerte\n",
     "\tGET SW       : alle Sollwerte\n",
