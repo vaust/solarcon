@@ -4,7 +4,13 @@
 #include "gen_types.h"
 
 /* <Defines> */
-#define SOL_NORMAL  0
+#define ERR_OK             0
+#define ERR_NOK           -1
+/** Jeder Fehlerzaehler darf maximal 5 Fehler zaehlen ehe eine Stoerung
+ * gemeldet wird
+ */
+#define ERR_MAXCNT	      -5
+
 /* <Defines/> */
 
 /* <Typen> */
@@ -15,21 +21,20 @@ typedef struct {
 
 
 typedef struct {
-    di_bitbyte_t    koll_Uebertemperatur;
     float           kes_tvl_sw;
     float           kes_tvl_mw;
-    di_bitbyte_t    br_RueckMeldung;
-    di_bitbyte_t    br_StoerMeldung;
-    di_bitbyte_t    stb_Fussbodenheizung;
-    s16_t           tempsens_err;           /**< Fehlerzaehler fuer Temperatursensoren   */
-    s16_t           ao_err;                 /**< Fehlerzaehler fuer Analog 0-10V Ausgabe */
-    s16_t           sol_err;                /**< Fehlerzaehler fuer Solarregler          */
+    di_bitbyte_t    br_RueckMeldung;		   /**< Rueckmeldung vom Brenner (Prozesssignal) */
+    di_bitbyte_t    br_StoerMeldung;           /**< Brennerstoermeldung      (Prozesssignal) */
+    di_bitbyte_t    stb_Fussbodenheizung;	   /**< Sicherheitstemperaturschalter FB-Hzg (Prozesssignal) */
+    s16_t           tempsens_errcnt;           /**< Fehlerzaehler fuer Temperatursensoren    */
+    s16_t           ao_errcnt;                 /**< Fehlerzaehler fuer Analog 0-10V Ausgabe  */
+    s16_t           sol_errcnt;                /**< Fehlerzaehler fuer Solarregler           */
 } err_in_t;
 
 
 typedef struct {
-    s16_t           br_Countdown;
-    do_bitbyte_t    Sammelstoermeldung;
+    s16_t           br_Countdown;			  /**< Countdown bis Brenner gestartet haben muss */
+    do_bitbyte_t    Sammelstoermeldung;       /**< Status der Sammelstoermeldungslampe        */
 } err_out_t;
 /* <Typen/> */
 
@@ -43,7 +48,8 @@ void err_Run( const err_param_t *par_p,
                     err_out_t   *out_p );
 
 void err_Reset_Sammelstoermeldung( err_param_t *par_p,
-                                   err_out_t   *out_p );
+                                   err_in_t    *in_p,
+								   err_out_t   *out_p );
 
 /* <Prototypen/> */
 

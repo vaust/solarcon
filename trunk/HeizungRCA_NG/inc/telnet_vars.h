@@ -159,14 +159,14 @@ const parse_set_t telnet_err_Vars[] =
     { "err_par.br_TimeOut",           &(cntrl_err_par.br_TimeOut),           "%d" },
     { "err_par.dt",                   &(cntrl_err_par.dt),                   "%f" },
 
-    { "err_in.koll_Uebertemperatur",  &(cntrl_err_in.koll_Uebertemperatur),  "%x" },
     { "err_in.kes_tvl_sw",            &(cntrl_err_in.kes_tvl_sw),            "%f" },
     { "err_in.kes_tvl_mw",            &(cntrl_err_in.kes_tvl_mw),            "%f" },
     { "err_in.br_RueckMeldung",       &(cntrl_err_in.br_RueckMeldung),       "%x" },
     { "err_in.br_StoerMeldung",       &(cntrl_err_in.br_StoerMeldung),       "%x" },
     { "err_in.stb_Fussbodenheizung",  &(cntrl_err_in.stb_Fussbodenheizung),  "%x" },
-    { "err_in.tempsens_err",          &(cntrl_err_in.tempsens_err),          "%d" },
-    { "err_in.sol_err",               &(cntrl_err_in.sol_err),               "%d" },
+    { "err_in.tempsens_errcnt",       &(cntrl_err_in.tempsens_errcnt),       "%d" },
+    { "err_in.sol_errcnt",            &(cntrl_err_in.sol_errcnt),            "%d" },
+    { "err_in.ao_errcnt",             &(cntrl_err_in.ao_errcnt),             "%d" },
     
     { "err_out.br_Countdown",         &(cntrl_err_out.br_Countdown),         "%d" },
     { "err_out.Sammelstoermeldung",   &(cntrl_err_out.Sammelstoermeldung),   "%x" }
@@ -209,11 +209,12 @@ const char *telnet_help_text[] =
     "\tHAND IN<mdl> : Prozesseingabe SOL, FB, HK, WW, KES, ERR auf Handbetrieb\n",
     "\tMODUL        : Anzeige aller Module incl. Betriebszustand\n",
 
-    "\tINIT      (Initialisierungsdateien neu einlesen)\n\n",
-    
-    "\tHELP      (Diesen Hilfetext ausgeben)\n",
-    "\tVERSION   (Software Version ausgeben)\n",
-    "\tEND       (Datenabfrage beenden)\n\n"
+    "\tINIT         : Initialisierungsdateien neu einlesen\n",
+    "\tENTSTOEREN   : Sammelstoermeldung zuruecksetzen\n\n",
+
+    "\tHELP         : Diesen Hilfetext ausgeben\n",
+    "\tVERSION      : Software Version ausgeben\n",
+    "\tEND          : Datenabfrage beenden\n\n"
 };
 
 const parse_set_t telnet_dbg_Vars[] =

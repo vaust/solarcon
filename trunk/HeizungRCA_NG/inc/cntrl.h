@@ -82,5 +82,11 @@ PUBLIC err_out_t           cntrl_err_out;
 /* --DEBUG Variablen -- */
 PUBLIC u16_t    cntrl_cnt;
 PUBLIC s16_t    cntrl_DEBUG01;
-#endif
+
+/* Prototypen */
+void cntrl_open( void );
+void cntrl_run( int sig );
+void cntrl_close( void );
+
+#endif /* _CNTRL_H_ */
 
