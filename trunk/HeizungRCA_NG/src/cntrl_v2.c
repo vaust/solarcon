@@ -40,12 +40,12 @@
 #ifdef __REENTRANT__
 #include <pthread.h>    /* Fuer Threadfunktionalitaet */
 #include <semaphore.h>
-#define MUTEX_begin     pthread_mutex_lock( &mutex ); {
-#define MUTEX_end       } pthread_mutex_unlock( &mutex );
+#define MUTEX_begin     pthread_mutex_lock( &mutex );
+#define MUTEX_end       pthread_mutex_unlock( &mutex )
 extern pthread_mutex_t  mutex;
 #else
-#define MUTEX_begin     {
-#define MUTEX_end       }
+#define MUTEX_begin     
+#define MUTEX_end       
 #endif
 
 
@@ -57,7 +57,7 @@ void cntrl_open( void )
     KBUSOPEN();
     KBUSUPDATE();
 
-    MUTEX_begin
+    MUTEX_begin {
         param_Init();
         zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
         task_Init( &cntrl_tau, io_get_ALL_Tau_MW() );
@@ -83,7 +83,7 @@ void cntrl_open( void )
         cntrl_mdl_aktiv.inp_ww_aktiv  = SET;
         cntrl_mdl_aktiv.inp_kes_aktiv = SET;
         cntrl_mdl_aktiv.inp_err_aktiv = SET;
-    MUTEX_end
+    } MUTEX_end;
 
     KBUSUPDATE();
 }
@@ -95,7 +95,7 @@ void cntrl_open( void )
  */
 void cntrl_run( int sig )
 {
-    MUTEX_begin
+    MUTEX_begin {
         /* Prozessabbild aktualisieren */
         KBUSUPDATE();
 
@@ -256,7 +256,7 @@ void cntrl_run( int sig )
 
         /* Prozessabbild aktualisieren */
         KBUSUPDATE();
-    MUTEX_end
+    } MUTEX_end;
     
     cntrl_cnt ++; /* Aufrufzaehler inkrementieren */
 }
