@@ -15,12 +15,12 @@
 #ifdef __REENTRANT__
 #include <pthread.h>    /* Fuer Threadfunktionalitaet */
 #include <semaphore.h>
-#define MUTEX_begin     pthread_mutex_lock( &mutex ); {
-#define MUTEX_end       } pthread_mutex_unlock( &mutex );
+#define MUTEX_begin     pthread_mutex_lock( &mutex ); 
+#define MUTEX_end       pthread_mutex_unlock( &mutex )
 #define MUTEX_unlock()  pthread_mutex_unlock( &mutex )
 #else
-#define MUTEX_begin     {
-#define MUTEX_end       }
+#define MUTEX_begin     
+#define MUTEX_end       
 #define MUTEX_unlock()  
 #endif
 
@@ -71,7 +71,7 @@ void *telnet_Task( void *arg )
             pthread_exit( NULL );
         }
         else {
-            MUTEX_begin
+            MUTEX_begin {
                 token = strtok( bufin, "\n\r " );
                 if( NULL != token ) {
                     if     ( strncasecmp( "END",     token, 3 ) == 0 ) {
@@ -288,7 +288,7 @@ void *telnet_Task( void *arg )
                 else {
                     snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (1)\n" ); BFLSH();
                 }
-            MUTEX_end
+            } MUTEX_end;
         }
     }
 }
