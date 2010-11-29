@@ -51,6 +51,14 @@ void err_Reset_Sammelstoermeldung( err_param_t *par_p,
                                    err_in_t    *in_p,
 								   err_out_t   *out_p );
 
+void err_WriteInp( err_in_t *in_p, float        kes_tvl_sw,
+                                   float        kes_tvl_mw,
+                                   di_bitbyte_t br_RueckMeldung,
+                                   di_bitbyte_t br_StoerMeldung,
+                                   di_bitbyte_t stb_Fussbodenheizung,
+                                   s16_t        tempsens_errcnt,
+                                   s16_t        ao_errcnt,
+                                   s16_t        sol_errcnt          );
 /* <Prototypen/> */
 
 

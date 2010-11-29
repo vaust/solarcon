@@ -72,8 +72,6 @@ typedef struct {
         do_bitbyte_t res3           :1;   /**< reserviert fuer Primaermischventil Fussbodenheizung              Slot 8, O4 */
         do_bitbyte_t control_aktiv  :1;   /**< Kontrolllampe Steuerung aktiv    */
         do_bitbyte_t stoerung       :1;   /**< Kontrolllampe Sammelstoermeldung */
-
-        do_bitbyte_t res4           :8;   /**< 8-DI Reserve */
     } dout;
 } Control_Output_t;
 
