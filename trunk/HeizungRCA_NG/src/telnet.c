@@ -15,13 +15,13 @@
 #ifdef __REENTRANT__
 #include <pthread.h>    /* Fuer Threadfunktionalitaet */
 #include <semaphore.h>
-#define MUTEX_BEGIN     pthread_mutex_lock( &mutex ); {
-#define MUTEX_END       } pthread_mutex_unlock( &mutex );
-#define MUTEX_unlock()    pthread_mutex_unlock( &mutex )
+#define MUTEX_begin     pthread_mutex_lock( &mutex ); {
+#define MUTEX_end       } pthread_mutex_unlock( &mutex );
+#define MUTEX_unlock()  pthread_mutex_unlock( &mutex )
 #else
-#define MUTEX_BEGIN        {
-#define MUTEX_END        }
-#define MUTEX_Unlock()    pthread_mutex_unlock( &mutex )
+#define MUTEX_begin     {
+#define MUTEX_end       }
+#define MUTEX_unlock()  
 #endif
 
 #include "gen_types.h"
@@ -38,7 +38,7 @@
 #define BFLN        96
 #define BFLSH()     write( fdesc, bufout, strlen( bufout ) )
 
-#define ENDLOSBLOCK    while( 1 )
+#define ENDLOS()    while(1)
 
 #include "telnet_vars.h"    /* Arrays zur Ausgabe und Manipulierung der Systemzustandsvariablen */
 
@@ -64,22 +64,21 @@ void *telnet_Task( void *arg )
     snprintf( bufout, BFLN, "\tServer Prozess %d\n\n", arglist[1]+1 );                                    BFLSH();
     telnet_writeHelp( fdesc, bufout );
 
-    ENDLOSBLOCK
-    {
+    ENDLOS() {
         if( read( fdesc, bufin, BFLN-1 ) == 0 ) {
             next_thread--;
             close( fdesc );
             pthread_exit( NULL );
         }
         else {
-            MUTEX_BEGIN
+            MUTEX_begin
                 token = strtok( bufin, "\n\r " );
                 if( NULL != token ) {
                     if     ( strncasecmp( "END",     token, 3 ) == 0 ) {
                         printf( "TELNET.C: END Befehl erhalten\n" );
                         next_thread--;
                         close( fdesc );
-                        MUTEX_unlock;
+                        MUTEX_unlock();
                         pthread_exit( NULL );
                     }
                     else if( strncasecmp( "HELP",    token, 3 ) == 0 ) {
@@ -289,7 +288,7 @@ void *telnet_Task( void *arg )
                 else {
                     snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (1)\n" ); BFLSH();
                 }
-            MUTEX_END
+            MUTEX_end
         }
     }
 }
