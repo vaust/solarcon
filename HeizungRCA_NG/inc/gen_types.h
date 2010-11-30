@@ -16,6 +16,9 @@
 #ifndef NULL
     #define NULL            ((void *)(0L))
 #endif
+
+#define STD_ERR           -1
+
 /* <Defines/> */
 
 /* <Typen> */
