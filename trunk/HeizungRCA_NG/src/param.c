@@ -2,29 +2,39 @@
 
 #include <stdio.h>
 #include <string.h>
-
+#include "gen_types.h"
 #include "param.h"
 
 static int param_ReadVorgaben( FILE *handle )
 {
     char    linestr[128];
     char    *parameter, *value;
-    int     n;
+    int     n, errCode = 0;
 
     while( !feof( handle ) )  {
         fgets( linestr, 127, handle );
         if( linestr[0] != '%' ) {
             parameter = strtok( linestr, "=" );
-            for( n=0; n<(sizeof(param_Vorgaben)/sizeof(parse_set_t)); n++ ) {
-                if( strncmp( parameter, param_Vorgaben[n].VarName, strlen(param_Vorgaben[n].VarName) ) == 0 ) {
-                    value = strtok( NULL, "\n" );
-                    sscanf( value, param_Vorgaben[n].format, param_Vorgaben[n].VarPointer );
-                    break; /* Passende Variable gefunden: For Schleife abbrechen und zur naechsten Zeile */
+            if( NULL != parameter ) {
+                for( n=0; n<(sizeof(param_Vorgaben)/sizeof(parse_set_t)); n++ ) {
+                    if( strncmp( parameter, param_Vorgaben[n].VarName, strlen(param_Vorgaben[n].VarName) ) == 0 ) {
+                        value = strtok( NULL, "\n" );
+                        if( NULL != value ) {
+                            sscanf( value, param_Vorgaben[n].format, param_Vorgaben[n].VarPointer );
+                        }
+                        else {
+                            errCode = STD_ERR;
+                        }
+                        break; /* Passende Variable gefunden: For Schleife abbrechen und zur naechsten Zeile */
+                    }
                 }
+            }
+            else {
+                errCode = STD_ERR;
             }
         }
     }
-    return(0);
+    return(errcode);
 }
 
 int param_Init( void )

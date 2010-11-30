@@ -53,7 +53,8 @@ void cntrl_open( void )
     MUTEX_lock {
         param_Init();
         zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
-        task_Init( &cntrl_tau, io_get_ALL_Tau_MW() );
+        if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
+        task_Init( &cntrl_tau, io_ALL_Tau_MW.messwert );
         sol_Init( &cntrl_sol_par );
         fb_Init( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_out );
         hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
