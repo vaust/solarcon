@@ -24,8 +24,8 @@ void err_Init( err_param_t *par_p, err_in_t *in_p, err_out_t *out_p )
 
     out_p->br_Countdown = par_p->br_TimeOut;
     
-    in_p->sol_errcnt      = 0;	/* Zaehler auf 0 -> kein Fehler               */
-    in_p->ao_errcnt       = 0;	/* Jedes Fehlerereignis zählt Fehler herunter */
+    in_p->sol_errcnt      = 0;  /* Zaehler auf 0 -> kein Fehler               */
+    in_p->ao_errcnt       = 0;  /* Jedes Fehlerereignis zählt Fehler herunter */
     in_p->tempsens_errcnt = 0;
 
 }
@@ -71,8 +71,8 @@ void err_Run( const err_param_t *par_p,
  * \param out_p[out] Störmeldung zurücksetzen.
  */
 void err_Reset_Sammelstoermeldung( err_param_t *par_p,
-		                           err_in_t    *in_p,
-		                           err_out_t   *out_p )
+                                   err_in_t    *in_p,
+                                   err_out_t   *out_p )
 {
     out_p->br_Countdown = par_p->br_TimeOut;
     out_p->Sammelstoermeldung = RESET;
@@ -101,3 +101,4 @@ void err_WriteInp( err_in_t *in_p, float        kes_tvl_sw,
     in_p->sol_errcnt           = sol_errcnt;
 }
 */
+

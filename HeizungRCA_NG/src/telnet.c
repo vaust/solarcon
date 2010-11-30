@@ -44,7 +44,8 @@
 
 /**
   * \brief Thread mit dem Telnet Interface.
-  * Server Threads (bis zu 3) die mit dem Client (Telnet, Heizungsregler oder Visualisierung)
+  * Server Threads (momentan max. 1, da Probleme mit deadlocks bei Mutex)
+  * die mit dem Client (Telnet, Heizungsregler oder Visualisierung)
   * kommunizieren
   * \param Client Socket Descriptor
   * \return Status
