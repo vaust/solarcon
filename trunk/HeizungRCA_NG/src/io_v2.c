@@ -56,7 +56,7 @@ io_obj_status_t io_ReadT( io_temp_obj_t *self, float *mw )
     switch( self->status ) {
         case io_ManuelleZuweisung:
             if( (void *)mw != NULL )
-                *mw = self->messwert;  
+                *mw = self->messwert;
             /* Aus diesem Zustand kommt man nur durch Benutzerinteraktion (telnet.c) */
             break;
         case io_Normal:
