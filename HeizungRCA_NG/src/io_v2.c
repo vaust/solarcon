@@ -13,9 +13,9 @@
 
 static  
 void io_InitT( io_temp_obj_t     *self,
-                  float             messbereich_anfang,
-                  float             messbereich_ende,
-                  temp10_pt1000_t   *kbus_adresse_p )
+               float              messbereich_anfang,
+               float              messbereich_ende,
+               temp10_pt1000_t   *kbus_adresse_p     )
 {
     self->messbereich_anfang = messbereich_anfang;
     self->messbereich_ende   = messbereich_ende;

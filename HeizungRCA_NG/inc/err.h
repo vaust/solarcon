@@ -9,7 +9,7 @@
 /** Jeder Fehlerzaehler darf maximal 5 Fehler zaehlen ehe eine Stoerung
  * gemeldet wird
  */
-#define ERR_MAXCNT	      -5
+#define ERR_MAXCNT        -5
 
 /* <Defines/> */
 
@@ -23,18 +23,19 @@ typedef struct {
 typedef struct {
     float           kes_tvl_sw;
     float           kes_tvl_mw;
-    di_bitbyte_t    br_RueckMeldung;		   /**< Rueckmeldung vom Brenner (Prozesssignal) */
-    di_bitbyte_t    br_StoerMeldung;           /**< Brennerstoermeldung      (Prozesssignal) */
-    di_bitbyte_t    stb_Fussbodenheizung;	   /**< Sicherheitstemperaturschalter FB-Hzg (Prozesssignal) */
-    s16_t           tempsens_errcnt;           /**< Fehlerzaehler fuer Temperatursensoren    */
-    s16_t           ao_errcnt;                 /**< Fehlerzaehler fuer Analog 0-10V Ausgabe  */
-    s16_t           sol_errcnt;                /**< Fehlerzaehler fuer Solarregler           */
+    di_bitbyte_t    br_RueckMeldung;           /**< Rueckmeldung vom Brenner (Prozesssignal)             */
+    di_bitbyte_t    br_StoerMeldung;           /**< Brennerstoermeldung      (Prozesssignal)             */
+    di_bitbyte_t    stb_Fussbodenheizung;      /**< Sicherheitstemperaturschalter FB-Hzg (Prozesssignal) */
+    s8_t            tempsens_errcnt;           /**< Fehlerzaehler fuer Temperatursensoren                */
+    s8_t            ao_errcnt;                 /**< Fehlerzaehler fuer Analog 0-10V Ausgabe              */
+    s8_t            sol_errcnt;                /**< Fehlerzaehler fuer Solarregler                       */
+    s8_t            common_errcnt;             /**< Fehlerzaehler fuer allgemeine Fehler                 */       
 } err_in_t;
 
 
 typedef struct {
-    s16_t           br_Countdown;			  /**< Countdown bis Brenner gestartet haben muss */
-    do_bitbyte_t    Sammelstoermeldung;       /**< Status der Sammelstoermeldungslampe        */
+    s16_t           br_Countdown;              /**< Countdown bis Brenner gestartet haben muss */
+    do_bitbyte_t    Sammelstoermeldung;        /**< Status der Sammelstoermeldungslampe        */
 } err_out_t;
 /* <Typen/> */
 
@@ -49,7 +50,7 @@ void err_Run( const err_param_t *par_p,
 
 void err_Reset_Sammelstoermeldung( err_param_t *par_p,
                                    err_in_t    *in_p,
-								   err_out_t   *out_p );
+                                   err_out_t   *out_p );
 
 void err_WriteInp( err_in_t *in_p, float        kes_tvl_sw,
                                    float        kes_tvl_mw,

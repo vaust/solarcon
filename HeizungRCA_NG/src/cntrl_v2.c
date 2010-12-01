@@ -34,11 +34,11 @@
 #include <pthread.h>    /* Fuer Threadfunktionalitaet */
 #include <semaphore.h>
 #define MUTEX_lock      pthread_mutex_lock( &mutex );
-#define MUTEX_unlock    pthread_mutex_unlock( &mutex )
+#define MUTEX_unlock()  pthread_mutex_unlock( &mutex )
 extern pthread_mutex_t  mutex;
 #else
 #define MUTEX_lock
-#define MUTEX_unlock
+#define MUTEX_unlock()
 #endif
 
 
@@ -51,7 +51,8 @@ void cntrl_open( void )
     KBUSUPDATE();
 
     MUTEX_lock {
-        param_Init();
+        err_Init( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
+        cntrl_err_in.common_errcnt += param_Init();
         zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
         if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
         task_Init( &cntrl_tau, io_ALL_Tau_MW.messwert );
@@ -60,7 +61,6 @@ void cntrl_open( void )
         hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
         ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
         kes_Init( &cntrl_kes_par, &cntrl_kes_out );
-        err_Init( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
 
         io_Init();
 
@@ -77,7 +77,7 @@ void cntrl_open( void )
         cntrl_mdl_aktiv.inp_ww_aktiv  = SET;
         cntrl_mdl_aktiv.inp_kes_aktiv = SET;
         cntrl_mdl_aktiv.inp_err_aktiv = SET;
-    } MUTEX_unlock;
+    } MUTEX_unlock();
 
     KBUSUPDATE();
 }
@@ -250,11 +250,15 @@ void cntrl_run( int sig )
 
         /* Prozessabbild aktualisieren */
         KBUSUPDATE();
-    } MUTEX_unlock;
+    } MUTEX_unlock();
     
     cntrl_cnt ++; /* Aufrufzaehler inkrementieren */
 }
 
+/**
+ * \brief Steuerungsprozess beenden.
+ * Diese Funktion duerfte im laufenden Prozess nie gerufen werden.
+ */
 void cntrl_close( void )
 {
     KBUSCLOSE();

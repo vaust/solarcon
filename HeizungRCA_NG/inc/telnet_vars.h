@@ -2,7 +2,7 @@
 #define _TELNET_VARS_H_
 
 #ifdef _TELNET_C_
-const parse_set_t telnet_fb_Vars[] =
+static const parse_set_t telnet_fb_Vars[] =
 {
     { "fb_par.reg_kp",         &(cntrl_fb_par.reg_kp),         "%f" },
     { "fb_par.reg_ki",         &(cntrl_fb_par.reg_ki),         "%f" },
@@ -38,7 +38,7 @@ const parse_set_t telnet_fb_Vars[] =
     { "fb_q.upper_limit",      &(cntrl_fb_q.upper_limit),      "%f" }
 };
 
-const parse_set_t telnet_hk_Vars[] =
+static const parse_set_t telnet_hk_Vars[] =
 {
     { "hk_par.reg_kp",         &(cntrl_hk_par.reg_kp),         "%f" },
     { "hk_par.reg_ki",         &(cntrl_hk_par.reg_ki),         "%f" },
@@ -74,7 +74,7 @@ const parse_set_t telnet_hk_Vars[] =
     { "hk_q.upper_limit",      &(cntrl_hk_q.upper_limit),      "%f" }
 };
 
-const parse_set_t telnet_ww_Vars[] =
+static const parse_set_t telnet_ww_Vars[] =
 {
     { "ww_par.pu_reg_kp",           &(cntrl_ww_par.pu_reg_kp),           "%f" },
     { "ww_par.pu_reg_ki",           &(cntrl_ww_par.pu_reg_ki),           "%f" },
@@ -115,7 +115,7 @@ const parse_set_t telnet_ww_Vars[] =
     { "ww_q.upper_limit",      &(cntrl_ww_q.upper_limit),      "%f" }
 };
 
-const parse_set_t telnet_sol_Vars[] =
+static const parse_set_t telnet_sol_Vars[] =
 {
     { "sol_par.sp_t_max",       &(cntrl_sol_par.sp_t_max),       "%f" },
     { "sol_par.dt_ein_sw",      &(cntrl_sol_par.dt_ein_sw),      "%f" },
@@ -132,7 +132,7 @@ const parse_set_t telnet_sol_Vars[] =
     { "sol_out.pu_sb[KO1]",     &(cntrl_sol_out.pu_sb[SP1]),     "%x" }
 };
 
-const parse_set_t telnet_kes_Vars[] =
+static const parse_set_t telnet_kes_Vars[] =
 {
     { "kes_par.sp_dt_sw",     &(cntrl_kes_par.sp_dt_sw),     "%f" },
     { "kes_par.ww_tww_sw",    &(cntrl_kes_par.ww_tww_sw),    "%f" },
@@ -154,7 +154,7 @@ const parse_set_t telnet_kes_Vars[] =
     { "kes_out.pu_sp2_sb",    &(cntrl_kes_out.pu_sp2_sb),    "%x" }
 };
 
-const parse_set_t telnet_err_Vars[] =
+static const parse_set_t telnet_err_Vars[] =
 {
     { "err_par.br_TimeOut",           &(cntrl_err_par.br_TimeOut),           "%d" },
     { "err_par.dt",                   &(cntrl_err_par.dt),                   "%f" },
@@ -167,12 +167,13 @@ const parse_set_t telnet_err_Vars[] =
     { "err_in.tempsens_errcnt",       &(cntrl_err_in.tempsens_errcnt),       "%d" },
     { "err_in.sol_errcnt",            &(cntrl_err_in.sol_errcnt),            "%d" },
     { "err_in.ao_errcnt",             &(cntrl_err_in.ao_errcnt),             "%d" },
+    { "err_in.common_errcnt",         &(cntrl_err_in.common_errcnt),         "%d" },
     
     { "err_out.br_Countdown",         &(cntrl_err_out.br_Countdown),         "%d" },
     { "err_out.Sammelstoermeldung",   &(cntrl_err_out.Sammelstoermeldung),   "%x" }
 };
 
-const char *telnet_help_text[] = 
+static const char *telnet_help_text[] =
 {
     "\nMögliche Befehle: \n\n",
 
@@ -217,7 +218,7 @@ const char *telnet_help_text[] =
     "\tEND          : Datenabfrage beenden\n\n"
 };
 
-const parse_set_t telnet_dbg_Vars[] =
+static const parse_set_t telnet_dbg_Vars[] =
 {
     { "cntrl_cnt",     &cntrl_cnt,     "%d" } /*,
     { "cntrl_DEBUG01", &cntrl_DEBUG01, "%d" }    */
