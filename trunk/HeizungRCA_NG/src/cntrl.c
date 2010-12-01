@@ -33,11 +33,11 @@
 #include <pthread.h>    /* Fuer Threadfunktionalitaet */
 #include <semaphore.h>
 #define MUTEX_lock      pthread_mutex_lock( &mutex ); 
-#define MUTEX_unlock    pthread_mutex_unlock( &mutex )
+#define MUTEX_unlock()  pthread_mutex_unlock( &mutex )
 extern pthread_mutex_t  mutex;
 #else
 #define MUTEX_lock
-#define MUTEX_unlock
+#define MUTEX_unlock()
 #endif
 
 /**
@@ -72,7 +72,7 @@ void cntrl_open( void )
         cntrl_mdl_aktiv.inp_ww_aktiv  = SET;
         cntrl_mdl_aktiv.inp_kes_aktiv = SET;
         cntrl_mdl_aktiv.inp_err_aktiv = SET;
-    } MUTEX_unlock;
+    } MUTEX_unlock();
 
     KBUSUPDATE();
 }
@@ -207,7 +207,7 @@ void cntrl_run( int sig )
 
         /*---------- Prozessabbild aktualisieren ----------*/
         KBUSUPDATE();
-    } MUTEX_unlock;
+    } MUTEX_unlock();
     
     cntrl_cnt ++; /* Aufrufzaehler incr. */
 }

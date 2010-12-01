@@ -27,7 +27,7 @@ void err_Init( err_param_t *par_p, err_in_t *in_p, err_out_t *out_p )
     in_p->sol_errcnt      = 0;  /* Zaehler auf 0 -> kein Fehler               */
     in_p->ao_errcnt       = 0;  /* Jedes Fehlerereignis zählt Fehler herunter */
     in_p->tempsens_errcnt = 0;
-
+    in_p->common_errcnt   = 0;
 }
 
 /** 
@@ -55,7 +55,8 @@ void err_Run( const err_param_t *par_p,
         (SET        == in_p->stb_Fussbodenheizung) ||
         (ERR_MAXCNT >  in_p->sol_errcnt          ) ||
         (ERR_MAXCNT >  in_p->tempsens_errcnt     ) ||
-        (ERR_MAXCNT >  in_p->ao_errcnt           )    ) {
+        (ERR_MAXCNT >  in_p->ao_errcnt           ) ||
+        (0          >  in_p->common_errcnt       )    ) {
 
         out_p->Sammelstoermeldung = SET;
     }
@@ -74,11 +75,12 @@ void err_Reset_Sammelstoermeldung( err_param_t *par_p,
                                    err_in_t    *in_p,
                                    err_out_t   *out_p )
 {
-    out_p->br_Countdown = par_p->br_TimeOut;
+    out_p->br_Countdown       = par_p->br_TimeOut;
     out_p->Sammelstoermeldung = RESET;
     in_p->sol_errcnt          = 0;
     in_p->tempsens_errcnt     = 0;
     in_p->ao_errcnt           = 0;
+    in_p->common_errcnt       = 0;
 }
 
 /*

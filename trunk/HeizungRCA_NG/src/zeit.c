@@ -42,8 +42,8 @@ int zeit_einlesen( const int states_max, zeit_schaltpunkt_t schaltzeiten[] )
     return( states );
 }
 
-void zeit_Init( zeit_Betriebszustand_t * const absenkung, 
-                zeit_event_t           * const schedule   )
+void zeit_Init( zeit_Betriebszustand_t * const absenkung,
+               zeit_event_t           * const schedule   )
 {
     FILE    *handle;
     char    linestr[128];

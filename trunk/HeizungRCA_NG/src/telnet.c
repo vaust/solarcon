@@ -16,11 +16,9 @@
 #include <pthread.h>    /* Fuer Threadfunktionalitaet */
 #include <semaphore.h>
 #define MUTEX_lock      pthread_mutex_lock( &mutex ); 
-#define MUTEX_unlock    pthread_mutex_unlock( &mutex )
-#define MUTEX_unlock_() pthread_mutex_unlock( &mutex )
+#define MUTEX_unlock()  pthread_mutex_unlock( &mutex )
 #else
 #define MUTEX_lock     
-#define MUTEX_unlock       
 #define MUTEX_unlock()  
 #endif
 
@@ -79,7 +77,7 @@ void *telnet_Task( void *arg )
                         printf( "TELNET.C: END Befehl erhalten\n" );
                         next_thread--;
                         close( fdesc );
-                        MUTEX_unlock_();
+                        MUTEX_unlock();
                         pthread_exit( NULL );
                     }
                     else if( strncasecmp( "HELP",    token, 3 ) == 0 ) {
@@ -289,7 +287,7 @@ void *telnet_Task( void *arg )
                 else {
                     snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (1)\n" ); BFLSH();
                 }
-            } MUTEX_unlock;
+            } MUTEX_unlock();
         }
     }
 }

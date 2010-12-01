@@ -34,7 +34,7 @@ static int param_ReadVorgaben( FILE *handle )
             }
         }
     }
-    return(errcode);
+    return(errCode);
 }
 
 int param_Init( void )
