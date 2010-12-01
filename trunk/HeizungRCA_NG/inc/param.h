@@ -56,8 +56,8 @@
 #endif /* _PARAM_C_ */
 
 #define MAX_ALL_Tau_mittel_Zeit   48    /**< max. Wert aus Kommentar in vorgaben.ini                                    */
-#define ABTASTZEIT_USEC      500000L   /**< das gleiche als LONG in Mikrosekunden fuer usleep Operation                */
-#define ABTASTZEIT          (((float)ABTASTZEIT_USEC)/1e6) /**< Abtastzeit fuer digitale Regler Algorithmen             */
+#define ABTASTZEIT_USEC 500000L         /**< das gleiche als LONG in Mikrosekunden fuer Timerlaufzeit                   */
+#define ABTASTZEIT      (((float)ABTASTZEIT_USEC)/1.0e6)   /**< Abtastzeit fuer digitale Regler Algorithmen als float   */
 
 
 /* <Defines/> */

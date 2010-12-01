@@ -73,18 +73,18 @@ void *telnet_Task( void *arg )
             MUTEX_lock {
                 token = strtok( bufin, "\n\r " );
                 if( NULL != token ) {
-                    if     ( strncasecmp( "END",     token, 3 ) == 0 ) {
+                    if     ( strncasecmp( "END",        token, 3 ) == 0 ) {
                         printf( "TELNET.C: END Befehl erhalten\n" );
                         next_thread--;
                         close( fdesc );
                         MUTEX_unlock();
                         pthread_exit( NULL );
                     }
-                    else if( strncasecmp( "HELP",    token, 3 ) == 0 ) {
+                    else if( strncasecmp( "HELP",       token, 3 ) == 0 ) {
                         printf( "TELNET.C: HELP Befehl erhalten\n" );
                         telnet_writeHelp( fdesc, bufout );
                     }
-                    else if( strncasecmp( "VERSION", token, 4 ) == 0 ) {
+                    else if( strncasecmp( "VERSION",    token, 4 ) == 0 ) {
                         printf( "TELNET.C: VERSION Befehl erhalten\n" );
                         snprintf( bufout, BFLN, "\tRCA Heizungssteuerung\n\tVersion " ); BFLSH();
                         snprintf( bufout, BFLN, VERSIONSTRING ); BFLSH();
@@ -92,15 +92,15 @@ void *telnet_Task( void *arg )
                         snprintf( bufout, BFLN, VERSIONDEVPATH ); BFLSH();
                         snprintf( bufout, BFLN, "\tAndreas Stegmann\n\tVolker Stegmann\n" ); BFLSH();
                     }
-                    else if( strncasecmp( "GET",     token, 3 ) == 0 ) {
+                    else if( strncasecmp( "GET",        token, 3 ) == 0 ) {
                         printf( "TELNET.C: GET Befehl erhalten\n" );
                         telnet_parseGet( fdesc, bufout );
                     }
-                    else if( strncasecmp( "MODULE",  token, 3 ) == 0 ) {
+                    else if( strncasecmp( "MODULE",     token, 3 ) == 0 ) {
                         printf( "TELNET.C: MODULE Befehl erhalten\n" );
                         telnet_writeModuls( fdesc, bufout );
                     }
-                    else if( strncasecmp( "HAND",    token, 4 ) == 0 ) {
+                    else if( strncasecmp( "HAND",       token, 4 ) == 0 ) {
                         printf( "TELNET.C: HAND Befehl erhalten\n" );
                         token = strtok( NULL, "\n\r " );
                         if( NULL != token ) {
@@ -158,7 +158,7 @@ void *telnet_Task( void *arg )
                             snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (2)\n" ); BFLSH();
                         }
                     }
-                    else if( strncasecmp( "AUTO",    token, 4 ) == 0 ) {
+                    else if( strncasecmp( "AUTO",       token, 4 ) == 0 ) {
                         printf( "TELNET.C: AUTO Befehl erhalten\n" );
                         token = strtok( NULL, "\n\r " );
                         if( NULL != token ) {
@@ -230,7 +230,7 @@ void *telnet_Task( void *arg )
                             snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (3)\n" ); BFLSH();
                         }
                     }
-                    else if( strncasecmp( "PUT",     token, 3 ) == 0 ) {
+                    else if( strncasecmp( "PUT",        token, 3 ) == 0 ) {
                         token = strtok( NULL, "0123456789 " );
                         if( NULL != token ) {
                             if( strncasecmp( token, "VSOL", 4 ) == 0 ) {
@@ -266,11 +266,10 @@ void *telnet_Task( void *arg )
                             snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (4)\n" ); BFLSH();
                         }
                     }
-                    else if( strncasecmp( "INIT",    token, 4 ) == 0 ) {
+                    else if( strncasecmp( "INIT",       token, 4 ) == 0 ) {
                         printf( "TELNET.C: INIT Befehl erhalten\n" );
-                        param_Init();
+                        cntrl_err_in.common_errcnt += param_Init();
                         zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
-                        task_Init( &cntrl_tau, io_get_ALL_Tau_MW() );
                         sol_Init( &cntrl_sol_par );
                         fb_Init( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_out );
                         hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
