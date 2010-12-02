@@ -26,6 +26,7 @@
 
 /* <Prototypen> */
 void terminate( int sig );
+void systimer_init( void );
 /* </Prototypen> */
 
 /* <Global> */
@@ -37,7 +38,7 @@ PUBLIC pthread_mutex_t mutex;
 PUBLIC int             next_thread;
 
 /* - Timer Variablen - */
-PUBLIC struct itimerval   timer; /**< Timer fuer zyklischen Aufruf von cntrl_run() */
+// PUBLIC struct itimerval   timer; /**< Timer fuer zyklischen Aufruf von cntrl_run() */
 
 /* - Socket Descriptoren - */
 PUBLIC int      server_sock_fd, client_sock_fd;

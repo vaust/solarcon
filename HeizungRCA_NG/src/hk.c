@@ -17,7 +17,7 @@ void hk_Init( hk_param_t         *par_p,
     par_p->reg_kp       = param_hk_reg_kp;
     par_p->reg_ki       = param_hk_reg_ki;
     par_p->reg_tn       = param_hk_reg_tn;
-    par_p->TA           = ABTASTZEIT;
+    par_p->TA           = USEC2SEC(param_sys_zykluszeit);
     par_p->tvl_absenk   = param_hk_tvl_absenk;
     par_p->tvl_max      = param_hk_tvl_max;
     par_p->tvl_min      = param_hk_tvl_min;
@@ -25,7 +25,7 @@ void hk_Init( hk_param_t         *par_p,
     par_p->tvl_steigung = param_hk_tvl_steigung;
     par_p->tr_sw        = param_hk_tr_sw;
 
-    sup_DigRegInit( q_p, &(out_p->mv_y), ABTASTZEIT, 
+    sup_DigRegInit( q_p, &(out_p->mv_y), USEC2SEC(param_sys_zykluszeit),
                     par_p->reg_kp, par_p->reg_ki, MIN_Y_PCT, MAX_Y_PCT );
 }
 

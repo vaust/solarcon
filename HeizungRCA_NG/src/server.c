@@ -84,6 +84,19 @@ void terminate( int sig )
     exit( sig );
 }
 
+/** \brief system Timer für Steuerungsprozess initialisieren.
+ */
+void systimer_init( void )
+{
+    struct itimerval   timer;
+
+    timer.it_value.tv_sec = 0;
+    timer.it_value.tv_usec = param_sys_zykluszeit;
+    timer.it_interval.tv_sec = 0;
+    timer.it_interval.tv_usec = param_sys_zykluszeit;
+    setitimer( ITIMER_REAL, &timer, NULL );
+}
+
 /**
  * \brief Main (internes Betriebssystem).
  * Hier wird der Intervalltimer fuer das zyklische Aufrufen der Steuerung
@@ -99,12 +112,7 @@ int main( void )
     signal( SIGINT, terminate );
     signal( SIGALRM, cntrl_run );
     
-    timer.it_value.tv_sec = 0;
-    timer.it_value.tv_usec = ABTASTZEIT_USEC;
-    timer.it_interval.tv_sec = 0;
-    timer.it_interval.tv_usec = ABTASTZEIT_USEC;
-    setitimer( ITIMER_REAL, &timer, NULL );
-
+    systimer_init();
     server_sock_fd = create_server_sock( TCP_PORT );
 
     if( pthread_attr_init( &threadattr ) != 0 ) {

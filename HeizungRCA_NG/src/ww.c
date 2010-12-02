@@ -96,7 +96,7 @@ void ww_Init( ww_param_t         *par_p,
 {
     par_p->pu_reg_kp           = param_ww_pu_reg_kp;
     par_p->pu_reg_ki           = param_ww_pu_reg_ki;
-    par_p->TA                  = ABTASTZEIT;
+    par_p->TA                  = USEC2SEC(param_sys_zykluszeit);
     par_p->kes_sp_dt_sw        = param_kes_sp_dt_sw;
     par_p->tww_sw              = param_ww_tww_sw;
     par_p->frostschutz         = param_all_frostschutz;
@@ -105,7 +105,7 @@ void ww_Init( ww_param_t         *par_p,
     par_p->hzg_pu_y_min        = 11.0;
     par_p->schwachlastzeit_max = 300;
 
-    sup_DigRegInit( q_hzg_pu_p, &(out_p->hzg_pu_y), ABTASTZEIT, 
+    sup_DigRegInit( q_hzg_pu_p, &(out_p->hzg_pu_y), USEC2SEC(param_sys_zykluszeit),
                     par_p->pu_reg_kp, par_p->pu_reg_ki, MIN_Y_PCT, MAX_Y_PCT );
 }
 
