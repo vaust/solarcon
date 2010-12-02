@@ -109,7 +109,13 @@ void zeit_Init( zeit_Betriebszustand_t * const absenkung,
 void zeit_Run( zeit_Betriebszustand_t * const absenkung,
                zeit_event_t           * const schedule   );
 
-
+/* \brief Hilfsfunktion um in Telnet die aktuelle Softwarezeit anzuzeigen.
+ * Hilfreich wegen des Bugs in der ucLinux Implementierung  von localtime().
+ */
+void zeit_getLocaltime( s16_t * const wday,
+                        s16_t * const hour,
+                        s16_t * const min,
+                        s16_t * const sec );
 /** TESTCODE */
 #ifdef __TEST__
 void zeit_TEST_Schaltzeiten( void );
