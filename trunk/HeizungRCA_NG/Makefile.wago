@@ -2,7 +2,6 @@ INC := ./inc
 SRC := ./src
 
 CFLAGS = -Wall -I$(INC) -D__REENTRANT__ -D__WAGO__
-# CFLAGS = -D_REENTRANT -D__WAGO__
 
 VPATH := $(SRC):$(INC)
 
@@ -14,12 +13,8 @@ all: rca7
 rca7: $(OBJECTS)
 	$(CC) $(LDFLAGS) -o $@ $(OBJECTS) -lpthread $(LDLIBS$(LDLIBS-$(@)))
 
-romfs:
-	$(ROMFSINST) /bin/rca6
-	chmod 755 $(ROMFSDIR)/bin/rca6
-
 clean:
-	-rm -f rca6 *.elf *.gdb *.o
+	-rm -f rca7 *.elf *.gdb *.o
 
 
 cntrl.o: cntrl.c \
