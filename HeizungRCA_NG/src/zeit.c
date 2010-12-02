@@ -174,6 +174,25 @@ void zeit_Run( zeit_Betriebszustand_t * const absenkung,
         absenkung->Duschzeit = zNein;
 }
 
+/* \brief Hilfsfunktion um in Telnet die aktuelle Softwarezeit anzuzeigen.
+ * Hilfreich wegen des Bugs in der ucLinux Implementierung  von localtime().
+ */
+void zeit_getLocaltime( s16_t * const wday,
+                        s16_t * const hour,
+                        s16_t * const min,
+                        s16_t * const sec )
+{
+    time_t      aktZeit;
+    struct tm   *aktZeitElemente_p;
+
+    time( &aktZeit );
+    aktZeitElemente_p = localtime( &aktZeit );
+    *wday             = aktZeitElemente_p->tm_wday;
+    *hour             = aktZeitElemente_p->tm_hour;
+    *min              = aktZeitElemente_p->tm_min;
+    *sec              = aktZeitElemente_p->tm_sec;
+}
+
 /** TESTCODE */
 #ifdef __TEST__
 

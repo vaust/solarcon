@@ -363,52 +363,53 @@ static
 void telnet_parseGet( int fdesc, char *bufout )
 {
     char *token;
+    s16_t wday, hour, min, sec;
 
     token = strtok( NULL, "\n\r " );
     if( NULL != token ) {
-        if( strncasecmp( token, "T", 1 ) == 0 ) {
+        if     ( strncasecmp( token, "T",    1 ) == 0 ) {
             telnet_writeT( fdesc, bufout );
         }
-        else if( strncasecmp( token, "SW", 2 ) == 0 ) {
+        else if( strncasecmp( token, "SW",   2 ) == 0 ) {
             telnet_writeSW( fdesc, bufout );
         }
-        else if( strncasecmp( token, "DI", 2 ) == 0 ) {
+        else if( strncasecmp( token, "DI",   2 ) == 0 ) {
             telnet_writeDI( fdesc, bufout );
         }
-        else if( strncasecmp( token, "DO", 2 ) == 0 ) {
+        else if( strncasecmp( token, "DO",   2 ) == 0 ) {
             telnet_writeDO( fdesc, bufout );
         }
-        else if( strncasecmp( token, "AO", 2 ) == 0 ) {
+        else if( strncasecmp( token, "AO",   2 ) == 0 ) {
             telnet_writeAO( fdesc, bufout );
         }
-        else if( strncasecmp( token, "FB", 2 ) == 0 ) {
+        else if( strncasecmp( token, "FB",   2 ) == 0 ) {
             telnet_writeFB( fdesc, bufout );
         }
-        else if( strncasecmp( token, "WW", 2 ) == 0 ) {
+        else if( strncasecmp( token, "WW",   2 ) == 0 ) {
             telnet_writeWW( fdesc, bufout );
         }
-        else if( strncasecmp( token, "HK", 2 ) == 0 ) {
+        else if( strncasecmp( token, "HK",   2 ) == 0 ) {
             telnet_writeHK( fdesc, bufout );
         }
-        else if( strncasecmp( token, "SOL", 3 ) == 0 ) {
+        else if( strncasecmp( token, "SOL",  3 ) == 0 ) {
             telnet_writeSOL( fdesc, bufout );
         }
-        else if( strncasecmp( token, "PAR", 3 ) == 0 ) {
+        else if( strncasecmp( token, "PAR",  3 ) == 0 ) {
             telnet_writeVorgabenparameter( fdesc, bufout );
         }
         else if( strncasecmp( token, "ZEIT", 4 ) == 0 ) {
             telnet_writeSchaltzeiten( fdesc, bufout );
         }
-        else if( strncasecmp( token, "ABS", 3 ) == 0 ) {
+        else if( strncasecmp( token, "ABS",  3 ) == 0 ) {
             telnet_writeAbsenk( fdesc, bufout );
         }
-        else if( strncasecmp( token, "VFB", 3 ) == 0 ) {
+        else if( strncasecmp( token, "VFB",  3 ) == 0 ) {
             telnet_writeVars( telnet_fb_Vars, sizeof(telnet_fb_Vars)/sizeof(parse_set_t), fdesc, bufout );
         }
-        else if( strncasecmp( token, "VHK", 3 ) == 0 ) {
+        else if( strncasecmp( token, "VHK",  3 ) == 0 ) {
             telnet_writeVars( telnet_hk_Vars, sizeof(telnet_hk_Vars)/sizeof(parse_set_t), fdesc, bufout );
         }
-        else if( strncasecmp( token, "VWW", 3 ) == 0 ) {
+        else if( strncasecmp( token, "VWW",  3 ) == 0 ) {
             telnet_writeVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t), fdesc, bufout );
         }
         else if( strncasecmp( token, "VSOL", 4 ) == 0 ) {
@@ -423,7 +424,18 @@ void telnet_parseGet( int fdesc, char *bufout )
         else if( strncasecmp( token, "VDBG", 4 ) == 0 ) {
             telnet_writeVars( telnet_dbg_Vars, sizeof(telnet_dbg_Vars)/sizeof(parse_set_t), fdesc, bufout );
         }
-    }   
+        else if( strncasecmp( token, "NOW",  3 ) == 0 ) {
+            zeit_getLocaltime( &wday, &hour, &min, &sec );
+            snprintf( bufout, BFLN, "\taktuelle Uhrzeit: %2d:%2d:%2d\n\tWochentag: %1d (Sonntag = 0)\n",
+                      hour, min, sec, wday ); BFLSH();
+        }
+        else {
+            snprintf( bufout, BFLN, "FEHLER falscher Parameter beim GET Befehl\n" ); BFLSH();
+        }
+    }
+    else {
+        snprintf( bufout, BFLN, "FEHLER bei Befehlseingabe des Parameters beim GET Befehl\n" ); BFLSH();
+    }
 }
 
 static
