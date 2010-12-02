@@ -190,7 +190,7 @@ void *telnet_Task( void *arg )
                                 snprintf( bufout, BFLN, "\tERR Modul auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
                             }
                             /* Eingabe auf Autmatik */
-                            if     ( strncasecmp( token, "INSOL", 5 ) == 0 ) {
+                            else if( strncasecmp( token, "INSOL", 5 ) == 0 ) {
                                 cntrl_mdl_aktiv.inp_sol_aktiv = SET;
                                 snprintf( bufout, BFLN, "\tSOL-Eingabe auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
                             }
