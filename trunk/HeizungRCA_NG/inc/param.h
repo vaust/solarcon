@@ -1,6 +1,8 @@
 #ifndef _PARAM_H_
 #define _PARAM_H_
 
+#include "gen_types.h"
+
 /* <Defines> */
 /* Vorgabewerte: */
 #ifdef _PARAM_C_
@@ -57,7 +59,8 @@
 
 #define MAX_ALL_Tau_mittel_Zeit   48    /**< max. Wert aus Kommentar in vorgaben.ini                                    */
 #define ABTASTZEIT_USEC 200000L         /**< das gleiche als LONG in Mikrosekunden fuer Timerlaufzeit                   */
-#define ABTASTZEIT      (((float)ABTASTZEIT_USEC)/1.0e6)   /**< Abtastzeit fuer digitale Regler Algorithmen als float   */
+#define USEC2SEC(x)     (((float)(x))/1.0e6)
+#define ABTASTZEIT      USEC2SEC(ABTASTZEIT_USEC)   /**< Abtastzeit fuer digitale Regler Algorithmen als float   */
 
 
 /* <Defines/> */
@@ -123,6 +126,8 @@ PUBLIC float param_ww_mv_korr;          /**< WW Hzg-VL-Temperatur-Steurung (Misc
                                                                                                                        
 PUBLIC float param_ww_tww_tvl_faktor;   /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                      */
 PUBLIC float param_ww_tz_sw;            /**< Temperatursollwert des Zirkulationswassers in Grad C                      */
+
+PUBLIC u32_t param_sys_zykluszeit;      /**< Zykluszeit des Systems in Mikrosekunden                                   */
 /* <Variablen/> */
 
 /* <Konstanten> */
@@ -166,7 +171,9 @@ const parse_set_t param_Vorgaben[] = {
     { "WW_PU_REG_Tn",        &param_ww_pu_reg_tn,        "%f" },
     { "WW_MV_KORR",          &param_ww_mv_korr,          "%f" },
     { "WW_Tww_Tvl_Faktor",   &param_ww_tww_tvl_faktor,   "%f" },
-    { "WW_Tz_SW",            &param_ww_tz_sw,            "%f" }
+    { "WW_Tz_SW",            &param_ww_tz_sw,            "%f" },
+    { "SYS_Zykluszeit",      &param_sys_zykluszeit,      "%d" },
+    
 };
 const int param_Vorgaben_len = sizeof(param_Vorgaben)/sizeof(parse_set_t);
 

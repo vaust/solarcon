@@ -153,9 +153,12 @@ void *telnet_Task( void *arg )
                                 cntrl_mdl_aktiv.inp_err_aktiv = RESET;
                                 snprintf( bufout, BFLN, "\tERR-Eingabe auf HAND Betrieb (Open Loop)\n" ); BFLSH();
                             }
+                            else {
+                                snprintf( bufout, BFLN, "FEHLER (6) falscher Parameter für HAND Befehl\n" ); BFLSH();
+                            }
                         }
                         else {
-                            snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (2)\n" ); BFLSH();
+                            snprintf( bufout, BFLN, "FEHLER (2) in Befehlseingabe\n" ); BFLSH();
                         }
                     }
                     else if( strncasecmp( "AUTO",       token, 4 ) == 0 ) {
@@ -225,15 +228,19 @@ void *telnet_Task( void *arg )
                                 cntrl_mdl_aktiv.inp_kes_aktiv = SET;
                                 snprintf( bufout, BFLN, "\tAlle Module und Eingaben auf AUTOMATIK Betrieb!\n" ); BFLSH();
                             }
+                            else {
+                                snprintf( bufout, BFLN, "FEHLER (7) falscher Parameter für AUTO Befehl\n" ); BFLSH();
+                            }
+
                         }
                         else {
-                            snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (3)\n" ); BFLSH();
+                            snprintf( bufout, BFLN, "FEHLER (3) in Befehlseingabe\n" ); BFLSH();
                         }
                     }
                     else if( strncasecmp( "PUT",        token, 3 ) == 0 ) {
                         token = strtok( NULL, "0123456789 " );
                         if( NULL != token ) {
-                            if( strncasecmp( token, "VSOL", 4 ) == 0 ) {
+                            if(      strncasecmp( token, "VSOL", 4 ) == 0 ) {
                                 telnet_putVars( telnet_sol_Vars, sizeof(telnet_sol_Vars)/sizeof(parse_set_t), fdesc, bufout );
                                 printf( "TELNET.C: PUT VSOL Befehl erhalten\n" );
                             }
@@ -261,9 +268,12 @@ void *telnet_Task( void *arg )
                                 telnet_putVars( telnet_err_Vars, sizeof(telnet_dbg_Vars)/sizeof(parse_set_t), fdesc, bufout );
                                 printf( "TELNET.C: PUT VDBG Befehl erhalten\n" );
                             }
+                            else {
+                                snprintf( bufout, BFLN, "FEHLER (8) falscher erster Parameter für PUT Befehl\n" ); BFLSH();
+                            }
                         }
                         else {
-                            snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (4)\n" ); BFLSH();
+                            snprintf( bufout, BFLN, "FEHLER (4) in Befehlseingabe\n" ); BFLSH();
                         }
                     }
                     else if( strncasecmp( "INIT",       token, 4 ) == 0 ) {
@@ -275,6 +285,7 @@ void *telnet_Task( void *arg )
                         hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
                         ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
                         kes_Init( &cntrl_kes_par, &cntrl_kes_out );
+                        systimer_init();
                         snprintf( bufout, BFLN, "\tParameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
                     }
                     else if( strncasecmp( "ENTSTOEREN", token, 8 ) == 0 ) {
@@ -282,9 +293,12 @@ void *telnet_Task( void *arg )
                         err_Reset_Sammelstoermeldung( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
                         snprintf( bufout, BFLN, "\tSammelstoermeldung zurueckgesetzt!\n\n" ); BFLSH();
                     }
+                    else {
+                        snprintf( bufout, BFLN, "FEHLER (5) Unbekannter Befehl\n" ); BFLSH();
+                    }
                 }
                 else {
-                    snprintf( bufout, BFLN, "FEHLER in Befehlseingabe (1)\n" ); BFLSH();
+                    snprintf( bufout, BFLN, "FEHLER (1) in Befehlseingabe\n" ); BFLSH();
                 }
             } MUTEX_unlock();
         }
