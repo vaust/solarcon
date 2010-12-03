@@ -225,6 +225,11 @@ static const parse_set_t telnet_dbg_Vars[] =
     { "cntrl_DEBUG01", &cntrl_DEBUG01, "%d" }    */
 };
 
+static const char *telnet_wochentage[] =
+{
+	"Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "₣reitag", "Samstag"
+};
+
 #else
 #error "Header nicht von telnet.c eingebunden"
 #endif // _TELNET_C_
