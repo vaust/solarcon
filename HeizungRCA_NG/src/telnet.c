@@ -426,9 +426,10 @@ void telnet_parseGet( int fdesc, char *bufout )
         }
         else if( strncasecmp( token, "NOW",  3 ) == 0 ) {
             zeit_getLocaltime( &wday, &hour, &min, &sec );
-            snprintf( bufout, BFLN, "\taktuelle Uhrzeit: %2d:%2d:%2d\n\tWochentag: %1d (Sonntag = 0)\n",
-                      hour, min, sec, wday ); BFLSH();
-        }
+            snprintf( bufout, BFLN, "\taktuelle Uhrzeit: %02d:%02d:%02d\n\tWochentag: %1d %s\n",
+                      hour, min, sec, wday, telnet_wochentage[wday] ); BFLSH();
+	    snprintf( bufout, BFLN, "\thour_offset = %d\n", zeit_hour_offset ); BFLSH();
+	}
         else {
             snprintf( bufout, BFLN, "FEHLER falscher Parameter beim GET Befehl\n" ); BFLSH();
         }
