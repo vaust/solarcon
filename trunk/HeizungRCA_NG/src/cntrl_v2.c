@@ -51,7 +51,7 @@ void cntrl_open( void )
     KBUSUPDATE();
 
     MUTEX_lock {
-    	io_Init();
+        io_Init();
 
         err_Init( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
         cntrl_err_in.common_errcnt += param_Init();
