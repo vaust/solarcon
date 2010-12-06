@@ -428,7 +428,7 @@ void telnet_parseGet( int fdesc, char *bufout )
             zeit_getLocaltime( &wday, &hour, &min, &sec );
             snprintf( bufout, BFLN, "\taktuelle Uhrzeit: %02d:%02d:%02d\n\tWochentag: %1d %s\n",
                       hour, min, sec, wday, telnet_wochentage[wday] ); BFLSH();
-	    snprintf( bufout, BFLN, "\thour_offset = %d\n", zeit_hour_offset ); BFLSH();
+            snprintf( bufout, BFLN, "\thour_offset = %d\n", zeit_hour_offset ); BFLSH();
 	}
         else {
             snprintf( bufout, BFLN, "FEHLER falscher Parameter beim GET Befehl\n" ); BFLSH();
@@ -757,6 +757,9 @@ void telnet_writeVars( const parse_set_t Vars[], const int len, int fdesc, char 
             snprintf( bufout, BFLN, "FEHLER: n nicht plausibel\n" ); BFLSH();        
         }
     }
+    else {
+        snprintf( bufout, BFLN, "FEHLER bei Befehl GET V<> Befehl\n" ); BFLSH();
+    }
 }
 
 static
@@ -806,6 +809,9 @@ void telnet_putVars( const parse_set_t Vars[], const int len, int fdesc, char *b
         else {
             snprintf( bufout, BFLN, "FEHLER bei der Befehlsauswertung!\n" ); BFLSH();
         }
+    }
+    else {
+        snprintf( bufout, BFLN, "FEHLER bei PUT Befehl Token Auswertung!\n" ); BFLSH();
     }
 }
 
