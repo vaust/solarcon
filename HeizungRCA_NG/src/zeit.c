@@ -53,7 +53,7 @@ void zeit_Init( zeit_Betriebszustand_t * const absenkung,
     
     handle = fopen( ZEITPROGRAMMDATEI, "r" );
     if( handle == NULL ) {
-        printf( "ZEIT.C: Datei wochenzeitprogramm.ini konnte nicht geöffnet werden!\n" );
+        printf( "ZEIT.C: Datei wochenzeitprogramm.ini konnte nicht geoeffnet werden!\n" );
     }
     else {
         printf( "ZEIT.C: wochenzeitprogramm.ini einlesen:\n" );

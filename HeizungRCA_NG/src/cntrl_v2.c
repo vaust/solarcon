@@ -84,8 +84,8 @@ void cntrl_open( void )
 
 /**
  * \brief eigentlicher Steuerungsprozess.
- * cntrl_run() wird zyklisch über einen Systemtimer \ref server.c aufgerufen.
- * \param sig enthält das auslösende Signal. Dieser Parameter wird aber nicht benötigt.
+ * cntrl_run() wird zyklisch ueber einen Systemtimer \ref server.c aufgerufen.
+ * \param sig enthaelt das ausloesende Signal. Dieser Parameter wird aber nicht benoetigt.
  */
 void cntrl_run( int sig )
 {
@@ -104,7 +104,7 @@ void cntrl_run( int sig )
         /* Absenkzeiten ermitteln */
         zeit_Run( &cntrl_zeit_absenkung, &cntrl_zeit_event );
 
-        /* Prozessdaten für Solarregler */
+        /* Prozessdaten fuer Solarregler */
         if( SET == cntrl_mdl_aktiv.inp_sol_aktiv ) {
             if( io_Normal != io_ReadT( &io_SOL_KOLL_T_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_SOL_SP1_To_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
@@ -123,7 +123,7 @@ void cntrl_run( int sig )
             cntrl_err_in.sol_errcnt += sol_Run( &cntrl_sol_par, &cntrl_sol_in, &cntrl_sol_out );
         }
 
-        /* Prozessdaten für Fussbodenheizungsregelung */
+        /* Prozessdaten fuer Fussbodenheizungsregelung */
         if( SET == cntrl_mdl_aktiv.inp_fb_aktiv ) {
         	if( io_Normal != io_ReadT( &io_ALL_Tau_MW,    NULL ) ) cntrl_err_in.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_FB_SEK_Tvl_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
@@ -139,7 +139,7 @@ void cntrl_run( int sig )
             fb_Run( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_in, &cntrl_fb_out );
         }
 
-        /* Prozessdaten für Heizkörperheizkreisregelung */
+        /* Prozessdaten fuer Heizkoerperheizkreisregelung */
         if( SET == cntrl_mdl_aktiv.inp_hk_aktiv ) {
             if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_HK_Tvl_MW,  NULL ) ) cntrl_err_in.tempsens_errcnt --;
@@ -150,12 +150,12 @@ void cntrl_run( int sig )
                                        cntrl_zeit_absenkung.HK_Zustand,
                                        cntrl_zeit_party.all.partytime_flg );
         }
-        /* Heizkörperheizkreisregelung Task */
+        /* Heizkoerperheizkreisregelung Task */
         if( SET == cntrl_mdl_aktiv.hk_aktiv ) {
             hk_Run( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_in, &cntrl_hk_out );
         }
 
-        /* Prozessdaten für Warmwasserheizkreisregelung */
+        /* Prozessdaten fuer Warmwasserheizkreisregelung */
         if( SET == cntrl_mdl_aktiv.inp_ww_aktiv ) {
             if( io_Normal != io_ReadT( &io_ALL_Tau_MW,    NULL ) ) cntrl_err_in.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_WW_Tww_MW,     NULL ) ) cntrl_err_in.tempsens_errcnt --;
@@ -181,7 +181,7 @@ void cntrl_run( int sig )
             ww_Run( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_in, &cntrl_ww_out );
         }
 
-        /* Prozessdaten für Kesselsteuerung */
+        /* Prozessdaten fuer Kesselsteuerung */
         if( SET == cntrl_mdl_aktiv.inp_kes_aktiv ) {
             if( io_Normal != io_ReadT( &io_SOL_SP1_To_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
@@ -201,7 +201,7 @@ void cntrl_run( int sig )
             kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
         }
 
-        /* Prozessdaten für Sammelstoermeldung */
+        /* Prozessdaten fuer Sammelstoermeldung */
         if( SET == cntrl_mdl_aktiv.inp_err_aktiv ) {
             if( io_Normal != io_ReadT( &io_KES_Tvl_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
             cntrl_err_in.br_RueckMeldung      = io_get_KES_BR_BM();

@@ -84,7 +84,7 @@ void terminate( int sig )
     exit( sig );
 }
 
-/** \brief system Timer für Steuerungsprozess initialisieren.
+/** \brief system Timer fuer Steuerungsprozess initialisieren.
  */
 void systimer_init( void )
 {
