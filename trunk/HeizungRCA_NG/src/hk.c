@@ -60,7 +60,7 @@ void hk_Run( const hk_param_t         *par_p,
 }
 
 /**
- * \brief Befüllen des Eingangsvektors
+ * \brief Befuellen des Eingangsvektors
  */
 void hk_WriteInp(       hk_in_t     *in_p,
                   const float        tau_mw,

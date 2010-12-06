@@ -70,7 +70,7 @@ void kes_Run( const kes_param_t *par_p,
         if( in_p->br_bm == IO_EIN ) out_p->pu_sp2_sb = IO_EIN;
     }
     
-    /* Sollwertvorgabe für den Kessel:
+    /* Sollwertvorgabe fuer den Kessel:
      * %-Zahl entspricht Vorlauftemperatur in °C
      * 100% entspr. 100°C
      * 10%  entpsr.  10°C

@@ -154,7 +154,7 @@ void *telnet_Task( void *arg )
                                 snprintf( bufout, BFLN, "\tERR-Eingabe auf HAND Betrieb (Open Loop)\n" ); BFLSH();
                             }
                             else {
-                                snprintf( bufout, BFLN, "FEHLER (6) falscher Parameter für HAND Befehl\n" ); BFLSH();
+                                snprintf( bufout, BFLN, "FEHLER (6) falscher Parameter fuer HAND Befehl\n" ); BFLSH();
                             }
                         }
                         else {
@@ -229,7 +229,7 @@ void *telnet_Task( void *arg )
                                 snprintf( bufout, BFLN, "\tAlle Module und Eingaben auf AUTOMATIK Betrieb!\n" ); BFLSH();
                             }
                             else {
-                                snprintf( bufout, BFLN, "FEHLER (7) falscher Parameter für AUTO Befehl\n" ); BFLSH();
+                                snprintf( bufout, BFLN, "FEHLER (7) falscher Parameter fuer AUTO Befehl\n" ); BFLSH();
                             }
 
                         }
@@ -269,7 +269,7 @@ void *telnet_Task( void *arg )
                                 printf( "TELNET.C: PUT VDBG Befehl erhalten\n" );
                             }
                             else {
-                                snprintf( bufout, BFLN, "FEHLER (8) falscher erster Parameter für PUT Befehl\n" ); BFLSH();
+                                snprintf( bufout, BFLN, "FEHLER (8) falscher erster Parameter fuer PUT Befehl\n" ); BFLSH();
                             }
                         }
                         else {
@@ -607,12 +607,12 @@ void telnet_writeDI( int fdesc, char *bufout )
         param_all_partydauer - cntrl_zeit_party.ww.party_restzeit_min, cntrl_zeit_party.ww.party_restzeit_min );
         BFLSH();
     }
-    /* Kesselstörmeldung */
-    snprintf( bufout, BFLN, "KES_SSM = %s\n", (io_get_KES_SSM() == IO_AUS) ? "NORMAL (0)" : "STÖRUNG (1)" ); BFLSH();
+    /* Kesselstoermeldung */
+    snprintf( bufout, BFLN, "KES_SSM = %s\n", (io_get_KES_SSM() == IO_AUS) ? "NORMAL (0)" : "SToeRUNG (1)" ); BFLSH();
     /* Kessel Brennerbetriebsmeldung */
     snprintf( bufout, BFLN, "KES_BR_BM = %s\n", (io_get_KES_BR_BM() == IO_AUS) ? "AUS" : "EIN" ); BFLSH();
-    /* Fußbodenheizung Sekundärseite Sicherheitstemperaturbegrenzer */
-    snprintf( bufout, BFLN, "FB_SEK_TW = %s\n", (io_get_FB_SEK_TW() == IO_AUS) ?  "STÖRUNG (0)" : "NORMAL (1)" ); BFLSH();
+    /* Fußbodenheizung Sekundaerseite Sicherheitstemperaturbegrenzer */
+    snprintf( bufout, BFLN, "FB_SEK_TW = %s\n", (io_get_FB_SEK_TW() == IO_AUS) ?  "SToeRUNG (0)" : "NORMAL (1)" ); BFLSH();
 }
 
 static

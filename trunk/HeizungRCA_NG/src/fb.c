@@ -74,7 +74,7 @@ void fb_Run( const fb_param_t *par_p,
 }
 
 /**
- * \brief Befüllen des Eingangsvektors
+ * \brief Befuellen des Eingangsvektors
  */
 void fb_WriteInp(       fb_in_t     *in_p,
                   const float        tau_mw,                  const float        tau_avg,                  const float        sek_tvl_mw,                  const abgesenkt_t  zustand,                  const u8_t         partytime_flg )

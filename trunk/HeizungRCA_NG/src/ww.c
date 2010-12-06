@@ -147,7 +147,7 @@ void ww_Run( const ww_param_t         *par_p,
 }
 
 /**
- * \brief Befüllen des Eingangsvektors
+ * \brief Befuellen des Eingangsvektors
  */
 void ww_WriteInp(           ww_in_t    *in_p,
                       const float       tww_mw,

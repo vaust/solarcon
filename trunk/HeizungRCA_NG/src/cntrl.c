@@ -79,8 +79,8 @@ void cntrl_open( void )
 
 /**
  * \brief eigentlicher Steuerungsprozess.
- * cntrl_run() wird zyklisch über Systemtimer aufgerufen.
- * \param sig enthaelt das auslösende Signal. Dieser Parameter wird aber nicht benötigt.
+ * cntrl_run() wird zyklisch Ueber Systemtimer aufgerufen.
+ * \param sig enthaelt das auslOesende Signal. Dieser Parameter wird aber nicht benOetigt.
  */
 void cntrl_run( int sig )
 {
