@@ -35,7 +35,7 @@ PUBLIC pthread_t       threadlist[MAX_CON];
 PUBLIC pthread_attr_t  threadattr;
 PUBLIC int             thread_args[2];
 PUBLIC pthread_mutex_t mutex;
-PUBLIC int             next_thread;
+PUBLIC int             telnet_aktiv = RESET;
 
 /* - Timer Variablen - */
 // PUBLIC struct itimerval   timer; /**< Timer fuer zyklischen Aufruf von cntrl_run() */
