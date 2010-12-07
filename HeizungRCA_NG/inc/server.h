@@ -26,6 +26,7 @@
 
 /* <Prototypen> */
 void terminate( int sig );
+void systimer_init( void );
 /* </Prototypen> */
 
 /* <Global> */
