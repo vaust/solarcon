@@ -51,7 +51,7 @@ while (time.time() < (startTime+logTime)):
             name =  str(token[0].strip('(0123456789) '))
             value = token[1]
             now = datetime.datetime.now()
-            print( '{2} {0} = {1}'.format(name, value, now.time()) )
+            print( '{2};{0};{1};'.format(name, value, now.time()) )
                 
 # Logzeit abgelaufen:    
 tn.close()
