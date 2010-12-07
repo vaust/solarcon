@@ -9,7 +9,8 @@ import os
 SVN     = '$Revision$'
 SVN_URL = '$HeadURL$'
 SVN_REV = SVN.split(':')[1].split('$')[0]
-VERSION = '0.7.2 SVN:'+SVN_REV
+# VERSION = '0.7.3 SVN:'+SVN_REV
+VERSION = '0.7.3'
 
 L = ['svn', 'info', '>svn.info']
 os.spawnve( os.P_WAIT, 'svn', L, os.environ)
