@@ -12,11 +12,12 @@
 /* </Makros> */
 
 /* <Konstanten> */
+#define MAX_CON         1
 #define MAX_NAME_LEN    6
 #define MAX_STR_LEN     128
 
-// #define TCP_PORT        1969
-#define TCP_PORT        9691
+#define TCP_PORT        1969
+// #define TCP_PORT        9691
 
 /* </Konstanten> */
 
