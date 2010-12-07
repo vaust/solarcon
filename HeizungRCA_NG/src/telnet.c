@@ -65,18 +65,17 @@ void *telnet_Task( void *arg )
 
     ENDLOS() {
         if( read( fdesc, bufin, BFLN-1 ) == 0 ) {
-            telnet_aktiv = RESET;
+            next_thread--;
             close( fdesc );
             pthread_exit( NULL );
         }
         else {
-            telnet_aktiv = SET;
             MUTEX_lock {
                 token = strtok( bufin, "\n\r " );
                 if( NULL != token ) {
                     if     ( strncasecmp( "END",        token, 3 ) == 0 ) {
                         printf( "TELNET.C: END Befehl erhalten\n" );
-                        telnet_aktiv = RESET;
+                        next_thread--;
                         close( fdesc );
                         MUTEX_unlock();
                         pthread_exit( NULL );
