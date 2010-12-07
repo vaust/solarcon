@@ -31,7 +31,7 @@ void systimer_init( void );
 
 /* <Global> */
 /* - Globale Threadvariablen - */
-PUBLIC pthread_t       threadlist[MAX_CON];
+PUBLIC pthread_t       thread;
 PUBLIC pthread_attr_t  threadattr;
 PUBLIC int             thread_args[2];
 PUBLIC pthread_mutex_t mutex;
