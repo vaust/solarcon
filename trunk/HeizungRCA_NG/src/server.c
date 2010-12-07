@@ -131,22 +131,27 @@ int main( void )
     }
 
     while( 1 ) {
-        /* Auf Verbindung mit Client warten */
-        if( (client_sock_fd = accept( server_sock_fd, NULL, NULL )) < 0 ) {
-            perror( "SERVER.C: Verbindungsanforderung abgelehnt" );
-        }
-        else {
-            thread_args[0] = client_sock_fd;
-            thread_args[1] = next_thread++;
-            if( (pthread_create( &(threadlist[next_thread]), &threadattr,
-                            telnet_Task, (void *)thread_args ) ) != 0 ) {
-                perror( "SERVER.C: Threaderzeugung schlug fehl" );
-                close( server_sock_fd );
-                exit( -1 );
+        if( next_thread < 2 ) {
+            /* Auf Verbindung mit Client warten */
+            if( (client_sock_fd = accept( server_sock_fd, NULL, NULL )) < 0 ) {
+                perror( "SERVER.C: Verbindungsanforderung abgelehnt" );
             }
             else {
-                printf( "SERVER.C: Neuen Telnet Thread gestartet\n");
+                thread_args[0] = client_sock_fd;
+                thread_args[1] = next_thread++;
+                if( (pthread_create( &(threadlist[next_thread]), &threadattr,
+                                telnet_Task, (void *)thread_args ) ) != 0 ) {
+                    perror( "SERVER.C: Threaderzeugung schlug fehl" );
+                    close( server_sock_fd );
+                    exit( -1 );
+                }
+                else {
+                    printf( "SERVER.C: Neuen Telnet Thread gestartet\n");
+                }
             }
+        }
+        else {
+           printf( "SERVER.C: Ein Telnet Task läuft bereits\n"); 
         }
     }
 }
