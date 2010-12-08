@@ -96,6 +96,7 @@ void ww_Init( ww_param_t         *par_p,
 {
     par_p->pu_reg_kp           = param_ww_pu_reg_kp;
     par_p->pu_reg_ki           = param_ww_pu_reg_ki;
+    par_p->pu_reg_ap           = param_ww_pu_reg_ap;
     par_p->TA                  = USEC2SEC(param_sys_zykluszeit);
     par_p->kes_sp_dt_sw        = param_kes_sp_dt_sw;
     par_p->tww_sw              = param_ww_tww_sw;
@@ -106,7 +107,7 @@ void ww_Init( ww_param_t         *par_p,
     par_p->schwachlastzeit_max = 300;
 
     sup_DigRegInit( q_hzg_pu_p, &(out_p->hzg_pu_y), USEC2SEC(param_sys_zykluszeit),
-                    par_p->pu_reg_kp, par_p->pu_reg_ki, MIN_Y_PCT, MAX_Y_PCT );
+                    par_p->pu_reg_kp, par_p->pu_reg_ki, par_p->pu_reg_ap, MIN_Y_PCT, MAX_Y_PCT );
 }
 
 /**

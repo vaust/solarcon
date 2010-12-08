@@ -6,7 +6,7 @@ static const parse_set_t telnet_fb_Vars[] =
 {
     { "fb_par.reg_kp",         &(cntrl_fb_par.reg_kp),         "%f" },
     { "fb_par.reg_ki",         &(cntrl_fb_par.reg_ki),         "%f" },
-    { "fb_par.reg_tn",         &(cntrl_fb_par.reg_tn),         "%f" },
+    { "fb_par.reg_ap",         &(cntrl_fb_par.reg_ap),         "%f" },
     { "fb_par.TA",             &(cntrl_fb_par.TA),             "%f" },
     { "fb_par.tvl_absenk",     &(cntrl_fb_par.tvl_absenk),     "%f" },
     { "fb_par.tvl_steigung",   &(cntrl_fb_par.tvl_steigung),   "%f" },
@@ -42,7 +42,7 @@ static const parse_set_t telnet_hk_Vars[] =
 {
     { "hk_par.reg_kp",         &(cntrl_hk_par.reg_kp),         "%f" },
     { "hk_par.reg_ki",         &(cntrl_hk_par.reg_ki),         "%f" },
-    { "hk_par.reg_tn",         &(cntrl_hk_par.reg_tn),         "%f" },
+    { "hk_par.reg_ap",         &(cntrl_hk_par.reg_ap),         "%f" },
     { "hk_par.TA",             &(cntrl_hk_par.TA),             "%f" },
     { "hk_par.tvl_absenk",     &(cntrl_hk_par.tvl_absenk),     "%f" },
     { "hk_par.tvl_steigung",   &(cntrl_hk_par.tvl_steigung),   "%f" },
@@ -78,7 +78,7 @@ static const parse_set_t telnet_ww_Vars[] =
 {
     { "ww_par.pu_reg_kp",           &(cntrl_ww_par.pu_reg_kp),           "%f" },
     { "ww_par.pu_reg_ki",           &(cntrl_ww_par.pu_reg_ki),           "%f" },
-    { "ww_par.pu_reg_tn",           &(cntrl_ww_par.pu_reg_tn),           "%f" },
+    { "ww_par.pu_reg_ap",           &(cntrl_ww_par.pu_reg_ap),           "%f" },
     { "ww_par.TA",                  &(cntrl_ww_par.TA),                  "%f" },
     { "ww_par.kes_sp_dt_sw",        &(cntrl_ww_par.kes_sp_dt_sw),        "%f" },
     { "ww_par.tww_sw",              &(cntrl_ww_par.tww_sw),              "%f" },

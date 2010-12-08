@@ -30,7 +30,14 @@ tn = telnetlib.Telnet()
 tn.open(HOST, PORT)
 
 # tn.read_very_eager()     # lese Ueberschriftenblock
-          
+
+befehl = input("Bitte gib den GET Befehl ein: ")
+b_befehl = befehl.encode('utf8')
+
+fd = open( Filename_Prefix+"_IO.csv", "w" )
+fd.write( "einzele variable\n" )
+fd.close()
+
 def getValues( cmdstr ):
     tn.write(cmdstr)
     time.sleep(0.25)
@@ -39,9 +46,8 @@ def getValues( cmdstr ):
     lines = bufdecode.splitlines()
     return lines
 
-
 while (time.time() < (startTime+logTime)):
-    lines = getValues( b'GET VHK 18\n' )
+    lines = getValues( b_befehl )
     for line in lines:
         if(line.find('>') > 0): # Hilfetexte herausfiltern
             continue
@@ -51,10 +57,16 @@ while (time.time() < (startTime+logTime)):
             name =  str(token[0].strip('(0123456789) '))
             value = token[1]
             now = datetime.datetime.now()
+            # Mikrosekundenteil auf 0 setzen, damit Excel den ISO Zeitstring versteht
+            now = datetime.datetime( now.year, now.month, now.day, now.hour, now.minute, now.second )
             print( '{2};{0};{1};'.format(name, value, now.time()) )
-                
+            fd = open( Filename_Prefix+"_IO.csv", "a" )
+            fd.write( '{2};{0};{1};\n'.format(name, value, now.time()) )
+            fd.close()
+
 # Logzeit abgelaufen:    
 tn.close()
+fd.close()
 
 
 

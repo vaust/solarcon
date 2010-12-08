@@ -12,10 +12,10 @@
 /* <Typen> */
 typedef struct {
     float pu_reg_kp;
-    float pu_reg_tn;
+    float pu_reg_ap;
     float pu_reg_ki;
     // float mv_reg_kp;   Momentan nicht in Verwendung
-    // float mv_reg_tn;   Momentan nicht in Verwendung
+    // float mv_reg_ap;   Momentan nicht in Verwendung
     // float mv_reg_ki;   Momentan nicht in Verwendung
     float TA;
     float kes_sp_dt_sw;

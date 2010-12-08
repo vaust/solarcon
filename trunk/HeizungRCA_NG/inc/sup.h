@@ -4,7 +4,7 @@
 #include "gen_types.h"
 
 /* <Konstanten> */
-#define SUP_REG_STATEVARS 4
+#define SUP_REG_STATEVARS 5
 /* <Konstanten/> */
 
 /* <Typen> */
@@ -12,6 +12,7 @@ typedef struct {
     float TA;
     float kp;
     float ki;
+    float ap;
     float lower_limit;
     float upper_limit;
 } sup_digreg_coeff_t;
@@ -30,6 +31,7 @@ void sup_DigRegInit( sup_digreg_coeff_t *q_p,
                      float               TA,
                      float               kp,
                      float               ki,
+                     float               ap,
                      float               lower_limit,
                      float               upper_limit  );
 float sup_DigRegler( const sup_digreg_coeff_t *q_p, 
