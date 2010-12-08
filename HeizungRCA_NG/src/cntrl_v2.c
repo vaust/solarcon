@@ -125,7 +125,7 @@ void cntrl_run( int sig )
 
         /* Prozessdaten fuer Fussbodenheizungsregelung */
         if( SET == cntrl_mdl_aktiv.inp_fb_aktiv ) {
-        	if( io_Normal != io_ReadT( &io_ALL_Tau_MW,    NULL ) ) cntrl_err_in.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_ALL_Tau_MW,    NULL ) ) cntrl_err_in.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_FB_SEK_Tvl_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
 
             fb_WriteInp( &cntrl_fb_in, io_ALL_Tau_MW.messwert,
