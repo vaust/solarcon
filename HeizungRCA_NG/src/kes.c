@@ -55,7 +55,7 @@ void kes_Run( const kes_param_t *par_p,
             if( (in_p->br_bm == IO_EIN) || (in_p->tvl_mw > in_p->sp2_to_mw) ) 
                 out_p->pu_sp2_sb = IO_EIN;
         }
-        else if( in_p->sp2_to_mw >= (out_p->sp2_to_sw + par_p->sp_dt_sw) ) {
+        else if( in_p->sp2_to_mw >= (out_p->sp2_to_sw + par_p->sp_dt_sw/2) ) {
             out_p->tvl_sw_sp2 = 0.0;  /* Kessel AUS */
             out_p->pu_sp2_sb = IO_AUS;
         }
