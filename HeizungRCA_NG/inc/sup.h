@@ -4,7 +4,7 @@
 #include "gen_types.h"
 
 /* <Konstanten> */
-#define SUP_REG_STATEVARS 5
+#define SUP_REG_STATEVARS 4
 /* <Konstanten/> */
 
 /* <Typen> */
