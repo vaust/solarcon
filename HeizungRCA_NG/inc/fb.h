@@ -7,7 +7,7 @@
 /* <Typen> */
 typedef struct {
     float reg_kp;
-    float reg_tn;
+    float reg_ap;
     float reg_ki;
     float TA;
     float tvl_absenk;

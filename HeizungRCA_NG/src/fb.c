@@ -18,7 +18,7 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )
     par_p->at_start     = param_all_at_start;
     par_p->reg_kp       = param_fb_reg_kp;
     par_p->reg_ki       = param_fb_reg_ki;
-    par_p->reg_tn       = param_fb_reg_tn;
+    par_p->reg_ap       = param_fb_reg_ap;
     par_p->TA           = USEC2SEC(param_sys_zykluszeit);
     par_p->tvl_absenk   = param_fb_tvl_absenk;
     par_p->tvl_max      = param_fb_tvl_max;
@@ -28,7 +28,7 @@ void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p )
     par_p->tr_sw        = param_fb_tr_sw;
 
     sup_DigRegInit( q_p, &(out_p->prim_mv_y), USEC2SEC(param_sys_zykluszeit),
-                    par_p->reg_kp, par_p->reg_ki, MIN_Y_PCT, MAX_Y_PCT );
+                    par_p->reg_kp, par_p->reg_ki, par_p->reg_ap, MIN_Y_PCT, MAX_Y_PCT );
     
     out_p->prim_pu_sb = IO_AUS;
     out_p->sek_pu_sb = IO_AUS;
