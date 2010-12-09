@@ -28,8 +28,6 @@ stopTime  = time.time()+logTime*60.0 # logTime in Sekunden umrechnen
 tn = telnetlib.Telnet()
 tn.open(HOST, PORT)
 
-# tn.read_very_eager()     # lese Ueberschriftenblock
-
 befehl = 'GET '+input('Bitte gib die GET Parameter Modul und Variablennummer ein: ')
 b_befehl = befehl.encode('utf8')
 
@@ -55,12 +53,12 @@ while (time.time() < stopTime):
             token = evalstr.split('=')
             name =  str(token[0].strip('(0123456789) '))
             value = token[1]
-            now = datetime.datetime.now()
+            # now = datetime.datetime.now()
             # Mikrosekundenteil auf 0 setzen, damit Excel den ISO Zeitstring versteht
-            now = datetime.datetime( now.year, now.month, now.day, now.hour, now.minute, now.second )
-            print( '{2};{0};{1};'.format(name, value, now.time()) )
+            # now = datetime.datetime( now.year, now.month, now.day, now.hour, now.minute, now.second )
+            print( '{2};{0};{1};'.format(name, value, time.time()) )
             fd = open( Filename_Prefix+'_IO.csv', 'a' )
-            fd.write( '{2};{0};{1};\n'.format(name, value, now.time()) )
+            fd.write( '{2};{0};{1};\n'.format(name, value, time.time()) )
             fd.close()
 
 # Logzeit abgelaufen:    
