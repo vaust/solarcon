@@ -130,6 +130,12 @@ int main( void )
         exit( -1 );
     }
 
+    /* Control Thread erzeugen */
+    // if( (pthread_create( &thread, &threadattr, cntrl_thread, (void *)thread_args ) ) != 0 ) {
+        // perror( "SERVER.C: Threaderzeugung cntrl_thread schlug fehl" );
+        // exit( -1 );
+    // }
+  
     while( 1 ) {
         /* Auf Verbindung mit Client warten */
         if( (client_sock_fd = accept( server_sock_fd, NULL, NULL )) < 0 ) {
@@ -139,7 +145,7 @@ int main( void )
             thread_args[0] = client_sock_fd;
             thread_args[1] = next_thread++;
             if( (pthread_create( &thread, &threadattr, telnet_Task, (void *)thread_args ) ) != 0 ) {
-                perror( "SERVER.C: Threaderzeugung schlug fehl" );
+                perror( "SERVER.C: Threaderzeugung telnet_Task schlug fehl" );
                 close( server_sock_fd );
                 exit( -1 );
             }
