@@ -21,8 +21,8 @@ typedef struct {
 } kes_in_t;
 
 typedef struct {
-    float sp1_to_sw;
-    float sp2_to_sw;
+    float sp1_to_sw;            /**< Sollwert fuer obere Speichertemperatur Speicher 1 */
+    float sp2_to_sw;            /**< Sollwert fuer obere Speichertemperatur Speicher 2 */
     float tvl_sw_sp1;           /**< Kesselvorlaufsollwert fuer Speicher 1 nur zur Info und Debugging */
     float tvl_sw_sp2;           /**< Kesselvorlaufsollwert fuer Speicher 1 nur zur Info und Debugging */
     float tvl_sw;               /**< eigentlicher Kesselvorlaufsollwert (Maximum aus tvl_sw_sp1 und tvl_sw_sp2 */

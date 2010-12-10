@@ -1,9 +1,11 @@
-/** \file Messwert Verarbeitung mit Plausiblitaetspruefung
-  * \author Volker Stegmann
-  */
+/** \file io_v2.c
+ *  \brief Messwert Verarbeitung mit Plausiblitaetspruefung.
+ *  \author Volker Stegmann
+ */
 
 #define _IO_V2_C_
 
+/** Dient zur Konfiguration welche Variante von IO (io.c oder io_v2.c) auf die HW zugreift */
 #define _IO_MASTER_ 
 
 #include "gen_types.h"
@@ -11,6 +13,11 @@
 #include "io_wago_hwif.h"
 #include "io_v2.h"
 
+/** \brief Initialisierung der Temperaturmessobjekte.
+ *  \param messbereich_anfang Plausibler kleinster Messwert in Grad C
+ *  \param messbereich_ende Plausibler groesster Messwert in Grad C
+ *  \param kbus_adresse_p Pointer auf die entsprechende Speicherstelle im Prozessabbild des Controllers
+ */
 static  
 void io_InitT( io_temp_obj_t     *self,
                float              messbereich_anfang,
@@ -44,10 +51,12 @@ void io_InitTall( void )
 }
 
 /** \brief Methode zur Abfrage der Temperaturmessstellen.
-  * Der Messwert wird in der Objektstruktur abgelegt und im Normalfall auch zur�ckgeben.
-  * Bei unplausiblen Messwerten wird der rohe Messwert zur�ckgegeben und in der Objektstruktur
+  * Der Messwert wird in der Objektstruktur abgelegt und im Normalfall auch zurueckgeben.
+  * Bei unplausiblen Messwerten wird der rohe Messwert zurueckgegeben und in der Objektstruktur
   * die jeweilige Messbereichsgrenze abgelegt, so dass noch sinnvoll weitergerechnet werden kann
   * \param self Pointer auf ein Temperaturmessobjekt
+  * \param mw   Pointer zur Rueckgabe der gemessenen Temperatur. NULL falls kein Wert
+  *             zurueckgegeben werden soll.
   */
 io_obj_status_t io_ReadT( io_temp_obj_t *self, float *mw )
 {
@@ -146,7 +155,7 @@ io_obj_status_t io_WriteY( io_ao10V_obj_t *self, float val )
     return(self->status);
 }
 
-/** \brief Alle IO�s (Temperaturen und 0-10V Ausg�nge) initialisieren.
+/** \brief Alle IOs (Temperaturen und 0-10V Ausgaenge) initialisieren.
   */
 void io_Init( void )
 {

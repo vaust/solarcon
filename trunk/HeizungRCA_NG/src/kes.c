@@ -4,6 +4,7 @@
 #include "param.h"
 #include "kes.h"
 
+
 void kes_Init( kes_param_t *par_p, 
                kes_out_t   *out_p )
 {
@@ -14,7 +15,12 @@ void kes_Init( kes_param_t *par_p,
     out_p->pu_sp1_sb = IO_AUS;
     out_p->pu_sp2_sb = IO_AUS;
 }
-
+/**
+ * \brief Speichersolltemperaturen berechnen, Speicherpumpen ansteuern und Kesselsollvorlauftemperatur bestimmen.
+ * \param[in] par_p Parametersatz fuer die Kesselansteuerung
+ * \param[in] in_p  Eingangsgroessen
+ * \param[out out_p Ausgangsgroessen
+ */
 void kes_Run( const kes_param_t *par_p, 
               const kes_in_t    *in_p,
                     kes_out_t   *out_p )
@@ -55,7 +61,7 @@ void kes_Run( const kes_param_t *par_p,
             if( (in_p->br_bm == IO_EIN) || (in_p->tvl_mw > in_p->sp2_to_mw) ) 
                 out_p->pu_sp2_sb = IO_EIN;
         }
-        else if( in_p->sp2_to_mw >= (out_p->sp2_to_sw + par_p->sp_dt_sw/2) ) {
+        else if( in_p->sp2_to_mw >= (out_p->sp2_to_sw + par_p->sp_dt_sw/2.0) ) {
             out_p->tvl_sw_sp2 = 0.0;  /* Kessel AUS */
             out_p->pu_sp2_sb = IO_AUS;
         }
