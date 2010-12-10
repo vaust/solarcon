@@ -263,4 +263,7 @@ void cntrl_close( void )
     KBUSCLOSE();
 }
 
-    
+void cntrl_thread( int sig )
+{
+}
+  
