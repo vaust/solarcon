@@ -285,7 +285,7 @@ void *telnet_Task( void *arg )
                         hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
                         ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
                         kes_Init( &cntrl_kes_par, &cntrl_kes_out );
-                        systimer_init();
+                        // systimer_init(); // Momentan nicht in Verwendung
                         snprintf( bufout, BFLN, "\tParameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
                     }
                     else if( strncasecmp( "ENTSTOEREN", token, 8 ) == 0 ) {
