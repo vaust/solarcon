@@ -266,7 +266,7 @@ void cntrl_close( void )
 /** \brief Workaround für WAGO ucLinux Bug in Signal Schnittstelle.
  *  cntrl_Task ruft cntrl_run() in einer Endlosschleife auf.
  */
-void cntrl_Task( void *arg )
+void *cntrl_Task( void *arg )
 {
     while(1) {
         cntrl_run(0);
