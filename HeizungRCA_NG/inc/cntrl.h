@@ -87,6 +87,7 @@ PUBLIC s16_t    cntrl_DEBUG01;
 void cntrl_open( void );
 void cntrl_run( int sig );
 void cntrl_close( void );
+void cntrl_Task( int sig );
 
 #endif /* _CNTRL_H_ */
 

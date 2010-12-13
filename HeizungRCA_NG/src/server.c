@@ -110,9 +110,9 @@ int main( void )
     cntrl_open();
     
     signal( SIGINT, terminate );
-    signal( SIGALRM, cntrl_run );
+    // signal( SIGALRM, cntrl_run );
     
-    systimer_init();
+    // systimer_init();
     server_sock_fd = create_server_sock( TCP_PORT );
 
     if( pthread_attr_init( &threadattr ) != 0 ) {
@@ -131,8 +131,8 @@ int main( void )
     }
 
     /* Control Thread erzeugen */
-    // if( (pthread_create( &thread, &threadattr, cntrl_thread, (void *)thread_args ) ) != 0 ) {
-        // perror( "SERVER.C: Threaderzeugung cntrl_thread schlug fehl" );
+    // if( (pthread_create( &thread, &threadattr, cntrl_Task, (void *)thread_args ) ) != 0 ) {
+        // perror( "SERVER.C: Threaderzeugung cntrl_Task schlug fehl" );
         // exit( -1 );
     // }
   

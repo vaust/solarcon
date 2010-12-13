@@ -263,7 +263,14 @@ void cntrl_close( void )
     KBUSCLOSE();
 }
 
-void cntrl_thread( int sig )
+/** \brief Workaround für WAGO ucLinux Bug in Signal Schnittstelle.
+ *  cntrl_Task ruft cntrl_run() in einer Endlosschleife auf.
+ */
+void cntrl_Task( int sig )
 {
+    while(1) {
+        cntrl_run(0);
+        usleep(ABTASTZEIT_USEC);
+    }
 }
   

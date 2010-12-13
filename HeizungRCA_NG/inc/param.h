@@ -58,9 +58,11 @@
 #endif /* _PARAM_C_ */
 
 #define MAX_ALL_Tau_mittel_Zeit   48    /**< max. Wert aus Kommentar in vorgaben.ini                                    */
+
+#define USEC2SEC(x)     (((float)(x))/1.0e6)  /**< usec in sekunden umrechnen */
+#define USEC2MSEC(x)    ((x)/1000)            /**< usec in msec umrechnen     */
 #define ABTASTZEIT_USEC 200000L         /**< das gleiche als LONG in Mikrosekunden fuer Timerlaufzeit                   */
-#define USEC2SEC(x)     (((float)(x))/1.0e6)
-#define ABTASTZEIT      USEC2SEC(ABTASTZEIT_USEC)   /**< Abtastzeit fuer digitale Regler Algorithmen als float   */
+#define ABTASTZEIT      USEC2SEC(ABTASTZEIT_USEC)   /**< Abtastzeit fuer digitale Regler Algorithmen als float          */
 
 
 /* <Defines/> */
