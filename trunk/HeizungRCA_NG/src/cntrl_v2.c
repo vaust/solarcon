@@ -270,7 +270,7 @@ void *cntrl_Task( void *arg )
 {
     while(1) {
         cntrl_run(0);
-        usleep(ABTASTZEIT_USEC);
+        usleep( param_sys_zykluszeit );
     }
 }
   
