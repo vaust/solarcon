@@ -131,10 +131,10 @@ int main( void )
     }
 
     /* Control Thread erzeugen */
-    // if( (pthread_create( &thread, &threadattr, cntrl_Task, (void *)thread_args ) ) != 0 ) {
-        // perror( "SERVER.C: Threaderzeugung cntrl_Task schlug fehl" );
-        // exit( -1 );
-    // }
+    if( (pthread_create( &thread, &threadattr, cntrl_Task, (void *)thread_args ) ) != 0 ) {
+        perror( "SERVER.C: Threaderzeugung cntrl_Task schlug fehl" );
+        exit( -1 );
+    }
   
     while( 1 ) {
         /* Auf Verbindung mit Client warten */
