@@ -85,19 +85,22 @@ void terminate( int sig )
 }
 
 /** \brief system Timer fuer Steuerungsprozess initialisieren.
+ *  Dieses API funktioniert auf der momentanen WAGO ucLinux Distrubition nicht.
  */
+/*
 void systimer_init( void )
 {
     struct itimerval   timer;
 
     timer.it_value.tv_sec = 1;
-//    timer.it_value.tv_usec = param_sys_zykluszeit;
+    timer.it_value.tv_usec = param_sys_zykluszeit;
     timer.it_value.tv_usec = 0;
     timer.it_interval.tv_sec = 1;
-//    timer.it_interval.tv_usec = param_sys_zykluszeit;
+    timer.it_interval.tv_usec = param_sys_zykluszeit;
     timer.it_interval.tv_usec = 0;
     setitimer( ITIMER_REAL, &timer, NULL );
 }
+*/
 
 /**
  * \brief Main (internes Betriebssystem).
@@ -108,13 +111,12 @@ void systimer_init( void )
 int main( void )
 {
     next_thread = 0;
-    
+
+    /* Initialisierung der Regler */
     cntrl_open();
     
     signal( SIGINT, terminate );
-    signal( SIGALRM, cntrl_run );
     
-    systimer_init();
     server_sock_fd = create_server_sock( TCP_PORT );
 
     if( pthread_attr_init( &threadattr ) != 0 ) {
@@ -133,12 +135,11 @@ int main( void )
     }
 
     /* Control Thread erzeugen */
-/*
     if( (pthread_create( &thread, &threadattr, cntrl_Task, (void *)thread_args ) ) != 0 ) {
         perror( "SERVER.C: Threaderzeugung cntrl_Task schlug fehl" );
         exit( -1 );
     }
-*/
+
     while( 1 ) {
         /* Auf Verbindung mit Client warten */
         if( (client_sock_fd = accept( server_sock_fd, NULL, NULL )) < 0 ) {
