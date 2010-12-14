@@ -272,10 +272,12 @@ void *cntrl_Task( void *arg )
         cntrl_TaskFlag == RESET;
         cntrl_run(0);
         while( cntrl_TaskFlag == RESET );
+        // sleep(1);
     }
 }
 
 void cntrl_SetTaskFlag( void )
 {
     cntrl_TaskFlag = SET;
+    printf( "CNTRL.C: SYS_Zykluszeit Timer Aufruf !!\n" );  
 }
