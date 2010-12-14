@@ -81,7 +81,7 @@ PUBLIC err_out_t           cntrl_err_out;
 
 /* --DEBUG Variablen -- */
 PUBLIC u16_t    cntrl_cnt;
-PUBLIC s16_t    cntrl_DEBUG01;
+PUBLIC s16_t    cntrl_TaskFlag_cnt;
 
 /* globales Schedulerwarteflag */
 PUBLIC u8_t     cntrl_TaskFlag;

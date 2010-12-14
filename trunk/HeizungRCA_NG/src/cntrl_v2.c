@@ -271,13 +271,12 @@ void *cntrl_Task( void *arg )
     while(1) {
         cntrl_TaskFlag = RESET;
         cntrl_run(0);
-        while( cntrl_TaskFlag == RESET );
-        // sleep(1);
+        while( cntrl_TaskFlag == RESET ); /* Diese Konstruktion ermoeglicht es, dass
+        Zeitschleifenueberlaufe moeglich werden und sich nur in langsameren Ablauf zeigen. */
     }
 }
 
 void cntrl_SetTaskFlag( void )
 {
     cntrl_TaskFlag = SET;
-    printf( "CNTRL.C: SYS_Zykluszeit Timer Aufruf !!\n" );  
 }
