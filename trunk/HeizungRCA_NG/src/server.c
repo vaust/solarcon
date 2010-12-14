@@ -113,8 +113,8 @@ int main( void )
     
     signal( SIGINT, terminate );
     
-//    signal( SIGALRM, cntr_run );
-//    systimer_init( param_sys_zykluszeit );
+    signal( SIGALRM, cntrl_SetTaskFlag );
+    systimer_init( param_sys_zykluszeit );
 
     server_sock_fd = create_server_sock( TCP_PORT );
 

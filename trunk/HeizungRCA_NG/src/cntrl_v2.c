@@ -270,7 +270,12 @@ void *cntrl_Task( void *arg )
 {
     while(1) {
         cntrl_run(0);
-        usleep( param_sys_zykluszeit );
+        while( cntrl_TaskFlag == RESET );
+        cntrl_TaskFlag == RESET;
     }
 }
-  
+
+void cntrl_SetTaskFlag( void )
+{
+    cntrl_TaskFlag = SET;
+}
