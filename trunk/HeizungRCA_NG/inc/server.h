@@ -26,7 +26,7 @@
 
 /* <Prototypen> */
 void terminate( int sig );
-void systimer_init( void );
+void systimer_init( u32_t zykluszeit );
 /* </Prototypen> */
 
 /* <Global> */

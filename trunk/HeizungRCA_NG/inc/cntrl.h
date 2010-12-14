@@ -83,11 +83,15 @@ PUBLIC err_out_t           cntrl_err_out;
 PUBLIC u16_t    cntrl_cnt;
 PUBLIC s16_t    cntrl_DEBUG01;
 
+/* globales Schedulerwarteflag */
+PUBLIC u8_t     cntrl_TaskFlag;
+
 /* Prototypen */
 void cntrl_open( void );
 void cntrl_run( int sig );
 void cntrl_close( void );
 void *cntrl_Task( void *arg );
+void cntrl_ResetTaskFlag( void );
 
 #endif /* _CNTRL_H_ */
 
