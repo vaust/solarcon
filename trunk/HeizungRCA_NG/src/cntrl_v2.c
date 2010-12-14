@@ -47,9 +47,12 @@ extern pthread_mutex_t  mutex;
  */
 void cntrl_open( void )
 {
+    cntrl_cnt          = 0;
+    cntrl_TaskFlag_cnt = 0;
+
     KBUSOPEN();
     KBUSUPDATE();
-
+    
     MUTEX_lock {
         io_Init();
 
@@ -279,4 +282,5 @@ void *cntrl_Task( void *arg )
 void cntrl_SetTaskFlag( int sig )
 {
     cntrl_TaskFlag = SET;
+    cntrl_TaskFlag_cnt ++;
 }
