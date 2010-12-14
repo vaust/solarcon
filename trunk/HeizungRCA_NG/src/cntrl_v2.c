@@ -276,7 +276,7 @@ void *cntrl_Task( void *arg )
     }
 }
 
-void cntrl_SetTaskFlag( void )
+void cntrl_SetTaskFlag( int sig )
 {
     cntrl_TaskFlag = SET;
 }
