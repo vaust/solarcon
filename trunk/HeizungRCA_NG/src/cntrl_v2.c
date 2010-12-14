@@ -269,7 +269,7 @@ void cntrl_close( void )
 void *cntrl_Task( void *arg )
 {
     while(1) {
-        cntrl_TaskFlag == RESET;
+        cntrl_TaskFlag = RESET;
         cntrl_run(0);
         while( cntrl_TaskFlag == RESET );
         // sleep(1);
