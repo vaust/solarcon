@@ -91,7 +91,7 @@ void cntrl_open( void );
 void cntrl_run( int sig );
 void cntrl_close( void );
 void *cntrl_Task( void *arg );
-void cntrl_SetTaskFlag( void );
+void cntrl_SetTaskFlag( int sig );
 
 #endif /* _CNTRL_H_ */
 
