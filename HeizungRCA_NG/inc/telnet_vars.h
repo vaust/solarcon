@@ -230,7 +230,7 @@ static const parse_set_t telnet_dbg_Vars[] =
 
 static const char *telnet_wochentage[] =
 {
-    "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "₣reitag", "Samstag"
+    "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"
 };
 
 #else
