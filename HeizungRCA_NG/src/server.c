@@ -87,20 +87,16 @@ void terminate( int sig )
 /** \brief system Timer fuer Steuerungsprozess initialisieren.
  *  Dieses API funktioniert auf der momentanen WAGO ucLinux Distrubition nicht.
  */
-/*
-void systimer_init( void )
+void systimer_init( u32_t zykluszeit )
 {
     struct itimerval   timer;
 
-    timer.it_value.tv_sec = 1;
-    timer.it_value.tv_usec = param_sys_zykluszeit;
-    timer.it_value.tv_usec = 0;
-    timer.it_interval.tv_sec = 1;
-    timer.it_interval.tv_usec = param_sys_zykluszeit;
-    timer.it_interval.tv_usec = 0;
+    timer.it_value.tv_sec = 0;
+    timer.it_value.tv_usec = zykluszeit;
+    timer.it_interval.tv_sec = 0;
+    timer.it_interval.tv_usec = zykluszeit;
     setitimer( ITIMER_REAL, &timer, NULL );
 }
-*/
 
 /**
  * \brief Main (internes Betriebssystem).
@@ -117,6 +113,9 @@ int main( void )
     
     signal( SIGINT, terminate );
     
+//    signal( SIGALRM, cntr_run );
+//    systimer_init( param_sys_zykluszeit );
+
     server_sock_fd = create_server_sock( TCP_PORT );
 
     if( pthread_attr_init( &threadattr ) != 0 ) {
@@ -134,7 +133,9 @@ int main( void )
         exit( -1 );
     }
 
-    /* Control Thread erzeugen */
+    /* Control Thread erzeugen
+     * AUSKOMMENTIEREN falls SIGALRM mit KBUS Prozess laufen sollte.
+     */
     if( (pthread_create( &thread, &threadattr, cntrl_Task, (void *)thread_args ) ) != 0 ) {
         perror( "SERVER.C: Threaderzeugung cntrl_Task schlug fehl" );
         exit( -1 );
