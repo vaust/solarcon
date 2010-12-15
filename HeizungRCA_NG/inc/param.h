@@ -61,7 +61,7 @@
 
 #define USEC2SEC(x)     (((float)(x))/1.0e6)  /**< usec in sekunden umrechnen */
 #define USEC2MSEC(x)    ((x)/1000)            /**< usec in msec umrechnen     */
-#define ABTASTZEIT_USEC 200000L         /**< das gleiche als LONG in Mikrosekunden fuer Timerlaufzeit                   */
+#define ABTASTZEIT_USEC 200000L                     /**< das gleiche als LONG in Mikrosekunden fuer Timerlaufzeit       */
 #define ABTASTZEIT      USEC2SEC(ABTASTZEIT_USEC)   /**< Abtastzeit fuer digitale Regler Algorithmen als float          */
 
 
@@ -72,6 +72,7 @@ typedef struct {
     char *VarName;
     void *VarPointer;
     char *format;
+    // char *einheit;
 } parse_set_t;
 /* <Typen/> */
 
