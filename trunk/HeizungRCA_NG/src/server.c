@@ -59,7 +59,7 @@ int create_server_sock( int port )
         perror( "Portnummer konnte nicht ermittelt werden" );
         exit( -1 );
     }
-    printf( "zugewiesene Portnummer: %hu\n", ntohs( server.sin_port ) );
+    printf( "SERVER.C: zugewiesene Portnummer: %hu\n", ntohs( server.sin_port ) );
 
     /* Verbindungsanforderungen akzeptieren */
     if( listen( sock_fd, MAX_CON ) < 0 ) {

@@ -37,7 +37,7 @@ fd.close()
 
 def getValues( cmdstr ):
     tn.write(cmdstr)
-    time.sleep(0.25)
+    time.sleep(0.5)
     buffer = tn.read_very_eager()
     bufdecode = buffer.decode('utf8')
     lines = bufdecode.splitlines()
