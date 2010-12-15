@@ -1,3 +1,7 @@
+/** \file server.c
+ *  Code aus Buch Linux Systemprogrammierung
+ */
+
 #define _SERVER_C_
 
 #include <signal.h>
@@ -133,12 +137,13 @@ int main( void )
         exit( -1 );
     }
 
-    /* Control Thread erzeugen
-     * AUSKOMMENTIEREN falls SIGALRM mit KBUS Prozess laufen sollte.
-     */
+    /* Control Task Thread erzeugen */
     if( (pthread_create( &thread, &threadattr, cntrl_Task, (void *)thread_args ) ) != 0 ) {
         perror( "SERVER.C: Threaderzeugung cntrl_Task schlug fehl" );
         exit( -1 );
+    }
+    else {
+        printf( "SERVER.C: Controller Task cntrl_Task() gestartet\n");
     }
 
     while( 1 ) {
