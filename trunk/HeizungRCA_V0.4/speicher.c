@@ -22,9 +22,9 @@ void cntrl_Speicher( void )
     /********************************************
      * Schaltkriterium fuer Speicherladepumpe 1
      ********************************************/
-    if( SOL_SP1_To_MW < sol_SP1_To_SW_f ) {
+    if( ( SOL_SP1_To_MW < sol_SP1_To_SW_f ) || (HK_MV_Y/328 > 95) )   {
         kes_Tvl_SW_Sp1_f = sol_SP1_To_SW_f + kes_sp_dt_sw;
-        if( (KES_BR_BM == IO_EIN) || (KES_Tvl_MW > SOL_SP1_To_MW) ) KES_PU_SP1_SB = IO_EIN;
+        /* if( (KES_BR_BM == IO_EIN) || (KES_Tvl_MW > SOL_SP1_To_MW) ) */ KES_PU_SP1_SB = IO_EIN;
         /* Wenn Sp.-pumpe 1 ein, Sp.-pumpe 2 immer aus! */
         KES_PU_SP2_SB = IO_AUS;
     }
@@ -55,8 +55,9 @@ void cntrl_Speicher( void )
     /*
      * Notfall in dem Sp.-pumpe 2 immer laufen soll:
      */
-    if( SOL_SP2_To_MW < fb_Tvl_SW_f - kes_sp_dt_sw/2.0 ) {
-        if( KES_BR_BM == IO_EIN ) KES_PU_SP2_SB = IO_EIN;
+    /*if( SOL_SP2_To_MW < fb_Tvl_SW_f - kes_sp_dt_sw/2.0 ) */
+    if( (FB_PRIM_MV_Y/328) > 95 ) {
+        /* if( KES_BR_BM == IO_EIN ) */ KES_PU_SP2_SB = IO_EIN;
     }
 }
 
