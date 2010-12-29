@@ -47,8 +47,10 @@ extern pthread_mutex_t  mutex;
  */
 void cntrl_open( void )
 {
-    cntrl_cnt          = 0;
-    cntrl_TaskFlag_cnt = 0;
+    cntrl_cnt            = 0;
+    cntrl_TaskFlag_cnt   = 0;
+    cntrl_Heartbeat      = 0x00;
+    cntrl_Stoerungslampe = 0x00;
 
     KBUSOPEN();
     KBUSUPDATE();
@@ -241,13 +243,15 @@ void cntrl_run( int sig )
         io_put_KES_PU_SP2_SB( cntrl_kes_out.pu_sp2_sb );
 
         /* Lebenszeichen der Steuerung */
-        io_put_CONTROL_AKTIV( !io_get_CONTROL_AKTIV() );
+        io_put_CONTROL_AKTIV( cntrl_Heartbeat );
+        cntrl_Heartbeat = !cntrl_Heartbeat;
 
         if( cntrl_err_out.Sammelstoermeldung == RESET ) {
             io_put_STOERUNG( IO_AUS );              /* Stoermeldung AUS */
         }
         else {
-            io_put_STOERUNG( !io_get_STOERUNG() );  /* Stoermeldung blinken lassen */
+            io_put_STOERUNG( cntrl_Stoerungslampe );  /* Stoermeldung blinken lassen */
+            cntrl_Stoerungslampe = !cntrl_Stoerungslampe;
         }
 
         /* Prozessabbild aktualisieren */

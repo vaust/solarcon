@@ -26,10 +26,10 @@ typedef struct {
     di_bitbyte_t    br_RueckMeldung;           /**< Rueckmeldung vom Brenner (Prozesssignal)             */
     di_bitbyte_t    br_StoerMeldung;           /**< Brennerstoermeldung      (Prozesssignal)             */
     di_bitbyte_t    stb_Fussbodenheizung;      /**< Sicherheitstemperaturschalter FB-Hzg (Prozesssignal) */
-    s8_t            tempsens_errcnt;           /**< Fehlerzaehler fuer Temperatursensoren                */
-    s8_t            ao_errcnt;                 /**< Fehlerzaehler fuer Analog 0-10V Ausgabe              */
-    s8_t            sol_errcnt;                /**< Fehlerzaehler fuer Solarregler                       */
-    s8_t            common_errcnt;             /**< Fehlerzaehler fuer allgemeine Fehler                 */       
+    s16_t           tempsens_errcnt;           /**< Fehlerzaehler fuer Temperatursensoren                */
+    s16_t           ao_errcnt;                 /**< Fehlerzaehler fuer Analog 0-10V Ausgabe              */
+    s16_t           sol_errcnt;                /**< Fehlerzaehler fuer Solarregler                       */
+    s16_t           common_errcnt;             /**< Fehlerzaehler fuer allgemeine Fehler                 */
 } err_in_t;
 
 
