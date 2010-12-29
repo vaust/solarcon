@@ -85,6 +85,8 @@ PUBLIC s16_t    cntrl_TaskFlag_cnt;
 
 /* globales Schedulerwarteflag */
 PUBLIC u8_t     cntrl_TaskFlag;
+PUBLIC u8_t		cntrl_Heartbeat;
+PUBLIC u8_t		cntrl_Stoerungslampe;
 
 /* Prototypen */
 void cntrl_open( void );

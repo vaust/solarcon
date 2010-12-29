@@ -1,7 +1,7 @@
 INC := ./inc
 SRC := ./src
 
-CFLAGS = -Wall -I$(INC) -D__REENTRANT__
+CFLAGS = -Wall -I$(INC) -D__REENTRANT__ -D__WAGO__
 # CFLAGS = -D_REENTRANT -D__WAGO__
 
 VPATH := $(SRC):$(INC)
