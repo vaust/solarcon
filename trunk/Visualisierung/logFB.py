@@ -109,7 +109,7 @@ while (time.time() < (startTime+logTime)):
     csvstr = now.isoformat(' ') + ";";
 
     for i in range(len(FB_varnames)):
-        csvstr += "{0:.3f};".format( FB_v[i] )
+        csvstr += "{0:.1f};".format( FB_v[i] )
                    
     fd = open( "FB_"+Filename_Prefix+"_IO.csv", "a" )
     fd.write( csvstr + "\n" )

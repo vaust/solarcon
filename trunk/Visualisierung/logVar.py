@@ -20,7 +20,7 @@ if (len(sys.argv) > 1):
         PORT = 1969
         logTime = 10 # min
 else:
-    HOST = "localhost"
+    HOST = "192.168.2.102"
     PORT = 1969
     logTime = 10 # min
 
@@ -56,9 +56,10 @@ while (time.time() < stopTime):
             # now = datetime.datetime.now()
             # Mikrosekundenteil auf 0 setzen, damit Excel den ISO Zeitstring versteht
             # now = datetime.datetime( now.year, now.month, now.day, now.hour, now.minute, now.second )
-            print( '{2};{0};{1};'.format(name, value, time.time()) )
+            zeitstempel = time.time()
+            print( '{2};{0};{1};'.format(name, value, zeitstempel) )
             fd = open( Filename_Prefix+'_IO.csv', 'a' )
-            fd.write( '{2};{0};{1};\n'.format(name, value, time.time()) )
+            fd.write( '{2};{0};{1};\n'.format(name, value, zeitstempel) )
             fd.close()
 
 # Logzeit abgelaufen:    
