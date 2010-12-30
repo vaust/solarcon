@@ -62,48 +62,33 @@ io_obj_status_t io_ReadT( io_temp_obj_t *self, float *mw )
 {
     float temp_val;
 
-    switch( self->status ) {
-        case io_ManuelleZuweisung:
-            if( (void *)mw != NULL )
-                *mw = self->messwert;
-            /* Aus diesem Zustand kommt man nur durch Benutzerinteraktion (telnet.c) */
-            break;
-        case io_Normal:
-            temp_val = TF(*(self->kbus_adresse_p));
-            if( temp_val < IO_MIN_TEMP ) {
-                self->status = io_Kurzschluss; 
-                /* alten Messwert behalten */
-            }
-            else if( temp_val < self->messbereich_anfang ) {
-                self->status = io_Unplausibel;
-                self->messwert = self->messbereich_anfang; /* Messwert begrenzen */
-            }
-            else if( temp_val > IO_MAX_TEMP ) {
-                self->status = io_Kabelbruch;
-                /* alten Messwert behalten */
-            }
-            else if( temp_val > self->messbereich_ende ) {
-                self->status = io_Unplausibel;
-                self->messwert = self->messbereich_ende;   /* Messwert begrenzen */
-            }
-            else {
-                /* Nur solange der Messwert in den Grenzen liegt bleibt der Zustand normal */
-                self->status = io_Normal;  
-                self->messwert = temp_val;
-            }
-            break;
-        default:        
-            temp_val = TF(*(self->kbus_adresse_p));
-            if(    (temp_val >= self->messbereich_anfang)  
-                && (temp_val <  self->messbereich_ende  ) ) {
-                self->status = io_Normal;  /* Messwert liegt wieder in den normalen Grenzen */
-                self->messwert = temp_val;
-            }
-            break;
+    /* Objekttemperatur messen */
+    temp_val = TF(*(self->kbus_adresse_p));
+
+    if( temp_val < IO_MIN_TEMP ) {
+        self->status = io_Kurzschluss;
+        /* alten Messwert behalten */
+    }
+    else if( temp_val < self->messbereich_anfang ) {
+        self->status = io_Unplausibel;
+        self->messwert = self->messbereich_anfang; /* Messwert begrenzen */
+    }
+    else if( temp_val > IO_MAX_TEMP ) {
+        self->status = io_Kabelbruch;
+        /* alten Messwert behalten */
+    }
+    else if( temp_val > self->messbereich_ende ) {
+        self->status = io_Unplausibel;
+        self->messwert = self->messbereich_ende;   /* Messwert begrenzen */
+    }
+    else {
+        /* Nur solange der Messwert in den Grenzen liegt bleibt der Zustand normal */
+        self->status = io_Normal;
+        self->messwert = temp_val;
     }
     
-    if( (void *)mw != NULL )
-        *mw = self->messwert;  /* Strukturwert in die Arbeitsvariable kopieren */
+    if( (void *)mw != NULL ) *mw = self->messwert;  /* Strukturwert in die Arbeitsvariable kopieren */
+
     return (self->status);
 }
 
@@ -123,14 +108,14 @@ void io_InitY( io_ao10V_obj_t   *self,
 static
 void io_InitYall( void )
 {
-    io_InitY( &io_KES_Tvl_Y,    MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.kes_tvl_y)    );
-    io_InitY( &io_HK_MV_Y,      MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.hk_mv_y)      );
-    io_InitY( &io_FB_PRIM_MV_Y, MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.fb_prim_mv_y) );
-    io_InitY( &io_WW_HZG_MV_Y,  MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.ww_hzg_mv_y)  );
-    io_InitY( &io_WW_HZG_PU_Y,  MIN_Y_PCT, MAX_Y_PCT, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.ww_hzg_pu_y)  );
+    io_InitY( &io_KES_Tvl_Y,    MIN_Y_PCT-IO_EPS, MAX_Y_PCT+IO_EPS, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.kes_tvl_y)    );
+    io_InitY( &io_HK_MV_Y,      MIN_Y_PCT-IO_EPS, MAX_Y_PCT+IO_EPS, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.hk_mv_y)      );
+    io_InitY( &io_FB_PRIM_MV_Y, MIN_Y_PCT-IO_EPS, MAX_Y_PCT+IO_EPS, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.fb_prim_mv_y) );
+    io_InitY( &io_WW_HZG_MV_Y,  MIN_Y_PCT-IO_EPS, MAX_Y_PCT+IO_EPS, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.ww_hzg_mv_y)  );
+    io_InitY( &io_WW_HZG_PU_Y,  MIN_Y_PCT-IO_EPS, MAX_Y_PCT+IO_EPS, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.ww_hzg_pu_y)  );
 }
 
-/** \brief Analogen Stellwert ausgeben mit Ueberpr�fung auf Plausibilitaet.
+/** \brief Analogen Stellwert ausgeben mit Ueberpruefung auf Plausibilitaet.
   * \param self Pointer auf Ausgabeobjekt 
   * \param val Auszugebender Wert 
   * Der Stellwert wird auf der PLC ausgegeben und im Feld stellwert abgelegt.
@@ -161,5 +146,10 @@ void io_Init( void )
 {
     io_InitYall();
     io_InitTall();
+#ifndef __WAGO__ // Temperaturwertsimulation
+    pab_Dbg_In.ain.all_tau_mw     = 125;
+    pab_Dbg_In.ain.sol_koll_t_mw  = 1015;
+    pab_Dbg_In.ain.sol_sp1_tu_mw  = 450;
+    pab_Dbg_In.ain.sol_sp1_to_mw  = 550;    pab_Dbg_In.ain.sol_sp2_tu_mw  = 350;    pab_Dbg_In.ain.sol_sp2_to_mw  = 650;    pab_Dbg_In.ain.kes_tvl_mw     = 670;    pab_Dbg_In.ain.kes_trl_mw     = 450;    pab_Dbg_In.ain.hk_tvl_mw      = 490;    pab_Dbg_In.ain.hk_trl_mw      = 420;    pab_Dbg_In.ain.fb_prim_trl_mw = 320;    pab_Dbg_In.ain.fb_sek_tvl_mw  = 270;    pab_Dbg_In.ain.ww_hzg_tvl_mw  = 515;    pab_Dbg_In.ain.ww_hzg_trl_mw  = 470;    pab_Dbg_In.ain.ww_tww_mw      = 450;
+#endif
 }
-

@@ -4,6 +4,8 @@
 #define IO_MAX_TEMP    850.0
 #define IO_MIN_TEMP   -100.0
 
+#define IO_EPS           0.1
+
 /* <Typen> */
 typedef enum io_obj_status_e { io_Normal,             /**< Sensor-/Aktorwert ist innerhalb der Messbereichsgrenzen und gueltig */
                                io_Kabelbruch,         /**< Es liegt eine Kabelbruch vor */
