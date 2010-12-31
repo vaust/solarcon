@@ -117,7 +117,8 @@ int main( void )
     
     signal( SIGINT, terminate );
     
-    signal( SIGALRM, cntrl_SetTaskFlag );
+    // signal( SIGALRM, cntrl_SetTaskFlag );
+    signal( SIGALRM, cntrl_run );
     systimer_init( param_sys_zykluszeit );
 
     server_sock_fd = create_server_sock( TCP_PORT );
@@ -137,7 +138,9 @@ int main( void )
         exit( -1 );
     }
 
-    /* Control Task Thread erzeugen */
+
+    /*
+     * Control Task Thread erzeugen
     if( (pthread_create( &thread, &threadattr, cntrl_Task, (void *)thread_args ) ) != 0 ) {
         perror( "SERVER.C: Threaderzeugung cntrl_Task schlug fehl" );
         exit( -1 );
@@ -145,6 +148,7 @@ int main( void )
     else {
         printf( "SERVER.C: Controller Task cntrl_Task() gestartet\n");
     }
+    */
 
     while( 1 ) {
         /* Auf Verbindung mit Client warten */
