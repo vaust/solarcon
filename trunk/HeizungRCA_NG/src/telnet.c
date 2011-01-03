@@ -460,7 +460,7 @@ void telnet_writeVorgabenparameter( int fdesc, char *bufout )
     }
 }
 
-static inline
+static /* inline */
 void telnet_minToTime( s16_t t, s16_t *d, s16_t *h, s16_t *m )
 {
     s16_t tmp;
@@ -473,12 +473,24 @@ void telnet_minToTime( s16_t t, s16_t *d, s16_t *h, s16_t *m )
     *d = tmp % 7;
 }
 
+static /* inline */
+void telnet_jahrestagToDay( s16_t t, s16_t *m, s16_t *d )
+{
+    s16_t tmp;
+
+    tmp = t;
+    *d  = tmp % 32;
+    tmp /= 32;
+    *m  = tmp % 12;
+}
+
 static
 void telnet_writeSchaltzeiten( int fdesc, char *bufout )
 {
     s16_t n;
     s16_t d_ein, h_ein, m_ein;
     s16_t d_aus, h_aus, m_aus;
+    s16_t fm, fd;
 
     for( n=0; n<hk_states; n++ ) {
         telnet_minToTime( HK_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
@@ -508,8 +520,15 @@ void telnet_writeSchaltzeiten( int fdesc, char *bufout )
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
+
     snprintf( bufout, BFLN,"HOUR_OFFSET = %d\n\n", zeit_hour_offset );
     BFLSH();
+
+    for( n=0; n<feiertage_anzahl; n++ ) {
+        telnet_jahrestagToDay( Feiertag[n], &fm, &fd );
+        snprintf( bufout, BFLN, "Feiertag[%d] = %02d.%02d.\n", n, fm, fd );
+        BFLSH();
+    }
 }
 
 static
