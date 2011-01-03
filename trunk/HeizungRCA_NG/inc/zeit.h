@@ -79,7 +79,7 @@ u8_t    dusch_states;
 
 int zeit_hour_offset;
 #define FEIERTAGE_MAX 16
-zeit_schaltpunkt_t Feiertag[];
+zeit_schaltpunkt_t Feiertag[FEIERTAGE_MAX];
 u8_t               feiertage_anzahl;
 
 #else
