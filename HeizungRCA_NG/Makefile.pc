@@ -1,7 +1,7 @@
-#TOOL := D:/Tools/MinGW/bin
+TOOL := D:/Tools/MinGW/bin
 INC := ./inc
 SRC := ./src
-#CC := $(TOOL)/gcc.exe
+CC := $(TOOL)/gcc.exe
 CFLAGS := -I$(INC) -Wall -D__REENTRANT__
 #CFLAGS := -I$(INC) -D__TEST__ -Wall
 VPATH := $(SRC):$(INC)
