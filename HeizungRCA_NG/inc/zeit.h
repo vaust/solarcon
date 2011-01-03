@@ -37,6 +37,7 @@ typedef struct {
 /* <Makros> */
 #define WOCHENZEIT(D, H, M)     ((M)+60*((H)+24*(D))) /* Wochentag, Stunde und Minute in Minuten umrechnen */
 #define TAGESZEIT(H, M)         ((M)+60*(H))          /* Tageszeit in Minuten                              */
+#define JAHRESTAG(M, T)         ((T)+32*(M))          /* Feiertagsdatum in eindeutige Zahl von Tagen umr.  */
 
 #ifdef __WAGO__
     #define ZEITPROGRAMMDATEI       "/home/wochenzeitprogramm.ini"
@@ -77,7 +78,12 @@ u8_t    haus_states;
 u8_t    dusch_states;
 
 int zeit_hour_offset;
+#define FEIERTAGE_MAX 16
+zeit_schaltpunkt_t Feiertag[];
+u8_t               feiertage_anzahl;
+
 #else
+
 #ifdef _TELNET_C_
 extern zeit_schaltpunkt_t HK_Ein_Schaltzeiten[];
 extern zeit_schaltpunkt_t HK_Aus_Schaltzeiten[];
@@ -94,7 +100,10 @@ extern u8_t    sp1_states;
 extern u8_t    sp2_states;
 extern u8_t    haus_states;
 extern u8_t    dusch_states;
+
 extern int     zeit_hour_offset;
+extern zeit_schaltpunkt_t Feiertag[];
+extern u8_t               feiertage_anzahl;
 #endif
 
 #endif /* _ZEIT_C_ */
