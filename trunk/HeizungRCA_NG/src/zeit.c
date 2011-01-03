@@ -13,7 +13,8 @@
 
 static
 int zeit_einlesen( const int states_max, zeit_schaltpunkt_t schaltzeiten[] )
-{   int     states = 0;
+{
+    int     states = 0;
     int     wday, hour, min;
     char    *value;
 
@@ -30,6 +31,9 @@ int zeit_einlesen( const int states_max, zeit_schaltpunkt_t schaltzeiten[] )
                     schaltzeiten[states] = WOCHENZEIT( wday, hour, min );
                     states ++;
                 }
+                else {
+                    break;
+                }
             }
             else {
                 break;
@@ -41,6 +45,35 @@ int zeit_einlesen( const int states_max, zeit_schaltpunkt_t schaltzeiten[] )
     }
     return( states );
 }
+
+static
+int zeit_feiertage( const int max_feiertage, zeit_schaltpunkt_t feiertag[] )
+{
+    int     n = 0;
+    int     monat, tag;
+    char    *value;
+
+    while( n < max_feiertage ) {
+        value = strtok( NULL, "." );    /* Monatsteilstring */
+        if( value != NULL ) {
+            sscanf( value, "%d", &monat );
+            value = strtok( NULL, ",;" );   /* Tagesteilstring */
+            if( value != NULL ) {
+                sscanf( value, "%d", &tag );
+                feiertag[n] = JAHRESTAG( monat, tag );
+                n ++;
+            }
+            else {
+                break;
+            }
+        }
+        else {
+            break;
+        }
+    }
+    return( n );
+}
+
 
 void zeit_Init( zeit_Betriebszustand_t * const absenkung,
                 zeit_event_t           * const schedule   )
@@ -89,6 +122,9 @@ void zeit_Init( zeit_Betriebszustand_t * const absenkung,
                     value = strtok( NULL, ";" );
                     sscanf( value, "%d", &zeit_hour_offset );
                 }
+                else if( strncmp( parameter, "FEIERTAG", 8 ) == 0 ) {
+                    feiertage_anzahl = zeit_feiertage( FEIERTAGE_MAX, Feiertag );
+                }
             }
         }
     }
@@ -111,7 +147,8 @@ void zeit_Run( zeit_Betriebszustand_t * const absenkung,
 {
     time_t      aktZeit;
     struct tm   *aktZeitElemente_p;
-    int         aktSec, aktMin, aktHour, aktWday, aktUhrzeit;
+    int         aktSec, aktMin, aktHour, aktWday, aktMon, aktMday;
+    int         aktUhrzeit, aktJahrestag;
     int         i;
     static int  oldSec=0, oldMin=0, oldHour=0;
 
@@ -121,8 +158,8 @@ void zeit_Run( zeit_Betriebszustand_t * const absenkung,
     aktHour           = aktZeitElemente_p->tm_hour + zeit_hour_offset;  // Workaround fuer Problem mit localtime()
     aktMin            = aktZeitElemente_p->tm_min;
     aktSec            = aktZeitElemente_p->tm_sec;
-
-    aktUhrzeit = WOCHENZEIT(aktWday, aktHour, aktMin);
+    aktMon            = aktZeitElemente_p->tm_mon; /* [0,11] */
+    aktMday           = aktZeitElemente_p->tm_mday; /* [1,31] */
 
     /* Flags fuer nur alle Sekunden, Minuten bzw. einmal pro Stunde auszufuehrende Tasks nach Ablauf setzen */
     if( oldSec != aktSec )
@@ -136,6 +173,15 @@ void zeit_Run( zeit_Betriebszustand_t * const absenkung,
     if( oldHour != aktHour )
         schedule->hour_flg = SET;
     oldHour = aktHour;
+
+    aktJahrestag = JAHRESTAG(aktMon, aktMday);
+    for( i=0; i<feiertage_anzahl; i++ ) {
+        if( aktJahrestag == Feiertag[i] ) {
+            aktWday = 0; /* Feiertage sind wie Sonntage zu behandeln! */
+            break;
+        }
+    }
+    aktUhrzeit   = WOCHENZEIT(aktWday, aktHour, aktMin);
 
     /* Betriebszustand Heizkoerperheizkreis */
     for( i=0; i<hk_states; i++ ) 
