@@ -23,7 +23,7 @@
 #define HK_Tvl_Max              75.0    /**< Heizkoerperheizkreis maximale Vorlauftemperatur in Grad C                  */
 #define HK_Frostschutz           3.0    /**< Aussentemperatur ab der Heizkreis in Betrieb ist in Grad C                 */
 #define HK_REG_Kp               10.0    /**< Heizkoerperheizkreis Verstaerkung PI-Regler in %/K                         */
-#define HK_REG_Ki                0.067  /**< Heizkoerperheizkreis Verstaerkung I-Anteil PI-Regler in K/(s*%)            */
+#define HK_REG_Ki                0.067  /**< Heizkoerperheizkreis Verstaerkung I-Anteil PI-Regler in %/(K x s)          */
 #define HK_REG_AP               50.0    /**< Heizkoerperheizkreis Arbeitspunktoffset in %                               */
 #define HK_Tr_SW                20.5    /**< Heizkoerperheizkreis Raumtemperatur Sollwert                               */
 #define FB_Tvl_Steigung          0.7    /**< Fussbodenheizkreis Heizkurvensteigung                                      */
@@ -33,17 +33,17 @@
 #define FB_Tvl_Min              10.0    /**< Fussbodenheizkreis Frostschutztemperatur in Grad C                         */
 #define FB_Tvl_Max              35.0    /**< Fussbodenheizkreis max. Vorlauftemperatur in Grad C                        */
 #define FB_REG_Kp                5.0    /**< Fussbodenheizkreis Verstaerkung PI-Regler in %/K                           */
-#define FB_REG_Ki                0.2    /**< Fussbodenheizkreis Verstaerkung I-Anteil PI-Regler in K/(s*%)%/K           */
+#define FB_REG_Ki                0.2    /**< Fussbodenheizkreis Verstaerkung I-Anteil PI-Regler in %/(K x s)            */
 #define FB_REG_AP               50.0    /**< Fussbodenheizkreis Arbeitspunktoffset in %                                 */
 #define WW_Tww_SW               40.0    /**< Warmwasser-Temperatur-Sollwert in Grad C                                   */
 #define WW_Tww_Max              60.0    /**< Warmwasser-Maximaltemperatur	in Grad C                                   */
 #define WZ_Faktor                1.0    /**< Waermezaehler auf Pumpenstellbefehl                                        */
 #define Wz_Max                  25.0    /**< Max. Warmwasserdurchfluss in l/min                                         */
 #define WW_PU_REG_Kp            20.0    /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung Kp                             */
-#define WW_PU_REG_Ki             0.05   /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung I-Anteil PI-Regler in K/(s*%)  */
+#define WW_PU_REG_Ki             0.05   /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung I-Anteil PI-Regler in %/(K x s)*/
 #define WW_PU_REG_AP            50.0    /**< WW-Temperatur-Regelung (Pumpe) Arbeitspunktoffset in %                     */
 #define WW_MV_REG_Kp            10.0    /**< WW Hzg-VL-Temperatur-Regelung (Mischer) Verstaerkung Kp                    */
-#define WW_MV_REG_Ki             0.1    /**< WW Hzg-VL-Temperatur-Regelung (Mischer) Verstaerkung Ki in K/(s*%)         */
+#define WW_MV_REG_Ki             0.1    /**< WW Hzg-VL-Temperatur-Regelung (Mischer) Verstaerkung Ki in %/(K x s)       */
 #define WW_MV_REG_AP            50.0    /**< WW Hzg-VL-Temperatur-Regelung (Mischer) Arbeitspunktoffset in %            */
 #define WW_Tww_Tvl_Faktor        1.0    /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                       */
 #define WW_Tz_SW                40.0    /**< Temperatursollwert des Zirkulationswassers in Grad C                       */
@@ -104,7 +104,7 @@ PUBLIC float param_hk_tvl_min;          /**< Heizkoerperheizkreis Frostschutztem
 PUBLIC float param_hk_tvl_max;          /**< Heizkoerperheizkreis maximale Vorlauftemperatur in Grad C                 */
 PUBLIC float param_hk_frostschutz;      /**< Aussentemperatur ab der Heizkreis in Betrieb ist in Grad C                */
 PUBLIC float param_hk_reg_kp;           /**< Heizkoerperheizkreis Verstaerkung PI-Regler in %/K                        */
-PUBLIC float param_hk_reg_ki;           /**< Heizkoerperheizkreis Verstaerkung PI-Regler I-Anteil PI-Regler in K/(s*%) */
+PUBLIC float param_hk_reg_ki;           /**< Heizkoerperheizkreis Verstaerkung PI-Regler I-Anteil in %/(K x s)         */
 PUBLIC float param_hk_reg_ap;           /**< Heizkoerperheizkreis Arbeitspunktoffset in %                              */
 PUBLIC float param_hk_tr_sw;            /**< Heizkoerperheizkreis Raumtemperatur Sollwert                              */
                                                                                                                        
@@ -115,7 +115,7 @@ PUBLIC float param_fb_tvl_absenk;       /**< Fussbodenheizkreis Nachtabsenkung i
 PUBLIC float param_fb_tvl_min;          /**< Fussbodenheizkreis Frostschutztemperatur in Grad C                        */
 PUBLIC float param_fb_tvl_max;          /**< Fussbodenheizkreis max. Vorlauftemperatur in Grad C                       */
 PUBLIC float param_fb_reg_kp;           /**< Fussbodenheizkreis Verstaerkung PI-Regler in %/K                          */
-PUBLIC float param_fb_reg_ki;           /**< Fussbodenheizkreis Verstaerkung PI-Regler I-Anteil PI-Regler in K/(s*%)   */
+PUBLIC float param_fb_reg_ki;           /**< Fussbodenheizkreis Verstaerkung PI-Regler I-Anteil in %/(K x s)           */
 PUBLIC float param_fb_reg_ap;           /**< Fussbodenheizkreis Arbeitspunktoffset in %                                */
                                                                                                                        
 PUBLIC float param_ww_tww_sw;           /**< Warmwasser-Temperatur-Sollwert in Grad C                                  */
@@ -123,7 +123,7 @@ PUBLIC float param_ww_tww_max;          /**< Warmwasser-Maximaltemperatur in Gra
 PUBLIC float param_wz_faktor;           /**< Waermezaehler auf Pumpenstellbefehl                                       */
 PUBLIC float param_wz_max;              /**< Max. Warmwasserdurchfluss in l/min                                        */
 PUBLIC float param_ww_pu_reg_kp;        /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung Kp                            */
-PUBLIC float param_ww_pu_reg_ki;        /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung Ki in K/(s*%)                 */
+PUBLIC float param_ww_pu_reg_ki;        /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung Ki in %/(K x s)               */
 PUBLIC float param_ww_pu_reg_ap;        /**< WW-Temperatur-Regelung (Pumpe) Arbeitspunktoffset in %                    */
 PUBLIC float param_ww_mv_korr;          /**< WW Hzg-VL-Temperatur-Steurung (Mischer) Korrekturfaktor                   */
                                                                                                                        
