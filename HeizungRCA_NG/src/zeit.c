@@ -47,7 +47,7 @@ int zeit_einlesen( const int states_max, zeit_schaltpunkt_t schaltzeiten[] )
 }
 
 static
-int zeit_feiertage( const int max_feiertage, zeit_schaltpunkt_t feiertag[] )
+int zeit_feiertage_einlesen( const int max_feiertage, zeit_schaltpunkt_t feiertag[] )
 {
     int     n = 0;
     int     monat, tag;
@@ -123,7 +123,7 @@ void zeit_Init( zeit_Betriebszustand_t * const absenkung,
                     sscanf( value, "%d", &zeit_hour_offset );
                 }
                 else if( strncmp( parameter, "FEIERTAG", 8 ) == 0 ) {
-                    feiertage_anzahl = zeit_feiertage( FEIERTAGE_MAX, Feiertag );
+                    feiertage_anzahl = zeit_feiertage_einlesen( FEIERTAGE_MAX, Feiertag );
                 }
             }
         }
