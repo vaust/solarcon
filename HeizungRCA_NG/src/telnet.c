@@ -526,7 +526,7 @@ void telnet_writeSchaltzeiten( int fdesc, char *bufout )
 
     for( n=0; n<feiertage_anzahl; n++ ) {
         telnet_jahrestagToDay( Feiertag[n], &fm, &fd );
-        snprintf( bufout, BFLN, "Feiertag[%d] = %02d.%02d.\n", n, fm, fd );
+        snprintf( bufout, BFLN, "Feiertag[%d] = %02d.%02d.\n", n, fd, fm );
         BFLSH();
     }
 }
