@@ -481,7 +481,7 @@ void telnet_jahrestagToDay( s16_t t, s16_t *m, s16_t *d )
     tmp = t;
     *d  = tmp % 32;
     tmp /= 32;
-    *m  = tmp % 12;
+    *m  = tmp;
 }
 
 static
