@@ -54,14 +54,14 @@ int zeit_feiertage_einlesen( const int max_feiertage, zeit_schaltpunkt_t feierta
     char    *value;
 
     while( n < max_feiertage ) {
-        value = strtok( NULL, "." );    /* Monatsteilstring */
+        value = strtok( NULL, "." );    /* Tagesteilstring */
         if( value != NULL ) {
-            sscanf( value, "%d", &monat );
-            value = strtok( NULL, ",;" );   /* Tagesteilstring */
+            sscanf( value, "%d", &tag );
+            value = strtok( NULL, ",;" );   /* Monatsteilstring */
             if( value != NULL ) {
-                sscanf( value, "%d", &tag );
+                sscanf( value, "%d", &monat );
                 feiertag[n] = JAHRESTAG( monat, tag );
-                printf( "ZEIT.C: Debug: Feiertag Monat = %d Tag = %d\n", monat, tag );
+                // printf( "ZEIT.C: Debug: Feiertag %d  Monat = %d Tag = %d\n", feiertag[n], monat, tag );
                 n ++;
             }
             else {
