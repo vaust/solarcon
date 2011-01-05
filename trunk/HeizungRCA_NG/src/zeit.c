@@ -61,6 +61,7 @@ int zeit_feiertage_einlesen( const int max_feiertage, zeit_schaltpunkt_t feierta
             if( value != NULL ) {
                 sscanf( value, "%d", &tag );
                 feiertag[n] = JAHRESTAG( monat, tag );
+                printf( "ZEIT.C: Debug: Feiertag Monat = %d Tag = %d\n", monat, tag );
                 n ++;
             }
             else {
