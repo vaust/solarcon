@@ -1,0 +1,55 @@
+TOOL := D:/Tools/MinGW/bin
+INC := ./inc
+SRC := ./src
+CC := $(TOOL)/gcc.exe
+CFLAGS := -I$(INC) -Wall -D__REENTRANT__
+#CFLAGS := -I$(INC) -D__TEST__ -Wall
+VPATH := $(SRC):$(INC)
+
+OBJECTS := cntrl_v2.o task.o zeit.o param.o sol.o fb.o hk.o ww.o sup.o kes.o io.o io_v2.o err.o telnet.o server.o
+
+test : $(OBJECTS)
+	$(CC) -ggdb -o $@ -lpthread $(OBJECTS)
+#	$(CC) -ggdb -o $@ $(OBJECTS)
+#	$(CC) -fprofile-arcs -ftest-coverage -o $@ $(OBJECTS)
+all : clean test
+
+cntrl.o: cntrl.c \
+ io.h gen_types.h \
+  gen_types.h param.h zeit.h task.h param.h zeit.h sol.h \
+  fb.h sup.h hk.h ww.h kes.h err.h cntrl.h task.h sol.h \
+  fb.h hk.h ww.h kes.h err.h
+cntrl_v2.o: cntrl_v2.c \
+  io.h gen_types.h \
+  gen_types.h param.h zeit.h task.h param.h zeit.h sol.h \
+  fb.h sup.h hk.h ww.h kes.h io_v2.h err.h cntrl.h \
+  task.h sol.h fb.h hk.h ww.h kes.h err.h
+err.o: err.c gen_types.h param.h err.h gen_types.h
+fb.o: fb.c gen_types.h fb.h gen_types.h sup.h sup.h \
+  param.h
+hk.o: hk.c gen_types.h param.h hk.h sup.h gen_types.h \
+  sup.h
+io.o: io.c gen_types.h io_wago_hwif.h io_pab_types.h \
+  gen_types.h io_pab_types.h io.h
+io_v2.o: io_v2.c gen_types.h io_pab_types.h gen_types.h \
+  io_wago_hwif.h io_pab_types.h io_v2.h
+kes.o: kes.c gen_types.h param.h kes.h gen_types.h
+param.o: param.c \
+  param.h
+sol.o: sol.c sol.h gen_types.h param.h
+sup.o: sup.c gen_types.h param.h sup.h gen_types.h
+task.o: task.c gen_types.h param.h zeit.h gen_types.h \
+  task.h param.h zeit.h
+telnet.o: telnet.c \
+  io.h gen_types.h \
+  gen_types.h param.h cntrl.h sup.h zeit.h task.h param.h \
+  sol.h fb.h hk.h ww.h kes.h err.h zeit.h task.h \
+  version.h server.h telnet_vars.h
+ww.o: ww.c param.h ww.h sup.h gen_types.h
+zeit.o: zeit.c \
+  gen_types.h param.h zeit.h gen_types.h
+
+clean :
+	python3 ./writeversion.py; rm *.o; rm test
+
+
