@@ -61,13 +61,13 @@ def parseValues( lines ):
             print( '{2};{0};{1};'.format(name, value, zeitstempel) )
             fd = open( Filename_Prefix+'_IO.csv', 'a' )
             fd.write( '{2};{0};{1};\n'.format(name, value, zeitstempel) )
-    
+            fd.close()
+            
 while (time.time() < stopTime):
     lines = getValues( b_befehl_1 )
     parseValues( lines )
     lines = getValues( b_befehl_2 )
     parseValues( lines )
-    fd.close()
 
 # Logzeit abgelaufen:    
 tn.close()
