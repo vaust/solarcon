@@ -20,7 +20,7 @@ if (len(sys.argv) > 1):
         PORT = 1969
         logTime = 10 # min
 else:
-    HOST = "192.168.2.102"
+    HOST = "localhost"
     PORT = 1969
     logTime = 10 # min
 
@@ -28,8 +28,10 @@ stopTime  = time.time()+logTime*60.0 # logTime in Sekunden umrechnen
 tn = telnetlib.Telnet()
 tn.open(HOST, PORT)
 
-befehl = 'GET '+input('Bitte gib die GET Parameter Modul und Variablennummer ein: ')
-b_befehl = befehl.encode('utf8')
+befehl = 'GET '+input('Modul und Nummer fuer 1. Variable : ')
+b_befehl_1 = befehl.encode('utf8')
+befehl = 'GET '+input('Modul und Nummer fuer 2. Variable : ')
+b_befehl_2 = befehl.encode('utf8')
 
 fd = open( Filename_Prefix+'_IO.csv', 'w' )
 fd.write( 'einzelne Variable\n' )
@@ -43,8 +45,7 @@ def getValues( cmdstr ):
     lines = bufdecode.splitlines()
     return lines
 
-while (time.time() < stopTime):
-    lines = getValues( b_befehl )
+def parseValues( lines ):
     for line in lines:
         if (line.find('>')>0): # Hilfetexte herausfiltern
             continue
@@ -60,7 +61,13 @@ while (time.time() < stopTime):
             print( '{2};{0};{1};'.format(name, value, zeitstempel) )
             fd = open( Filename_Prefix+'_IO.csv', 'a' )
             fd.write( '{2};{0};{1};\n'.format(name, value, zeitstempel) )
-            fd.close()
+    
+while (time.time() < stopTime):
+    lines = getValues( b_befehl_1 )
+    parseValues( lines )
+    lines = getValues( b_befehl_2 )
+    parseValues( lines )
+    fd.close()
 
 # Logzeit abgelaufen:    
 tn.close()

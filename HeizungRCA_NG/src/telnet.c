@@ -429,7 +429,7 @@ void telnet_parseGet( int fdesc, char *bufout )
             snprintf( bufout, BFLN, "\taktuelle Uhrzeit: %02d:%02d:%02d\n\tWochentag: %1d %s\n",
                       hour, min, sec, wday, telnet_wochentage[wday] ); BFLSH();
             snprintf( bufout, BFLN, "\thour_offset = %d\n", zeit_hour_offset ); BFLSH();
-	}
+        }
         else {
             snprintf( bufout, BFLN, "FEHLER falscher Parameter beim GET Befehl\n" ); BFLSH();
         }
