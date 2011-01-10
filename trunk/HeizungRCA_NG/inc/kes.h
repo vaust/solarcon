@@ -16,6 +16,7 @@ typedef struct {
     u32_t        gz_mw;         /**< Gaszaehlerstand (noch nicht in Verwendung */
     float        hk_tvl_sw;     
     float        fb_tvl_sw;
+    float        fb_prim_mv_y;  /**< Fussbodenheizung Mischventil Ausgang */
     nutzzeit_t   duschzeit;
     di_bitbyte_t br_bm;
 } kes_in_t;
@@ -43,8 +44,9 @@ void kes_WriteInp(       kes_in_t     *in_p,
                    const u32_t         gz_mw,
                    const float         hk_tvl_sw,
                    const float         fb_tvl_sw,
+                   const float         fb_prim_mv_y,
                    const nutzzeit_t    duschzeit,
-                   const di_bitbyte_t  br_bm      );
+                   const di_bitbyte_t  br_bm         );
 /* <Prototypen/> */
 
 #endif /* _KES_H_ */
