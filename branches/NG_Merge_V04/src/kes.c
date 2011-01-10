@@ -42,7 +42,7 @@ void kes_Run( const kes_param_t *par_p,
     if( in_p->sp1_to_mw < out_p->sp1_to_sw ) {
         out_p->tvl_sw_sp1 = out_p->sp1_to_sw + par_p->sp_dt_sw;
         /* Einschalten der Pumpe erst wenn Brenner ein oder die Vorlauftemperatur > Speichertemperatur */
-        if( (in_p->br_bm == IO_EIN) || (in_p->tvl_mw > in_p->sp1_to_mw) ) 
+        /* if( (in_p->br_bm == IO_EIN) || (in_p->tvl_mw > in_p->sp1_to_mw) ) */
             out_p->pu_sp1_sb = IO_EIN;
         /* Wenn Sp.-pumpe 1 ein, Sp.-pumpe 2 immer aus! */
         out_p->pu_sp2_sb = IO_AUS;
@@ -58,7 +58,7 @@ void kes_Run( const kes_param_t *par_p,
         if( in_p->sp2_to_mw < out_p->sp2_to_sw ) {
             out_p->tvl_sw_sp2 = out_p->sp2_to_sw + par_p->sp_dt_sw;
             /* Einschalten der Pumpe erst wenn Brenner ein oder die Vorlauftemperatur > Speichertemperatur */
-            if( (in_p->br_bm == IO_EIN) || (in_p->tvl_mw > in_p->sp2_to_mw) ) 
+            /* if( (in_p->br_bm == IO_EIN) || (in_p->tvl_mw > in_p->sp2_to_mw) ) */
                 out_p->pu_sp2_sb = IO_EIN;
         }
         else if( in_p->sp2_to_mw >= (out_p->sp2_to_sw + par_p->sp_dt_sw/2.0) ) {
@@ -72,7 +72,8 @@ void kes_Run( const kes_param_t *par_p,
     }
 
     /* Notfall in dem Sp.-pumpe 2 immer laufen soll: */
-    if( in_p->sp2_to_mw < (in_p->fb_tvl_sw - par_p->sp_dt_sw) ) {
+    /* if( in_p->sp2_to_mw < (in_p->fb_tvl_sw - par_p->sp_dt_sw) ) */
+    if( in_p->prim_mv_y > 95.0 ) {
         if( in_p->br_bm == IO_EIN ) out_p->pu_sp2_sb = IO_EIN;
     }
     
@@ -98,17 +99,19 @@ void kes_WriteInp(       kes_in_t     *in_p,
                    const u32_t         gz_mw,
                    const float         hk_tvl_sw,
                    const float         fb_tvl_sw,
+                   const float         fb_prim_mv_y,
                    const nutzzeit_t    duschzeit,
                    const di_bitbyte_t  br_bm      )
 {
-    in_p->sp1_to_mw = sp1_to_mw;
-    in_p->sp2_to_mw = sp2_to_mw;
-    in_p->tvl_mw    = tvl_mw;
-    in_p->gz_mw     = gz_mw;
-    in_p->hk_tvl_sw = hk_tvl_sw;
-    in_p->fb_tvl_sw = fb_tvl_sw;
-    in_p->duschzeit = duschzeit;
-    in_p->br_bm     = br_bm;
+    in_p->sp1_to_mw    = sp1_to_mw;
+    in_p->sp2_to_mw    = sp2_to_mw;
+    in_p->tvl_mw       = tvl_mw;
+    in_p->gz_mw        = gz_mw;
+    in_p->hk_tvl_sw    = hk_tvl_sw;
+    in_p->fb_tvl_sw    = fb_tvl_sw;
+    in_p->fb_prim_mv_y = fb_prim_mv_y;
+    in_p->duschzeit    = duschzeit;
+    in_p->br_bm        = br_bm;
 }
 
 
