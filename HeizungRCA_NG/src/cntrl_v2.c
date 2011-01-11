@@ -198,6 +198,7 @@ void cntrl_run( int sig )
                                          0,  /* Gaszaehler noch nicht genutzt */
                                          cntrl_hk_out.tvl_sw, /* kes_Run() abhaengig von Ausgabe hk_Run() */
                                          cntrl_fb_out.tvl_sw, /* kes_Run() abhaengig von Ausgabe fb_Run() */
+                                         cntrl_fb_out.prim_mv_y.y, /* neu */
                                          cntrl_zeit_absenkung.Duschzeit,
                                          io_get_KES_BR_BM()              );
         }
