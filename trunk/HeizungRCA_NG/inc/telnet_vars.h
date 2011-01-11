@@ -145,6 +145,7 @@ static const parse_set_t telnet_kes_Vars[] =
     { "kes_in.tvl_mw",        &(cntrl_kes_in.tvl_mw),        "%f" },
     { "kes_in.hk_tvl_sw",     &(cntrl_kes_in.hk_tvl_sw),     "%f" },
     { "kes_in.fb_tvl_sw",     &(cntrl_kes_in.fb_tvl_sw),     "%f" },
+    { "kes_in.fb_prim_mv_y",  &(cntrl_kes_in.fb_prim_mv_y),  "%f" },
     { "kes_in.duschzeit",     &(cntrl_kes_in.duschzeit),     "%x" },
     { "kes_in.br_bm",         &(cntrl_kes_in.br_bm),         "%x" },
 
