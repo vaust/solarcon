@@ -73,7 +73,7 @@ void kes_Run( const kes_param_t *par_p,
 
     /* Notfall in dem Sp.-pumpe 2 immer laufen soll: */
     /* if( in_p->sp2_to_mw < (in_p->fb_tvl_sw - par_p->sp_dt_sw) ) */
-    if( in_p->prim_mv_y > 95.0 ) {
+    if( in_p->fb_prim_mv_y > 95.0 ) {
         if( in_p->br_bm == IO_EIN ) out_p->pu_sp2_sb = IO_EIN;
     }
     
