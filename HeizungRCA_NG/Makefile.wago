@@ -5,7 +5,7 @@ CFLAGS = -Wall -I$(INC) -D__REENTRANT__ -D__WAGO__
 
 VPATH := $(SRC):$(INC)
 
-OBJECTS := cntrl_v2.o task.o zeit.o param.o sol.o fb.o hk.o ww.o sup.o kes.o io.o io_v2.o telnet.o server.o \
+OBJECTS := cntrl.o task.o zeit.o param.o sol.o fb.o hk.o ww.o sup.o kes.o io.o io_v2.o telnet.o server.o \
  kbusapi.o err.o
 
 all: rca7
@@ -18,11 +18,6 @@ clean:
 
 
 cntrl.o: cntrl.c \
- io.h gen_types.h \
-  gen_types.h param.h zeit.h task.h param.h zeit.h sol.h \
-  fb.h sup.h hk.h ww.h kes.h err.h cntrl.h task.h sol.h \
-  fb.h hk.h ww.h kes.h err.h
-cntrl_v2.o: cntrl_v2.c \
   io.h gen_types.h \
   gen_types.h param.h zeit.h task.h param.h zeit.h sol.h \
   fb.h sup.h hk.h ww.h kes.h io_v2.h err.h cntrl.h \

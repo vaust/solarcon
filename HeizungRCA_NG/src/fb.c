@@ -58,7 +58,7 @@ void fb_Run( const fb_param_t *par_p,
     sup_DigRegler( q_p, out_p->tvl_sw, in_p->sek_tvl_mw, &(out_p->prim_mv_y) );
 
     if(   (in_p->tau_avg <  par_p->at_start) && /* Die mittlere Aussentemperatur liegt unter der Betriebsschwelle */
-          (out_p->tvl_sw >  20.0           )    /* Der berechnete Vorlauftemperatursollwert liegt unter 20 Grad C */
+          (out_p->tvl_sw >  par_p->tr_sw   )    /* Der berechnete Vorlauftemperatursollwert > Raumtemp.-sollwert  */
         ) {
         out_p->prim_pu_sb = IO_EIN;
         out_p->sek_pu_sb  = IO_EIN;
