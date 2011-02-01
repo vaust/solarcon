@@ -80,7 +80,7 @@ PUBLIC err_in_t            cntrl_err_in;
 PUBLIC err_out_t           cntrl_err_out;
 
 /* --DEBUG Variablen -- */
-PUBLIC u16_t    cntrl_cnt;
+PUBLIC u32_t    cntrl_cnt;
 PUBLIC s16_t    cntrl_TaskFlag_cnt;
 
 /* globales Schedulerwarteflag */
