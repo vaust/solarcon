@@ -18,6 +18,8 @@
 #include "err.h"
 #include "cntrl.h"
 
+#include "DEBUG.h"
+
 #ifdef __WAGO__
 #include <asm/types.h>
 #include "kbusapi.h"
@@ -51,7 +53,8 @@ void cntrl_open( void )
     cntrl_TaskFlag_cnt   = 0;
     cntrl_Heartbeat      = 0x00;
     cntrl_Stoerungslampe = 0x00;
-
+    Debug                = 0;
+    
     KBUSOPEN();
     KBUSUPDATE();
     
