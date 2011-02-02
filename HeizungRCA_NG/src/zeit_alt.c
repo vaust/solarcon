@@ -11,7 +11,6 @@
 #include "param.h"
 #include "zeit.h"
 
-
 static
 int zeit_einlesen( const int states_max, zeit_schaltpunkt_t schaltzeiten[] )
 {
@@ -97,28 +96,28 @@ void zeit_Init( zeit_Betriebszustand_t * const absenkung,
             if( linestr[0] != '%' ) {
                 parameter = strtok( linestr, "=" );
                 if( strncmp( parameter, "HK_EIN", 6 ) == 0 ) {
-                    hk_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, HK_Schaltzeiten.Ein );
+                    hk_states = zeit_einlesen(HK_STATES_MAX, HK_Ein_Schaltzeiten);
                 }
                 else if( strncmp( parameter, "HK_AUS", 6 ) == 0 ) {
-                    hk_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, HK_Schaltzeiten.Aus );
+                    hk_states = zeit_einlesen(HK_STATES_MAX, HK_Aus_Schaltzeiten);
                 }
                 else if( strncmp( parameter, "FB_EIN", 6 ) == 0 ) {
-                    fb_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, FB_Schaltzeiten.Ein );
+                    fb_states = zeit_einlesen(FB_STATES_MAX, FB_Ein_Schaltzeiten);
                 }
                 else if( strncmp( parameter, "FB_AUS", 6 ) == 0 ) {
-                    fb_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, FB_Schaltzeiten.Aus );
+                    fb_states = zeit_einlesen(FB_STATES_MAX, FB_Aus_Schaltzeiten);
                 }
                 else if( strncmp( parameter, "ZIRK_EIN", 8 ) == 0 ) {
-                    zirk_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, ZIRK_Schaltzeiten.Ein );
+                    zirk_states = zeit_einlesen(ZIRK_STATES_MAX, ZIRK_Ein_Schaltzeiten);
                 }
                 else if( strncmp( parameter, "ZIRK_AUS", 8 ) == 0 ) {
-                    zirk_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, ZIRK_Schaltzeiten.Aus );
+                    zirk_states = zeit_einlesen(ZIRK_STATES_MAX, ZIRK_Aus_Schaltzeiten);
                 }
                 else if( strncmp( parameter, "DUSCH_EIN", 9 ) == 0 ) {
-                    dusch_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, DUSCH_Schaltzeiten.Ein );
+                    dusch_states = zeit_einlesen(DUSCH_STATES_MAX, DUSCH_Ein_Schaltzeiten);
                 }
                 else if( strncmp( parameter, "DUSCH_AUS", 9 ) == 0 ) {
-                    dusch_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, DUSCH_Schaltzeiten.Aus );
+                    dusch_states = zeit_einlesen(DUSCH_STATES_MAX, DUSCH_Aus_Schaltzeiten);
                 }
                 else if( strncmp( parameter, "HOUR_OFFSET", 11 ) == 0 ) {
                     value = strtok( NULL, ";" );
@@ -186,37 +185,37 @@ void zeit_Run( zeit_Betriebszustand_t * const absenkung,
     aktUhrzeit   = WOCHENZEIT(aktWday, aktHour, aktMin);
 
     /* Betriebszustand Heizkoerperheizkreis */
-    for( i=0; i<HK_Schaltzeiten.states; i++ )
-        if( aktUhrzeit <= HK_Schaltzeiten.Aus[i] ) break;
+    for( i=0; i<hk_states; i++ ) 
+        if( aktUhrzeit <= HK_Aus_Schaltzeiten[i] ) break;
 
-    if( aktUhrzeit > HK_Schaltzeiten.Ein[i] )
+    if( aktUhrzeit > HK_Ein_Schaltzeiten[i] )  
         absenkung->HK_Zustand = zNormal;
     else 
         absenkung->HK_Zustand = zAbgesenkt;
 
     /* Betriebszustand Fussbodenheizkreis */
-    for( i=0; i<FB_Schaltzeiten.states; i++ )
-        if( aktUhrzeit <= FB_Schaltzeiten.Aus[i] ) break;
+    for( i=0; i<fb_states; i++ ) 
+        if( aktUhrzeit <= FB_Aus_Schaltzeiten[i] ) break;
 
-    if( aktUhrzeit > FB_Schaltzeiten.Ein[i] )
+    if( aktUhrzeit > FB_Ein_Schaltzeiten[i] ) 
         absenkung->FB_Zustand = zNormal;
     else 
         absenkung->FB_Zustand = zAbgesenkt;
 
     /* Betriebszustand Zirkulationspumpe */
-    for( i=0; i<ZIRK_Schaltzeiten.states; i++ )
-        if( aktUhrzeit <= ZIRK_Schaltzeiten.Aus[i] ) break;
+    for( i=0; i<zirk_states; i++ ) 
+        if( aktUhrzeit <= ZIRK_Aus_Schaltzeiten[i] ) break;
     
-    if( aktUhrzeit > ZIRK_Schaltzeiten.Ein[i] )
+    if( aktUhrzeit > ZIRK_Ein_Schaltzeiten[i] ) 
         absenkung->Zirk_Zustand = zEin;
     else 
         absenkung->Zirk_Zustand = zAus;
 
     /* Duschzeit */
-    for( i=0; i<DUSCH_Schaltzeiten.states; i++ )
-        if( aktUhrzeit <= DUSCH_Schaltzeiten.Aus[i] ) break;
+    for( i=0; i<dusch_states; i++ ) 
+        if( aktUhrzeit <= DUSCH_Aus_Schaltzeiten[i] ) break;
         
-    if( aktUhrzeit > DUSCH_Schaltzeiten.Ein[i] )
+    if( aktUhrzeit > DUSCH_Ein_Schaltzeiten[i] ) 
         absenkung->Duschzeit = zJa;
     else 
         absenkung->Duschzeit = zNein;
@@ -240,5 +239,56 @@ void zeit_getLocaltime( s16_t * const wday,
     *min              = aktZeitElemente_p->tm_min;
     *sec              = aktZeitElemente_p->tm_sec;
 }
+
+/** TESTCODE */
+#ifdef __TEST__
+
+void zeit_TEST_minToTime( s16_t t, s16_t *d, s16_t *h, s16_t *m )
+{
+    s16_t tmp;
+    
+    tmp  = t;
+    *m   = tmp % 60;
+    tmp  /= 60;
+    *h   = tmp % 24;
+    tmp  /= 24;
+    *d = tmp % 7;
+}    
+        
+void zeit_TEST_Schaltzeiten( void )
+{
+    s16_t n;
+    s16_t d_ein, h_ein, m_ein;
+    s16_t d_aus, h_aus, m_aus;
+   
+    for( n=0; n<hk_states; n++ ) {
+        zeit_TEST_minToTime( HK_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
+        zeit_TEST_minToTime( HK_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
+        printf( "ZEIT.C: TEST: HK_Ein_Schaltzeiten[%d]    = %1d-%02d:%02d, HK_Aus_Schaltzeiten[%d]    = %1d-%02d:%02d\n",
+                n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
+    }
+    for( n=0; n<fb_states; n++ ) {
+        zeit_TEST_minToTime( FB_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
+        zeit_TEST_minToTime( FB_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
+        printf( "ZEIT.C: TEST: FB_Ein_Schaltzeiten[%d]    = %1d-%02d:%02d, FB_Aus_Schaltzeiten[%d]    = %1d-%02d:%02d\n",
+                n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
+    }
+    for( n=0; n<zirk_states; n++ ) {
+        zeit_TEST_minToTime( ZIRK_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
+        zeit_TEST_minToTime( ZIRK_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
+        printf( "ZEIT.C: TEST: ZIRK_Ein_Schaltzeiten[%d]  = %1d-%02d:%02d, ZIRK_Aus_Schaltzeiten[%d]  = %1d-%02d:%02d\n",
+                n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
+    }
+    for( n=0; n<dusch_states; n++ ) {
+        zeit_TEST_minToTime( DUSCH_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
+        zeit_TEST_minToTime( DUSCH_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
+        printf( "ZEIT.C: TEST: DUSCH_Ein_Schaltzeiten[%d] = %1d-%02d:%02d, DUSCH_Aus_Schaltzeiten[%d] = %1d-%02d:%02d\n",
+                n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
+    }
+    printf( "ZEIT.C: TEST: HOUR_OFFSET = %d\n", zeit_hour_offset );
+    printf( "\n" );
+}
+
+#endif /* __TEST__ */
 
 

@@ -3,22 +3,6 @@
 
 #include "gen_types.h"
 
-/* <Makros> */
-#define WOCHENZEIT(D, H, M)     ((M)+60*((H)+24*(D))) /* Wochentag, Stunde und Minute in Minuten umrechnen */
-#define TAGESZEIT(H, M)         ((M)+60*(H))          /* Tageszeit in Minuten                              */
-#define JAHRESTAG(M, T)         ((T)+32*(M))          /* Feiertagsdatum in eindeutige Zahl von Tagen umr.  */
-
-#ifdef __WAGO__
-    #define ZEITPROGRAMMDATEI       "/home/wochenzeitprogramm.ini"
-#else
-    #define ZEITPROGRAMMDATEI       "wochenzeitprogramm.ini"
-#endif
-/* </Makros> */
-
-/* <Konstanten> */
-#define ZEIT_SCHALTSTATES_MAX 16
-/* </Konstanten>
-#define
 /* <Typen> */
 typedef struct {
     abgesenkt_t   HK_Zustand;           /* HK-Heizkreis Zeitprogramm normal / abgesenkt / abgeschaltet */
@@ -48,21 +32,50 @@ typedef struct {
     zeit_partytime_schalter_t   ww;
 } zeit_party_t;
 
-typedef struct zeit_schaltzeiten_s {
-    zeit_schaltpunkt_t Ein[ZEIT_SCHALTSTATES_MAX];
-    zeit_schaltpunkt_t Aus[ZEIT_SCHALTSTATES_MAX];
-    u8_t               states;
-} zeit_schaltzeiten_t;
-/* </Typen> */
+/* <Typen/> */
 
+/* <Makros> */
+#define WOCHENZEIT(D, H, M)     ((M)+60*((H)+24*(D))) /* Wochentag, Stunde und Minute in Minuten umrechnen */
+#define TAGESZEIT(H, M)         ((M)+60*(H))          /* Tageszeit in Minuten                              */
+#define JAHRESTAG(M, T)         ((T)+32*(M))          /* Feiertagsdatum in eindeutige Zahl von Tagen umr.  */
+
+#ifdef __WAGO__
+    #define ZEITPROGRAMMDATEI       "/home/wochenzeitprogramm.ini"
+#else
+    #define ZEITPROGRAMMDATEI       "wochenzeitprogramm.ini"
+#endif
+/* <Makros/> */
 
 /* <Variablen> */
 #ifdef _ZEIT_C_
+/* Zeitprogramm_Heizkoerperheizkreis   */
+#define HK_STATES_MAX 16
+zeit_schaltpunkt_t HK_Ein_Schaltzeiten[HK_STATES_MAX];
+zeit_schaltpunkt_t HK_Aus_Schaltzeiten[HK_STATES_MAX];
 
-zeit_schaltzeiten_t HK_Schaltzeiten;        /**< Zeitprogramm_Heizkoerperheizkreis         */
-zeit_schaltzeiten_t FB_Schaltzeiten;        /**< Zeitprogramm Fussbodenheizung             */
-zeit_schaltzeiten_t ZIRK_Schaltzeiten;      /**< Zeitprogramm Warmwasser Zirkulationspumpe */
-zeit_schaltzeiten_t DUSCH_Schaltzeiten;     /**< Zeitprogramm Duschzeiten                  */
+/* Zeitprogramm Fussbodenheizung       */
+#define FB_STATES_MAX 16
+zeit_schaltpunkt_t FB_Ein_Schaltzeiten[FB_STATES_MAX];
+zeit_schaltpunkt_t FB_Aus_Schaltzeiten[FB_STATES_MAX];
+
+/* Zeitprogramm Warmwasser Zirkulationspumpe */
+#define ZIRK_STATES_MAX 16
+zeit_schaltpunkt_t ZIRK_Ein_Schaltzeiten[ZIRK_STATES_MAX];
+zeit_schaltpunkt_t ZIRK_Aus_Schaltzeiten[ZIRK_STATES_MAX];
+
+/* Duschzeiten */
+#define DUSCH_STATES_MAX 16
+zeit_schaltpunkt_t DUSCH_Ein_Schaltzeiten[DUSCH_STATES_MAX];
+zeit_schaltpunkt_t DUSCH_Aus_Schaltzeiten[DUSCH_STATES_MAX];
+
+/* Variablen fuer Anzahl der Schaltpunkte der einzelnen Zeitprogramme */
+u8_t    hk_states;
+u8_t    fb_states;
+u8_t    zirk_states;
+u8_t    sp1_states;
+u8_t    sp2_states;
+u8_t    haus_states;
+u8_t    dusch_states;
 
 int zeit_hour_offset;
 #define FEIERTAGE_MAX 16
@@ -72,10 +85,21 @@ u8_t               feiertage_anzahl;
 #else
 
 #ifdef _TELNET_C_
-extern zeit_schaltzeiten_t HK_Schaltzeiten;        /**< Zeitprogramm_Heizkoerperheizkreis         */
-extern zeit_schaltzeiten_t FB_Schaltzeiten;        /**< Zeitprogramm Fussbodenheizung             */
-extern zeit_schaltzeiten_t ZIRK_Schaltzeiten;      /**< Zeitprogramm Warmwasser Zirkulationspumpe */
-extern zeit_schaltzeiten_t DUSCH_Schaltzeiten;     /**< Zeitprogramm Duschzeiten                  */
+extern zeit_schaltpunkt_t HK_Ein_Schaltzeiten[];
+extern zeit_schaltpunkt_t HK_Aus_Schaltzeiten[];
+extern zeit_schaltpunkt_t FB_Ein_Schaltzeiten[];
+extern zeit_schaltpunkt_t FB_Aus_Schaltzeiten[];
+extern zeit_schaltpunkt_t ZIRK_Ein_Schaltzeiten[];
+extern zeit_schaltpunkt_t ZIRK_Aus_Schaltzeiten[];
+extern zeit_schaltpunkt_t DUSCH_Ein_Schaltzeiten[];
+extern zeit_schaltpunkt_t DUSCH_Aus_Schaltzeiten[];
+extern u8_t    hk_states;
+extern u8_t    fb_states;
+extern u8_t    zirk_states;
+extern u8_t    sp1_states;
+extern u8_t    sp2_states;
+extern u8_t    haus_states;
+extern u8_t    dusch_states;
 
 extern int     zeit_hour_offset;
 extern zeit_schaltpunkt_t Feiertag[];
@@ -84,7 +108,7 @@ extern u8_t               feiertage_anzahl;
 
 #endif /* _ZEIT_C_ */
 
-/* </Variablen> */
+/* <Variablen/> */
 
 
 /* <Prototypen> */
@@ -101,9 +125,6 @@ void zeit_getLocaltime( s16_t * const wday,
                         s16_t * const hour,
                         s16_t * const min,
                         s16_t * const sec );
-/* </Prototypen> */
-
-
 /** TESTCODE */
 #ifdef __TEST__
 void zeit_TEST_Schaltzeiten( void );
