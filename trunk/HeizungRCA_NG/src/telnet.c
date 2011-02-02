@@ -500,7 +500,7 @@ void telnet_writeSchaltzeiten( int fdesc, char *bufout )
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
-    for( n=0; n<fb_states; n++ ) {
+    for( n=0; n<FB_Schaltzeiten.states; n++ ) {
         telnet_minToTime( FB_Schaltzeiten.Ein[n], &d_ein, &h_ein, &m_ein );
         telnet_minToTime( FB_Schaltzeiten.Aus[n], &d_aus, &h_aus, &m_aus );
         snprintf( bufout, BFLN, "FB_Ein[%d]    = %1d-%02d:%02d, FB_Aus[%d]    = %1d-%02d:%02d\n",
