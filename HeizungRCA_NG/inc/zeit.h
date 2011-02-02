@@ -17,7 +17,7 @@
 
 /* <Konstanten> */
 #define ZEIT_SCHALTSTATES_MAX 16
-/* </Konstanten>
+/* </Konstanten> */
 
 /* <Typen> */
 typedef struct {
