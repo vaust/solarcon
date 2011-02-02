@@ -18,7 +18,7 @@
 /* <Konstanten> */
 #define ZEIT_SCHALTSTATES_MAX 16
 /* </Konstanten>
-#define
+
 /* <Typen> */
 typedef struct {
     abgesenkt_t   HK_Zustand;           /* HK-Heizkreis Zeitprogramm normal / abgesenkt / abgeschaltet */

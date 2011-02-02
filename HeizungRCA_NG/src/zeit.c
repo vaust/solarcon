@@ -97,28 +97,28 @@ void zeit_Init( zeit_Betriebszustand_t * const absenkung,
             if( linestr[0] != '%' ) {
                 parameter = strtok( linestr, "=" );
                 if( strncmp( parameter, "HK_EIN", 6 ) == 0 ) {
-                    hk_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, HK_Schaltzeiten.Ein );
+                    HK_Schaltzeiten.states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, HK_Schaltzeiten.Ein );
                 }
                 else if( strncmp( parameter, "HK_AUS", 6 ) == 0 ) {
-                    hk_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, HK_Schaltzeiten.Aus );
+                    HK_Schaltzeiten.states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, HK_Schaltzeiten.Aus );
                 }
                 else if( strncmp( parameter, "FB_EIN", 6 ) == 0 ) {
-                    fb_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, FB_Schaltzeiten.Ein );
+                    FB_Schaltzeiten.states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, FB_Schaltzeiten.Ein );
                 }
                 else if( strncmp( parameter, "FB_AUS", 6 ) == 0 ) {
-                    fb_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, FB_Schaltzeiten.Aus );
+                    FB_Schaltzeiten.states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, FB_Schaltzeiten.Aus );
                 }
                 else if( strncmp( parameter, "ZIRK_EIN", 8 ) == 0 ) {
-                    zirk_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, ZIRK_Schaltzeiten.Ein );
+                    ZIRK_Schaltzeiten.states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, ZIRK_Schaltzeiten.Ein );
                 }
                 else if( strncmp( parameter, "ZIRK_AUS", 8 ) == 0 ) {
-                    zirk_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, ZIRK_Schaltzeiten.Aus );
+                    ZIRK_Schaltzeiten.states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, ZIRK_Schaltzeiten.Aus );
                 }
                 else if( strncmp( parameter, "DUSCH_EIN", 9 ) == 0 ) {
-                    dusch_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, DUSCH_Schaltzeiten.Ein );
+                    DUSCH_Schaltzeiten.states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, DUSCH_Schaltzeiten.Ein );
                 }
                 else if( strncmp( parameter, "DUSCH_AUS", 9 ) == 0 ) {
-                    dusch_states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, DUSCH_Schaltzeiten.Aus );
+                    DUSCH_Schaltzeiten.states = zeit_einlesen( ZEIT_SCHALTSTATES_MAX, DUSCH_Schaltzeiten.Aus );
                 }
                 else if( strncmp( parameter, "HOUR_OFFSET", 11 ) == 0 ) {
                     value = strtok( NULL, ";" );
