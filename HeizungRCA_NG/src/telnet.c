@@ -268,7 +268,7 @@ void *telnet_Task( void *arg )
                                 if( Debug ) printf( "TELNET.C: PUT VERR Befehl erhalten\n" );
                             }
                             else if( strncasecmp( token, "VDBG", 4 ) == 0 ) {
-                                telnet_putVars( telnet_err_Vars, sizeof(telnet_dbg_Vars)/sizeof(parse_set_t), fdesc, bufout );
+                                telnet_putVars( telnet_dbg_Vars, sizeof(telnet_dbg_Vars)/sizeof(parse_set_t), fdesc, bufout );
                                 if( Debug ) printf( "TELNET.C: PUT VDBG Befehl erhalten\n" );
                             }
                             else {
