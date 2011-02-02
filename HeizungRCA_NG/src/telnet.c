@@ -26,8 +26,7 @@
 #include "param.h"      /* Parametrisierung aus INI-Dateien */
 #include "io.h"         /* Ein- und Ausgabe auf der PLC     */
 #include "cntrl.h"      /* Systemzustandsvariablen          */
-//#include "zeit.h"
-#include "zeit_v08.h"
+#include "zeit.h"
 
 #include "task.h"
 #include "err.h"        /* Bekanntmachen der Funktion zum Ruecksetzen der Sammelstoermeldung */
