@@ -34,6 +34,8 @@
 #include "server.h"
 #include "telnet.h"
 
+#include "DEBUG.h"
+
 #define BFLN        96
 #define BFLSH()     write( fdesc, bufout, strlen( bufout ) )
 
@@ -75,18 +77,18 @@ void *telnet_Task( void *arg )
                 token = strtok( bufin, "\n\r " );
                 if( NULL != token ) {
                     if     ( strncasecmp( "END",        token, 3 ) == 0 ) {
-                        printf( "TELNET.C: END Befehl erhalten\n" );
+                        if( Debug ) printf( "TELNET.C: END Befehl erhalten\n" );
                         next_thread--;
                         close( fdesc );
                         MUTEX_unlock();
                         pthread_exit( NULL );
                     }
                     else if( strncasecmp( "HELP",       token, 3 ) == 0 ) {
-                        printf( "TELNET.C: HELP Befehl erhalten\n" );
+                        if( Debug ) printf( "TELNET.C: HELP Befehl erhalten\n" );
                         telnet_writeHelp( fdesc, bufout );
                     }
                     else if( strncasecmp( "VERSION",    token, 4 ) == 0 ) {
-                        printf( "TELNET.C: VERSION Befehl erhalten\n" );
+                        if( Debug ) printf( "TELNET.C: VERSION Befehl erhalten\n" );
                         snprintf( bufout, BFLN, "\tRCA Heizungssteuerung\n\tVersion " ); BFLSH();
                         snprintf( bufout, BFLN, VERSIONSTRING ); BFLSH();
                         snprintf( bufout, BFLN, "\tEntwicklungszweig: " ); BFLSH();
@@ -94,15 +96,15 @@ void *telnet_Task( void *arg )
                         snprintf( bufout, BFLN, "\tAndreas Stegmann\n\tVolker Stegmann\n" ); BFLSH();
                     }
                     else if( strncasecmp( "GET",        token, 3 ) == 0 ) {
-                        printf( "TELNET.C: GET Befehl erhalten\n" );
+                        if( Debug ) printf( "TELNET.C: GET Befehl erhalten\n" );
                         telnet_parseGet( fdesc, bufout );
                     }
                     else if( strncasecmp( "MODULE",     token, 3 ) == 0 ) {
-                        printf( "TELNET.C: MODULE Befehl erhalten\n" );
+                        if( Debug ) printf( "TELNET.C: MODULE Befehl erhalten\n" );
                         telnet_writeModuls( fdesc, bufout );
                     }
                     else if( strncasecmp( "HAND",       token, 4 ) == 0 ) {
-                        printf( "TELNET.C: HAND Befehl erhalten\n" );
+                        if( Debug ) printf( "TELNET.C: HAND Befehl erhalten\n" );
                         token = strtok( NULL, "\n\r " );
                         if( NULL != token ) {
                             if     ( strncasecmp( token, "SOL",   3 ) == 0 ) {
@@ -163,7 +165,7 @@ void *telnet_Task( void *arg )
                         }
                     }
                     else if( strncasecmp( "AUTO",       token, 4 ) == 0 ) {
-                        printf( "TELNET.C: AUTO Befehl erhalten\n" );
+                        if( Debug ) printf( "TELNET.C: AUTO Befehl erhalten\n" );
                         token = strtok( NULL, "\n\r " );
                         if( NULL != token ) {
                             if     ( strncasecmp( token, "SOL",   3 ) == 0 ) {
@@ -243,31 +245,31 @@ void *telnet_Task( void *arg )
                         if( NULL != token ) {
                             if(      strncasecmp( token, "VSOL", 4 ) == 0 ) {
                                 telnet_putVars( telnet_sol_Vars, sizeof(telnet_sol_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                printf( "TELNET.C: PUT VSOL Befehl erhalten\n" );
+                                if( Debug ) printf( "TELNET.C: PUT VSOL Befehl erhalten\n" );
                             }
                             else if( strncasecmp( token, "VFB",  3 ) == 0 ) {
                                 telnet_putVars( telnet_fb_Vars, sizeof(telnet_fb_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                printf( "TELNET.C: PUT VFB Befehl erhalten\n" );
+                                if( Debug ) printf( "TELNET.C: PUT VFB Befehl erhalten\n" );
                             }
                             else if( strncasecmp( token, "VHK",  3 ) == 0 ) {
                                 telnet_putVars( telnet_hk_Vars, sizeof(telnet_hk_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                printf( "TELNET.C: PUT VHK Befehl erhalten\n" );
+                                if( Debug ) printf( "TELNET.C: PUT VHK Befehl erhalten\n" );
                             }
                             else if( strncasecmp( token, "VWW",  3 ) == 0 ) {
                                 telnet_putVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                printf( "TELNET.C: PUT VWW Befehl erhalten\n" );
+                                if( Debug ) printf( "TELNET.C: PUT VWW Befehl erhalten\n" );
                             }
                             else if( strncasecmp( token, "VKES", 4 ) == 0 ) {
                                 telnet_putVars( telnet_kes_Vars, sizeof(telnet_kes_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                printf( "TELNET.C: PUT VKES Befehl erhalten\n" );
+                                if( Debug ) printf( "TELNET.C: PUT VKES Befehl erhalten\n" );
                             }
                             else if( strncasecmp( token, "VERR", 4 ) == 0 ) {
                                 telnet_putVars( telnet_err_Vars, sizeof(telnet_err_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                printf( "TELNET.C: PUT VERR Befehl erhalten\n" );
+                                if( Debug ) printf( "TELNET.C: PUT VERR Befehl erhalten\n" );
                             }
                             else if( strncasecmp( token, "VDBG", 4 ) == 0 ) {
                                 telnet_putVars( telnet_err_Vars, sizeof(telnet_dbg_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                printf( "TELNET.C: PUT VDBG Befehl erhalten\n" );
+                                if( Debug ) printf( "TELNET.C: PUT VDBG Befehl erhalten\n" );
                             }
                             else {
                                 snprintf( bufout, BFLN, "FEHLER (8) falscher erster Parameter fuer PUT Befehl\n" ); BFLSH();
@@ -278,7 +280,7 @@ void *telnet_Task( void *arg )
                         }
                     }
                     else if( strncasecmp( "INIT",       token, 4 ) == 0 ) {
-                        printf( "TELNET.C: INIT Befehl erhalten\n" );
+                        if( Debug ) printf( "TELNET.C: INIT Befehl erhalten\n" );
                         cntrl_err_in.common_errcnt += param_Init();
                         zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
                         sol_Init( &cntrl_sol_par );
@@ -290,7 +292,7 @@ void *telnet_Task( void *arg )
                         snprintf( bufout, BFLN, "\tParameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
                     }
                     else if( strncasecmp( "ENTSTOEREN", token, 8 ) == 0 ) {
-                        printf( "TELNET.C: ENTSTOEREN Befehl erhalten\n" );
+                        if( Debug ) printf( "TELNET.C: ENTSTOEREN Befehl erhalten\n" );
                         err_Reset_Sammelstoermeldung( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
                         snprintf( bufout, BFLN, "\tSammelstoermeldung zurueckgesetzt!\n\n" ); BFLSH();
                     }

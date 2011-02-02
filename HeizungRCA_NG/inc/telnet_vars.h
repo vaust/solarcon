@@ -226,7 +226,8 @@ static const char *telnet_help_text[] =
 static const parse_set_t telnet_dbg_Vars[] =
 {
     { "cntrl_cnt",          &cntrl_cnt,          "%d" },
-    { "cntrl_TaskFlag_cnt", &cntrl_TaskFlag_cnt, "%d" }
+    { "cntrl_TaskFlag_cnt", &cntrl_TaskFlag_cnt, "%d" },
+    { "Debug",              &Debug,              "%d" },
 };
 
 static const char *telnet_wochentage[] =
