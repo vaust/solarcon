@@ -26,7 +26,9 @@
 #include "param.h"      /* Parametrisierung aus INI-Dateien */
 #include "io.h"         /* Ein- und Ausgabe auf der PLC     */
 #include "cntrl.h"      /* Systemzustandsvariablen          */
-#include "zeit.h"       
+//#include "zeit.h"
+#include "zeit_v08.h"
+
 #include "task.h"
 #include "err.h"        /* Bekanntmachen der Funktion zum Ruecksetzen der Sammelstoermeldung */
 #include "version.h"    /* Versionsstring */
@@ -492,30 +494,30 @@ void telnet_writeSchaltzeiten( int fdesc, char *bufout )
     s16_t d_aus, h_aus, m_aus;
     s16_t fm, fd;
 
-    for( n=0; n<hk_states; n++ ) {
-        telnet_minToTime( HK_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
-        telnet_minToTime( HK_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
+    for( n=0; n<HK_Schaltzeiten.states; n++ ) {
+        telnet_minToTime( HK_Schaltzeiten.Ein[n], &d_ein, &h_ein, &m_ein );
+        telnet_minToTime( HK_Schaltzeiten.Aus[n], &d_aus, &h_aus, &m_aus );
         snprintf( bufout, BFLN, "HK_Ein[%d]    = %1d-%02d:%02d, HK_Aus[%d]    = %1d-%02d:%02d\n",
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
     for( n=0; n<fb_states; n++ ) {
-        telnet_minToTime( FB_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
-        telnet_minToTime( FB_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
+        telnet_minToTime( FB_Schaltzeiten.Ein[n], &d_ein, &h_ein, &m_ein );
+        telnet_minToTime( FB_Schaltzeiten.Aus[n], &d_aus, &h_aus, &m_aus );
         snprintf( bufout, BFLN, "FB_Ein[%d]    = %1d-%02d:%02d, FB_Aus[%d]    = %1d-%02d:%02d\n",
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
-    for( n=0; n<zirk_states; n++ ) {
-        telnet_minToTime( ZIRK_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
-        telnet_minToTime( ZIRK_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
+    for( n=0; n<ZIRK_Schaltzeiten.states; n++ ) {
+        telnet_minToTime( ZIRK_Schaltzeiten.Ein[n], &d_ein, &h_ein, &m_ein );
+        telnet_minToTime( ZIRK_Schaltzeiten.Aus[n], &d_aus, &h_aus, &m_aus );
         snprintf( bufout, BFLN, "ZIRK_Ein[%d]  = %1d-%02d:%02d, ZIRK_Aus[%d]  = %1d-%02d:%02d\n",
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
     }
-    for( n=0; n<dusch_states; n++ ) {
-        telnet_minToTime( DUSCH_Ein_Schaltzeiten[n], &d_ein, &h_ein, &m_ein );
-        telnet_minToTime( DUSCH_Aus_Schaltzeiten[n], &d_aus, &h_aus, &m_aus );
+    for( n=0; n<DUSCH_Schaltzeiten.states; n++ ) {
+        telnet_minToTime( DUSCH_Schaltzeiten.Ein[n], &d_ein, &h_ein, &m_ein );
+        telnet_minToTime( DUSCH_Schaltzeiten.Aus[n], &d_aus, &h_aus, &m_aus );
         snprintf( bufout, BFLN, "DUSCH_Ein[%d] = %1d-%02d:%02d, DUSCH_Aus[%d] = %1d-%02d:%02d\n",
                 n, d_ein, h_ein, m_ein, n, d_aus, h_aus, m_aus );
         BFLSH();
