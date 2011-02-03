@@ -10,7 +10,7 @@
 /* <Defines> */
 
 /* <Typen> */
-typedef struct {
+typedef struct ww_param_s {
     float pu_reg_kp;
     float pu_reg_ap;
     float pu_reg_ki;
@@ -27,7 +27,7 @@ typedef struct {
     u16_t schwachlastzeit_max;
 } ww_param_t;
 
-typedef struct {
+typedef struct ww_in_s {
     float tww_mw;
     float tau_mw;
     float tau_avg;
@@ -41,7 +41,7 @@ typedef struct {
     nutzzeit_t duschzeit;
 } ww_in_t;
 
-typedef struct {
+typedef struct ww_out_s {
     float            hzg_tvl_sw;
     sup_digreg_out_t hzg_mv_y;
     sup_digreg_out_t hzg_pu_y;
