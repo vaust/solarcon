@@ -44,12 +44,12 @@ PUBLIC zeit_event_t            cntrl_zeit_event;
 PUBLIC zeit_party_t            cntrl_zeit_party;
 
 /* Mittelwertbildung fuer Aussentemperatur */
-PUBLIC task_tau_t   cntrl_tau;
+PUBLIC task_tau_t          cntrl_tau;
 
 /* Variablen fuer Solarkollektorsteuerung */
-PUBLIC sol_param_t  cntrl_sol_par;
-PUBLIC sol_in_t     cntrl_sol_in;
-PUBLIC sol_out_t    cntrl_sol_out;
+PUBLIC sol_param_t         cntrl_sol_par;
+PUBLIC sol_in_t            cntrl_sol_in;
+PUBLIC sol_out_t           cntrl_sol_out;
 
 /* Variablen fuer Fussbodenheizung */
 PUBLIC fb_param_t          cntrl_fb_par;
@@ -80,20 +80,18 @@ PUBLIC err_in_t            cntrl_err_in;
 PUBLIC err_out_t           cntrl_err_out;
 
 /* --DEBUG Variablen -- */
-PUBLIC u32_t    cntrl_cnt;
-PUBLIC s16_t    cntrl_TaskFlag_cnt;
+PUBLIC u32_t               cntrl_cnt;
+PUBLIC s16_t               cntrl_TaskFlag_cnt;
 
 /* globales Schedulerwarteflag */
-PUBLIC u8_t     cntrl_TaskFlag;
-PUBLIC u8_t		cntrl_Heartbeat;
-PUBLIC u8_t		cntrl_Stoerungslampe;
+PUBLIC u8_t                cntrl_TaskFlag;
+PUBLIC u8_t		           cntrl_Heartbeat;
+PUBLIC u8_t		           cntrl_Stoerungslampe;
 
 /* Prototypen */
 void cntrl_open( void );
 void cntrl_run( int sig );
 void cntrl_close( void );
-void *cntrl_Task( void *arg );
-void cntrl_SetTaskFlag( int sig );
 
 #endif /* _CNTRL_H_ */
 

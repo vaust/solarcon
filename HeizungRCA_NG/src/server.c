@@ -138,18 +138,6 @@ int main( void )
         exit( -1 );
     }
 
-
-    /*
-     * Control Task Thread erzeugen
-    if( (pthread_create( &thread, &threadattr, cntrl_Task, (void *)thread_args ) ) != 0 ) {
-        perror( "SERVER.C: Threaderzeugung cntrl_Task schlug fehl" );
-        exit( -1 );
-    }
-    else {
-        printf( "SERVER.C: Controller Task cntrl_Task() gestartet\n");
-    }
-    */
-
     while( 1 ) {
         /* Auf Verbindung mit Client warten */
         if( (client_sock_fd = accept( server_sock_fd, NULL, NULL )) < 0 ) {

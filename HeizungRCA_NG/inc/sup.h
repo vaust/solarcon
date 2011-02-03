@@ -8,7 +8,7 @@
 /* <Konstanten/> */
 
 /* <Typen> */
-typedef struct {
+typedef struct sup_digreg_coeff_s {
     float TA;
     float kp;
     float ki;
@@ -17,7 +17,7 @@ typedef struct {
     float upper_limit;
 } sup_digreg_coeff_t;
 
-typedef struct {
+typedef struct sup_digreg_out_s {
     float y;                    /**< Stellgroesse zum Zeitpunkt t   */
     float x[SUP_REG_STATEVARS]; /**< Zustandsgroessen fuer Blockdarstellung des Anti Windup PI-Reglers */
 } sup_digreg_out_t;

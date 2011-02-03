@@ -4,7 +4,7 @@
 #include "sup.h"
 
 /* <Typen> */
-typedef struct {
+typedef struct hk_param_s {
     float reg_kp;
     float reg_ap;
     float reg_ki;
@@ -19,7 +19,7 @@ typedef struct {
     float tr_sw;
 } hk_param_t;
 
-typedef struct {
+typedef struct hk_in_s {
     float        tau_mw;
     float        tau_avg;
     float        tvl_mw;
@@ -27,7 +27,7 @@ typedef struct {
     u8_t         partytime_flg;
 } hk_in_t;
 
-typedef struct {
+typedef struct hk_out_s {
     float            tvl_sw;
     sup_digreg_out_t mv_y;
     do_bitbyte_t     pu_sb;
