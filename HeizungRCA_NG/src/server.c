@@ -89,7 +89,8 @@ void terminate( int sig )
 }
 
 /** \brief system Timer fuer Steuerungsprozess initialisieren.
- *  Dieses API funktioniert auf der momentanen WAGO ucLinux Distrubition nicht.
+ *  Dieses API funktioniert auf dem momentanen WAGO uCLinux nur bis herab zu 500ms.
+ *  Kleinere Timerwerte führen immer zu 500ms Zykluszeit.
  */
 void systimer_init( u32_t zykluszeit )
 {
