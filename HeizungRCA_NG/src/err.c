@@ -1,5 +1,15 @@
-/** \file Sammelstoermeldung bedienen
- * \author Volker Stegmann
+/**
+ *  \file err.c
+ *  \author Volker Stegmann
+ *  \brief Fehlerbehandlungsmodul.
+ *  Hiermit werden alle moeglichen Fehlerereignisse gesammelt und nach entsprechender
+ *  Wichtung die Sammelstoermeldung gesetzt.
+ *  SAMMELSTOERMELDUNG =
+ *        Kollektoruebertemperatur
+ *  oder  Brennermeldung kommt nicht nach max 1 min nach Anforderung
+ *  oder  Kesselstoermeldung ist gesetzt
+ *  oder  STB der Fussbodenheizung hat ausgeloest
+ *  oder  ...
  */
 
 #define _ERR_C_
@@ -8,18 +18,10 @@
 #include "param.h"
 #include "err.h"
 
-/*
-SAMMELSTOERMELDUNG =
-        Kollektoruebertemperatur
-  oder  Brennermeldung kommt nicht nach max 1 min nach Anforderung
-  oder  Kesselstoermeldung ist gesetzt
-  oder  STB der Fussbodenheizung hat ausgeloest
-  oder  ...
-*/
 
 void err_Init( err_param_t *par_p, err_in_t *in_p, err_out_t *out_p )
 {
-    par_p->br_TimeOut   = 240;                       /* 240 entspr. bei 1sec Zyklus 4 min        */
+    par_p->br_TimeOut   = 480;                       /* 480 entspr. bei 0.5sec Zyklus 4min       */
     par_p->dt           = param_kes_sp_dt_sw / 2.0;  /* Tvl_MW muss um diesen Betrag hoeher sein */
 
     out_p->br_Countdown = par_p->br_TimeOut;
@@ -50,14 +52,14 @@ void err_Run( const err_param_t *par_p,
         out_p->br_Countdown = par_p->br_TimeOut;
     }
 
-    if( (0          == out_p->br_Countdown       ) ||
-        (SET        == in_p->br_StoerMeldung     ) ||
-        (SET        == in_p->stb_Fussbodenheizung) ||
-        (ERR_MAXCNT >  in_p->sol_errcnt          ) ||
-        (ERR_MAXCNT >  in_p->tempsens_errcnt     ) ||
-        (ERR_MAXCNT >  in_p->ao_errcnt           ) ||
-        (0          >  in_p->common_errcnt       )    ) {
-
+    if(    (0          == out_p->br_Countdown       )
+        || (SET        == in_p->br_StoerMeldung     )
+        || (SET        == in_p->stb_Fussbodenheizung)
+        || (ERR_MAXCNT >  in_p->sol_errcnt          )
+        || (ERR_MAXCNT >  in_p->tempsens_errcnt     )
+        || (ERR_MAXCNT >  in_p->ao_errcnt           )
+        || (0          >  in_p->common_errcnt       )
+      ) {
         out_p->Sammelstoermeldung = SET;
     }
     else {

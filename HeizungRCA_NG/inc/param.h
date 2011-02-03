@@ -6,48 +6,48 @@
 /* <Defines> */
 /* Vorgabewerte: */
 #ifdef _PARAM_C_
-#define ALL_Tau_mittel_Zeit       36    /**< Zeit ueber die die Aussentemperatur gemittelt wird (in Stunden)            */
-#define ALL_Partydauer           120    /**< Fussbodenheizkreis Dauer der Betriebsverlaengerung (in Minuten)            */
-#define ALL_Frostschutz          3.0    /**< Aussentemperatur unter der Heizkreis immer in Betrieb in Grad C            */
-#define ALL_AT_Start            15.0    /**< Aussentemperatur unter der Heizung startet in Grad C                       */
-#define SOL_dT_ein_SW            7.0    /**< Einschalt-Diff.temp. fuer Solarpumpe und Speicherabsperrventile  in Grad C */
-#define SOL_dT_aus_SW            3.5    /**< Ausschalt-Diff.temp. fuer Solarpumpe und Speicherabsperrventile  in Grad C */
-#define SOL_KOLL_T_max         125.0    /**< Max. Kollektortemperatur in Grad C                                         */
-#define SOL_SP_T_max           110.0    /**< Max. Speichertemperatur in Grad C                                          */
-#define SOl_SP1_T_min           50.0    /**< Min. Temperatur Speicher 1 in Grad C                                       */
-#define KES_SP_dT_SW            10.0    /**< Temperaturdifferenz zwischen Kessel- und Speicher-SW in Grad C             */
-#define	HK_Tvl_Steigung          1.4    /**< Heizkoerperheizkreis Heizkurvensteigung                                    */
-#define HK_Tvl_Niveau            0.0    /**< Heizkoerperheizkreis Heizkurvenparallelverschiebung                        */
-#define HK_Tvl_Absenk           10.0    /**< Heizkoerperheizkreis Nachtabsenkung in Grad C                              */
-#define HK_Tvl_Min              10.0    /**< Heizkoerperheizkreis Frostschutztemperatur in Grad C                       */
-#define HK_Tvl_Max              75.0    /**< Heizkoerperheizkreis maximale Vorlauftemperatur in Grad C                  */
-#define HK_Frostschutz           3.0    /**< Aussentemperatur ab der Heizkreis in Betrieb ist in Grad C                 */
-#define HK_REG_Kp               10.0    /**< Heizkoerperheizkreis Verstaerkung PI-Regler in %/K                         */
-#define HK_REG_Ki                0.067  /**< Heizkoerperheizkreis Verstaerkung I-Anteil PI-Regler in %/(K x s)          */
-#define HK_REG_AP               50.0    /**< Heizkoerperheizkreis Arbeitspunktoffset in %                               */
-#define HK_Tr_SW                20.5    /**< Heizkoerperheizkreis Raumtemperatur Sollwert                               */
-#define FB_Tvl_Steigung          0.7    /**< Fussbodenheizkreis Heizkurvensteigung                                      */
-#define FB_Tvl_Niveau           20.0    /**< Fussbodenheizkreis Heizkurven Parallelverschiebung                         */
-#define FB_Tr_SW                20.5    /**< Fussbodenheizkreis Raumtemperatursollwert in Grad C                        */
-#define FB_Tvl_Absenk           10.0    /**< Fussbodenheizkreis Nachtabsenkung in Grad C                                */
-#define FB_Tvl_Min              10.0    /**< Fussbodenheizkreis Frostschutztemperatur in Grad C                         */
-#define FB_Tvl_Max              35.0    /**< Fussbodenheizkreis max. Vorlauftemperatur in Grad C                        */
-#define FB_REG_Kp                5.0    /**< Fussbodenheizkreis Verstaerkung PI-Regler in %/K                           */
-#define FB_REG_Ki                0.2    /**< Fussbodenheizkreis Verstaerkung I-Anteil PI-Regler in %/(K x s)            */
-#define FB_REG_AP               50.0    /**< Fussbodenheizkreis Arbeitspunktoffset in %                                 */
-#define WW_Tww_SW               40.0    /**< Warmwasser-Temperatur-Sollwert in Grad C                                   */
-#define WW_Tww_Max              60.0    /**< Warmwasser-Maximaltemperatur	in Grad C                                   */
-#define WZ_Faktor                1.0    /**< Waermezaehler auf Pumpenstellbefehl                                        */
-#define Wz_Max                  25.0    /**< Max. Warmwasserdurchfluss in l/min                                         */
-#define WW_PU_REG_Kp            20.0    /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung Kp                             */
-#define WW_PU_REG_Ki             0.05   /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung I-Anteil PI-Regler in %/(K x s)*/
-#define WW_PU_REG_AP            50.0    /**< WW-Temperatur-Regelung (Pumpe) Arbeitspunktoffset in %                     */
-#define WW_MV_REG_Kp            10.0    /**< WW Hzg-VL-Temperatur-Regelung (Mischer) Verstaerkung Kp                    */
-#define WW_MV_REG_Ki             0.1    /**< WW Hzg-VL-Temperatur-Regelung (Mischer) Verstaerkung Ki in %/(K x s)       */
-#define WW_MV_REG_AP            50.0    /**< WW Hzg-VL-Temperatur-Regelung (Mischer) Arbeitspunktoffset in %            */
-#define WW_Tww_Tvl_Faktor        1.0    /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                       */
-#define WW_Tz_SW                40.0    /**< Temperatursollwert des Zirkulationswassers in Grad C                       */
-#define WW_MV_KORR               3.0    /**< Korrekturfaktor fuer MV-Kennlinie                                          */
+#define ALL_Tau_mittel_Zeit    36    /**< Zeit ueber die die Aussentemperatur gemittelt wird (in Stunden)            */
+#define ALL_Partydauer        120    /**< Fussbodenheizkreis Dauer der Betriebsverlaengerung (in Minuten)            */
+#define ALL_Frostschutz       3.0    /**< Aussentemperatur unter der Heizkreis immer in Betrieb in Grad C            */
+#define ALL_AT_Start         15.0    /**< Aussentemperatur unter der Heizung startet in Grad C                       */
+#define SOL_dT_ein_SW         7.0    /**< Einschalt-Diff.temp. fuer Solarpumpe und Speicherabsperrventile  in Grad C */
+#define SOL_dT_aus_SW         3.5    /**< Ausschalt-Diff.temp. fuer Solarpumpe und Speicherabsperrventile  in Grad C */
+#define SOL_KOLL_T_max      125.0    /**< Max. Kollektortemperatur in Grad C                                         */
+#define SOL_SP_T_max        110.0    /**< Max. Speichertemperatur in Grad C                                          */
+#define SOl_SP1_T_min        50.0    /**< Min. Temperatur Speicher 1 in Grad C                                       */
+#define KES_SP_dT_SW         10.0    /**< Temperaturdifferenz zwischen Kessel- und Speicher-SW in Grad C             */
+#define	HK_Tvl_Steigung       1.4    /**< Heizkoerperheizkreis Heizkurvensteigung                                    */
+#define HK_Tvl_Niveau         0.0    /**< Heizkoerperheizkreis Heizkurvenparallelverschiebung                        */
+#define HK_Tvl_Absenk        10.0    /**< Heizkoerperheizkreis Nachtabsenkung in Grad C                              */
+#define HK_Tvl_Min           10.0    /**< Heizkoerperheizkreis Frostschutztemperatur in Grad C                       */
+#define HK_Tvl_Max           75.0    /**< Heizkoerperheizkreis maximale Vorlauftemperatur in Grad C                  */
+#define HK_Frostschutz        3.0    /**< Aussentemperatur ab der Heizkreis in Betrieb ist in Grad C                 */
+#define HK_REG_Kp            10.0    /**< Heizkoerperheizkreis Verstaerkung PI-Regler in %/K                         */
+#define HK_REG_Ki             0.067  /**< Heizkoerperheizkreis Verstaerkung I-Anteil PI-Regler in %/(K x s)          */
+#define HK_REG_AP            50.0    /**< Heizkoerperheizkreis Arbeitspunktoffset in %                               */
+#define HK_Tr_SW             20.5    /**< Heizkoerperheizkreis Raumtemperatur Sollwert                               */
+#define FB_Tvl_Steigung       0.7    /**< Fussbodenheizkreis Heizkurvensteigung                                      */
+#define FB_Tvl_Niveau        20.0    /**< Fussbodenheizkreis Heizkurven Parallelverschiebung                         */
+#define FB_Tr_SW             20.5    /**< Fussbodenheizkreis Raumtemperatursollwert in Grad C                        */
+#define FB_Tvl_Absenk        10.0    /**< Fussbodenheizkreis Nachtabsenkung in Grad C                                */
+#define FB_Tvl_Min           10.0    /**< Fussbodenheizkreis Frostschutztemperatur in Grad C                         */
+#define FB_Tvl_Max           35.0    /**< Fussbodenheizkreis max. Vorlauftemperatur in Grad C                        */
+#define FB_REG_Kp             5.0    /**< Fussbodenheizkreis Verstaerkung PI-Regler in %/K                           */
+#define FB_REG_Ki             0.2    /**< Fussbodenheizkreis Verstaerkung I-Anteil PI-Regler in %/(K x s)            */
+#define FB_REG_AP            50.0    /**< Fussbodenheizkreis Arbeitspunktoffset in %                                 */
+#define WW_Tww_SW            40.0    /**< Warmwasser-Temperatur-Sollwert in Grad C                                   */
+#define WW_Tww_Max           60.0    /**< Warmwasser-Maximaltemperatur	in Grad C                                     */
+#define WZ_Faktor             1.0    /**< Waermezaehler auf Pumpenstellbefehl                                        */
+#define Wz_Max               25.0    /**< Max. Warmwasserdurchfluss in l/min                                         */
+#define WW_PU_REG_Kp         20.0    /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung Kp                             */
+#define WW_PU_REG_Ki          0.05   /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung I-Anteil PI-Regler in %/(K x s)*/
+#define WW_PU_REG_AP         50.0    /**< WW-Temperatur-Regelung (Pumpe) Arbeitspunktoffset in %                     */
+#define WW_MV_REG_Kp         10.0    /**< WW Hzg-VL-Temperatur-Regelung (Mischer) Verstaerkung Kp                    */
+#define WW_MV_REG_Ki          0.1    /**< WW Hzg-VL-Temperatur-Regelung (Mischer) Verstaerkung Ki in %/(K x s)       */
+#define WW_MV_REG_AP         50.0    /**< WW Hzg-VL-Temperatur-Regelung (Mischer) Arbeitspunktoffset in %            */
+#define WW_Tww_Tvl_Faktor     1.0    /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                       */
+#define WW_Tz_SW             40.0    /**< Temperatursollwert des Zirkulationswassers in Grad C                       */
+#define WW_MV_KORR            3.0    /**< Korrekturfaktor fuer MV-Kennlinie                                          */
 
 #ifdef __WAGO__
     #define VORGABENDATEI           "/home/vorgaben7.ini"
@@ -57,12 +57,12 @@
 
 #endif /* _PARAM_C_ */
 
-#define MAX_ALL_Tau_mittel_Zeit   48    /**< max. Wert aus Kommentar in vorgaben.ini                                    */
+#define MAX_ALL_Tau_mittel_Zeit   48                /**< max. Wert aus Kommentar in vorgaben.ini                     */
 
-#define USEC2SEC(x)     (((float)(x))/1.0e6)  /**< usec in sekunden umrechnen */
-#define USEC2MSEC(x)    ((x)/1000)            /**< usec in msec umrechnen     */
-#define ABTASTZEIT_USEC 200000L                     /**< das gleiche als LONG in Mikrosekunden fuer Timerlaufzeit       */
-#define ABTASTZEIT      USEC2SEC(ABTASTZEIT_USEC)   /**< Abtastzeit fuer digitale Regler Algorithmen als float          */
+#define USEC2SEC(x)     (((float)(x))/1.0e6)        /**< usec in sekunden umrechnen                                  */
+#define USEC2MSEC(x)    ((x)/1000)                  /**< usec in msec umrechnen                                      */
+#define ABTASTZEIT_USEC 500000L                     /**< das gleiche als LONG in Mikrosekunden fuer Timerlaufzeit    */
+#define ABTASTZEIT      USEC2SEC(ABTASTZEIT_USEC)   /**< Abtastzeit fuer digitale Regler Algorithmen als float       */
 
 
 /* <Defines/> */
