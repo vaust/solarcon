@@ -16,28 +16,29 @@
 /* </Makros> */
 
 /* <Konstanten> */
-#define ZEIT_SCHALTSTATES_MAX 16
+#define ZEIT_SCHALTSTATES_MAX  16
+#define FEIERTAGE_MAX          16
 /* </Konstanten> */
 
 /* <Typen> */
-typedef struct {
+typedef struct zeit_Betriebszustand_s {
     abgesenkt_t   HK_Zustand;           /* HK-Heizkreis Zeitprogramm normal / abgesenkt / abgeschaltet */
-    abgesenkt_t   FB_Zustand;           /* Zustand Fu�bodenheizung */
+    abgesenkt_t   FB_Zustand;           /* Zustand Fussbodenheizung */
     ein_aus_t     Zirk_Zustand;         /* Einschaltzustand Zirkulationspumpe */
-    freigabe_t    SP1_Freigabe;         /* Freigabe des Speichers 1 �ber Kessel */
-    freigabe_t    SP2_Freigabe;         /* Freigabe des Speichers 2 �ber Kessel */
+    freigabe_t    SP1_Freigabe;         /* Freigabe des Speichers 1 ueber Kessel */
+    freigabe_t    SP2_Freigabe;         /* Freigabe des Speichers 2 ueber Kessel */
     nutzzeit_t    Bootshausnutzung;     /* Bootshausnutzung */
     nutzzeit_t    Duschzeit;            /* wird gerade geduscht ? */
 } zeit_Betriebszustand_t;
 
-typedef struct {
+typedef struct zeit_event_s {
     u8_t    sec_flg  :1;
     u8_t    min_flg  :1;
     u8_t    hour_flg :1;
     u8_t             :5;
 } zeit_event_t;
 
-typedef struct {
+typedef struct zeit_partytime_schalter_s {
     u8_t    partytime_flg;
     u16_t   party_restzeit_min;
     u8_t    alterwert;
@@ -57,32 +58,23 @@ typedef struct zeit_schaltzeiten_s {
 
 
 /* <Variablen> */
+/* <Globals> Sichtbar in zeit.c und telnet.c */
+#undef PUBLIC
 #ifdef _ZEIT_C_
-
-zeit_schaltzeiten_t HK_Schaltzeiten;        /**< Zeitprogramm_Heizkoerperheizkreis         */
-zeit_schaltzeiten_t FB_Schaltzeiten;        /**< Zeitprogramm Fussbodenheizung             */
-zeit_schaltzeiten_t ZIRK_Schaltzeiten;      /**< Zeitprogramm Warmwasser Zirkulationspumpe */
-zeit_schaltzeiten_t DUSCH_Schaltzeiten;     /**< Zeitprogramm Duschzeiten                  */
-
-int zeit_hour_offset;
-#define FEIERTAGE_MAX 16
-zeit_schaltpunkt_t Feiertag[FEIERTAGE_MAX];
-u8_t               feiertage_anzahl;
-
+    #define PUBLIC
 #else
-
-#ifdef _TELNET_C_
-extern zeit_schaltzeiten_t HK_Schaltzeiten;        /**< Zeitprogramm_Heizkoerperheizkreis         */
-extern zeit_schaltzeiten_t FB_Schaltzeiten;        /**< Zeitprogramm Fussbodenheizung             */
-extern zeit_schaltzeiten_t ZIRK_Schaltzeiten;      /**< Zeitprogramm Warmwasser Zirkulationspumpe */
-extern zeit_schaltzeiten_t DUSCH_Schaltzeiten;     /**< Zeitprogramm Duschzeiten                  */
-
-extern int     zeit_hour_offset;
-extern zeit_schaltpunkt_t Feiertag[];
-extern u8_t               feiertage_anzahl;
+    #define PUBLIC extern
 #endif
 
-#endif /* _ZEIT_C_ */
+PUBLIC zeit_schaltzeiten_t HK_Schaltzeiten;        /**< Zeitprogramm_Heizkoerperheizkreis         */
+PUBLIC zeit_schaltzeiten_t FB_Schaltzeiten;        /**< Zeitprogramm Fussbodenheizung             */
+PUBLIC zeit_schaltzeiten_t ZIRK_Schaltzeiten;      /**< Zeitprogramm Warmwasser Zirkulationspumpe */
+PUBLIC zeit_schaltzeiten_t DUSCH_Schaltzeiten;     /**< Zeitprogramm Duschzeiten                  */
+
+PUBLIC int                 zeit_hour_offset;
+
+PUBLIC zeit_schaltpunkt_t  Feiertag[FEIERTAGE_MAX];
+PUBLIC u8_t                feiertage_anzahl;
 
 /* </Variablen> */
 
