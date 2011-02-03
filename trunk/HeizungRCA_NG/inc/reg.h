@@ -10,13 +10,13 @@
 /* <Konstanten/> */
 
 /* <Typen> */
-typedef struct {
+typedef struct sup_digreg_coeff_s {
     float q[Q_MAXINDEX];
     float lower_limit;
     float upper_limit;
 } sup_digreg_coeff_t;
 
-typedef struct {
+typedef struct sup_digreg_out_s {
     float y[Q_MAXINDEX];        /**< Stellgroesse    zum Zeitpunkt t   */
     float xd[Q_MAXINDEX];       /**< Regelabweichung zum Zeitpunkt t-1 */
     u16_t t_index;              /**< aktueller Zeitindexzeiger auf Ringpuffer */

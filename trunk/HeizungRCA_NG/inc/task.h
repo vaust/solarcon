@@ -7,7 +7,7 @@
 #include "zeit.h"
 
 /* <Typen> */
-typedef struct {
+typedef struct task_tau_s {
     float t_1min_Intervall[60];                                 /**< Temperaturen der letzten Stunde im Minutenintervall */
     float t_1h_mittel_36h_Intervall[MAX_ALL_Tau_mittel_Zeit];   /**< Temperaturen der letzten 36h    im Stundenintervall */
     float t_1h_summe;

@@ -14,13 +14,13 @@
 /* <Defines/> */
 
 /* <Typen> */
-typedef struct {
+typedef struct err_param_s {
     s16_t   br_TimeOut;
     float   dt;
 } err_param_t;
 
 
-typedef struct {
+typedef struct err_in_s {
     float           kes_tvl_sw;
     float           kes_tvl_mw;
     di_bitbyte_t    br_RueckMeldung;           /**< Rueckmeldung vom Brenner (Prozesssignal)             */
@@ -33,7 +33,7 @@ typedef struct {
 } err_in_t;
 
 
-typedef struct {
+typedef struct err_out_s {
     s16_t           br_Countdown;              /**< Countdown bis Brenner gestartet haben muss */
     do_bitbyte_t    Sammelstoermeldung;        /**< Status der Sammelstoermeldungslampe        */
 } err_out_t;

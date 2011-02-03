@@ -6,7 +6,7 @@
 /* Abbildung der Hardwarepunkte auf das Speicherabbild der KBus Klemmen: */
 
 /* Eingangsgroessen */
-typedef struct {
+typedef struct Control_Input_s {
     struct {
         temp10_pt1000_t  all_tau_mw;     /**< Aussentemperatur, AI, Pt1000                                     Slot 2, R1 */
         temp10_pt1000_t  sol_koll_t_mw;  /**< Kollektortemperatur, AI, Pt1000                                  Slot 2, R2 */
@@ -41,7 +41,7 @@ typedef struct {
 } Control_Input_t;
 
 /* Ausgangsgroessen */
-typedef struct {
+typedef struct Control_Output_s {
     struct {
         ao_0_10V_t      kes_tvl_y;        /**< Kesselvorlauftemperaturvorgabe, AO, 0-10V                       Slot  9, O1 */
         ao_0_10V_t      hk_mv_y;          /**< Heizkoerper-Heizkreis Mischventil-Ansteuerung, AO, 0-10V        Slot  9, O2 */

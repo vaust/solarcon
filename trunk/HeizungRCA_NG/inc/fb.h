@@ -5,7 +5,7 @@
 #include "sup.h"
 
 /* <Typen> */
-typedef struct {
+typedef struct fb_param_s {
     float reg_kp;
     float reg_ap;
     float reg_ki;
@@ -20,7 +20,7 @@ typedef struct {
     float tr_sw;
 } fb_param_t;
 
-typedef struct {
+typedef struct fb_in_s {
     float       tau_mw;
     float       tau_avg;
     float       sek_tvl_mw;
@@ -28,7 +28,7 @@ typedef struct {
     u8_t        partytime_flg;
 } fb_in_t;
 
-typedef struct {
+typedef struct fb_out_s {
     float            tvl_sw;
     sup_digreg_out_t prim_mv_y;
     do_bitbyte_t     prim_pu_sb;

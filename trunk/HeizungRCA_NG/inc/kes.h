@@ -4,12 +4,12 @@
 #include "gen_types.h"
 
 /* <Typen> */
-typedef struct {
+typedef struct kes_param_s {
     float sp_dt_sw;                 /**< Globaler Wert div 2 !! */
     float ww_tww_sw;
 } kes_param_t;
 
-typedef struct {
+typedef struct kes_in_s {
     float        sp1_to_mw;
     float        sp2_to_mw;
     float        tvl_mw;
@@ -21,7 +21,7 @@ typedef struct {
     di_bitbyte_t br_bm;
 } kes_in_t;
 
-typedef struct {
+typedef struct kes_out_s {
     float sp1_to_sw;            /**< Sollwert fuer obere Speichertemperatur Speicher 1 */
     float sp2_to_sw;            /**< Sollwert fuer obere Speichertemperatur Speicher 2 */
     float tvl_sw_sp1;           /**< Kesselvorlaufsollwert fuer Speicher 1 nur zur Info und Debugging */
