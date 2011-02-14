@@ -28,7 +28,7 @@ void ww_MV_Steuerung( const ww_param_t *par_p,
     {
         out_p->hzg_mv_y.y = MAX_Y_PCT;  /* dann stimmt was nicht -> Ventil voll auf */
     }
-    sup_Limit( &(out_p->hzg_mv_y.y), MIN_Y_PCT, MAX_Y_PCT );
+    out_p->hzg_mv_y.y = sup_Limit( out_p->hzg_mv_y.y, MIN_Y_PCT, MAX_Y_PCT );
 }
 
 /** 

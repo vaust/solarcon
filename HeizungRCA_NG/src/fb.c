@@ -52,7 +52,7 @@ void fb_Run( const fb_param_t *par_p,
     if( (in_p->zustand == zAbgesenkt) && (in_p->partytime_flg == RESET) ) {
         out_p->tvl_sw -= par_p->tvl_absenk;
     }
-    sup_Limit( &(out_p->tvl_sw), par_p->tvl_min, par_p->tvl_max );
+    out_p->tvl_sw = sup_Limit( out_p->tvl_sw, par_p->tvl_min, par_p->tvl_max );
 
     /* Mischventil PI-Regleralgorithmus mit Anti Windup */
     sup_DigRegler( q_p, out_p->tvl_sw, in_p->sek_tvl_mw, &(out_p->prim_mv_y) );

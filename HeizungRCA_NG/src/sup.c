@@ -4,15 +4,20 @@
 #include "param.h"
 #include "sup.h"
 
-float sup_Limit( float *value, const float lower_limit, const float upper_limit )
+float sup_Limit( float value, const float lower_limit, const float upper_limit )
 {
-    if( *value <= lower_limit ) {
-        *value = lower_limit;
+    float result;
+
+    if( value <= lower_limit ) {
+        result = lower_limit;
     }
-    else if( *value >= upper_limit ) {
-        *value = upper_limit;
+    else if( value >= upper_limit ) {
+        result = upper_limit;
     }
-    return( *value );
+    else {
+        result = value;
+    }
+    return( result );
 }
 
 void sup_DigRegInit( sup_digreg_coeff_t *q_p, 
@@ -54,13 +59,7 @@ float sup_DigRegler( const sup_digreg_coeff_t *q_p,
     y_p->x[1] += q_p->ki * q_p->TA * y_p->x[0] - y_p->x[3]; 
     y_p->x[2] =  q_p->kp * y_p->x[0] + y_p->x[1] + q_p->ap;
 
-    if ( y_p->x[2] > q_p->upper_limit )
-        y_p->y = q_p->upper_limit;
-    else if ( y_p->x[2] <= q_p->lower_limit )
-        y_p->y = q_p->lower_limit;
-    else
-        y_p->y = y_p->x[2];
-
+    y_p->y = sup_Limit( y_p->x[2], q_p->lower_limit, q_p->upper_limit );
     y_p->x[3] = y_p->x[2] - y_p->y;
     
     return( y_p->y );

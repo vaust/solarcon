@@ -4,7 +4,6 @@
 #include "param.h"
 #include "kes.h"
 
-
 void kes_Init( kes_param_t *par_p, 
                kes_out_t   *out_p )
 {
@@ -43,7 +42,7 @@ void kes_Run( const kes_param_t *par_p,
         out_p->tvl_sw_sp1 = out_p->sp1_to_sw + par_p->sp_dt_sw;
         /* Einschalten der Pumpe erst wenn Brenner ein oder die Vorlauftemperatur > Speichertemperatur */
         /* if( (in_p->br_bm == IO_EIN) || (in_p->tvl_mw > in_p->sp1_to_mw) ) */
-            out_p->pu_sp1_sb = IO_EIN;
+        out_p->pu_sp1_sb = IO_EIN;
         /* Wenn Sp.-pumpe 1 ein, Sp.-pumpe 2 immer aus! */
         out_p->pu_sp2_sb = IO_AUS;
     }
@@ -59,7 +58,7 @@ void kes_Run( const kes_param_t *par_p,
             out_p->tvl_sw_sp2 = out_p->sp2_to_sw + par_p->sp_dt_sw;
             /* Einschalten der Pumpe erst wenn Brenner ein oder die Vorlauftemperatur > Speichertemperatur */
             /* if( (in_p->br_bm == IO_EIN) || (in_p->tvl_mw > in_p->sp2_to_mw) ) */
-                out_p->pu_sp2_sb = IO_EIN;
+            out_p->pu_sp2_sb = IO_EIN;
         }
         else if( in_p->sp2_to_mw >= (out_p->sp2_to_sw + par_p->sp_dt_sw/2.0) ) {
             out_p->tvl_sw_sp2 = 0.0;  /* Kessel AUS */
@@ -90,8 +89,6 @@ void kes_Run( const kes_param_t *par_p,
         out_p->tvl_sw = out_p->tvl_sw_sp2;
 }
 
-
-
 void kes_WriteInp(       kes_in_t     *in_p,
                    const float         sp1_to_mw,
                    const float         sp2_to_mw,
@@ -113,6 +110,3 @@ void kes_WriteInp(       kes_in_t     *in_p,
     in_p->duschzeit    = duschzeit;
     in_p->br_bm        = br_bm;
 }
-
-
-

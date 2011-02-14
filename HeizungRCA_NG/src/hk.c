@@ -47,7 +47,7 @@ void hk_Run( const hk_param_t         *par_p,
         out_p->tvl_sw -= par_p->tvl_absenk;
     }
 
-    sup_Limit( &(out_p->tvl_sw), par_p->tvl_min, par_p->tvl_max );
+    out_p->tvl_sw = sup_Limit( out_p->tvl_sw, par_p->tvl_min, par_p->tvl_max );
     sup_DigRegler( q_p, out_p->tvl_sw, in_p->tvl_mw, &(out_p->mv_y) );
 
     if( (in_p->tau_avg < par_p->at_start) &&            /* mittlere AT unter Betriebsschwelle */
