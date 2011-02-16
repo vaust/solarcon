@@ -767,6 +767,9 @@ void telnet_writeVars( const parse_set_t Vars[], const int len, int fdesc, char 
                     case 'd':
                         snprintf( bufout, BFLN, Vars[n].format, *(s16_t *)Vars[n].VarPointer ); BFLSH();
                         break;
+                    case 'l':
+                        snprintf( bufout, BFLN, Vars[n].format, *(s32_t *)Vars[n].VarPointer ); BFLSH();
+                        break;
                     case 'x':
                         snprintf( bufout, BFLN, Vars[n].format, *(u8_t *)Vars[n].VarPointer ); BFLSH();
                         break;
