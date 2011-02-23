@@ -41,7 +41,7 @@ void sup_DigRegInit( sup_digreg_coeff_t *q_p,
 }
 
 
-/*
+/**
  * \brief Digitaler PI-Regler mit Anti Windup.
  * Array x[] enthaelt die Zustandsgroessen.
  */
