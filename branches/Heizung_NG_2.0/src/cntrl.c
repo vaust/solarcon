@@ -69,7 +69,7 @@ void cntrl_open( void )
         sol_Init( &cntrl_sol_par );
         fb_Init( &cntrl_fb );
         hk_Init( &cntrl_hk );
-        ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
+        ww_Init( &cntrl_ww );
         kes_Init( &cntrl_kes_par, &cntrl_kes_out );
 
         /*----- Module aktivieren ----*/
