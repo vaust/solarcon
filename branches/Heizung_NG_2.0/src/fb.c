@@ -21,12 +21,15 @@ void fb_Init( fb_class_t *self )
     self->p.tvl_steigung  = param_fb_tvl_steigung;
     self->p.tr_sw         = param_fb_tr_sw;
 
-    reg_PI_Init( self->reg, USEC2SEC(param_sys_zykluszeit),
-                            param_fb_reg_kp,
-                            param_fb_reg_ki,
-                            param_fb_reg_ap,
-                            MIN_Y_PCT,
-                            MAX_Y_PCT );
+    reg_PI_Init( &(self->reg), USEC2SEC(param_sys_zykluszeit),
+                               param_fb_reg_kp,
+                               param_fb_reg_ki,
+                               param_fb_reg_ap,
+                               MIN_Y_PCT,
+                               MAX_Y_PCT,
+                               &(self->o.prim_mv_y),
+                               &(self->o.tvl_sw),
+                               &(self->i.sek_tvl_mw)  );
     
     self->o.prim_pu_sb = IO_AUS;
     self->o.sek_pu_sb = IO_AUS;
@@ -45,13 +48,13 @@ void fb_Run( fb_class_t *self )
     if( (self->i.zustand == zAbgesenkt) && (self->i.partytime_flg == RESET) ) {
         self->o.tvl_sw -= self->p.tvl_absenk;
     }
-    self->o.tvl_sw = sup_Limit( self->o.tvl_sw, self->p.tvl_min, self->p.tvl_max );
+    self->o.tvl_sw = reg_Limit( self->o.tvl_sw, self->p.tvl_min, self->p.tvl_max );
 
     /* Mischventil PI-Regleralgorithmus mit Anti Windup */
-    sup_DigRegler( q_p, self->o.tvl_sw, self->i.sek_tvl_mw, &(self->o.prim_mv_y) );
+    reg_PI_Run( &(self->reg) );
 
     if(   (self->i.tau_avg <  self->p.at_start) && /* Die mittlere Aussentemperatur liegt unter der Betriebsschwelle */
-          (self->o.tvl_sw >  self->p.tr_sw   )    /* Der berechnete Vorlauftemperatursollwert > Raumtemp.-sollwert  */
+          (self->o.tvl_sw >  self->p.tr_sw    )    /* Der berechnete Vorlauftemperatursollwert > Raumtemp.-sollwert  */
         ) {
         self->o.prim_pu_sb = IO_EIN;
         self->o.sek_pu_sb  = IO_EIN;

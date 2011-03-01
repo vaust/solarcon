@@ -19,9 +19,9 @@ typedef struct reg_par_s {
 
 typedef struct reg_class_s {
     reg_par_t   p;                    /**< Parametersatz des PI-Reglers   */
-    float       y;                    /**< Stellgroesse zum Zeitpunkt t   */
-    float       soll;                 /**< Sollwert zum Zeitpunkt t       */
-    float       ist;                  /**< Istwert zum Zeitpunkt t        */
+    float       *y;                   /**< Pointer auf Stellgroesse zum Zeitpunkt t   */
+    float       *soll;                /**< Pointer auf Sollwert zum Zeitpunkt t       */
+    float       *ist;                 /**< Pointer auf Istwert zum Zeitpunkt t        */
     float       x[REG_STATEVARS];     /**< Zustandsgroessen fuer Blockdarstellung des Anti Windup PI-Reglers */
 } reg_class_t;
 
@@ -35,7 +35,10 @@ void reg_PI_Init(       reg_class_t *self,
                   const float        ki,
                   const float        ap,
                   const float        lower_limit,
-                  const float        upper_limit  );
+                  const float        upper_limit,
+                        float const *y,
+                        float const *soll,
+                        float const *ist            );
 
 float reg_PI_Run( reg_class_t *self );
 /* <Prototypen/> */
