@@ -2,7 +2,7 @@
 #define _FB_H_
 
 #include "gen_types.h"
-#include "sup.h"
+#include "reg.h"
 
 /* <Typen> */
 typedef struct fb_param_s {
