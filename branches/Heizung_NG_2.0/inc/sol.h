@@ -47,7 +47,7 @@ typedef struct sol_class_s {
 /* <Prototypen> */
 
 void sol_Init( sol_class_t *self );
-s16_t sol_Run(  sol_class_t *self );
+s16_t sol_Run( sol_class_t *self );
 
 void sol_WriteInp(       sol_class_t *self,
                    const float        koll_t_mw,

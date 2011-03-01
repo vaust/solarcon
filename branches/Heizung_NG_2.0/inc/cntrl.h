@@ -26,7 +26,7 @@ typedef struct enable_modul_s {
     u16_t inp_ww_aktiv    : 1;  /**< Statusbit Warmwasser-Eingabe aktiv         */
     u16_t inp_kes_aktiv   : 1;  /**< Statusbit Kessel-Eingabe aktiv             */
     u16_t inp_err_aktiv   : 1;  /**< Statusbit Sammelstoermeldung Eingabe aktiv */
-} enable_modul_t;
+} cntrl_enable_modul_t;
 
 /* <Globals> Sichtbar in cntrl.c und telnet.c */
 #undef PUBLIC
@@ -36,7 +36,7 @@ typedef struct enable_modul_s {
     #define PUBLIC extern
 #endif
 
-PUBLIC enable_modul_t   cntrl_mdl_aktiv;
+PUBLIC cntrl_enable_modul_t   cntrl_mdl_aktiv;
 
 /* Variablen fuer Zeit */
 PUBLIC zeit_Betriebszustand_t  cntrl_zeit_absenkung;
@@ -46,10 +46,8 @@ PUBLIC zeit_party_t            cntrl_zeit_party;
 /* Mittelwertbildung fuer Aussentemperatur */
 PUBLIC task_tau_t          cntrl_tau;
 
-/* Variablen fuer Solarkollektorsteuerung */
-PUBLIC sol_param_t         cntrl_sol_par;
-PUBLIC sol_in_t            cntrl_sol_in;
-PUBLIC sol_out_t           cntrl_sol_out;
+/** \brief Instanz des Solarkollektorheizkreises */
+PUBLIC sol_class_t         cntrl_sol;
 
 /** \brief Instanz der Fussbodenheizung */
 PUBLIC fb_class_t          cntrl_fb;

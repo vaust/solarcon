@@ -66,7 +66,7 @@ void cntrl_open( void )
         zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
         if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
         task_Init( &cntrl_tau, io_ALL_Tau_MW.messwert );
-        sol_Init( &cntrl_sol_par );
+        sol_Init( &cntrl_sol );
         fb_Init( &cntrl_fb );
         hk_Init( &cntrl_hk );
         ww_Init( &cntrl_ww );
@@ -92,8 +92,10 @@ void cntrl_open( void )
 
 /**
  * \brief eigentlicher Steuerungsprozess.
+ *
  * cntrl_run() wird zyklisch ueber einen Systemtimer \ref server.c aufgerufen.
  * \param sig enthaelt das ausloesende Signal. Dieser Parameter wird aber nicht benoetigt.
+ * \return kein
  */
 void cntrl_run( int sig )
 {
@@ -120,15 +122,15 @@ void cntrl_run( int sig )
             if( io_Normal != io_ReadT( &io_SOL_SP2_To_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
 
-            sol_WriteInp( &cntrl_sol_in, io_SOL_KOLL_T_MW.messwert,
-                                         io_SOL_SP1_To_MW.messwert,
-                                         io_SOL_SP1_Tu_MW.messwert,
-                                         io_SOL_SP2_To_MW.messwert,
-                                         io_SOL_SP2_Tu_MW.messwert );
+            sol_WriteInp( &cntrl_sol, io_SOL_KOLL_T_MW.messwert,
+                                      io_SOL_SP1_To_MW.messwert,
+                                      io_SOL_SP1_Tu_MW.messwert,
+                                      io_SOL_SP2_To_MW.messwert,
+                                      io_SOL_SP2_Tu_MW.messwert );
         }
         /* Solarregler Task */
         if( SET == cntrl_mdl_aktiv.sol_aktiv ) {
-            cntrl_err_in.sol_errcnt += sol_Run( &cntrl_sol_par, &cntrl_sol_in, &cntrl_sol_out );
+            cntrl_err_in.sol_errcnt += sol_Run( &cntrl_sol );
         }
 
         /* Prozessdaten fuer Fussbodenheizungsregelung */
@@ -225,9 +227,9 @@ void cntrl_run( int sig )
         }
 
         /* Ausgabe des Prozessabbildes */
-        io_put_SOL_PU_SB( cntrl_sol_out.pu_sb[KO1] );
-        io_put_SOL_SP1_AV_SB( cntrl_sol_out.av_sb[SP1] );
-        io_put_SOL_SP2_AV_SB( cntrl_sol_out.av_sb[SP2] );
+        io_put_SOL_PU_SB( cntrl_sol.o.pu_sb[KO1] );
+        io_put_SOL_SP1_AV_SB( cntrl_sol.o.av_sb[SP1] );
+        io_put_SOL_SP2_AV_SB( cntrl_sol.o.av_sb[SP2] );
 
         if( io_Normal != io_WriteY( &io_FB_PRIM_MV_Y, cntrl_fb.o.prim_mv_y ) ) cntrl_err_in.ao_errcnt --;
         io_put_FB_PRIM_PU_SB( cntrl_fb.o.prim_pu_sb );

@@ -78,7 +78,7 @@ void sol_Pumpe( sol_out_t *out_p )
  * \param self Pointer auf Instanz der Klasse sol_class_t
  * \return Fehlercode fuer Sammelstoerungsauswertung.
  */
-s16_t sol_Run(  sol_class_t *self)
+s16_t sol_Run( sol_class_t *self )
 {
     s16_t errorcode = 0;
 
