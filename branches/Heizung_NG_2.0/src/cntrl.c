@@ -67,8 +67,8 @@ void cntrl_open( void )
         if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
         task_Init( &cntrl_tau, io_ALL_Tau_MW.messwert );
         sol_Init( &cntrl_sol_par );
-        fb_Init( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_out );
-        hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
+        fb_Init( &cntrl_fb );
+        hk_Init( &cntrl_hk );
         ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
         kes_Init( &cntrl_kes_par, &cntrl_kes_out );
 
@@ -136,15 +136,15 @@ void cntrl_run( int sig )
             if( io_Normal != io_ReadT( &io_ALL_Tau_MW,    NULL ) ) cntrl_err_in.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_FB_SEK_Tvl_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
 
-            fb_WriteInp( &cntrl_fb_in, io_ALL_Tau_MW.messwert,
-                                       cntrl_tau.t_36h_mittel,
-                                       io_FB_SEK_Tvl_MW.messwert,
-                                       cntrl_zeit_absenkung.FB_Zustand,
-                                       cntrl_zeit_party.all.partytime_flg );
+            fb_WriteInp( &cntrl_fb, io_ALL_Tau_MW.messwert,
+                                    cntrl_tau.t_36h_mittel,
+                                    io_FB_SEK_Tvl_MW.messwert,
+                                    cntrl_zeit_absenkung.FB_Zustand,
+                                    cntrl_zeit_party.all.partytime_flg );
         }
         /* Fussbodenheizungsregelung Task */
         if( SET == cntrl_mdl_aktiv.fb_aktiv ) {
-            fb_Run( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_in, &cntrl_fb_out );
+            fb_Run( &cntrl_fb );
         }
 
         /* Prozessdaten fuer Heizkoerperheizkreisregelung */
@@ -152,15 +152,15 @@ void cntrl_run( int sig )
             if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_HK_Tvl_MW,  NULL ) ) cntrl_err_in.tempsens_errcnt --;
 
-            hk_WriteInp( &cntrl_hk_in, io_ALL_Tau_MW.messwert,
-                                       cntrl_tau.t_36h_mittel,
-                                       io_HK_Tvl_MW.messwert,
-                                       cntrl_zeit_absenkung.HK_Zustand,
-                                       cntrl_zeit_party.all.partytime_flg );
+            hk_WriteInp( &cntrl_hk, io_ALL_Tau_MW.messwert,
+                                    cntrl_tau.t_36h_mittel,
+                                    io_HK_Tvl_MW.messwert,
+                                    cntrl_zeit_absenkung.HK_Zustand,
+                                    cntrl_zeit_party.all.partytime_flg );
         }
         /* Heizkoerperheizkreisregelung Task */
         if( SET == cntrl_mdl_aktiv.hk_aktiv ) {
-            hk_Run( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_in, &cntrl_hk_out );
+            hk_Run( &cntrl_hk );
         }
 
         /* Prozessdaten fuer Warmwasserheizkreisregelung */
