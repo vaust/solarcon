@@ -43,7 +43,7 @@ void hk_Run( hk_class_t *self )
         self->o.tvl_sw -= self->p.tvl_absenk;
     }
 
-    self->o.tvl_sw = sup_Limit( self->o.tvl_sw, self->p.tvl_min, self->p.tvl_max );
+    self->o.tvl_sw = reg_Limit( self->o.tvl_sw, self->p.tvl_min, self->p.tvl_max );
     reg_PI_Run( &(self->reg) );
 
     if( (self->i.tau_avg < self->p.at_start) &&         /* mittlere AT unter Betriebsschwelle */
