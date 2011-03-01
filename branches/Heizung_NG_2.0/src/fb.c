@@ -37,7 +37,7 @@ void fb_Init( fb_class_t *self )
 
 /** \brief Fussbodenheizung Reglerfunktion
  *
- *  \param self Pointer auf Instanz der Klasse fb_class
+ *  \param self Pointer auf Instanz der Klasse fb_class_t
  *  \return kein
  */
 void fb_Run( fb_class_t *self )

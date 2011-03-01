@@ -36,9 +36,9 @@ void reg_PI_Init(       reg_class_t *self,
                   const float        ap,
                   const float        lower_limit,
                   const float        upper_limit,
-                        float const *y,
-                        float const *soll,
-                        float const *ist            );
+                        float       *y,
+                        float       *soll,
+                        float       *ist      );
 
 float reg_PI_Run( reg_class_t *self );
 /* <Prototypen/> */

@@ -37,9 +37,9 @@ void reg_PI_Init(       reg_class_t *self,
                   const float        ap,
                   const float        lower_limit,
                   const float        upper_limit,
-                        float const *y,
-                        float const *soll,
-                        float const *ist            )
+                        float       *y,
+                        float       *soll,
+                        float       *ist            )
 {
     int n;
     
@@ -52,7 +52,7 @@ void reg_PI_Init(       reg_class_t *self,
     self->y    = y;
     self->soll = soll;
     self->ist  = ist;
-    for( n=0; n<SUP_REG_STATEVARS; n ++ ) self->x[n] = 0.0;
+    for( n=0; n<REG_STATEVARS; n ++ ) self->x[n] = 0.0;
 }
 
 
