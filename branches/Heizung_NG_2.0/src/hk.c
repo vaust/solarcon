@@ -58,16 +58,16 @@ void hk_Run( hk_class_t *self )
 /**
  * \brief Befuellen des Eingangsvektors
  */
-void hk_WriteInp(       hk_in_t     *in_p,
+void hk_WriteInp(       hk_class_t  *self,
                   const float        tau_mw,
                   const float        tau_avg,
                   const float        tvl_mw,
                   const abgesenkt_t  zustand,
                   const u8_t         partytime_flg )
 {
-    in_p->tau_mw           = tau_mw;
-    in_p->tau_avg          = tau_avg;
-    in_p->tvl_mw           = tvl_mw;
-    in_p->zustand          = zustand;
-    in_p->partytime_flg    = partytime_flg;
+    self->i.tau_mw           = tau_mw;
+    self->i.tau_avg          = tau_avg;
+    self->i.tvl_mw           = tvl_mw;
+    self->i.zustand          = zustand;
+    self->i.partytime_flg    = partytime_flg;
 }
