@@ -21,8 +21,12 @@ void fb_Init( fb_class_t *self )
     self->p.tvl_steigung  = param_fb_tvl_steigung;
     self->p.tr_sw         = param_fb_tr_sw;
 
-    reg_PI_Init( self->reg, &(self->o.prim_mv_y), USEC2SEC(param_sys_zykluszeit),
-            param_fb_reg_kp, param_fb_reg_ki, param_fb_reg_app, MIN_Y_PCT, MAX_Y_PCT );
+    reg_PI_Init( self->reg, USEC2SEC(param_sys_zykluszeit),
+                            param_fb_reg_kp,
+                            param_fb_reg_ki,
+                            param_fb_reg_ap,
+                            MIN_Y_PCT,
+                            MAX_Y_PCT );
     
     self->o.prim_pu_sb = IO_AUS;
     self->o.sek_pu_sb = IO_AUS;

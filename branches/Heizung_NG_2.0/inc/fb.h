@@ -26,7 +26,7 @@ typedef struct fb_in_s {
 
 typedef struct fb_out_s {
     float            tvl_sw;
-    sup_digreg_out_t prim_mv_y;
+    float            prim_mv_y;
     do_bitbyte_t     prim_pu_sb;
     do_bitbyte_t     sek_pu_sb;
 } fb_out_t;

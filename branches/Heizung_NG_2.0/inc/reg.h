@@ -22,7 +22,7 @@ typedef struct reg_class_s {
     float       y;                    /**< Stellgroesse zum Zeitpunkt t   */
     float       soll;                 /**< Sollwert zum Zeitpunkt t       */
     float       ist;                  /**< Istwert zum Zeitpunkt t        */
-    float       x[SUP_REG_STATEVARS]; /**< Zustandsgroessen fuer Blockdarstellung des Anti Windup PI-Reglers */
+    float       x[REG_STATEVARS];     /**< Zustandsgroessen fuer Blockdarstellung des Anti Windup PI-Reglers */
 } reg_class_t;
 
 /* <Typen> */
