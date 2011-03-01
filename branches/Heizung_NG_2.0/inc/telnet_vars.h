@@ -70,61 +70,57 @@ static const parse_set_t telnet_hk_Vars[] =
 
 static const parse_set_t telnet_ww_Vars[] =
 {
-    { "ww_par.pu_reg_kp",           &(cntrl_ww_par.pu_reg_kp),           "%f" },
-    { "ww_par.pu_reg_ki",           &(cntrl_ww_par.pu_reg_ki),           "%f" },
-    { "ww_par.pu_reg_ap",           &(cntrl_ww_par.pu_reg_ap),           "%f" },
-    { "ww_par.TA",                  &(cntrl_ww_par.TA),                  "%f" },
-    { "ww_par.kes_sp_dt_sw",        &(cntrl_ww_par.kes_sp_dt_sw),        "%f" },
-    { "ww_par.tww_sw",              &(cntrl_ww_par.tww_sw),              "%f" },
-    { "ww_par.frostschutz",         &(cntrl_ww_par.frostschutz),         "%f" },
-    { "ww_par.at_start",            &(cntrl_ww_par.at_start),            "%f" },
-    { "ww_par.mv_korr",             &(cntrl_ww_par.mv_korr),             "%f" },
-    { "ww_par.hzg_pu_y_min",        &(cntrl_ww_par.hzg_pu_y_min),        "%f" },
-    { "ww_par.schwachlastzeit_max", &(cntrl_ww_par.schwachlastzeit_max), "%d" },
+    { "ww.reg_pu.p.kp",           &(cntrl_ww.reg_pu.p.kp),           "%f" },
+    { "ww.reg_pu.p.ki",           &(cntrl_ww.reg_pu.p.ki),           "%f" },
+    { "ww.reg_pu.p.ap",           &(cntrl_ww.reg_pu.p.ap),           "%f" },
+    { "ww.reg_pu.p.TA",           &(cntrl_ww.reg_pu.p.TA),           "%f" },
+    { "ww.reg_pu.p.lower_limit",  &(cntrl_ww.reg_pu.p.lower_limit),  "%f" },
+    { "ww.reg_pu.p.upper_limit",  &(cntrl_ww.reg_pu.p.upper_limit),  "%f" },
 
-    { "ww_in.tww_mw",          &(cntrl_ww_in.tww_mw),          "%f" },
-    { "ww_in.tau_mw",          &(cntrl_ww_in.tau_mw),          "%f" },
-    { "ww_in.tau_avg",         &(cntrl_ww_in.tau_avg),         "%f" },
-    { "ww_in.hzg_tvl_mw",      &(cntrl_ww_in.hzg_tvl_mw),      "%f" },
-    { "ww_in.hzg_trl_mw",      &(cntrl_ww_in.hzg_trl_mw),      "%f" },
-    { "ww_in.hk_tvl_sw",       &(cntrl_ww_in.hk_tvl_sw),       "%f" },
-    { "ww_in.sp1_to_mw",       &(cntrl_ww_in.sp1_to_mw),       "%f" },
-    { "ww_in.sp2_tu_mw",       &(cntrl_ww_in.sp2_tu_mw),       "%f" },
-    { "ww_in.zirkzustand",     &(cntrl_ww_in.zirkzustand),     "%x" },
+    { "ww.p.kes_sp_dt_sw",        &(cntrl_ww.p.kes_sp_dt_sw),        "%f" },
+    { "ww.p.tww_sw",              &(cntrl_ww.p.tww_sw),              "%f" },
+    { "ww.p.frostschutz",         &(cntrl_ww.p.frostschutz),         "%f" },
+    { "ww.p.at_start",            &(cntrl_ww.p.at_start),            "%f" },
+    { "ww.p.mv_korr",             &(cntrl_ww.p.mv_korr),             "%f" },
+    { "ww.p.hzg_pu_y_min",        &(cntrl_ww.p.hzg_pu_y_min),        "%f" },
+    { "ww.p.schwachlastzeit_max", &(cntrl_ww.p.schwachlastzeit_max), "%d" },
 
-    { "ww_out.hzg_tvl_sw",     &(cntrl_ww_out.hzg_tvl_sw),     "%f" },
-    { "ww_out.hzg_mv_y.y",     &(cntrl_ww_out.hzg_mv_y.y),     "%f" },
-    { "ww_out.hzg_pu_y.y",     &(cntrl_ww_out.hzg_pu_y.y),     "%f" },
-    { "ww_out.hzg_pu_y.x[0]",  &(cntrl_ww_out.hzg_pu_y.x[0]),  "%f" },
-    { "ww_out.hzg_pu_y.x[1]",  &(cntrl_ww_out.hzg_pu_y.x[1]),  "%f" },
-    { "ww_out.hzg_pu_y.x[2]",  &(cntrl_ww_out.hzg_pu_y.x[2]),  "%f" },
-    { "ww_out.hzg_pu_y.x[3]",  &(cntrl_ww_out.hzg_pu_y.x[3]),  "%f" },
-    { "ww_out.hzg_pu_sb",      &(cntrl_ww_out.hzg_pu_sb),      "%x" },
-    { "ww_out.hzg_vv_sb",      &(cntrl_ww_out.hzg_vv_sb),      "%x" },
+    { "ww.i.tww_mw",              &(cntrl_ww.i.tww_mw),              "%f" },
+    { "ww.i.tau_mw",              &(cntrl_ww.i.tau_mw),              "%f" },
+    { "ww.i.tau_avg",             &(cntrl_ww.i.tau_avg),             "%f" },
+    { "ww.i.hzg_tvl_mw",          &(cntrl_ww.i.hzg_tvl_mw),          "%f" },
+    { "ww.i.hzg_trl_mw",          &(cntrl_ww.i.hzg_trl_mw),          "%f" },
+    { "ww.i.hk_tvl_sw",           &(cntrl_ww.i.hk_tvl_sw),           "%f" },
+    { "ww.i.sp1_to_mw",           &(cntrl_ww.i.sp1_to_mw),           "%f" },
+    { "ww.i.sp2_tu_mw",           &(cntrl_ww.i.sp2_tu_mw),           "%f" },
+    { "ww.i.zirkzustand",         &(cntrl_ww.i.zirkzustand),         "%x" },
 
-    { "ww_q.TA",               &(cntrl_ww_q.TA),               "%f" },
-    { "ww_q.kp",               &(cntrl_ww_q.kp),               "%f" },
-    { "ww_q.ki",               &(cntrl_ww_q.ki),               "%f" },
-    { "ww_q.ap",               &(cntrl_ww_q.ap),               "%f" },
-    { "ww_q.lower_limit",      &(cntrl_ww_q.lower_limit),      "%f" },
-    { "ww_q.upper_limit",      &(cntrl_ww_q.upper_limit),      "%f" }
+    { "ww.o.hzg_tvl_sw",          &(cntrl_ww.o.hzg_tvl_sw),          "%f" },
+    { "ww.o.hzg_mv_y",            &(cntrl_ww.o.hzg_mv_y),            "%f" },
+    { "ww.o.hzg_pu_y",            &(cntrl_ww.o.hzg_pu_y),            "%f" },
+    { "ww.reg_pu.x[0]",           &(cntrl_ww.reg_pu.x[0]),           "%f" },
+    { "ww.reg_pu.x[1]",           &(cntrl_ww.reg_pu.x[1]),           "%f" },
+    { "ww.reg_pu.x[2]",           &(cntrl_ww.reg_pu.x[2]),           "%f" },
+    { "ww.reg_pu.x[3]",           &(cntrl_ww.reg_pu.x[3]),           "%f" },
+    { "ww.o..hzg_pu_sb",          &(cntrl_ww.o.hzg_pu_sb),           "%x" },
+    { "ww.o.hzg_vv_sb",           &(cntrl_ww.o.hzg_vv_sb),           "%x" }
 };
 
 static const parse_set_t telnet_sol_Vars[] =
 {
-    { "sol_par.sp_t_max",       &(cntrl_sol_par.sp_t_max),       "%f" },
-    { "sol_par.dt_ein_sw",      &(cntrl_sol_par.dt_ein_sw),      "%f" },
-    { "sol_par.dt_aus_sw",      &(cntrl_sol_par.dt_aus_sw),      "%f" },
+    { "sol.p.sp_t_max",        &(cntrl_sol.p.sp_t_max),        "%f" },
+    { "sol.p.dt_ein_sw",       &(cntrl_sol.p.dt_ein_sw),       "%f" },
+    { "sol.p.dt_aus_sw",       &(cntrl_sol.p.dt_aus_sw),       "%f" },
 
-    { "sol_in.koll_t_mw[KO1]",  &(cntrl_sol_in.koll_t_mw[KO1]),  "%f" },
-    { "sol_in.t_sp[SP1].to_mw", &(cntrl_sol_in.t_sp[SP1].to_mw), "%f" },
-    { "sol_in.t_sp[SP1].tu_mw", &(cntrl_sol_in.t_sp[SP1].tu_mw), "%f" },
-    { "sol_in.t_sp[SP2].to_mw", &(cntrl_sol_in.t_sp[SP2].to_mw), "%f" },
-    { "sol_in.t_sp[SP2].tu_mw", &(cntrl_sol_in.t_sp[SP2].tu_mw), "%f" },
+    { "sol.i.koll_t_mw[KO1]",  &(cntrl_sol.i.koll_t_mw[KO1]),  "%f" },
+    { "sol.i.t_sp[SP1].to_mw", &(cntrl_sol.i.t_sp[SP1].to_mw), "%f" },
+    { "sol.i.t_sp[SP1].tu_mw", &(cntrl_sol.i.t_sp[SP1].tu_mw), "%f" },
+    { "sol.i.t_sp[SP2].to_mw", &(cntrl_sol.i.t_sp[SP2].to_mw), "%f" },
+    { "sol.i.t_sp[SP2].tu_mw", &(cntrl_sol.i.t_sp[SP2].tu_mw), "%f" },
 
-    { "sol_out.av_sb[SP1]",     &(cntrl_sol_out.av_sb[SP1]),     "%x" },
-    { "sol_out.av_sb[SP2]",     &(cntrl_sol_out.av_sb[SP2]),     "%x" },
-    { "sol_out.pu_sb[KO1]",     &(cntrl_sol_out.pu_sb[SP1]),     "%x" }
+    { "sol.o.av_sb[SP1]",      &(cntrl_sol.o.av_sb[SP1]),      "%x" },
+    { "sol.o.av_sb[SP2]",      &(cntrl_sol.o.av_sb[SP2]),      "%x" },
+    { "sol.o.pu_sb[SP1]",      &(cntrl_sol.o.pu_sb[SP1]),      "%x" }
 };
 
 static const parse_set_t telnet_kes_Vars[] =
