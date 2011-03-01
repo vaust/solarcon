@@ -219,7 +219,7 @@ void cntrl_run( int sig )
             cntrl_err_in.br_StoerMeldung      = io_get_KES_SSM();
             cntrl_err_in.kes_tvl_mw           = io_KES_Tvl_MW.messwert;
             cntrl_err_in.stb_Fussbodenheizung = io_get_FB_SEK_TW();
-            cntrl_err_in.kes_tvl_sw           = cntrl_kes_out.tvl_sw;
+            cntrl_err_in.kes_tvl_sw           = cntrl_kes.o.tvl_sw;
         }
         /* Sammelstoermeldung bedienen */
         if( SET == cntrl_mdl_aktiv.err_aktiv ) {
