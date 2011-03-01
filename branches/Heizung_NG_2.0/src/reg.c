@@ -71,7 +71,7 @@ float reg_PI_Run( reg_class_t *self )
     self->x[1] += self->p.ki * self->p.TA * self->x[0] - self->x[3];
     self->x[2] =  self->p.kp * self->x[0] + self->x[1] + self->p.ap;
 
-    *(self->y) = sup_Limit( self->x[2], self->p.lower_limit, self->p.upper_limit );
+    *(self->y) = reg_Limit( self->x[2], self->p.lower_limit, self->p.upper_limit );
     self->x[3] = self->x[2] - *(self->y);
     
     return( *(self->y) );
