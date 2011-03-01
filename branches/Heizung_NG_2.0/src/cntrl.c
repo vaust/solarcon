@@ -229,11 +229,11 @@ void cntrl_run( int sig )
         io_put_SOL_SP1_AV_SB( cntrl_sol_out.av_sb[SP1] );
         io_put_SOL_SP2_AV_SB( cntrl_sol_out.av_sb[SP2] );
 
-        if( io_Normal != io_WriteY( &io_FB_PRIM_MV_Y, cntrl_fb_out.prim_mv_y.y ) ) cntrl_err_in.ao_errcnt --;
+        if( io_Normal != io_WriteY( &io_FB_PRIM_MV_Y, cntrl_fb.o.prim_mv_y ) ) cntrl_err_in.ao_errcnt --;
         io_put_FB_PRIM_PU_SB( cntrl_fb.o.prim_pu_sb );
         io_put_FB_SEK_PU_SB( cntrl_fb.o.sek_pu_sb );
 
-        if( io_Normal != io_WriteY( &io_HK_MV_Y, cntrl_hk_out.mv_y.y ) ) cntrl_err_in.ao_errcnt --;
+        if( io_Normal != io_WriteY( &io_HK_MV_Y, cntrl_hk.o.mv_y ) ) cntrl_err_in.ao_errcnt --;
         io_put_HK_PU_SB( cntrl_hk.o.pu_sb );
 
         if( io_Normal != io_WriteY( &io_WW_HZG_MV_Y, cntrl_ww_out.hzg_mv_y.y ) ) cntrl_err_in.ao_errcnt --;
