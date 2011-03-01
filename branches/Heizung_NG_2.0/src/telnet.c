@@ -283,10 +283,10 @@ void *telnet_Task( void *arg )
                         if( Debug ) printf( "TELNET.C: INIT Befehl erhalten\n" );
                         cntrl_err_in.common_errcnt += param_Init();
                         zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
-                        sol_Init( &cntrl_sol_par );
+                        sol_Init( &cntrl_sol );
                         fb_Init( &cntrl_fb );
                         hk_Init( &cntrl_hk );
-                        ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
+                        ww_Init( &cntrl_ww );
                         kes_Init( &cntrl_kes_par, &cntrl_kes_out );
                         // systimer_init(); // Momentan nicht in Verwendung
                         snprintf( bufout, BFLN, "\tParameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
@@ -580,7 +580,7 @@ void telnet_writeSW( int fdesc, char *bufout )
         snprintf( bufout, BFLN, "(Normalbetrieb)\n" );
     BFLSH();
 
-    snprintf( bufout, BFLN, "ww_par.tww_sw = %5.1f °C ", cntrl_ww_par.tww_sw ); BFLSH();
+    snprintf( bufout, BFLN, "ww.p.tww_sw = %5.1f °C ", cntrl_ww.p.tww_sw ); BFLSH();
     if( cntrl_zeit_absenkung.Duschzeit == zNein )
         snprintf( bufout, BFLN, "(keine Duschzeit)\n" );
     else
@@ -682,7 +682,7 @@ void telnet_writeFB( int fdesc, char *bufout )
 static
 void telnet_writeWW( int fdesc, char *bufout )
 {
-    snprintf( bufout, BFLN, "ww_tww_sw        = %5.1f °C", cntrl_ww_par.tww_sw ); BFLSH();
+    snprintf( bufout, BFLN, "ww.p.tww_sw        = %5.1f °C", cntrl_ww_par.tww_sw ); BFLSH();
     if( cntrl_zeit_absenkung.Duschzeit == zNein )
         snprintf( bufout, BFLN, " (keine Duschzeit)\n" );
     else
