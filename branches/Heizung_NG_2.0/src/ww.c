@@ -6,11 +6,11 @@
 // #define __SCHWACHLAST__
 
 /** 
-  * Steuert die Stellung des Mischventils, das die Vorlauftemperatur fuer den Warmwasser-
-  * Waermetauscher.
-  * \param par_p Pointer auf Struktur mit Parametern
-  * \param in_p  Pointer auf Struktur mit den Eingangsgroessen
-  * \param out_p Pointer auf Struktur mit der Ausgangsgroesse Stellwert  
+  * \brief Steuerung des Mischventils.
+  *
+  * Steuert die Stellung des Mischventils, das die Vorlauftemperatur
+  * fuer den Warmwasser-Waermetauscher einstellt.
+  * \param self Pointer auf Instanz der Klasse ww_class_t
   * \return kein
   */
 static 
@@ -18,7 +18,7 @@ void ww_MV_Steuerung( ww_class_t *self )
 {
     self->o.hzg_tvl_sw = self->p.tww_sw + self->p.kes_sp_dt_sw;
     if( self->i.sp1_to_mw > self->i.hzg_trl_mw ) {
-        self->o.hzg_mv_y.y =
+        self->o.hzg_mv_y =
             (self->o.hzg_tvl_sw - self->i.hzg_trl_mw) * 100.0 /
                 (self->i.sp1_to_mw - self->i.hzg_trl_mw)
           + (self->o.hzg_tvl_sw - self->i.hzg_tvl_mw) * self->p.mv_korr;
@@ -30,6 +30,8 @@ void ww_MV_Steuerung( ww_class_t *self )
 }
 
 /** 
+  * \brief Verteilventilsteuerung.
+  *
   * Verteilventil zwischen den Speichern 1 und 2 entsprechend der Speichertemperaturen
   * einstellen.
   * \param self Pointer auf Instanz der Klasse ww_class_t
