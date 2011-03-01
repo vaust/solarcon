@@ -1,7 +1,7 @@
 #ifndef _CNTRL_H_
 #define _CNTRL_H_
 
-#include "sup.h"
+#include "reg.h"
 #include "gen_types.h"
 
 #include "zeit.h"
