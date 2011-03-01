@@ -682,7 +682,7 @@ void telnet_writeFB( int fdesc, char *bufout )
 static
 void telnet_writeWW( int fdesc, char *bufout )
 {
-    snprintf( bufout, BFLN, "ww.p.tww_sw        = %5.1f °C", cntrl_ww_par.tww_sw ); BFLSH();
+    snprintf( bufout, BFLN, "ww.p.tww_sw        = %5.1f °C", cntrl_ww.p.tww_sw ); BFLSH();
     if( cntrl_zeit_absenkung.Duschzeit == zNein )
         snprintf( bufout, BFLN, " (keine Duschzeit)\n" );
     else
