@@ -36,14 +36,14 @@ typedef struct enable_modul_s {
     #define PUBLIC extern
 #endif
 
-PUBLIC cntrl_enable_modul_t   cntrl_mdl_aktiv;
+PUBLIC cntrl_enable_modul_t    cntrl_mdl_aktiv;
 
-/* Variablen fuer Zeit */
+/** Variablen fuer Zeit */
 PUBLIC zeit_Betriebszustand_t  cntrl_zeit_absenkung;
 PUBLIC zeit_event_t            cntrl_zeit_event;
 PUBLIC zeit_party_t            cntrl_zeit_party;
 
-/* Mittelwertbildung fuer Aussentemperatur */
+/** Mittelwertbildung fuer Aussentemperatur */
 PUBLIC task_tau_t          cntrl_tau;
 
 /** \brief Instanz des Solarkollektorheizkreises */
@@ -58,17 +58,15 @@ PUBLIC hk_class_t          cntrl_hk;
 /** \brief Instanz des Warmwasserheizkreises */
 PUBLIC ww_class_t          cntrl_ww;
 
-/* Variablen fuer Kessel Steuerung */
-PUBLIC kes_param_t         cntrl_kes_par;
-PUBLIC kes_in_t            cntrl_kes_in;
-PUBLIC kes_out_t           cntrl_kes_out;
+/** \brief Instanz des Kesselkreises */
+PUBLIC kes_class_t         cntrl_kes;
 
 /* Stoermeldung */
 PUBLIC err_param_t         cntrl_err_par;
 PUBLIC err_in_t            cntrl_err_in;
 PUBLIC err_out_t           cntrl_err_out;
 
-/* --DEBUG Variablen -- */
+/** DEBUG Variablen */
 PUBLIC u32_t               cntrl_cnt;
 PUBLIC s16_t               cntrl_TaskFlag_cnt;
 

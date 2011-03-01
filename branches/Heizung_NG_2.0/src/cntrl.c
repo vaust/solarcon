@@ -70,7 +70,7 @@ void cntrl_open( void )
         fb_Init( &cntrl_fb );
         hk_Init( &cntrl_hk );
         ww_Init( &cntrl_ww );
-        kes_Init( &cntrl_kes_par, &cntrl_kes_out );
+        kes_Init( &cntrl_kes );
 
         /*----- Module aktivieren ----*/
         cntrl_mdl_aktiv.sol_aktiv     = SET;
@@ -197,19 +197,19 @@ void cntrl_run( int sig )
             if( io_Normal != io_ReadT( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_KES_Tvl_MW,    NULL ) ) cntrl_err_in.tempsens_errcnt --;
 
-            kes_WriteInp( &cntrl_kes_in, io_SOL_SP1_To_MW.messwert,
-                                         io_SOL_SP2_To_MW.messwert,
-                                         io_KES_Tvl_MW.messwert,
-                                         0,  /* Gaszaehler noch nicht genutzt */
-                                         cntrl_hk.o.tvl_sw,    /* kes_Run() abhaengig von Ausgabe hk_Run() */
-                                         cntrl_fb.o.tvl_sw,    /* kes_Run() abhaengig von Ausgabe fb_Run() */
-                                         cntrl_fb.o.prim_mv_y, /* neu */
-                                         cntrl_zeit_absenkung.Duschzeit,
-                                         io_get_KES_BR_BM()              );
+            kes_WriteInp( &cntrl_kes, io_SOL_SP1_To_MW.messwert,
+                                      io_SOL_SP2_To_MW.messwert,
+                                      io_KES_Tvl_MW.messwert,
+                                      0,  /* Gaszaehler noch nicht genutzt */
+                                      cntrl_hk.o.tvl_sw,    /* kes_Run() abhaengig von Ausgabe hk_Run() */
+                                      cntrl_fb.o.tvl_sw,    /* kes_Run() abhaengig von Ausgabe fb_Run() */
+                                      cntrl_fb.o.prim_mv_y, /* neu */
+                                      cntrl_zeit_absenkung.Duschzeit,
+                                      io_get_KES_BR_BM()              );
         }
         /* Kesselsteuerung Task */
         if( SET == cntrl_mdl_aktiv.kes_aktiv ) {
-            kes_Run( &cntrl_kes_par, &cntrl_kes_in, &cntrl_kes_out );
+            kes_Run( &cntrl_kes );
         }
 
         /* Prozessdaten fuer Sammelstoermeldung */
@@ -244,9 +244,9 @@ void cntrl_run( int sig )
         if( io_Normal != io_WriteY( &io_WW_HZG_PU_Y, cntrl_ww.o.hzg_pu_y ) ) cntrl_err_in.ao_errcnt --;
         io_put_WW_ZIRK_PU_SB( cntrl_ww.o.zirk_pu_sb );
 
-        if( io_Normal != io_WriteY( &io_KES_Tvl_Y, cntrl_kes_out.tvl_sw ) ) cntrl_err_in.ao_errcnt --;
-        io_put_KES_PU_SP1_SB( cntrl_kes_out.pu_sp1_sb );
-        io_put_KES_PU_SP2_SB( cntrl_kes_out.pu_sp2_sb );
+        if( io_Normal != io_WriteY( &io_KES_Tvl_Y, cntrl_kes.o.tvl_sw ) ) cntrl_err_in.ao_errcnt --;
+        io_put_KES_PU_SP1_SB( cntrl_kes.o.pu_sp1_sb );
+        io_put_KES_PU_SP2_SB( cntrl_kes.o.pu_sp2_sb );
 
         /* Lebenszeichen der Steuerung */
         io_put_CONTROL_AKTIV( cntrl_Heartbeat );
