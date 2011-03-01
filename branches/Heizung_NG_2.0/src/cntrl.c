@@ -172,21 +172,21 @@ void cntrl_run( int sig )
             if( io_Normal != io_ReadT( &io_SOL_SP1_To_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
 
-            ww_WriteInp( &cntrl_ww_in, io_WW_Tww_MW.messwert,
-                                       io_ALL_Tau_MW.messwert,
-                                       cntrl_tau.t_36h_mittel,
-                                       0,  /* Wasserzaehler ist noch nicht genutzt */
-                                       io_HK_Tvl_MW.messwert,
-                                       io_HK_Trl_MW.messwert,
-                                       cntrl_hk.o.tvl_sw, /* ww_Run() abhaengig von Ausgabe hk_Run() */
-                                       io_SOL_SP1_To_MW.messwert,
-                                       io_SOL_SP2_Tu_MW.messwert,
-                                       cntrl_zeit_absenkung.Zirk_Zustand,
-                                       cntrl_zeit_absenkung.Duschzeit     );
+            ww_WriteInp( &cntrl_ww, io_WW_Tww_MW.messwert,
+                                    io_ALL_Tau_MW.messwert,
+                                    cntrl_tau.t_36h_mittel,
+                                    0,  /* Wasserzaehler ist noch nicht genutzt */
+                                    io_HK_Tvl_MW.messwert,
+                                    io_HK_Trl_MW.messwert,
+                                    cntrl_hk.o.tvl_sw, /* ww_Run() abhaengig von Ausgabe hk_Run() */
+                                    io_SOL_SP1_To_MW.messwert,
+                                    io_SOL_SP2_Tu_MW.messwert,
+                                    cntrl_zeit_absenkung.Zirk_Zustand,
+                                    cntrl_zeit_absenkung.Duschzeit     );
         }
         /* Warmwasserheizkreisregelung Task */
         if( SET == cntrl_mdl_aktiv.ww_aktiv ) {
-            ww_Run( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_in, &cntrl_ww_out );
+            ww_Run( &cntrl_ww );
         }
 
         /* Prozessdaten fuer Kesselsteuerung */

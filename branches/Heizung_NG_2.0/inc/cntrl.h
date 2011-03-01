@@ -57,11 +57,8 @@ PUBLIC fb_class_t          cntrl_fb;
 /** \brief Instanz des Heizkoerperheizkreises */
 PUBLIC hk_class_t          cntrl_hk;
 
-/* Variablen fuer Warmwasserkreis  */
-PUBLIC ww_param_t          cntrl_ww_par;
-PUBLIC ww_in_t             cntrl_ww_in;
-PUBLIC ww_out_t            cntrl_ww_out;
-PUBLIC sup_digreg_coeff_t  cntrl_ww_q;
+/** \brief Instanz des Warmwasserheizkreises */
+PUBLIC ww_class_t          cntrl_ww;
 
 /* Variablen fuer Kessel Steuerung */
 PUBLIC kes_param_t         cntrl_kes_par;
