@@ -287,7 +287,7 @@ void *telnet_Task( void *arg )
                         fb_Init( &cntrl_fb );
                         hk_Init( &cntrl_hk );
                         ww_Init( &cntrl_ww );
-                        kes_Init( &cntrl_kes_par, &cntrl_kes_out );
+                        kes_Init( &cntrl_kes );
                         // systimer_init(); // Momentan nicht in Verwendung
                         snprintf( bufout, BFLN, "\tParameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
                     }
@@ -559,11 +559,11 @@ void telnet_writeT( int fdesc, char *bufout )
 static
 void telnet_writeSW( int fdesc, char *bufout )
 {
-    snprintf( bufout, BFLN, "kes_out.tvl_sw_sp1 = %5.1f °C\t kes_out.sp1_to_sw = %5.1f °C\n",
-              cntrl_kes_out.tvl_sw_sp1, cntrl_kes_out.sp1_to_sw );
+    snprintf( bufout, BFLN, "kes.o.tvl_sw_sp1 = %5.1f °C\t kes.o.sp1_to_sw = %5.1f °C\n",
+              cntrl_kes.o.tvl_sw_sp1, cntrl_kes.o.sp1_to_sw );
     BFLSH();
-    snprintf( bufout, BFLN, "kes_out.tvl_sw_sp2 = %5.1f °C\t kes_out.sp2_to_sw = %5.1f °C\n",
-              cntrl_kes_out.tvl_sw_sp2, cntrl_kes_out.sp2_to_sw );
+    snprintf( bufout, BFLN, "kes.o.tvl_sw_sp2 = %5.1f °C\t kes.o.sp2_to_sw = %5.1f °C\n",
+              cntrl_kes.o.tvl_sw_sp2, cntrl_kes.o.sp2_to_sw );
     BFLSH();
 
     snprintf( bufout, BFLN, "fb.o.tvl_sw = %5.1f °C ", cntrl_fb.o.tvl_sw ); BFLSH();
