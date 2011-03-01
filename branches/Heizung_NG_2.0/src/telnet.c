@@ -284,8 +284,8 @@ void *telnet_Task( void *arg )
                         cntrl_err_in.common_errcnt += param_Init();
                         zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
                         sol_Init( &cntrl_sol_par );
-                        fb_Init( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_out );
-                        hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
+                        fb_Init( &cntrl_fb );
+                        hk_Init( &cntrl_hk );
                         ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
                         kes_Init( &cntrl_kes_par, &cntrl_kes_out );
                         // systimer_init(); // Momentan nicht in Verwendung
@@ -566,16 +566,16 @@ void telnet_writeSW( int fdesc, char *bufout )
               cntrl_kes_out.tvl_sw_sp2, cntrl_kes_out.sp2_to_sw );
     BFLSH();
 
-    snprintf( bufout, BFLN, "fb_out.tvl_sw = %5.1f °C ", cntrl_fb_out.tvl_sw ); BFLSH();
+    snprintf( bufout, BFLN, "fb.o.tvl_sw = %5.1f °C ", cntrl_fb.o.tvl_sw ); BFLSH();
     if( cntrl_zeit_absenkung.FB_Zustand == zAbgesenkt )
-        snprintf( bufout, BFLN, "(abgesenkt um %5.1f °C)\n", cntrl_fb_par.tvl_absenk );
+        snprintf( bufout, BFLN, "(abgesenkt um %5.1f °C)\n", cntrl_fb.p.tvl_absenk );
     else
         snprintf( bufout, BFLN, "(Normalbetrieb)\n" );
     BFLSH();
 
-    snprintf( bufout, BFLN, "hk_out.tvl_sw = %5.1f °C ", cntrl_hk_out.tvl_sw ); BFLSH();
+    snprintf( bufout, BFLN, "hk.o.tvl_sw = %5.1f °C ", cntrl_hk.o.tvl_sw ); BFLSH();
     if( cntrl_zeit_absenkung.HK_Zustand == zAbgesenkt )
-        snprintf( bufout, BFLN, "(abgesenkt um %5.1f °C)\n", cntrl_hk_par.tvl_absenk );
+        snprintf( bufout, BFLN, "(abgesenkt um %5.1f °C)\n", cntrl_hk.p.tvl_absenk );
     else
         snprintf( bufout, BFLN, "(Normalbetrieb)\n" );
     BFLSH();
