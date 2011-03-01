@@ -690,8 +690,8 @@ void telnet_writeWW( int fdesc, char *bufout )
     BFLSH();
     snprintf( bufout, BFLN, "WW_Tww_MW        = %5.1f °C\n", io_get_WW_Tww_MW() );      BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_Tvl_MW    = %5.1f °C\n", io_get_WW_HZG_Tvl_MW() );  BFLSH();
-    snprintf( bufout, BFLN, "kes_out.tvl_sw_sp1 = %5.1f °C\t kes_out.sp1_to_sw = %5.1f °C\n",
-              cntrl_kes_out.tvl_sw_sp1, cntrl_kes_out.sp1_to_sw ); BFLSH();
+    snprintf( bufout, BFLN, "kes.o.tvl_sw_sp1 = %5.1f °C\t kes.o.sp1_to_sw = %5.1f °C\n",
+              cntrl_kes.o.tvl_sw_sp1, cntrl_kes.o.sp1_to_sw ); BFLSH();
     snprintf( bufout, BFLN, "SOL_SP1_To_MW    = %5.1f °C\n", io_get_SOL_SP1_To_MW() );  BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_Tvl_MW    = %5.1f °C\n", io_get_WW_HZG_Tvl_MW() );  BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_Trl_MW    = %5.1f °C\n", io_get_WW_HZG_Trl_MW() );  BFLSH();
