@@ -2,14 +2,10 @@
 #define _FB_H_
 
 #include "gen_types.h"
-#include "sup.h"
+#include "reg.h"
 
 /* <Typen> */
 typedef struct fb_param_s {
-    float reg_kp;
-    float reg_ap;
-    float reg_ki;
-    float TA;
     float tvl_absenk;
     float tvl_steigung;
     float tvl_niveau;
@@ -30,16 +26,23 @@ typedef struct fb_in_s {
 
 typedef struct fb_out_s {
     float            tvl_sw;
-    sup_digreg_out_t prim_mv_y;
+    float            prim_mv_y;
     do_bitbyte_t     prim_pu_sb;
     do_bitbyte_t     sek_pu_sb;
 } fb_out_t;
 /* <Typen/> */
 
+typedef struct fb_class_s {
+    reg_class_t reg;
+    fb_param_t  p;
+    fb_in_t     i;
+    fb_out_t    o;
+} fb_class_t;
+
 /* <Prototypen> */
-void fb_Init( fb_param_t *par_p, sup_digreg_coeff_t *q_p, fb_out_t *out_p );
-void fb_Run( const fb_param_t *par_p, const sup_digreg_coeff_t *q_p, const fb_in_t *in_p, fb_out_t *out_p );
-void fb_WriteInp(       fb_in_t     *in_p,
+void fb_Init( fb_class_t *self );
+void fb_Run( fb_class_t *self );
+void fb_WriteInp(       fb_class_t   *self,
                   const float        tau_mw,
                   const float        tau_avg,
                   const float        sek_tvl_mw,

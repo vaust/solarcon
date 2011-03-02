@@ -3,16 +3,19 @@
 #include "sol.h"
 #include "param.h"
 
-void sol_Init( sol_param_t *par_p )
+void sol_Init( sol_class_t *self )
 {
-    par_p->sp_t_max  = param_sol_sp_t_max;
-    par_p->dt_ein_sw = param_sol_dt_ein_sw;
-    par_p->dt_aus_sw = param_sol_dt_aus_sw;
+    self->p.sp_t_max  = param_sol_sp_t_max;
+    self->p.dt_ein_sw = param_sol_dt_ein_sw;
+    self->p.dt_aus_sw = param_sol_dt_aus_sw;
+    self->p.TA        = USEC2SEC(param_sys_zykluszeit);
+    self->sol_wz      = 0.0;
 }
 
 /**
  * \brief Solarspeicherabsperrventil entsprechend der Temperaturdifferenzen
  * zwischen Speicher und Kollektor betaetigen.
+ *
  * \param par_p[in] Parametrisierung
  * \param koll_t_mw[in] Vorlauftemperatur des speisenden Kollektors
  * \param t_sp_p[in] Pointer auf Struktur mit oberer und unterer Kollektortemperatur
@@ -52,8 +55,11 @@ int sol_Speicherabsperrventil( const sol_param_t   *par_p,
 }
 
 /**
- * \brief Die Pumpe eines Kollektors einschalten, wenn mind. 1 Ventil zum Speicher offen ist.
+ * \brief Kollektorpumpe(n) einschalten.
+ *
+ *  Die Pumpe eines Kollektors einschalten, wenn mind. 1 Ventil zum Speicher offen ist.
  * \param out_p Eingangsgroeßen Ventilstellung, Ausgangsgroeßen Pumpe ein/aus
+ * \return kein
  */
 static 
 void sol_Pumpe( sol_out_t *out_p )
@@ -68,24 +74,53 @@ void sol_Pumpe( sol_out_t *out_p )
 }
 
 /**
- * \brief eigentlicher Solarregler. Absperrventile steuern und die Pumpen entsprechend betaetigen.
- * \param par_p[in]
- * \param in_p[in]
- * \param out_p[out]
+ * \brief Waermezaehler
+ *
+ * Diese Methode implementiert einen einfachen Algorithmus zur Abschaetzung der
+ * vom Solarkollektor an die Speicher gelieferten Waermemenge.
+ *
+ * \param self Pointer auf Instanz der Klasse sol_class_t
+ */
+static
+void sol_Wz( sol_class_t *self )
+{
+    float akt_P; /* aktuelle Leistungsabgabe an den Speicher Speicher 1, 2 */
+    s16_t i;
+
+    for( i=0; i<SOL_N_SP; i++ ) {
+        if( self->o.av_sb[i] == IO_AUF ) {
+            akt_P = self->p.k_wlf * ( self->i.koll_t_mw[KO1] - self->i.t_sp[i].tu_mw );
+            self->sol_wz += akt_P * self->p.TA;
+        }
+    }
+}
+
+
+/**
+ * \brief eigentlicher Solarregler.
+ *
+ * Absperrventile steuern und die Pumpen entsprechend betaetigen.
+ * \param self Pointer auf Instanz der Klasse sol_class_t
  * \return Fehlercode fuer Sammelstoerungsauswertung.
  */
-s16_t sol_Run(  const sol_param_t  *par_p,
-                const sol_in_t     *in_p,
-                      sol_out_t    *out_p )
+s16_t sol_Run( sol_class_t *self )
 {
     s16_t errorcode = 0;
 
     /* Absperrventil Speicher 1 */
-    errorcode += sol_Speicherabsperrventil( par_p, in_p->koll_t_mw[KO1], &(in_p->t_sp[SP1]), &(out_p->av_sb[SP1]) ); 
+    errorcode += sol_Speicherabsperrventil( &(self->p), self->i.koll_t_mw[KO1],
+                                                        &(self->i.t_sp[SP1]),
+                                                        &(self->o.av_sb[SP1]) );
     /* Absperrventil Speicher 2 */
-    errorcode += sol_Speicherabsperrventil( par_p, in_p->koll_t_mw[KO1], &(in_p->t_sp[SP2]), &(out_p->av_sb[SP2]) );
+    errorcode += sol_Speicherabsperrventil( &(self->p), self->i.koll_t_mw[KO1],
+                                                        &(self->i.t_sp[SP2]),
+                                                        &(self->o.av_sb[SP2]) );
     /* Pumpe entsprechend des Absperrventilzustands schalten */
-    sol_Pumpe( out_p );
+    sol_Pumpe( &(self->o) );
+
+    /* Waermezaehler aktualisieren */
+    sol_Wz( self );
+
     return( errorcode );
 }
 
@@ -97,18 +132,18 @@ s16_t sol_Run(  const sol_param_t  *par_p,
  * \param sp2_to_mw[in] Obere Temperatur des Speicher 2
  * \param sp2_tu_mw[in] Untere Temperatur des Speicher 2
  */
-void sol_WriteInp(       sol_in_t *in_p,
+void sol_WriteInp(       sol_class_t *self,
                    const float     koll_t_mw,
                    const float     sp1_to_mw,
                    const float     sp1_tu_mw,
                    const float     sp2_to_mw,
                    const float     sp2_tu_mw )
 {
-    in_p->koll_t_mw[KO1]  = koll_t_mw;
-    in_p->t_sp[SP1].to_mw = sp1_to_mw;
-    in_p->t_sp[SP1].tu_mw = sp1_tu_mw;
-    in_p->t_sp[SP2].to_mw = sp2_to_mw;
-    in_p->t_sp[SP2].tu_mw = sp2_tu_mw;
+    self->i.koll_t_mw[KO1]  = koll_t_mw;
+    self->i.t_sp[SP1].to_mw = sp1_to_mw;
+    self->i.t_sp[SP1].tu_mw = sp1_tu_mw;
+    self->i.t_sp[SP2].to_mw = sp2_to_mw;
+    self->i.t_sp[SP2].tu_mw = sp2_tu_mw;
 }
 
 

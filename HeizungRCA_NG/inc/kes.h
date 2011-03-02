@@ -30,14 +30,19 @@ typedef struct kes_out_s {
     do_bitbyte_t pu_sp1_sb;     /**< Pumpen Relais Speicher Pumpe 1 */
     do_bitbyte_t pu_sp2_sb;     /**< Pumpen Relais Speicher Pumpe 2 */
 } kes_out_t;
+
+typedef struct kes_class_s {
+    kes_param_t p;
+    kes_in_t    i;
+    kes_out_t   o;
+} kes_class_t;
+
 /* <Typen/> */
 
 /* <Prototypen> */
-void kes_Init( kes_param_t *par_p, kes_out_t *out_p );
-void kes_Run( const kes_param_t *par_p, 
-              const kes_in_t    *in_p,
-                    kes_out_t   *out_p );
-void kes_WriteInp(       kes_in_t     *in_p,
+void kes_Init( kes_class_t *self );
+void kes_Run( kes_class_t *self );
+void kes_WriteInp(       kes_class_t  *self,
                    const float         sp1_to_mw,
                    const float         sp2_to_mw,
                    const float         tvl_mw,
