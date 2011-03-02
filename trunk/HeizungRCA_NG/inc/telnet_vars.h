@@ -61,11 +61,11 @@ static const parse_set_t telnet_hk_Vars[] =
 
     { "hk.o.tvl_sw",           &(cntrl_hk.o.tvl_sw),           "%f" },
     { "hk.o.mv_y",             &(cntrl_hk.o.mv_y),             "%f" },
-    { "hk_.reg.x[0]",          &(cntrl_hk.reg.x[0]),           "%f" },
-    { "hk_.reg.x[1]",          &(cntrl_hk.reg.x[1]),           "%f" },
-    { "hk_.reg.x[2]",          &(cntrl_hk.reg.x[2]),           "%f" },
-    { "hk_.reg.x[3]",          &(cntrl_hk.reg.x[3]),           "%f" },
-    { "hk_out.pu_sb",          &(cntrl_hk.o.pu_sb),            "%x" },
+    { "hk.reg.x[0]",           &(cntrl_hk.reg.x[0]),           "%f" },
+    { "hk.reg.x[1]",           &(cntrl_hk.reg.x[1]),           "%f" },
+    { "hk.reg.x[2]",           &(cntrl_hk.reg.x[2]),           "%f" },
+    { "hk.reg.x[3]",           &(cntrl_hk.reg.x[3]),           "%f" },
+    { "hk.o.pu_sb",            &(cntrl_hk.o.pu_sb),            "%x" },
 };
 
 static const parse_set_t telnet_ww_Vars[] =
