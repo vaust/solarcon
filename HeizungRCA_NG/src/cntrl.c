@@ -64,7 +64,7 @@ void cntrl_open( void )
         err_Init( &cntrl_err );
         cntrl_err.i.common_errcnt += param_Init();
         zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
-        if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
+        if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
         task_Init( &cntrl_tau, io_ALL_Tau_MW.messwert );
         sol_Init( &cntrl_sol );
         fb_Init( &cntrl_fb );
@@ -130,7 +130,7 @@ void cntrl_run( int sig )
         }
         /* Solarregler Task */
         if( SET == cntrl_mdl_aktiv.sol_aktiv ) {
-            cntrl_err_in.sol_errcnt += sol_Run( &cntrl_sol );
+            cntrl_err.i.sol_errcnt += sol_Run( &cntrl_sol );
         }
 
         /* Prozessdaten fuer Fussbodenheizungsregelung */
