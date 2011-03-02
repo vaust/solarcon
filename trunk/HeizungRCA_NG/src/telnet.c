@@ -727,7 +727,7 @@ void telnet_writeSOL( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "SOL_PU_SB     = %s\n", (io_get_SOL_PU_SB() == IO_AUS) ? "AUS" : "EIN" );   BFLSH();
     snprintf( bufout, BFLN, "SOL_SP1_AV_SB = %s\n", (io_get_SOL_SP1_AV_SB() == IO_ZU) ? "ZU" : "AUF" ); BFLSH();
     snprintf( bufout, BFLN, "SOL_SP2_AV_SB = %s\n", (io_get_SOL_SP2_AV_SB() == IO_ZU) ? "ZU" : "AUF" ); BFLSH();
-    snprintf( bufout, BFLN, "Waermezaehlerstand = %7.1 kWh\n", cntrl_sol.sol_wz/3600.0 ); BFLSH();
+    snprintf( bufout, BFLN, "Waermezaehlerstand = %7.1f kWh\n", cntrl_sol.sol_wz/3600.0 ); BFLSH();
 }
 
 static
