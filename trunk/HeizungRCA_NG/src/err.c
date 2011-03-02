@@ -19,51 +19,49 @@
 #include "err.h"
 
 
-void err_Init( err_param_t *par_p, err_in_t *in_p, err_out_t *out_p )
+void err_Init( err_class_t *self )
 {
-    par_p->br_TimeOut   = 480;                       /* 480 entspr. bei 0.5sec Zyklus 4min       */
-    par_p->dt           = param_kes_sp_dt_sw / 2.0;  /* Tvl_MW muss um diesen Betrag hoeher sein */
+    self->p.br_TimeOut   = 480;                       /* 480 entspr. bei 0.5sec Zyklus 4min       */
+    self->p.dt           = param_kes_sp_dt_sw / 2.0;  /* Tvl_MW muss um diesen Betrag hoeher sein */
 
-    out_p->br_Countdown = par_p->br_TimeOut;
+    self->o.br_Countdown = self->p.br_TimeOut;
     
-    in_p->sol_errcnt      = 0;  /* Zaehler auf 0 -> kein Fehler               */
-    in_p->ao_errcnt       = 0;  /* Jedes Fehlerereignis zaehlt Fehler herunter */
-    in_p->tempsens_errcnt = 0;
-    in_p->common_errcnt   = 0;
+    self->i.sol_errcnt      = 0;  /* Zaehler auf 0 -> kein Fehler               */
+    self->i.ao_errcnt       = 0;  /* Jedes Fehlerereignis zaehlt Fehler herunter */
+    self->i.tempsens_errcnt = 0;
+    self->i.common_errcnt   = 0;
 }
 
 /** 
   * \brief Betriebszustaende lesen und auf Plausibiliteat pruefen.
   * Falls nicht plausibel: Sammelstoermeldung setzen
   */
-void err_Run( const err_param_t *par_p,
-              const err_in_t    *in_p,
-                    err_out_t   *out_p )
+void err_Run( err_class_t *self )
 {
-    if( in_p->kes_tvl_sw > (in_p->kes_tvl_mw + par_p->dt) ) {
-        if( in_p->br_RueckMeldung == RESET ) {
-            if( out_p->br_Countdown > 0 ) out_p->br_Countdown --;
+    if( self->i.kes_tvl_sw > (self->i.kes_tvl_mw + self->p.dt) ) {
+        if( self->i.br_RueckMeldung == RESET ) {
+            if( self->o.br_Countdown > 0 ) self->o.br_Countdown --;
         }
         else {
-            out_p->br_Countdown = par_p->br_TimeOut;
+            self->o.br_Countdown = self->p.br_TimeOut;
         }
     }
     else {
-        out_p->br_Countdown = par_p->br_TimeOut;
+        self->o.br_Countdown = self->p.br_TimeOut;
     }
 
-    if(    (0          == out_p->br_Countdown       )
-        || (SET        == in_p->br_StoerMeldung     )
-        || (SET        == in_p->stb_Fussbodenheizung)
-        || (ERR_MAXCNT >  in_p->sol_errcnt          )
-        || (ERR_MAXCNT >  in_p->tempsens_errcnt     )
-        || (ERR_MAXCNT >  in_p->ao_errcnt           )
-        || (0          >  in_p->common_errcnt       )
+    if(    (0          == self->o.br_Countdown       )
+        || (SET        == self->i.br_StoerMeldung     )
+        || (SET        == self->i.stb_Fussbodenheizung)
+        || (ERR_MAXCNT >  self->i.sol_errcnt          )
+        || (ERR_MAXCNT >  self->i.tempsens_errcnt     )
+        || (ERR_MAXCNT >  self->i.ao_errcnt           )
+        || (0          >  self->i.common_errcnt       )
       ) {
-        out_p->Sammelstoermeldung = SET;
+        self->o.Sammelstoermeldung = SET;
     }
     else {
-        out_p->Sammelstoermeldung = RESET;
+        self->o.Sammelstoermeldung = RESET;
     }
 }
 
@@ -73,16 +71,14 @@ void err_Run( const err_param_t *par_p,
  * \param par_p[in] enthaelt timeout fuer Anforderungscountdown
  * \param out_p[out] Stoermeldung zuruecksetzen.
  */
-void err_Reset_Sammelstoermeldung( err_param_t *par_p,
-                                   err_in_t    *in_p,
-                                   err_out_t   *out_p )
+void err_Reset_Sammelstoermeldung( err_class_t *self )
 {
-    out_p->br_Countdown       = par_p->br_TimeOut;
-    out_p->Sammelstoermeldung = RESET;
-    in_p->sol_errcnt          = 0;
-    in_p->tempsens_errcnt     = 0;
-    in_p->ao_errcnt           = 0;
-    in_p->common_errcnt       = 0;
+    self->o.br_Countdown       = self->p.br_TimeOut;
+    self->o.Sammelstoermeldung = RESET;
+    self->i.sol_errcnt          = 0;
+    self->i.tempsens_errcnt     = 0;
+    self->i.ao_errcnt           = 0;
+    self->i.common_errcnt       = 0;
 }
 
 /*
@@ -95,14 +91,14 @@ void err_WriteInp( err_in_t *in_p, float        kes_tvl_sw,
                                    s16_t        ao_errcnt,
                                    s16_t        sol_errcnt          )
 {
-    in_p->kes_tvl_sw           = kes_tvl_sw;
-    in_p->kes_tvl_mw           = kes_tvl_mw;
-    in_p->br_RueckMeldung      = br_RueckMeldung;
-    in_p->br_StoerMeldung      = br_StoerMeldung;
-    in_p->stb_Fussbodenheizung = stb_Fussbodenheizung;
-    in_p->tempsens_errcnt      = tempsens_errcnt;
-    in_p->ao_errcnt            = ao_errcnt;
-    in_p->sol_errcnt           = sol_errcnt;
+    self->i.kes_tvl_sw           = kes_tvl_sw;
+    self->i.kes_tvl_mw           = kes_tvl_mw;
+    self->i.br_RueckMeldung      = br_RueckMeldung;
+    self->i.br_StoerMeldung      = br_StoerMeldung;
+    self->i.stb_Fussbodenheizung = stb_Fussbodenheizung;
+    self->i.tempsens_errcnt      = tempsens_errcnt;
+    self->i.ao_errcnt            = ao_errcnt;
+    self->i.sol_errcnt           = sol_errcnt;
 }
 */
 
