@@ -61,8 +61,8 @@ void cntrl_open( void )
     MUTEX_lock {
         io_Init();
 
-        err_Init( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
-        cntrl_err_in.common_errcnt += param_Init();
+        err_Init( &cntrl_err );
+        cntrl_err.i.common_errcnt += param_Init();
         zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
         if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
         task_Init( &cntrl_tau, io_ALL_Tau_MW.messwert );
@@ -105,7 +105,7 @@ void cntrl_run( int sig )
 
         /* alles was im Sekunden-, Minuten- und Stundenraster ablaufen muss und *
          * Aussentemperaturmittelwerte ermitteln                                */
-        if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
+        if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
         task_Run( param_all_partydauer,
                   io_get_ALL_PARTY(),
                   io_get_WW_PARTY(),
@@ -116,11 +116,11 @@ void cntrl_run( int sig )
 
         /* Prozessdaten fuer Solarregler */
         if( SET == cntrl_mdl_aktiv.inp_sol_aktiv ) {
-            if( io_Normal != io_ReadT( &io_SOL_KOLL_T_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_SOL_SP1_To_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_SOL_SP1_Tu_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_SOL_SP2_To_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_SOL_KOLL_T_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_SOL_SP1_To_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_SOL_SP1_Tu_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_SOL_SP2_To_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
 
             sol_WriteInp( &cntrl_sol, io_SOL_KOLL_T_MW.messwert,
                                       io_SOL_SP1_To_MW.messwert,
@@ -135,8 +135,8 @@ void cntrl_run( int sig )
 
         /* Prozessdaten fuer Fussbodenheizungsregelung */
         if( SET == cntrl_mdl_aktiv.inp_fb_aktiv ) {
-            if( io_Normal != io_ReadT( &io_ALL_Tau_MW,    NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_FB_SEK_Tvl_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_ALL_Tau_MW,    NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_FB_SEK_Tvl_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
 
             fb_WriteInp( &cntrl_fb, io_ALL_Tau_MW.messwert,
                                     cntrl_tau.t_36h_mittel,
@@ -151,8 +151,8 @@ void cntrl_run( int sig )
 
         /* Prozessdaten fuer Heizkoerperheizkreisregelung */
         if( SET == cntrl_mdl_aktiv.inp_hk_aktiv ) {
-            if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_HK_Tvl_MW,  NULL ) ) cntrl_err_in.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_HK_Tvl_MW,  NULL ) ) cntrl_err.i.tempsens_errcnt --;
 
             hk_WriteInp( &cntrl_hk, io_ALL_Tau_MW.messwert,
                                     cntrl_tau.t_36h_mittel,
@@ -167,12 +167,12 @@ void cntrl_run( int sig )
 
         /* Prozessdaten fuer Warmwasserheizkreisregelung */
         if( SET == cntrl_mdl_aktiv.inp_ww_aktiv ) {
-            if( io_Normal != io_ReadT( &io_ALL_Tau_MW,    NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_WW_Tww_MW,     NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_HK_Tvl_MW,     NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_HK_Trl_MW,     NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_SOL_SP1_To_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_ALL_Tau_MW,    NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_WW_Tww_MW,     NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_HK_Tvl_MW,     NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_HK_Trl_MW,     NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_SOL_SP1_To_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
 
             ww_WriteInp( &cntrl_ww, io_WW_Tww_MW.messwert,
                                     io_ALL_Tau_MW.messwert,
@@ -193,9 +193,9 @@ void cntrl_run( int sig )
 
         /* Prozessdaten fuer Kesselsteuerung */
         if( SET == cntrl_mdl_aktiv.inp_kes_aktiv ) {
-            if( io_Normal != io_ReadT( &io_SOL_SP1_To_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_KES_Tvl_MW,    NULL ) ) cntrl_err_in.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_SOL_SP1_To_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_KES_Tvl_MW,    NULL ) ) cntrl_err.i.tempsens_errcnt --;
 
             kes_WriteInp( &cntrl_kes, io_SOL_SP1_To_MW.messwert,
                                       io_SOL_SP2_To_MW.messwert,
@@ -231,20 +231,20 @@ void cntrl_run( int sig )
         io_put_SOL_SP1_AV_SB( cntrl_sol.o.av_sb[SP1] );
         io_put_SOL_SP2_AV_SB( cntrl_sol.o.av_sb[SP2] );
 
-        if( io_Normal != io_WriteY( &io_FB_PRIM_MV_Y, cntrl_fb.o.prim_mv_y ) ) cntrl_err_in.ao_errcnt --;
+        if( io_Normal != io_WriteY( &io_FB_PRIM_MV_Y, cntrl_fb.o.prim_mv_y ) ) cntrl_err.i.ao_errcnt --;
         io_put_FB_PRIM_PU_SB( cntrl_fb.o.prim_pu_sb );
         io_put_FB_SEK_PU_SB( cntrl_fb.o.sek_pu_sb );
 
-        if( io_Normal != io_WriteY( &io_HK_MV_Y, cntrl_hk.o.mv_y ) ) cntrl_err_in.ao_errcnt --;
+        if( io_Normal != io_WriteY( &io_HK_MV_Y, cntrl_hk.o.mv_y ) ) cntrl_err.i.ao_errcnt --;
         io_put_HK_PU_SB( cntrl_hk.o.pu_sb );
 
-        if( io_Normal != io_WriteY( &io_WW_HZG_MV_Y, cntrl_ww.o.hzg_mv_y ) ) cntrl_err_in.ao_errcnt --;
+        if( io_Normal != io_WriteY( &io_WW_HZG_MV_Y, cntrl_ww.o.hzg_mv_y ) ) cntrl_err.i.ao_errcnt --;
         io_put_WW_HZG_VV_SB( cntrl_ww.o.hzg_vv_sb );
         io_put_WW_HZG_PU_SB( cntrl_ww.o.hzg_pu_sb );
-        if( io_Normal != io_WriteY( &io_WW_HZG_PU_Y, cntrl_ww.o.hzg_pu_y ) ) cntrl_err_in.ao_errcnt --;
+        if( io_Normal != io_WriteY( &io_WW_HZG_PU_Y, cntrl_ww.o.hzg_pu_y ) ) cntrl_err.i.ao_errcnt --;
         io_put_WW_ZIRK_PU_SB( cntrl_ww.o.zirk_pu_sb );
 
-        if( io_Normal != io_WriteY( &io_KES_Tvl_Y, cntrl_kes.o.tvl_sw ) ) cntrl_err_in.ao_errcnt --;
+        if( io_Normal != io_WriteY( &io_KES_Tvl_Y, cntrl_kes.o.tvl_sw ) ) cntrl_err.i.ao_errcnt --;
         io_put_KES_PU_SP1_SB( cntrl_kes.o.pu_sp1_sb );
         io_put_KES_PU_SP2_SB( cntrl_kes.o.pu_sp2_sb );
 
