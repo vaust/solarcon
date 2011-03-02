@@ -8,6 +8,8 @@ void sol_Init( sol_class_t *self )
     self->p.sp_t_max  = param_sol_sp_t_max;
     self->p.dt_ein_sw = param_sol_dt_ein_sw;
     self->p.dt_aus_sw = param_sol_dt_aus_sw;
+    self->p.TA        = USEC2SEC(param_sys_zykluszeit);
+    self->sol_wz      = 0.0;
 }
 
 /**
@@ -72,6 +74,29 @@ void sol_Pumpe( sol_out_t *out_p )
 }
 
 /**
+ * \brief Waermezaehler
+ *
+ * Diese Methode implementiert einen einfachen Algorithmus zur Abschaetzung der
+ * vom Solarkollektor an die Speicher gelieferten Waermemenge.
+ *
+ * \param self Pointer auf Instanz der Klasse sol_class_t
+ */
+static
+void sol_Wz( sol_class_t *self )
+{
+    float akt_P; /* aktuelle Leistungsabgabe an den Speicher Speicher 1, 2 */
+    s16_t i;
+
+    for( i=0; i<SOL_N_SP; i++ ) {
+        if( self->o.av_sb[i] == IO_AUF ) {
+            akt_P = self->p.k_wlf * ( self->i.koll_t_mw[KO1] - self->i.t_sp[i].tu_mw );
+            self->sol_wz += akt_P * self->p.TA;
+        }
+    }
+}
+
+
+/**
  * \brief eigentlicher Solarregler.
  *
  * Absperrventile steuern und die Pumpen entsprechend betaetigen.
@@ -92,6 +117,10 @@ s16_t sol_Run( sol_class_t *self )
                                                         &(self->o.av_sb[SP2]) );
     /* Pumpe entsprechend des Absperrventilzustands schalten */
     sol_Pumpe( &(self->o) );
+
+    /* Waermezaehler aktualisieren */
+    sol_Wz( self );
+
     return( errorcode );
 }
 

@@ -111,6 +111,7 @@ static const parse_set_t telnet_sol_Vars[] =
     { "sol.p.sp_t_max",        &(cntrl_sol.p.sp_t_max),        "%f" },
     { "sol.p.dt_ein_sw",       &(cntrl_sol.p.dt_ein_sw),       "%f" },
     { "sol.p.dt_aus_sw",       &(cntrl_sol.p.dt_aus_sw),       "%f" },
+    { "sol.p.k_wlf",           &(cntrl_sol.p.k_wlf),           "%f" },
 
     { "sol.i.koll_t_mw[KO1]",  &(cntrl_sol.i.koll_t_mw[KO1]),  "%f" },
     { "sol.i.t_sp[SP1].to_mw", &(cntrl_sol.i.t_sp[SP1].to_mw), "%f" },
@@ -120,7 +121,9 @@ static const parse_set_t telnet_sol_Vars[] =
 
     { "sol.o.av_sb[SP1]",      &(cntrl_sol.o.av_sb[SP1]),      "%x" },
     { "sol.o.av_sb[SP2]",      &(cntrl_sol.o.av_sb[SP2]),      "%x" },
-    { "sol.o.pu_sb[SP1]",      &(cntrl_sol.o.pu_sb[SP1]),      "%x" }
+    { "sol.o.pu_sb[SP1]",      &(cntrl_sol.o.pu_sb[SP1]),      "%x" },
+
+    { "sol.sol_wz",            &(cntrl_sol.sol_wz),            "%f" }
 };
 
 static const parse_set_t telnet_kes_Vars[] =

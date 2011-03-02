@@ -20,6 +20,8 @@ typedef struct sol_param_s {
     float sp_t_max;     /**< Maximal zulaessige Speichertemperatur                                      */
     float dt_ein_sw;    /**< Temperaturdifferenz zwischen Kollektor- und Speicher, die Ventil oeffnet   */
     float dt_aus_sw;    /**< Temperaturdifferenz zwischen Kollektor- und Speicher, die Ventil schliesst */
+    float k_wlf;        /**< P(Solarheizkreis) = k_wlf * ( th_sol - th_sp_u ) / Einheit kW/K            */
+    float TA;           /**< Abtastzeit als Integrationszeit fuer den Waermezaehler                     */
 } sol_param_t;
 
 typedef struct sol_sp_t_mw_s {
@@ -28,19 +30,20 @@ typedef struct sol_sp_t_mw_s {
 } sol_sp_t_mw_t;
 
 typedef struct sol_in_s {
-    float           koll_t_mw[SOL_N_KO];    /**< Array von Kollektortemperaturen (aktuell nur ein Element) */
-    sol_sp_t_mw_t   t_sp[SOL_N_SP];         /**< Array auf Speichertemperaturpaare (aktuell 2 Elemente)    */
+    float           koll_t_mw[SOL_N_KO];  /**< Array von Kollektortemperaturen (aktuell nur ein Element) */
+    sol_sp_t_mw_t   t_sp[SOL_N_SP];       /**< Array auf Speichertemperaturpaare (aktuell 2 Elemente)    */
 } sol_in_t;
 
 typedef struct sol_out_s {
-    do_bitbyte_t    av_sb[SOL_N_SP];        /**< Array auf Absperrventilzustaende  (aktuell 2 Elemente)       */
-    do_bitbyte_t    pu_sb[SOL_N_KO];        /**< Array auf Kollektorpumpenzustaende (aktuell nur ein Element) */
+    do_bitbyte_t    av_sb[SOL_N_SP];      /**< Array auf Absperrventilzustaende  (aktuell 2 Elemente)       */
+    do_bitbyte_t    pu_sb[SOL_N_KO];      /**< Array auf Kollektorpumpenzustaende (aktuell nur ein Element) */
 } sol_out_t;   
 
 typedef struct sol_class_s {
     sol_param_t p;
     sol_in_t    i;
     sol_out_t   o;
+    float       sol_wz;     /**< Waermezaehler fuer den Solarkreis / Einheit kJ */
 } sol_class_t;
 
 /* <Typen/> */
