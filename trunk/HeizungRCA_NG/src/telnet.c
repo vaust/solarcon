@@ -293,7 +293,7 @@ void *telnet_Task( void *arg )
                     }
                     else if( strncasecmp( "ENTSTOEREN", token, 8 ) == 0 ) {
                         if( Debug ) printf( "TELNET.C: ENTSTOEREN Befehl erhalten\n" );
-                        err_Reset_Sammelstoermeldung( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
+                        err_Reset_Sammelstoermeldung( &cntrl_err );
                         snprintf( bufout, BFLN, "\tSammelstoermeldung zurueckgesetzt!\n\n" ); BFLSH();
                     }
                     else {
