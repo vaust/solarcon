@@ -151,21 +151,21 @@ static const parse_set_t telnet_kes_Vars[] =
 
 static const parse_set_t telnet_err_Vars[] =
 {
-    { "err_par.br_TimeOut",           &(cntrl_err_par.br_TimeOut),           "%d" },
-    { "err_par.dt",                   &(cntrl_err_par.dt),                   "%f" },
+    { "err.p.br_TimeOut",           &(cntrl_err.p.br_TimeOut),           "%d" },
+    { "err.p.dt",                   &(cntrl_err.p.dt),                   "%f" },
 
-    { "err_in.kes_tvl_sw",            &(cntrl_err_in.kes_tvl_sw),            "%f" },
-    { "err_in.kes_tvl_mw",            &(cntrl_err_in.kes_tvl_mw),            "%f" },
-    { "err_in.br_RueckMeldung",       &(cntrl_err_in.br_RueckMeldung),       "%x" },
-    { "err_in.br_StoerMeldung",       &(cntrl_err_in.br_StoerMeldung),       "%x" },
-    { "err_in.stb_Fussbodenheizung",  &(cntrl_err_in.stb_Fussbodenheizung),  "%x" },
-    { "err_in.tempsens_errcnt",       &(cntrl_err_in.tempsens_errcnt),       "%d" },
-    { "err_in.sol_errcnt",            &(cntrl_err_in.sol_errcnt),            "%d" },
-    { "err_in.ao_errcnt",             &(cntrl_err_in.ao_errcnt),             "%d" },
-    { "err_in.common_errcnt",         &(cntrl_err_in.common_errcnt),         "%d" },
+    { "err.i.kes_tvl_sw",            &(cntrl_err.i.kes_tvl_sw),            "%f" },
+    { "err.i.kes_tvl_mw",            &(cntrl_err.i.kes_tvl_mw),            "%f" },
+    { "err.i.br_RueckMeldung",       &(cntrl_err.i.br_RueckMeldung),       "%x" },
+    { "err.i.br_StoerMeldung",       &(cntrl_err.i.br_StoerMeldung),       "%x" },
+    { "err.i.stb_Fussbodenheizung",  &(cntrl_err.i.stb_Fussbodenheizung),  "%x" },
+    { "err.i.tempsens_errcnt",       &(cntrl_err.i.tempsens_errcnt),       "%d" },
+    { "err.i.sol_errcnt",            &(cntrl_err.i.sol_errcnt),            "%d" },
+    { "err.i.ao_errcnt",             &(cntrl_err.i.ao_errcnt),             "%d" },
+    { "err.i.common_errcnt",         &(cntrl_err.i.common_errcnt),         "%d" },
     
-    { "err_out.br_Countdown",         &(cntrl_err_out.br_Countdown),         "%d" },
-    { "err_out.Sammelstoermeldung",   &(cntrl_err_out.Sammelstoermeldung),   "%x" }
+    { "err.o.br_Countdown",         &(cntrl_err.o.br_Countdown),         "%d" },
+    { "err.o.Sammelstoermeldung",   &(cntrl_err.o.Sammelstoermeldung),   "%x" }
 };
 
 static const char *telnet_help_text[] =
