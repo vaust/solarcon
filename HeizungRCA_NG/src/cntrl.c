@@ -214,16 +214,16 @@ void cntrl_run( int sig )
 
         /* Prozessdaten fuer Sammelstoermeldung */
         if( SET == cntrl_mdl_aktiv.inp_err_aktiv ) {
-            if( io_Normal != io_ReadT( &io_KES_Tvl_MW, NULL ) ) cntrl_err_in.tempsens_errcnt --;
-            cntrl_err_in.br_RueckMeldung      = io_get_KES_BR_BM();
-            cntrl_err_in.br_StoerMeldung      = io_get_KES_SSM();
-            cntrl_err_in.kes_tvl_mw           = io_KES_Tvl_MW.messwert;
-            cntrl_err_in.stb_Fussbodenheizung = io_get_FB_SEK_TW();
-            cntrl_err_in.kes_tvl_sw           = cntrl_kes.o.tvl_sw;
+            if( io_Normal != io_ReadT( &io_KES_Tvl_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            cntrl_err.i.br_RueckMeldung      = io_get_KES_BR_BM();
+            cntrl_err.i.br_StoerMeldung      = io_get_KES_SSM();
+            cntrl_err.i.kes_tvl_mw           = io_KES_Tvl_MW.messwert;
+            cntrl_err.i.stb_Fussbodenheizung = io_get_FB_SEK_TW();
+            cntrl_err.i.kes_tvl_sw           = cntrl_kes.o.tvl_sw;
         }
         /* Sammelstoermeldung bedienen */
         if( SET == cntrl_mdl_aktiv.err_aktiv ) {
-            err_Run( &cntrl_err_par, &cntrl_err_in, &cntrl_err_out );
+            err_Run( &cntrl_err );
         }
 
         /* Ausgabe des Prozessabbildes */
@@ -252,7 +252,7 @@ void cntrl_run( int sig )
         io_put_CONTROL_AKTIV( cntrl_Heartbeat );
         cntrl_Heartbeat = !cntrl_Heartbeat;
 
-        if( cntrl_err_out.Sammelstoermeldung == RESET ) {
+        if( cntrl_err.o.Sammelstoermeldung == RESET ) {
             io_put_STOERUNG( IO_AUS );              /* Stoermeldung AUS */
         }
         else {

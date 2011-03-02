@@ -38,12 +38,12 @@ typedef struct enable_modul_s {
 
 PUBLIC cntrl_enable_modul_t    cntrl_mdl_aktiv;
 
-/** Variablen fuer Zeit */
+/** \brief Variablen fuer Zeit */
 PUBLIC zeit_Betriebszustand_t  cntrl_zeit_absenkung;
 PUBLIC zeit_event_t            cntrl_zeit_event;
 PUBLIC zeit_party_t            cntrl_zeit_party;
 
-/** Mittelwertbildung fuer Aussentemperatur */
+/** \brief Mittelwertbildung fuer Aussentemperatur */
 PUBLIC task_tau_t          cntrl_tau;
 
 /** \brief Instanz des Solarkollektorheizkreises */
@@ -61,10 +61,8 @@ PUBLIC ww_class_t          cntrl_ww;
 /** \brief Instanz des Kesselkreises */
 PUBLIC kes_class_t         cntrl_kes;
 
-/* Stoermeldung */
-PUBLIC err_param_t         cntrl_err_par;
-PUBLIC err_in_t            cntrl_err_in;
-PUBLIC err_out_t           cntrl_err_out;
+/** \brief Instanz einer Stoermeldung */
+PUBLIC err_class_t         cntrl_err;
 
 /** DEBUG Variablen */
 PUBLIC u32_t               cntrl_cnt;
