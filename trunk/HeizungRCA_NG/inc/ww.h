@@ -1,8 +1,8 @@
 #ifndef _WW_H_
 #define _WW_H_
 
-#include "sup.h"
 #include "gen_types.h"
+#include "reg.h"
 
 /* <Defines> */
 #define WW_VV_SP1       0x00
@@ -11,15 +11,8 @@
 
 /* <Typen> */
 typedef struct ww_param_s {
-    float pu_reg_kp;
-    float pu_reg_ap;
-    float pu_reg_ki;
-    // float mv_reg_kp;   Momentan nicht in Verwendung
-    // float mv_reg_ap;   Momentan nicht in Verwendung
-    // float mv_reg_ki;   Momentan nicht in Verwendung
-    float TA;
     float kes_sp_dt_sw;
-    float tww_sw;                   /**< Warmwasser Temperatur Sollwert */
+    float tww_sw;                   /**< Warmwasser Temperatur Sollwert                           */
     float frostschutz;              /**< Aussentemperatur ab der die Zirkulation dauerhaft laeuft */
     float at_start;
     float mv_korr;
@@ -42,27 +35,30 @@ typedef struct ww_in_s {
 } ww_in_t;
 
 typedef struct ww_out_s {
-    float            hzg_tvl_sw;
-    sup_digreg_out_t hzg_mv_y;
-    sup_digreg_out_t hzg_pu_y;
-    do_bitbyte_t     zirk_pu_sb;
-    do_bitbyte_t     hzg_pu_sb;
-    do_bitbyte_t     hzg_vv_sb;
+    float         hzg_tvl_sw;
+    float         hzg_mv_y;
+    float         hzg_pu_y;
+    do_bitbyte_t  zirk_pu_sb;
+    do_bitbyte_t  hzg_pu_sb;
+    do_bitbyte_t  hzg_vv_sb;
 } ww_out_t;
+
+typedef struct ww_class_s {
+    reg_class_t reg_pu;
+    reg_class_t reg_mv;
+    ww_param_t  p;
+    ww_in_t     i;
+    ww_out_t    o;
+} ww_class_t;
 
 /* <Typen/> */
 
 /* <Prototypen> */
-void ww_Init( ww_param_t         *par_p,
-              sup_digreg_coeff_t *q_hzg_pu_p,
-              ww_out_t           *out_p );
+void ww_Init( ww_class_t *self );
 
-void ww_Run( const ww_param_t         *par_p,
-             const sup_digreg_coeff_t *q_hzg_pu_p,
-             const ww_in_t            *in_p,
-                   ww_out_t           *out_p );
+void ww_Run( ww_class_t *self );
                    
-void ww_WriteInp(       ww_in_t    *in_p,
+void ww_WriteInp(       ww_class_t *self,
                   const float       tww_mw,
                   const float       tau_mw,
                   const float       tau_avg,

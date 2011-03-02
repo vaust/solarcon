@@ -283,11 +283,11 @@ void *telnet_Task( void *arg )
                         if( Debug ) printf( "TELNET.C: INIT Befehl erhalten\n" );
                         cntrl_err_in.common_errcnt += param_Init();
                         zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
-                        sol_Init( &cntrl_sol_par );
-                        fb_Init( &cntrl_fb_par, &cntrl_fb_q, &cntrl_fb_out );
-                        hk_Init( &cntrl_hk_par, &cntrl_hk_q, &cntrl_hk_out );
-                        ww_Init( &cntrl_ww_par, &cntrl_ww_q, &cntrl_ww_out );
-                        kes_Init( &cntrl_kes_par, &cntrl_kes_out );
+                        sol_Init( &cntrl_sol );
+                        fb_Init( &cntrl_fb );
+                        hk_Init( &cntrl_hk );
+                        ww_Init( &cntrl_ww );
+                        kes_Init( &cntrl_kes );
                         // systimer_init(); // Momentan nicht in Verwendung
                         snprintf( bufout, BFLN, "\tParameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
                     }
@@ -559,28 +559,28 @@ void telnet_writeT( int fdesc, char *bufout )
 static
 void telnet_writeSW( int fdesc, char *bufout )
 {
-    snprintf( bufout, BFLN, "kes_out.tvl_sw_sp1 = %5.1f °C\t kes_out.sp1_to_sw = %5.1f °C\n",
-              cntrl_kes_out.tvl_sw_sp1, cntrl_kes_out.sp1_to_sw );
+    snprintf( bufout, BFLN, "kes.o.tvl_sw_sp1 = %5.1f °C\t kes.o.sp1_to_sw = %5.1f °C\n",
+              cntrl_kes.o.tvl_sw_sp1, cntrl_kes.o.sp1_to_sw );
     BFLSH();
-    snprintf( bufout, BFLN, "kes_out.tvl_sw_sp2 = %5.1f °C\t kes_out.sp2_to_sw = %5.1f °C\n",
-              cntrl_kes_out.tvl_sw_sp2, cntrl_kes_out.sp2_to_sw );
+    snprintf( bufout, BFLN, "kes.o.tvl_sw_sp2 = %5.1f °C\t kes.o.sp2_to_sw = %5.1f °C\n",
+              cntrl_kes.o.tvl_sw_sp2, cntrl_kes.o.sp2_to_sw );
     BFLSH();
 
-    snprintf( bufout, BFLN, "fb_out.tvl_sw = %5.1f °C ", cntrl_fb_out.tvl_sw ); BFLSH();
+    snprintf( bufout, BFLN, "fb.o.tvl_sw = %5.1f °C ", cntrl_fb.o.tvl_sw ); BFLSH();
     if( cntrl_zeit_absenkung.FB_Zustand == zAbgesenkt )
-        snprintf( bufout, BFLN, "(abgesenkt um %5.1f °C)\n", cntrl_fb_par.tvl_absenk );
+        snprintf( bufout, BFLN, "(abgesenkt um %5.1f °C)\n", cntrl_fb.p.tvl_absenk );
     else
         snprintf( bufout, BFLN, "(Normalbetrieb)\n" );
     BFLSH();
 
-    snprintf( bufout, BFLN, "hk_out.tvl_sw = %5.1f °C ", cntrl_hk_out.tvl_sw ); BFLSH();
+    snprintf( bufout, BFLN, "hk.o.tvl_sw = %5.1f °C ", cntrl_hk.o.tvl_sw ); BFLSH();
     if( cntrl_zeit_absenkung.HK_Zustand == zAbgesenkt )
-        snprintf( bufout, BFLN, "(abgesenkt um %5.1f °C)\n", cntrl_hk_par.tvl_absenk );
+        snprintf( bufout, BFLN, "(abgesenkt um %5.1f °C)\n", cntrl_hk.p.tvl_absenk );
     else
         snprintf( bufout, BFLN, "(Normalbetrieb)\n" );
     BFLSH();
 
-    snprintf( bufout, BFLN, "ww_par.tww_sw = %5.1f °C ", cntrl_ww_par.tww_sw ); BFLSH();
+    snprintf( bufout, BFLN, "ww.p.tww_sw = %5.1f °C ", cntrl_ww.p.tww_sw ); BFLSH();
     if( cntrl_zeit_absenkung.Duschzeit == zNein )
         snprintf( bufout, BFLN, "(keine Duschzeit)\n" );
     else
@@ -682,7 +682,7 @@ void telnet_writeFB( int fdesc, char *bufout )
 static
 void telnet_writeWW( int fdesc, char *bufout )
 {
-    snprintf( bufout, BFLN, "ww_tww_sw        = %5.1f °C", cntrl_ww_par.tww_sw ); BFLSH();
+    snprintf( bufout, BFLN, "ww.p.tww_sw        = %5.1f °C", cntrl_ww.p.tww_sw ); BFLSH();
     if( cntrl_zeit_absenkung.Duschzeit == zNein )
         snprintf( bufout, BFLN, " (keine Duschzeit)\n" );
     else
@@ -690,8 +690,8 @@ void telnet_writeWW( int fdesc, char *bufout )
     BFLSH();
     snprintf( bufout, BFLN, "WW_Tww_MW        = %5.1f °C\n", io_get_WW_Tww_MW() );      BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_Tvl_MW    = %5.1f °C\n", io_get_WW_HZG_Tvl_MW() );  BFLSH();
-    snprintf( bufout, BFLN, "kes_out.tvl_sw_sp1 = %5.1f °C\t kes_out.sp1_to_sw = %5.1f °C\n",
-              cntrl_kes_out.tvl_sw_sp1, cntrl_kes_out.sp1_to_sw ); BFLSH();
+    snprintf( bufout, BFLN, "kes.o.tvl_sw_sp1 = %5.1f °C\t kes.o.sp1_to_sw = %5.1f °C\n",
+              cntrl_kes.o.tvl_sw_sp1, cntrl_kes.o.sp1_to_sw ); BFLSH();
     snprintf( bufout, BFLN, "SOL_SP1_To_MW    = %5.1f °C\n", io_get_SOL_SP1_To_MW() );  BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_Tvl_MW    = %5.1f °C\n", io_get_WW_HZG_Tvl_MW() );  BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_Trl_MW    = %5.1f °C\n", io_get_WW_HZG_Trl_MW() );  BFLSH();
@@ -727,6 +727,7 @@ void telnet_writeSOL( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "SOL_PU_SB     = %s\n", (io_get_SOL_PU_SB() == IO_AUS) ? "AUS" : "EIN" );   BFLSH();
     snprintf( bufout, BFLN, "SOL_SP1_AV_SB = %s\n", (io_get_SOL_SP1_AV_SB() == IO_ZU) ? "ZU" : "AUF" ); BFLSH();
     snprintf( bufout, BFLN, "SOL_SP2_AV_SB = %s\n", (io_get_SOL_SP2_AV_SB() == IO_ZU) ? "ZU" : "AUF" ); BFLSH();
+    snprintf( bufout, BFLN, "Waermezaehlerstand = %7.1 kWh\n", cntrl_sol.sol_wz/3600.0 ); BFLSH();
 }
 
 static

@@ -1,14 +1,10 @@
 #ifndef _HK_H_
 #define _HK_H_
 
-#include "sup.h"
+#include "reg.h"
 
 /* <Typen> */
 typedef struct hk_param_s {
-    float reg_kp;
-    float reg_ap;
-    float reg_ki;
-    float TA;
     float tvl_absenk;
     float tvl_steigung;
     float tvl_niveau;
@@ -29,18 +25,23 @@ typedef struct hk_in_s {
 
 typedef struct hk_out_s {
     float            tvl_sw;
-    sup_digreg_out_t mv_y;
+    float            mv_y;
     do_bitbyte_t     pu_sb;
 } hk_out_t;
+
+typedef struct hk_class_s {
+    reg_class_t reg;
+    hk_param_t  p;
+    hk_in_t     i;
+    hk_out_t    o;
+} hk_class_t;
+
 /* <Typen/> */
 
 /* <Prototypen> */
-void hk_Init( hk_param_t *par_p, sup_digreg_coeff_t *q_p, hk_out_t *out_p );
-void hk_Run( const hk_param_t         *par_p, 
-             const sup_digreg_coeff_t *q_p, 
-             const hk_in_t            *in_p, 
-                   hk_out_t           *out_p );
-void hk_WriteInp(       hk_in_t     *in_p,
+void hk_Init( hk_class_t *self );
+void hk_Run( hk_class_t *self );
+void hk_WriteInp(       hk_class_t  *self,
                   const float        tau_mw,
                   const float        tau_avg,
                   const float        tvl_mw,
