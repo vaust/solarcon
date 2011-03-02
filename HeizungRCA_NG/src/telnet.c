@@ -281,7 +281,7 @@ void *telnet_Task( void *arg )
                     }
                     else if( strncasecmp( "INIT",       token, 4 ) == 0 ) {
                         if( Debug ) printf( "TELNET.C: INIT Befehl erhalten\n" );
-                        cntrl_err_in.common_errcnt += param_Init();
+                        cntrl_err.i.common_errcnt += param_Init();
                         zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
                         sol_Init( &cntrl_sol );
                         fb_Init( &cntrl_fb );
