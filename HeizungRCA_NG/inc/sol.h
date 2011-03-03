@@ -20,7 +20,7 @@ typedef struct sol_param_s {
     float sp_t_max;     /**< Maximal zulaessige Speichertemperatur                                      */
     float dt_ein_sw;    /**< Temperaturdifferenz zwischen Kollektor- und Speicher, die Ventil oeffnet   */
     float dt_aus_sw;    /**< Temperaturdifferenz zwischen Kollektor- und Speicher, die Ventil schliesst */
-    float k_wlf;        /**< P(Solarheizkreis) = k_wlf * ( th_sol - th_sp_u ) / Einheit kW/K            */
+    float k_wlf;        /**< P(Solarheizkreis) = k_wlf * ( th_sol - th_sp_u ) / Einheit [kW/K]          */
     float TA;           /**< Abtastzeit als Integrationszeit fuer den Waermezaehler                     */
 } sol_param_t;
 
@@ -40,10 +40,10 @@ typedef struct sol_out_s {
 } sol_out_t;   
 
 typedef struct sol_class_s {
-    sol_param_t p;
-    sol_in_t    i;
-    sol_out_t   o;
-    float       sol_wz;     /**< Waermezaehler fuer den Solarkreis / Einheit kJ */
+    sol_param_t p;          /**< Parameter der Solar Komponente                   */
+    sol_in_t    i;          /**< Eingangsgroessen der Solarkomponente             */
+    sol_out_t   o;          /**< Ausgangsgroessen der Solarkomponente             */
+    float       sol_wz;     /**< Waermezaehler fuer den Solarkreis / Einheit [kJ] */
 } sol_class_t;
 
 /* <Typen/> */

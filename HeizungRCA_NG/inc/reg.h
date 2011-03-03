@@ -8,15 +8,24 @@
 /* <Konstanten/> */
 
 /* <Typen> */
+/**
+ * @brief Struktur mit allen Parameter des Reglers
+ */
 typedef struct reg_par_s {
-    float TA;
-    float kp;
-    float ki;
-    float ap;
-    float lower_limit;
-    float upper_limit;
+    float TA;               /**< Abtastzeit                           */
+    float kp;               /**< Proportionalbeiwert                  */
+    float ki;               /**< Integralbeiwert                      */
+    float ap;               /**< Arbeitspunkt des Reglers             */
+    float lower_limit;      /**< Untere Begrenzung des Reglerausgangs */
+    float upper_limit;      /**< Obere  Begrenzung des Reglerausgangs */
 } reg_par_t;
 
+/**
+ * @brief Klassendefinition des Reglers
+ *
+ * Die Eingangs- und Ausgangsgroessen sind als Pointer auf die Groessen der uebergeordneten,
+ * den Regler anwendenden Komponente angelegt.
+ */
 typedef struct reg_class_s {
     reg_par_t   p;                    /**< Parametersatz des PI-Reglers   */
     float       *y;                   /**< Pointer auf Stellgroesse zum Zeitpunkt t   */

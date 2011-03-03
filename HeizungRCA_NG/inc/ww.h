@@ -55,9 +55,7 @@ typedef struct ww_class_s {
 
 /* <Prototypen> */
 void ww_Init( ww_class_t *self );
-
 void ww_Run( ww_class_t *self );
-                   
 void ww_WriteInp(       ww_class_t *self,
                   const float       tww_mw,
                   const float       tau_mw,
