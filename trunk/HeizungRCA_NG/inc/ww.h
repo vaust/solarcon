@@ -10,6 +10,7 @@
 /* <Defines> */
 
 /* <Typen> */
+/** @brief Parameter der Komponente ww */
 typedef struct ww_param_s {
     float kes_sp_dt_sw;
     float tww_sw;                   /**< Warmwasser Temperatur Sollwert                           */
@@ -20,6 +21,7 @@ typedef struct ww_param_s {
     u16_t schwachlastzeit_max;
 } ww_param_t;
 
+/** @brief Eingangsgroessen der Komponente ww */
 typedef struct ww_in_s {
     float tww_mw;
     float tau_mw;
@@ -34,6 +36,7 @@ typedef struct ww_in_s {
     nutzzeit_t duschzeit;
 } ww_in_t;
 
+/** @brief Ausgangsgroessen der Komponente ww */
 typedef struct ww_out_s {
     float         hzg_tvl_sw;
     float         hzg_mv_y;
@@ -43,6 +46,7 @@ typedef struct ww_out_s {
     do_bitbyte_t  hzg_vv_sb;
 } ww_out_t;
 
+/** @brief Definition der Komponentenklasse ww */
 typedef struct ww_class_s {
     reg_class_t reg_pu;
     reg_class_t reg_mv;

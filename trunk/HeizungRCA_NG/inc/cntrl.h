@@ -13,7 +13,10 @@
 #include "kes.h"
 #include "err.h"
 
-typedef struct enable_modul_s {
+/**
+ * @brief Zusammenfassung der Modul Aktiv Flags der einzelnen Tasks
+ */
+typedef struct cntrl_enable_modul_s {
     u16_t sol_aktiv       : 1;  /**< Statusbit Solarkollektor aktiv             */
     u16_t fb_aktiv        : 1;  /**< Statusbit Fussbodenheizung aktiv           */
     u16_t hk_aktiv        : 1;  /**< Statusbit Heizkoerperheizkreis aktiv       */
@@ -36,6 +39,7 @@ typedef struct enable_modul_s {
     #define PUBLIC extern
 #endif
 
+/** @brief Instanz der Aktiv Flags */
 PUBLIC cntrl_enable_modul_t    cntrl_mdl_aktiv;
 
 /** \brief Variablen fuer Zeit */
@@ -64,13 +68,17 @@ PUBLIC kes_class_t         cntrl_kes;
 /** \brief Instanz einer Stoermeldung */
 PUBLIC err_class_t         cntrl_err;
 
-/** DEBUG Variablen */
+/** @brief DEBUG Variablen */
 PUBLIC u32_t               cntrl_cnt;
 PUBLIC s16_t               cntrl_TaskFlag_cnt;
 
-/* globales Schedulerwarteflag */
+/** @brief globales Schedulerwarteflag */
 PUBLIC u8_t                cntrl_TaskFlag;
+
+/** @brief globaler Heart Beat */
 PUBLIC u8_t		           cntrl_Heartbeat;
+
+/** @brief Stoerungslampe */
 PUBLIC u8_t		           cntrl_Stoerungslampe;
 
 /* Prototypen */

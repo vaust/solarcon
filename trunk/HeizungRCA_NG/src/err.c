@@ -2,6 +2,7 @@
  *  \file err.c
  *  \author Volker Stegmann
  *  \brief Fehlerbehandlungsmodul.
+ *
  *  Hiermit werden alle moeglichen Fehlerereignisse gesammelt und nach entsprechender
  *  Wichtung die Sammelstoermeldung gesetzt.
  *  SAMMELSTOERMELDUNG =
@@ -18,7 +19,11 @@
 #include "param.h"
 #include "err.h"
 
-
+/**
+ * @brief Fehlerkomponente initialisieren
+ *
+ * @param self Pointer auf Instanz der Klasse err_class_t
+ */
 void err_Init( err_class_t *self )
 {
     self->p.br_TimeOut   = 480;                       /* 480 entspr. bei 0.5sec Zyklus 4min       */
@@ -67,6 +72,7 @@ void err_Run( err_class_t *self )
 
 /**
  * \brief Sammelstoermeldung zuruecksetzen.
+ *
  * Dies Funktion soll vom Benutzerinterface aufgerufen werden.
  * \param par_p[in] enthaelt timeout fuer Anforderungscountdown
  * \param out_p[out] Stoermeldung zuruecksetzen.
