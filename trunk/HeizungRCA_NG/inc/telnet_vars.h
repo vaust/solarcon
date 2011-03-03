@@ -121,7 +121,7 @@ static const parse_set_t telnet_sol_Vars[] =
 
     { "sol.o.av_sb[SP1]",      &(cntrl_sol.o.av_sb[SP1]),      "%x" },
     { "sol.o.av_sb[SP2]",      &(cntrl_sol.o.av_sb[SP2]),      "%x" },
-    { "sol.o.pu_sb[SP1]",      &(cntrl_sol.o.pu_sb[SP1]),      "%x" },
+    { "sol.o.pu_sb[KO1]",      &(cntrl_sol.o.pu_sb[KO1]),      "%x" },
 
     { "sol.sol_wz",            &(cntrl_sol.sol_wz),            "%f" }
 };
