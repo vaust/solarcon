@@ -4,6 +4,15 @@
 #include "param.h"
 #include "reg.h"
 
+/**
+ * @brief Limitierungsfunktion
+ *
+ * Limit begrenzt einen Wert auf ein gegebenes Intervall
+ * @param value Der zu begrenzende Wert
+ * @param lower_limit Untere Begrenzung
+ * @param upper_limit Obere Begrenzung
+ * @return Der begrenzte Wert
+ */
 float reg_Limit( float value, const float lower_limit, const float upper_limit )
 {
     float result;
@@ -20,16 +29,24 @@ float reg_Limit( float value, const float lower_limit, const float upper_limit )
     return( result );
 }
 
-/*
-void sup_DigRegInit( sup_digreg_coeff_t *q_p, 
-                     sup_digreg_out_t   *y_p,
-                     float               TA,
-                     float               kp,
-                     float               ki,
-                     float               ap,
-                     float               lower_limit,
-                     float               upper_limit  )
-*/
+/**
+ * @brief PI Regler Instanz initialisieren.
+ *
+ * PI_Init initialisiert die Parameter des Reglers und setzt die Pointer fuer die
+ * Eingangs- und Ausgangsgroessen auf die zu regelnden Groessen, die die jeweilige Instanz
+ * nutzt.
+ *
+ * @param self Pointer auf eine Instanz der Klasse \ref reg_class_t
+ * @param TA Abtastzeit des digitalen Reglers
+ * @param kp Proportionalbeiwert des Reglers
+ * @param ki Integralbeiwert des Reglers
+ * @param ap Arbeitspunkt des Reglers bei Regelabweichung 0 und Integrationsanteil 0
+ * @param lower_limit Untere Begrenzung des Reglerausgangs
+ * @param upper_limit Obere Begrenzung des Reglerausgangs
+ * @param y Pointer auf die zu regelnde Ausgangsgroesse
+ * @param soll Pointer auf den Sollwert des Regelkreises
+ * @param ist Pointer auf den Istwert des Regelkreises
+ */
 void reg_PI_Init(       reg_class_t *self,
                   const float        TA,
                   const float        kp,
@@ -55,12 +72,13 @@ void reg_PI_Init(       reg_class_t *self,
     for( n=0; n<REG_STATEVARS; n ++ ) self->x[n] = 0.0;
 }
 
-
 /**
- * \brief Digitaler PI-Regler mit Anti Windup.
- * Array x[] enthaelt die Zustandsgroessen.
+ * @brief Digitaler PI-Regler mit Anti Windup
+ *
+ * Digitaler PI-Regler mit Anti Windup Rueckfuehrung
+ * @param self self Pointer auf eine Instanz der Klasse \ref reg_class_t
+ * @return Ausgang des Reglers
  */
-
 float reg_PI_Run( reg_class_t *self )
 {
     /* x[0] : x Eingangsgroesse                 */

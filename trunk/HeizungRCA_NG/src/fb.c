@@ -53,8 +53,8 @@ void fb_Run( fb_class_t *self )
     /* Mischventil PI-Regleralgorithmus mit Anti Windup */
     reg_PI_Run( &(self->reg) );
 
-    if(   (self->i.tau_avg <  self->p.at_start) && /* Die mittlere Aussentemperatur liegt unter der Betriebsschwelle */
-          (self->o.tvl_sw >  self->p.tr_sw    )    /* Der berechnete Vorlauftemperatursollwert > Raumtemp.-sollwert  */
+    if(   (self->i.tau_avg < self->p.at_start) && /* Die mittlere Aussentemperatur liegt unter der Betriebsschwelle */
+          (self->o.tvl_sw  > self->p.tr_sw   )    /* Der berechnete Vorlauftemperatursollwert > Raumtemp.-sollwert  */
         ) {
         self->o.prim_pu_sb = IO_EIN;
         self->o.sek_pu_sb  = IO_EIN;
