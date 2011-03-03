@@ -160,8 +160,8 @@ void zeit_Run( zeit_Betriebszustand_t * const absenkung,
     aktHour           = aktZeitElemente_p->tm_hour + zeit_hour_offset;  // Workaround fuer Problem mit localtime()
     aktMin            = aktZeitElemente_p->tm_min;
     aktSec            = aktZeitElemente_p->tm_sec;
-    aktMon            = aktZeitElemente_p->tm_mon + 1;  /* tm_mon = [0,11] */
-    aktMday           = aktZeitElemente_p->tm_mday; /* tm_mday = [1,31] */
+    aktMon            = aktZeitElemente_p->tm_mon + 1;  /* tm_mon  = [0,11] */
+    aktMday           = aktZeitElemente_p->tm_mday;     /* tm_mday = [1,31] */
 
     /* Flags fuer nur alle Sekunden, Minuten bzw. einmal pro Stunde auszufuehrende Tasks nach Ablauf setzen */
     if( oldSec != aktSec )
