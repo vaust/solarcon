@@ -1,7 +1,7 @@
 /**
- *  \file err.c
- *  \author Volker Stegmann
- *  \brief Fehlerbehandlungsmodul.
+ *  @file err.c
+ *  @author Volker Stegmann
+ *  @brief Fehlerbehandlungsmodul.
  *
  *  Hiermit werden alle moeglichen Fehlerereignisse gesammelt und nach entsprechender
  *  Wichtung die Sammelstoermeldung gesetzt.

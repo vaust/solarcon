@@ -1,13 +1,20 @@
+/**
+ * @file fb.c
+ * @brief implementierung der Komponente fuer die Fussbodenheizungsregelung
+ * @author Volker Stegmann
+ */
+
 #define _FB_C_
 
 // #include "gen_types.h"
 #include "fb.h"
 #include "param.h"
 
-/** \brief Fussbodenheizung Initialisierung.
+/**
+ * @brief Fussbodenheizung Initialisierung.
  *
- *  \param self Pointer auf Instanz der Klasse fb_class
- *  \return kein
+ * @param self Pointer auf Instanz der Klasse fb_class
+ * @return kein
  */
 void fb_Init( fb_class_t *self )
 {
