@@ -3,7 +3,11 @@
 
 #include "gen_types.h"
 
-/* Abbildung der Hardwarepunkte auf das Speicherabbild der KBus Klemmen: */
+/**
+ * @file io_pab_types.h
+ * @brief Abbildung der Hardwarepunkte auf das Speicherabbild der KBus Klemmen.
+ * @author Volker Stegmann
+ */
 
 /**
  * @brief Datenstruktur zur Zusammenfassung aller analogen Eingangsgroessen
