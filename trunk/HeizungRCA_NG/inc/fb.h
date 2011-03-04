@@ -5,17 +5,23 @@
 #include "reg.h"
 
 /* <Typen> */
+/**
+ * @brief Zusammenfassung der Fussbodenheizungsparameter
+ */
 typedef struct fb_param_s {
-    float tvl_absenk;
-    float tvl_steigung;
-    float tvl_niveau;
+    float tvl_absenk;   /**< Nachtabsenkung in Grad C         */
+    float tvl_steigung; /**< Heizkurvensteigung               */
+    float tvl_niveau;   /**< Heizkurven Parallelverschiebung  */
     float tvl_min;
-    float tvl_max;
+    float tvl_max;      /**< max. Vorlauftemperatur in Grad C */
     float at_start;
-    float frostschutz;
-    float tr_sw;
+    float frostschutz;  /**< Frostschutztemperatur in Grad C  */
+    float tr_sw;        /**< Raumtemperatursollwert in Grad C */
 } fb_param_t;
 
+/**
+ * @brief Zusammenfassung der Eingangsgroessen der Fussbodenheizung
+ */
 typedef struct fb_in_s {
     float       tau_mw;
     float       tau_avg;
@@ -24,6 +30,9 @@ typedef struct fb_in_s {
     u8_t        partytime_flg;
 } fb_in_t;
 
+/**
+ * @brief Zusammenfassung der Ausgangsgroessen der Fussbodenheizung
+ */
 typedef struct fb_out_s {
     float            tvl_sw;
     float            prim_mv_y;
@@ -32,6 +41,9 @@ typedef struct fb_out_s {
 } fb_out_t;
 /* <Typen/> */
 
+/**
+ * @brief Definition der Komponentenklasse der Fussbodenheizung
+ */
 typedef struct fb_class_s {
     reg_class_t reg;
     fb_param_t  p;

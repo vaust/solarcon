@@ -1,3 +1,10 @@
+/**
+ * @file cntrl.c
+ * @brief Die gesamte Heizungsteuerungsapplikation. Hier werden alle Komponenten instanziert
+ * und der Datenfluss abgebildet.
+ * @author Volker Stegmann
+ */
+
 #define _CNTRL_C_
 
 #include <stdio.h>

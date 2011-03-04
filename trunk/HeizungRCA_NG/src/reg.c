@@ -1,3 +1,9 @@
+/**
+ * @file reg.c
+ * @brief Implementierung einer PI Regler Klasse
+ * @author Volker Stegmann
+ */
+
 #define _REG_C_
 
 #include "gen_types.h"
@@ -7,7 +13,7 @@
 /**
  * @brief Limitierungsfunktion
  *
- * Limit begrenzt einen Wert auf ein gegebenes Intervall
+ * Limit begrenzt einen Wert auf ein gegebenes Intervall.
  * @param value Der zu begrenzende Wert
  * @param lower_limit Untere Begrenzung
  * @param upper_limit Obere Begrenzung

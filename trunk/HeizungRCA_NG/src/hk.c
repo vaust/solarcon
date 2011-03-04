@@ -1,6 +1,10 @@
-#ifndef _HK_C_
+/**
+ * @file hk.c
+ * @brief Implementierung der Komponente fuer die Heizkoerperheizkreisregelung
+ * @author Volker Stegmann
+ */
+
 #define _HK_C_
-#endif
 
 #include "gen_types.h"
 #include "param.h"
