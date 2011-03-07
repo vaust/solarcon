@@ -81,7 +81,6 @@ void sol_Pumpe( sol_out_t *out_p )
  *
  * \param self Pointer auf Instanz der Klasse sol_class_t
  */
-static
 void sol_Wz( sol_class_t *self )
 {
     float akt_P; /* aktuelle Leistungsabgabe an den Speicher Speicher 1, 2 */
@@ -117,9 +116,6 @@ s16_t sol_Run( sol_class_t *self )
                                                         &(self->o.av_sb[SP2]) );
     /* Pumpe entsprechend des Absperrventilzustands schalten */
     sol_Pumpe( &(self->o) );
-
-    /* Waermezaehler aktualisieren */
-    sol_Wz( self );
 
     return( errorcode );
 }

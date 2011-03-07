@@ -139,6 +139,8 @@ void cntrl_run( int sig )
         if( SET == cntrl_mdl_aktiv.sol_aktiv ) {
             cntrl_err.i.sol_errcnt += sol_Run( &cntrl_sol );
         }
+        /* Solarwaermezaehler immer aufrufen */
+        sol_Wz( &cntrl_sol );
 
         /* Prozessdaten fuer Fussbodenheizungsregelung */
         if( SET == cntrl_mdl_aktiv.inp_fb_aktiv ) {
