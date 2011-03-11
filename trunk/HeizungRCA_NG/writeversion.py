@@ -8,9 +8,12 @@ import os
 
 SVN     = '$Revision$'
 SVN_URL = '$HeadURL$'
-SVN_REV = SVN.split(':')[1].split('$')[0]
-# VERSION = '0.7.3 SVN:'+SVN_REV
-VERSION = '0.8.0'
+# SVN_REV = SVN.split(':')[1].split('$')[0]
+with open( './svn.txt', 'r' ) as file:
+  v = file.readline()
+  
+VERSION = '0.8.1 SVN:'+SVN_REV
+# VERSION = '0.8.0'
 
 L = ['svn', 'info', '>svn.info']
 os.spawnve( os.P_WAIT, 'svn', L, os.environ)
