@@ -30,7 +30,7 @@
 #include "ww.h"
 #include "kes.h"
 #include "err.h"
-// #include <time.h>   /**< Fuer Uptime Funktionalitaet */
+#include <time.h>   /**< Fuer Uptime Funktionalitaet */
 
 /**
  * @brief Zusammenfassung der Modul Aktiv Flags der einzelnen Tasks
@@ -90,8 +90,8 @@ PUBLIC err_class_t         cntrl_err;
 /** @brief DEBUG Variablen */
 PUBLIC u32_t               cntrl_cnt;
 PUBLIC s16_t               cntrl_TaskFlag_cnt;
-// PUBLIC time_t              cntrl_startTime;
-// PUBLIC time_t              cntrl_currentTime;
+PUBLIC time_t              cntrl_startTime;
+PUBLIC time_t              cntrl_currentTime;
 
 /** @brief globales Schedulerwarteflag */
 PUBLIC u8_t                cntrl_TaskFlag;
