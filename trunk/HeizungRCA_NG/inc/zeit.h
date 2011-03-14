@@ -22,9 +22,9 @@
 #include "gen_types.h"
 
 /* <Makros> */
-#define WOCHENZEIT(D, H, M)     ((M)+60*((H)+24*(D))) /* Wochentag, Stunde und Minute in Minuten umrechnen */
-#define TAGESZEIT(H, M)         ((M)+60*(H))          /* Tageszeit in Minuten                              */
-#define JAHRESTAG(M, T)         ((T)+32*(M))          /* Feiertagsdatum in eindeutige Zahl von Tagen umr.  */
+#define WOCHENZEIT(D, H, M)     ((M)+60*((H)+24*(D))) /**< Wochentag, Stunde und Minute in Minuten umrechnen */
+#define TAGESZEIT(H, M)         ((M)+60*(H))          /**< Tageszeit in Minuten                              */
+#define JAHRESTAG(M, T)         ((T)+32*(M))          /**< Feiertagsdatum in eindeutige Zahl von Tagen umr.  */
 
 #ifdef __WAGO__
     #define ZEITPROGRAMMDATEI       "/home/wochenzeitprogramm.ini"
@@ -40,13 +40,13 @@
 
 /* <Typen> */
 typedef struct zeit_Betriebszustand_s {
-    abgesenkt_t   HK_Zustand;           /* HK-Heizkreis Zeitprogramm normal / abgesenkt / abgeschaltet */
-    abgesenkt_t   FB_Zustand;           /* Zustand Fussbodenheizung */
-    ein_aus_t     Zirk_Zustand;         /* Einschaltzustand Zirkulationspumpe */
-    freigabe_t    SP1_Freigabe;         /* Freigabe des Speichers 1 ueber Kessel */
-    freigabe_t    SP2_Freigabe;         /* Freigabe des Speichers 2 ueber Kessel */
-    nutzzeit_t    Bootshausnutzung;     /* Bootshausnutzung */
-    nutzzeit_t    Duschzeit;            /* wird gerade geduscht ? */
+    abgesenkt_t   HK_Zustand;           /**< HK-Heizkreis Zeitprogramm normal / abgesenkt / abgeschaltet */
+    abgesenkt_t   FB_Zustand;           /**< Zustand Fussbodenheizung */
+    ein_aus_t     Zirk_Zustand;         /**< Einschaltzustand Zirkulationspumpe */
+    freigabe_t    SP1_Freigabe;         /**< Freigabe des Speichers 1 ueber Kessel */
+    freigabe_t    SP2_Freigabe;         /**< Freigabe des Speichers 2 ueber Kessel */
+    nutzzeit_t    Bootshausnutzung;     /**< Bootshausnutzung */
+    nutzzeit_t    Duschzeit;            /**< wird gerade geduscht ? */
 } zeit_Betriebszustand_t;
 
 typedef struct zeit_event_s {
