@@ -49,7 +49,7 @@ void err_Init( err_class_t *self )
 
     self->o.br_Countdown = self->p.br_TimeOut;
     
-    self->i.sol_errcnt      = 0;  /* Zaehler auf 0 -> kein Fehler               */
+    self->i.sol_errcnt      = 0;  /* Zaehler auf 0 -> kein Fehler                */
     self->i.ao_errcnt       = 0;  /* Jedes Fehlerereignis zaehlt Fehler herunter */
     self->i.tempsens_errcnt = 0;
     self->i.common_errcnt   = 0;
@@ -73,7 +73,7 @@ void err_Run( err_class_t *self )
         self->o.br_Countdown = self->p.br_TimeOut;
     }
 
-    if(    (0          == self->o.br_Countdown       )
+    if(    (0          == self->o.br_Countdown        )
         || (SET        == self->i.br_StoerMeldung     )
         || (SET        == self->i.stb_Fussbodenheizung)
         || (ERR_MAXCNT >  self->i.sol_errcnt          )
