@@ -16,22 +16,22 @@
  * @param self Pointer auf Instanz der Klasse fb_class
  * @return kein
  */
-void fb_Init( fb_class_t *self )
+void fb_Init( fb_class_t *self, const param_satz_t * const param )
 {
     /* Vorgaben aus Parametrierung */
-    self->p.frostschutz   = param_all_frostschutz;
-    self->p.at_start      = param_all_at_start;
-    self->p.tvl_absenk    = param_fb_tvl_absenk;
-    self->p.tvl_max       = param_fb_tvl_max;
-    self->p.tvl_min       = param_fb_tvl_min;
-    self->p.tvl_niveau    = param_fb_tvl_niveau;
-    self->p.tvl_steigung  = param_fb_tvl_steigung;
-    self->p.tr_sw         = param_fb_tr_sw;
+    self->p.frostschutz   = param->all.frostschutz;
+    self->p.at_start      = param->all.at_start;
+    self->p.tvl_absenk    = param->fb.tvl.absenk;
+    self->p.tvl_max       = param->fb.tvl.max;
+    self->p.tvl_min       = param->fb.tvl.min;
+    self->p.tvl_niveau    = param->fb.tvl.niveau;
+    self->p.tvl_steigung  = param->fb.tvl.steigung;
+    self->p.tr_sw         = param->fb.tr_sw;
 
-    reg_PI_Init( &(self->reg), USEC2SEC(param_sys_zykluszeit),
-                               param_fb_reg_kp,
-                               param_fb_reg_ki,
-                               param_fb_reg_ap,
+    reg_PI_Init( &(self->reg), USEC2SEC(param->sys.zykluszeit),
+                               param->fb.reg.kp,
+                               param->fb.reg.ki,
+                               param->fb.reg.ap,
                                MIN_Y_PCT,
                                MAX_Y_PCT,
                                &(self->o.prim_mv_y),

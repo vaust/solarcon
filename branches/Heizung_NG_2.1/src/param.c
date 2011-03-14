@@ -51,54 +51,54 @@ int param_Init( void )
         printf( "PARAM.C: Die Parameter werden mit Default Werten initialisiert!\n" );
         errCode = -1;
 
-        param_all_tau_mittel_zeit = ALL_Tau_mittel_Zeit;
-        param_all_partydauer =      ALL_Partydauer;
-        param_all_frostschutz =     ALL_Frostschutz;
-        param_all_at_start =        ALL_AT_Start;
+        param.all.tau_mittel_zeit = ALL_Tau_mittel_Zeit;
+        param.all.partydauer =      ALL_Partydauer;
+        param.all.frostschutz =     ALL_Frostschutz;
+        param.all.at_start =        ALL_AT_Start;
 
-        param_sol_dt_ein_sw =       SOL_dT_ein_SW;
-        param_sol_dt_aus_sw =       SOL_dT_aus_SW;
-        param_sol_koll_t_max =      SOL_KOLL_T_max;
-        param_sol_sp_t_max =        SOL_SP_T_max;
-        param_sol_sp1_t_min =       SOl_SP1_T_min,
+        param.sol.dt_ein_sw =       SOL_dT_ein_SW;
+        param.sol.dt_aus_sw =       SOL_dT_aus_SW;
+        param.sol.koll_t_max =      SOL_KOLL_T_max;
+        param.sol.sp_t_max =        SOL_SP_T_max;
+        param.sol.sp1_t_min =       SOl_SP1_T_min,
 
-        param_kes_sp_dt_sw =        KES_SP_dT_SW;
+        param.kes.sp_dt_sw =        KES_SP_dT_SW;
 
-        param_hk_tvl_steigung =     HK_Tvl_Steigung;
-        param_hk_tvl_niveau =       HK_Tvl_Niveau;
-        param_hk_tvl_absenk =       HK_Tvl_Absenk;
-        param_hk_tvl_min =          HK_Tvl_Min;
-        param_hk_tvl_max =          HK_Tvl_Max;
-        param_hk_frostschutz =      HK_Frostschutz;
-        param_hk_reg_kp =           HK_REG_Kp;
-        param_hk_reg_ki =           HK_REG_Ki;
-        param_hk_reg_ap =           HK_REG_AP;
-        param_hk_tr_sw  =           HK_Tr_SW;
+        param.hk.tvl.steigung =     HK_Tvl_Steigung;
+        param.hk.tvl.niveau =       HK_Tvl_Niveau;
+        param.hk.tvl.absenk =       HK_Tvl_Absenk;
+        param.hk.tvl.min =          HK_Tvl_Min;
+        param.hk.tvl.max =          HK_Tvl_Max;
+        param.hk.frostschutz =      HK_Frostschutz;
+        param.hk.reg.kp =           HK_REG_Kp;
+        param.hk.reg.ki =           HK_REG_Ki;
+        param.hk.reg.ap =           HK_REG_AP;
+        param.hk.tr_sw  =           HK_Tr_SW;
 
-        param_fb_tvl_steigung =     FB_Tvl_Steigung;
-        param_fb_tvl_niveau =       FB_Tvl_Niveau;
-        param_fb_tr_sw =            FB_Tr_SW;
-        param_fb_tvl_absenk =       FB_Tvl_Absenk;
-        param_fb_tvl_min =          FB_Tvl_Min;
-        param_fb_tvl_max =          FB_Tvl_Max;
+        param.fb.tvl.steigung =     FB_Tvl_Steigung;
+        param.fb.tvl.niveau =       FB_Tvl_Niveau;
+        param.fb.tr_sw =            FB_Tr_SW;
+        param.fb.tvl.absenk =       FB_Tvl_Absenk;
+        param.fb.tvl.min =          FB_Tvl_Min;
+        param.fb.tvl.max =          FB_Tvl_Max;
 
-        param_fb_reg_kp =           FB_REG_Kp;
-        param_fb_reg_ki =           FB_REG_Ki;
-        param_fb_reg_ap =           FB_REG_AP;
+        param.fb.reg.kp =           FB_REG_Kp;
+        param.fb.reg.ki =           FB_REG_Ki;
+        param.fb.reg.ap =           FB_REG_AP;
         
-        param_ww_tww_sw =           WW_Tww_SW;
-        param_ww_tww_max =          WW_Tww_Max;
-        param_wz_faktor =           WZ_Faktor;
-        param_wz_max =              Wz_Max;
+        param.ww.tww_sw =           WW_Tww_SW;
+        param.ww.tww_max =          WW_Tww_Max;
+        param.ww.wz_faktor =        WZ_Faktor;
+        param.ww.wz_max =           Wz_Max;
 
-        param_ww_pu_reg_kp =        WW_PU_REG_Kp;
-        param_ww_pu_reg_ki =        WW_PU_REG_Ki;
-        param_ww_pu_reg_ap =        WW_PU_REG_AP;
+        param.ww.pu_reg.kp =        WW_PU_REG_Kp;
+        param.ww.pu_reg.ki =        WW_PU_REG_Ki;
+        param.ww.pu_reg.ap =        WW_PU_REG_AP;
         
-        param_ww_mv_korr =          WW_MV_KORR;
-        param_ww_tww_tvl_faktor =   WW_Tww_Tvl_Faktor;
-        param_ww_tz_sw =            WW_Tz_SW;
-        param_sys_zykluszeit =      ABTASTZEIT_USEC;
+        param.ww.mv_korr =          WW_MV_KORR;
+        param.ww.tww_tvl_faktor =   WW_Tww_Tvl_Faktor;
+        param.ww.tz_sw =            WW_Tz_SW;
+        param.sys.zykluszeit =      ABTASTZEIT_USEC;
     }
     else {
         printf( "PARAM.C: Ini Datei einlesen:\n" );
