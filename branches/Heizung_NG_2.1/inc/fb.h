@@ -2,6 +2,7 @@
 #define _FB_H_
 
 #include "gen_types.h"
+#include "param.h"
 #include "reg.h"
 
 /* <Typen> */
