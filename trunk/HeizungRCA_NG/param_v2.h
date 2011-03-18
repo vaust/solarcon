@@ -111,8 +111,8 @@ typedef struct param_reg_s {
 typedef struct param_hk_s {
     param_tvl_t tvl;
     param_reg_t reg;
-    float       frostschutz;      /**< Aussentemperatur ab der Heizkreis in Betrieb ist in Grad C         */
     float       tr_sw;            /**< Heizkoerperheizkreis Raumtemperatur Sollwert                       */
+    float       frostschutz;      /**< Aussentemperatur ab der Heizkreis in Betrieb ist in Grad C         */
 } param_hk_t;
 
 typedef struct param_fb_s {
