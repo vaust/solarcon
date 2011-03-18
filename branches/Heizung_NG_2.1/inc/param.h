@@ -76,8 +76,8 @@ typedef struct parse_set_s {
 } parse_set_t;
 
 typedef struct param_all_s {
-    int   tau_mittel_zeit; /**< Zeit ueber die die Aussentemperatur gemittelt wird (in Stunden)           */
-    int   partydauer;      /**< Fussbodenheizkreis Dauer der Betriebsverlaengerung (in Minuten)           */
+    s16_t tau_mittel_zeit; /**< Zeit ueber die die Aussentemperatur gemittelt wird (in Stunden)           */
+    s16_t partydauer;      /**< Fussbodenheizkreis Dauer der Betriebsverlaengerung (in Minuten)           */
     float frostschutz;     /**< Aussentemperatur unter der Heizkreis immer in Betrieb in Grad C           */
     float at_start;        /**< Aussentemperatur unter der Heizung startet in Grad C                      */
 } param_all_t;
