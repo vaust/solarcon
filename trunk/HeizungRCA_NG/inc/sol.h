@@ -16,6 +16,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file sol.h
+ * @author Volker Stegmann
+ * @brief Interface fuer Solarkomponente
+ */
+
 #ifndef _SOL_H_
 #define _SOL_H_
 
