@@ -16,10 +16,13 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** \file Modul mit allen Methoden, die in einem bestimmten Zeitraster aufgerufen
-  * werden muessen.
-  * \author Volker Stegmann 
-  */
+/**
+ * @file task.c
+ * @brief Modul mit allen Methoden, die in einem bestimmten Zeitraster aufgerufen
+ * werden muessen.
+ *
+ * @author Volker Stegmann
+ */
   
 #define _TASK_C_
 
@@ -35,7 +38,7 @@ void task_partytime_schalter_lesen( const int                               all_
 {
     if(    ( schaltzustand     >= IO_EIN ) 
         && ( status->alterwert == IO_AUS ) ) {
-        status->partytime_flg = SET;   /* Ruecksetzen in task_min() */
+        status->partytime_flg = SET;   /* Ruecksetzen in task_test_partytime() */
         status->party_restzeit_min = all_partydauer;
     }
     status->alterwert = schaltzustand;
