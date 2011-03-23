@@ -111,7 +111,7 @@ void ww_Init( ww_class_t *self )
     self->p.hzg_pu_y_min        = 11.0;
     self->p.schwachlastzeit_max = 300;
 
-    reg_PI_Init( &(self->reg_pu), USEC2SEC(param_sys_zykluszeit),
+    reg_PI_Init( &(self->reg_pu), MSEC2SEC(param_sys_zykluszeit),
                                   param_ww_pu_reg_kp,
                                   param_ww_pu_reg_ki,
                                   param_ww_pu_reg_ap,

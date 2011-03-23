@@ -46,7 +46,7 @@ void fb_Init( fb_class_t *self )
     self->p.tvl_steigung  = param_fb_tvl_steigung;
     self->p.tr_sw         = param_fb_tr_sw;
 
-    reg_PI_Init( &(self->reg), USEC2SEC(param_sys_zykluszeit),
+    reg_PI_Init( &(self->reg), MSEC2SEC(param_sys_zykluszeit),
                                param_fb_reg_kp,
                                param_fb_reg_ki,
                                param_fb_reg_ap,
