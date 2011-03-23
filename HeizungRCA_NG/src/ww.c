@@ -68,7 +68,7 @@ void ww_VV_Steuerung( ww_class_t *self )
     }
 }
 
-// #ifdef __SCHWACHLAST__
+#ifdef __SCHWACHLAST__
 /** 
   * Schwachlaststeuerung soll eingreifen, wenn nur wenig Warmwasser gebraucht wird und 10% 
   * Pumpenleistung fuer den Waermetauscher bereits zu viel Leistung bringt
@@ -91,7 +91,7 @@ void ww_Schwachlast_Steuerung( ww_class_t *self )
         schwachlastzeit = 0;
     }
 }
-// #endif
+#endif
 
 /**
   * \brief Initialisierung der ww-Task.
