@@ -41,7 +41,7 @@ void hk_Init( hk_class_t *self )
     self->p.tvl_steigung = param_hk_tvl_steigung;
     self->p.tr_sw        = param_hk_tr_sw;
 
-    reg_PI_Init( &(self->reg), USEC2SEC(param_sys_zykluszeit),
+    reg_PI_Init( &(self->reg), MSEC2SEC(param_sys_zykluszeit),
                                param_hk_reg_kp,
                                param_hk_reg_ki,
                                param_hk_reg_ap,
