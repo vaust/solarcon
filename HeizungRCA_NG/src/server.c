@@ -114,8 +114,8 @@ void systimer_init( u32_t zykluszeit )
 {
     struct itimerval   timer;
 
-    timer.it_value.tv_sec = 0;
-    timer.it_value.tv_usec = zykluszeit;
+    timer.it_value.tv_sec  = zykluszeit / 1000000L;
+    timer.it_value.tv_usec = zykluszeit % 1000000L;
     timer.it_interval.tv_sec = 0;
     timer.it_interval.tv_usec = zykluszeit;
     setitimer( ITIMER_REAL, &timer, NULL );
