@@ -31,14 +31,14 @@ void sol_Init( sol_class_t *self )
 }
 
 /**
- * \brief Solarspeicherabsperrventil entsprechend der Temperaturdifferenzen
+ * @brief Solarspeicherabsperrventil entsprechend der Temperaturdifferenzen
  * zwischen Speicher und Kollektor betaetigen.
  *
- * \param par_p[in] Parametrisierung
- * \param koll_t_mw[in] Vorlauftemperatur des speisenden Kollektors
- * \param t_sp_p[in] Pointer auf Struktur mit oberer und unterer Kollektortemperatur
- * \param sp_av_sb_p[out] Zustand des Absperrventils (offen/geschlossen)
- * \return Fehlercode z.B Speicheruebertemperatur: Die Speicher koennen die Waerme nicht
+ * @param par_p[in] Parametrisierung
+ * @param koll_t_mw[in] Vorlauftemperatur des speisenden Kollektors
+ * @param t_sp_p[in] Pointer auf Struktur mit oberer und unterer Kollektortemperatur
+ * @param sp_av_sb_p[out] Zustand des Absperrventils (offen/geschlossen)
+ * @return Fehlercode z.B Speicheruebertemperatur: Die Speicher koennen die Waerme nicht
  *         mehr aufnehmen
  */
 static 
@@ -73,11 +73,11 @@ int sol_Speicherabsperrventil( const sol_param_t   *par_p,
 }
 
 /**
- * \brief Kollektorpumpe(n) einschalten.
+ * @brief Kollektorpumpe(n) einschalten.
  *
- *  Die Pumpe eines Kollektors einschalten, wenn mind. 1 Ventil zum Speicher offen ist.
- * \param out_p Eingangsgroeßen Ventilstellung, Ausgangsgroeßen Pumpe ein/aus
- * \return kein
+ * Die Pumpe eines Kollektors einschalten, wenn mind. 1 Ventil zum Speicher offen ist.
+ * @param out_p Eingangsgroeßen Ventilstellung, Ausgangsgroeßen Pumpe ein/aus
+ * @return kein
  */
 static 
 void sol_Pumpe( sol_out_t *out_p )
@@ -92,12 +92,12 @@ void sol_Pumpe( sol_out_t *out_p )
 }
 
 /**
- * \brief Waermezaehler
+ * @brief Waermezaehler
  *
  * Diese Methode implementiert einen einfachen Algorithmus zur Abschaetzung der
- * vom Solarkollektor an die Speicher gelieferten Waermemenge.
+ * vom Solarkollektor an die Speicher gelieferte Waermemenge.
  *
- * \param self Pointer auf Instanz der Klasse sol_class_t
+ * @param self Pointer auf Instanz der Klasse sol_class_t
  */
 void sol_Wz( sol_class_t *self )
 {
@@ -114,11 +114,11 @@ void sol_Wz( sol_class_t *self )
 
 
 /**
- * \brief eigentlicher Solarregler.
+ * @brief eigentlicher Solarregler.
  *
  * Absperrventile steuern und die Pumpen entsprechend betaetigen.
- * \param self Pointer auf Instanz der Klasse sol_class_t
- * \return Fehlercode fuer Sammelstoerungsauswertung.
+ * @param self Pointer auf Instanz der Klasse sol_class_t
+ * @return Fehlercode fuer Sammelstoerungsauswertung.
  */
 s16_t sol_Run( sol_class_t *self )
 {
@@ -139,12 +139,13 @@ s16_t sol_Run( sol_class_t *self )
 }
 
 /**
- * \brief Befuellen des Eingangsvektors
- * \param koll_t_mw[in] Kollektortemperatur
- * \param sp1_to_mw[in] Obere Temperatur des Speicher 1
- * \param sp1_tu_mw[in] Untere Temperatur des Speicher 1
- * \param sp2_to_mw[in] Obere Temperatur des Speicher 2
- * \param sp2_tu_mw[in] Untere Temperatur des Speicher 2
+ * @brief Befuellen des Eingangsvektors
+ *
+ * @param koll_t_mw[in] Kollektortemperatur
+ * @param sp1_to_mw[in] Obere Temperatur des Speicher 1
+ * @param sp1_tu_mw[in] Untere Temperatur des Speicher 1
+ * @param sp2_to_mw[in] Obere Temperatur des Speicher 2
+ * @param sp2_tu_mw[in] Untere Temperatur des Speicher 2
  */
 void sol_WriteInp(       sol_class_t *self,
                    const float     koll_t_mw,
