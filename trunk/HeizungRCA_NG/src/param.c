@@ -116,7 +116,7 @@ int param_Init( void )
         param_ww_mv_korr =          WW_MV_KORR;
         param_ww_tww_tvl_faktor =   WW_Tww_Tvl_Faktor;
         param_ww_tz_sw =            WW_Tz_SW;
-        param_sys_zykluszeit =      ABTASTZEIT_USEC;
+        param_sys_zykluszeit =      ABTASTZEIT_MSEC;
     }
     else {
         printf( "PARAM.C: Ini Datei einlesen:\n" );

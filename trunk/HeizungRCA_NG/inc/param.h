@@ -77,10 +77,12 @@
 
 #define MAX_ALL_Tau_mittel_Zeit   48                /**< max. Wert aus Kommentar in vorgaben.ini                     */
 
-#define USEC2SEC(x)     (((float)(x))/1.0e6)        /**< usec in sekunden umrechnen                                  */
-#define USEC2MSEC(x)    ((x)/1000)                  /**< usec in msec umrechnen                                      */
-#define ABTASTZEIT_USEC 500000L                     /**< das gleiche als LONG in Mikrosekunden fuer Timerlaufzeit    */
-#define ABTASTZEIT      USEC2SEC(ABTASTZEIT_USEC)   /**< Abtastzeit fuer digitale Regler Algorithmen als float       */
+// #define USEC2SEC(x)     (((float)(x))/1.0e6)        /**< usec in sekunden umrechnen                                  */
+// #define USEC2MSEC(x)    ((x)/1000)                  /**< usec in msec umrechnen                                      */
+#define MSEC2SEC(x)     (((float)(x))/1000.0)       /**< msec in sekunden umrechnen                                  */
+
+#define ABTASTZEIT_MSEC 1000L                       /**< das gleiche als LONG in Millisekunden fuer Timerlaufzeit    */
+#define ABTASTZEIT      MSEC2SEC(ABTASTZEIT_MSEC)   /**< Abtastzeit fuer digitale Regler Algorithmen als float       */
 
 
 /* <Defines/> */
@@ -148,7 +150,7 @@ PUBLIC float param_ww_mv_korr;          /**< WW Hzg-VL-Temperatur-Steurung (Misc
 PUBLIC float param_ww_tww_tvl_faktor;   /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                      */
 PUBLIC float param_ww_tz_sw;            /**< Temperatursollwert des Zirkulationswassers in Grad C                      */
 
-PUBLIC u32_t param_sys_zykluszeit;      /**< Zykluszeit des Systems in Mikrosekunden                                   */
+PUBLIC u32_t param_sys_zykluszeit;      /**< Zykluszeit des Systems in Millisekunden                                   */
 /* <Variablen/> */
 
 /* <Konstanten> */

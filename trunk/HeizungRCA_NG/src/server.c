@@ -106,18 +106,23 @@ void terminate( int sig )
     exit( sig );
 }
 
-/** \brief system Timer fuer Steuerungsprozess initialisieren.
- *  Dieses API funktioniert auf dem momentanen WAGO uCLinux nur bis herab zu 500ms.
- *  Kleinere Timerwerte führen immer zu 500ms Zykluszeit.
+/**
+ * @brief system Timer fuer Steuerungsprozess initialisieren.
+ *
+ * Dieses API funktioniert auf dem momentanen WAGO uCLinux nur bis herab zu 500ms.
+ * Kleinere Timerwerte führen immer zu 500ms Zykluszeit.
+ *
+ * @param zykluszeit Zykluszeit in Millisekunden
+ * @return kein
  */
 void systimer_init( u32_t zykluszeit )
 {
     struct itimerval   timer;
 
-    timer.it_value.tv_sec  = zykluszeit / 1000000L;
-    timer.it_value.tv_usec = zykluszeit % 1000000L;
-    timer.it_interval.tv_sec = 0;
-    timer.it_interval.tv_usec = zykluszeit;
+    timer.it_value.tv_sec     = zykluszeit / 1000L;
+    timer.it_value.tv_usec    = (zykluszeit % 1000L) * 1000L;
+    timer.it_interval.tv_sec  = zykluszeit / 1000L;
+    timer.it_interval.tv_usec = (zykluszeit % 1000L) * 1000L;
     setitimer( ITIMER_REAL, &timer, NULL );
 }
 
