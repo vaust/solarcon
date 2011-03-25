@@ -21,7 +21,7 @@
 #include "param.h"
 #include "ww.h"
 
-// #define __SCHWACHLAST__
+#define __SCHWACHLAST__
 
 /** 
   * \brief Steuerung des Mischventils.
