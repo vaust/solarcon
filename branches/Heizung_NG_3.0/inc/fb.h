@@ -33,7 +33,7 @@ typedef struct fb_param_s {
 //    float tvl_niveau;   /**< Heizkurven Parallelverschiebung  */
 //    float tvl_min;
 //    float tvl_max;      /**< max. Vorlauftemperatur in Grad C */
-    all_tvl_t tvl;      /**
+    all_tvl_t tvl;      /**< TVL Parametersatz fuer FB        */
     float at_start;
     float frostschutz;  /**< Frostschutztemperatur in Grad C  */
     float tr_sw;        /**< Raumtemperatursollwert in Grad C */

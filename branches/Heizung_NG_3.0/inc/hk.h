@@ -50,8 +50,8 @@ typedef struct hk_out_s {
 typedef struct hk_class_s {
     reg_class_t reg;
     hk_param_t  p;
-    hk_in_t     i;
-    hk_out_t    o;
+//    hk_in_t     i;
+//    hk_out_t    o;
 } hk_class_t;
 
 /* <Typen/> */
