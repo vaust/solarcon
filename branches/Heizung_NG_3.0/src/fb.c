@@ -28,23 +28,27 @@
 #include "fb.h"
 #include "param.h"
 
+
 /**
  * @brief Fussbodenheizung Initialisierung.
  *
  * @param self Pointer auf Instanz der Klasse fb_class
  * @return kein
  */
-void fb_Init( fb_class_t *self )
+void fb_Init( fb_class_t   *self,
+              param_satz_t *param,
+              reg_ret_t (*fb_reg_write_y)( float *y ),
+              reg_ret_t (*fb_reg_read_u)( float *soll, float *ist ) )
 {
     /* Vorgaben aus Parametrierung */
-    self->p.frostschutz   = param_all_frostschutz;
-    self->p.at_start      = param_all_at_start;
-    self->p.tvl_absenk    = param_fb_tvl_absenk;
-    self->p.tvl_max       = param_fb_tvl_max;
-    self->p.tvl_min       = param_fb_tvl_min;
-    self->p.tvl_niveau    = param_fb_tvl_niveau;
-    self->p.tvl_steigung  = param_fb_tvl_steigung;
-    self->p.tr_sw         = param_fb_tr_sw;
+    self->p.frostschutz   = param->all.frostschutz;
+    self->p.at_start      = param->all.at_start;
+    self->p.tvl_absenk    = param->fb.tvl.absenk;
+    self->p.tvl_max       = param->fb.tvl.max;
+    self->p.tvl_min       = param->fb.tvl.min;
+    self->p.tvl_niveau    = param->fb.tvl.niveau;
+    self->p.tvl_steigung  = param->fb.tvl.steigung;
+    self->p.tr_sw         = param->fb.tr_sw;
 
     reg_PI_Init( &(self->reg), USEC2SEC(param_sys_zykluszeit),
                                param_fb_reg_kp,
@@ -52,9 +56,8 @@ void fb_Init( fb_class_t *self )
                                param_fb_reg_ap,
                                MIN_Y_PCT,
                                MAX_Y_PCT,
-                               &(self->o.prim_mv_y),
-                               &(self->o.tvl_sw),
-                               &(self->i.sek_tvl_mw)  );
+                               fb_reg_write_y,
+                               fb_reg_read_u  );
     
     self->o.prim_pu_sb = IO_AUS;
     self->o.sek_pu_sb = IO_AUS;

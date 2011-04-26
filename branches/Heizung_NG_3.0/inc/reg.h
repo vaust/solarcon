@@ -28,6 +28,11 @@
 
 /* <Typen> */
 /**
+ * @brief Standard Return Wert aller Regler Methoden.
+ */
+typedef enum reg_ret_e { reg_OK, reg_NOK } reg_ret_t;
+
+/**
  * @brief Struktur mit allen Parameter des Reglers
  */
 typedef struct reg_par_s {
@@ -46,9 +51,8 @@ typedef struct reg_par_s {
  */
 typedef struct reg_class_s {
     reg_par_t   p;                    /**< Parametersatz des PI-Reglers   */
-    float       *y;                   /**< Pointer auf Stellgroesse zum Zeitpunkt t   */
-    float       *soll;                /**< Pointer auf Sollwert zum Zeitpunkt t       */
-    float       *ist;                 /**< Pointer auf Istwert zum Zeitpunkt t        */
+    reg_ret_t   (*write_y)( float *y );
+    reg_ret_t   (*read_u)( float *soll, float *ist );
     float       x[REG_STATEVARS];     /**< Zustandsgroessen fuer Blockdarstellung des Anti Windup PI-Reglers */
 } reg_class_t;
 
@@ -63,9 +67,10 @@ void reg_PI_Init(       reg_class_t *self,
                   const float        ap,
                   const float        lower_limit,
                   const float        upper_limit,
-                        float       *y,
-                        float       *soll,
-                        float       *ist      );
+                  reg_ret_t   (*write_y)( float *y ),
+                  reg_ret_t   (*read_u)( float *soll, float *ist )
+                 );
+
 
 float reg_PI_Run( reg_class_t *self );
 /* <Prototypen/> */
