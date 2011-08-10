@@ -78,17 +78,15 @@ void ww_VV_Steuerung( ww_class_t *self )
 static 
 void ww_Schwachlast_Steuerung( ww_class_t *self )
 {
-    static u16_t    schwachlastzeit = 0;
-
     /* Pumpe waehrend Duschbetrieb nicht abschalten, wegen Schwingung */
     if( self->o.hzg_pu_y < self->p.hzg_pu_y_min ) {
-        schwachlastzeit ++;
-        if( schwachlastzeit < self->p.schwachlastzeit_max ) {
+        self->schwachlastzeit ++;
+        if( self->schwachlastzeit < self->p.schwachlastzeit_max ) {
             self->o.hzg_pu_y = self->p.hzg_pu_y_min;
         }
     } /* nach 30s ununterbrochener Schwachlast darf die Pumpe abschalten */
     else {
-        schwachlastzeit = 0;
+        self->schwachlastzeit = 0;
     }
 }
 #endif
@@ -110,6 +108,7 @@ void ww_Init( ww_class_t *self )
     self->p.mv_korr             = param_ww_mv_korr;
     self->p.hzg_pu_y_min        = 11.0;
     self->p.schwachlastzeit_max = 300;
+    self->schwachlastzeit       = 0;        /* Schwachlaststeuerung komponententauglich */
 
     reg_PI_Init( &(self->reg_pu), MSEC2SEC(param_sys_zykluszeit),
                                   param_ww_pu_reg_kp,
