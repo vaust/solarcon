@@ -71,7 +71,9 @@ typedef struct ww_class_s {
     ww_param_t  p;
     ww_in_t     i;
     ww_out_t    o;
+#ifdef __SCHWACHLAST__
     u16_t       schwachlastzeit;    /**< Schwachlaststeuerung komponententauglich */
+#endif
 } ww_class_t;
 
 /* <Typen/> */

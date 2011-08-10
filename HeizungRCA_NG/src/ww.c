@@ -18,10 +18,12 @@
 
 #define _WW_C_
 
+#define __SCHWACHLAST__
+
 #include "param.h"
 #include "ww.h"
 
-#define __SCHWACHLAST__
+
 
 /** 
   * \brief Steuerung des Mischventils.
@@ -180,4 +182,7 @@ void ww_WriteInp(           ww_class_t *self,
     self->i.zirkzustand  = zirkzustand;
     self->i.duschzeit    = duschzeit;
 }
+
+
+
 
