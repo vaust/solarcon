@@ -25,26 +25,26 @@
 #define _HK_C_
 
 #include "gen_types.h"
-#include "param.h"
+#include "param_v2.h"
 #include "hk.h"
 #include "reg.h"
 
 void hk_Init( hk_class_t *self )
 {
     /* Vorgaben aus Parametrierung */
-    self->p.frostschutz  = param_all_frostschutz;
-    self->p.at_start     = param_all_at_start;
-    self->p.tvl_absenk   = param_hk_tvl_absenk;
-    self->p.tvl_max      = param_hk_tvl_max;
-    self->p.tvl_min      = param_hk_tvl_min;
-    self->p.tvl_niveau   = param_hk_tvl_niveau;
-    self->p.tvl_steigung = param_hk_tvl_steigung;
-    self->p.tr_sw        = param_hk_tr_sw;
+    self->p.frostschutz  = param.all.frostschutz;
+    self->p.at_start     = param.all.at_start;
+    self->p.tvl_absenk   = param.hk.tvl.absenk;
+    self->p.tvl_max      = param.hk.tvl.max;
+    self->p.tvl_min      = param.hk.tvl.min;
+    self->p.tvl_niveau   = param.hk.tvl.niveau;
+    self->p.tvl_steigung = param.hk.tvl.steigung;
+    self->p.tr_sw        = param.hk.tr_sw;
 
-    reg_PI_Init( &(self->reg), MSEC2SEC(param_sys_zykluszeit),
-                               param_hk_reg_kp,
-                               param_hk_reg_ki,
-                               param_hk_reg_ap,
+    reg_PI_Init( &(self->reg), MSEC2SEC(param.sys.zykluszeit),
+                               param.hk.reg.kp,
+                               param.hk.reg.ki,
+                               param.hk.reg.ap,
                                MIN_Y_PCT,
                                MAX_Y_PCT,
                                &(self->o.mv_y),
