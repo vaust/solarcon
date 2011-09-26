@@ -41,7 +41,7 @@
 #endif
 
 #include "gen_types.h"
-#include "param.h"      /* Parametrisierung aus INI-Dateien */
+#include "param_v2.h"   /* Parametrisierung aus INI-Dateien */
 #include "io.h"         /* Ein- und Ausgabe auf der PLC     */
 #include "cntrl.h"      /* Systemzustandsvariablen          */
 #include "zeit.h"
@@ -625,7 +625,7 @@ void telnet_writeAbsenk( int fdesc, char *bufout )
               (cntrl_zeit_absenkung.Bootshausnutzung == zNein) ? "Nein" : "Ja" );             BFLSH();
    if (io_get_WW_PARTY() != IO_AUS) {
         snprintf( bufout, BFLN, "\t seit %d min, noch %d min aktiv\n",
-        param_all_partydauer - cntrl_zeit_party.ww.party_restzeit_min, cntrl_zeit_party.ww.party_restzeit_min );
+        param.all.partydauer - cntrl_zeit_party.ww.party_restzeit_min, cntrl_zeit_party.ww.party_restzeit_min );
         BFLSH();
     }
 }
@@ -637,14 +637,14 @@ void telnet_writeDI( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "ALL_PARTY = %s", (io_get_ALL_PARTY() == IO_AUS) ? "AUS\n" : "EIN" ); BFLSH();
     if (io_get_ALL_PARTY() != IO_AUS) {
         snprintf( bufout, BFLN, "\t seit %d min, noch %d min aktiv\n",
-        param_all_partydauer - cntrl_zeit_party.all.party_restzeit_min, cntrl_zeit_party.all.party_restzeit_min );
+        param.all.partydauer - cntrl_zeit_party.all.party_restzeit_min, cntrl_zeit_party.all.party_restzeit_min );
         BFLSH();
     }
     /* Warmwasser Partyschalter */
     snprintf( bufout, BFLN, "WW_PARTY = %s", (io_get_WW_PARTY() == IO_AUS) ? "AUS\n" : "EIN" ); BFLSH();
     if (io_get_WW_PARTY() != IO_AUS) {
         snprintf( bufout, BFLN, "\t seit %d min, noch %d min aktiv\n",
-        param_all_partydauer - cntrl_zeit_party.ww.party_restzeit_min, cntrl_zeit_party.ww.party_restzeit_min );
+        param.all.partydauer - cntrl_zeit_party.ww.party_restzeit_min, cntrl_zeit_party.ww.party_restzeit_min );
         BFLSH();
     }
     /* Kesselstoermeldung */
@@ -692,7 +692,7 @@ void telnet_writeFB( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "ALL_PARTY      = %s", (io_get_ALL_PARTY() == IO_AUS) ? "AUS\n" : "EIN" );     BFLSH();
     if (io_get_ALL_PARTY() != 0x00) {
         snprintf( bufout, BFLN, "\t seit %d min, noch %d min aktiv\n",
-        param_all_partydauer - cntrl_zeit_party.all.party_restzeit_min, cntrl_zeit_party.all.party_restzeit_min );
+        param.all.partydauer - cntrl_zeit_party.all.party_restzeit_min, cntrl_zeit_party.all.party_restzeit_min );
         BFLSH();
     }
 }
@@ -720,7 +720,7 @@ void telnet_writeWW( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "WW_PARTY = %s", (io_get_WW_PARTY() == IO_AUS) ? "AUS\n" : "EIN" ); BFLSH();
     if (io_get_WW_PARTY() != IO_AUS) {
         snprintf( bufout, BFLN, "\t seit %d min, noch %d min aktiv\n",
-        param_all_partydauer - cntrl_zeit_party.ww.party_restzeit_min, cntrl_zeit_party.ww.party_restzeit_min );
+        param.all.partydauer - cntrl_zeit_party.ww.party_restzeit_min, cntrl_zeit_party.ww.party_restzeit_min );
         BFLSH();
     }
 }
