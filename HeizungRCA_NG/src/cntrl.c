@@ -31,7 +31,7 @@
 #include <signal.h>
 
 #include "gen_types.h"
-#include "param.h"
+#include "param_v2.h"
 #include "zeit.h"
 #include "task.h"
 #include "sol.h"
@@ -132,7 +132,7 @@ void cntrl_run( int sig )
         /* alles was im Sekunden-, Minuten- und Stundenraster ablaufen muss und *
          * Aussentemperaturmittelwerte ermitteln                                */
         if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
-        task_Run( param_all_partydauer,
+        task_Run( param.all.partydauer,
                   io_get_ALL_PARTY(),
                   io_get_WW_PARTY(),
                   io_ALL_Tau_MW.messwert,
