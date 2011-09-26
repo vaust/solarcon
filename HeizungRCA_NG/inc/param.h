@@ -88,7 +88,7 @@
 /* <Defines/> */
 
 /* <Typen> */
-typedef struct {
+typedef struct parse_set_s {
     char *VarName;
     void *VarPointer;
     char *format;
