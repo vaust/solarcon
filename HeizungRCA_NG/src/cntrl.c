@@ -31,7 +31,7 @@
 #include <signal.h>
 
 #include "gen_types.h"
-#include "param_v2.h"
+#include "param.h"
 #include "zeit.h"
 #include "task.h"
 #include "sol.h"

@@ -41,7 +41,7 @@
 #endif
 
 #include "gen_types.h"
-#include "param_v2.h"   /* Parametrisierung aus INI-Dateien */
+#include "param.h"      /* Parametrisierung aus INI-Dateien */
 #include "io.h"         /* Ein- und Ausgabe auf der PLC     */
 #include "cntrl.h"      /* Systemzustandsvariablen          */
 #include "zeit.h"
