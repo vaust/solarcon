@@ -19,7 +19,7 @@
 #define _KES_C_
 
 #include "gen_types.h"
-#include "param_v2.h"
+#include "param.h"
 #include "kes.h"
 
 void kes_Init( kes_class_t *self )

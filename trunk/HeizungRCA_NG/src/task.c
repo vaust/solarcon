@@ -115,9 +115,9 @@ void task_stunde( task_tau_t * const tau )
     tau->t_36h_summe += tau->t_1h_mittel - tau->t_1h_mittel_36h_Intervall[index];
     tau->t_1h_mittel_36h_Intervall[index] = tau->t_1h_mittel;
     index ++;
-    if( index >= param_all_tau_mittel_zeit )
+    if( index >= param.all.tau_mittel_zeit )
         index = 0;
-    tau->t_36h_mittel = tau->t_36h_summe / param_all_tau_mittel_zeit;
+    tau->t_36h_mittel = tau->t_36h_summe / param.all.tau_mittel_zeit;
 }
 
 void task_Init(       task_tau_t * const tau, 
@@ -127,10 +127,10 @@ void task_Init(       task_tau_t * const tau,
 
     for( i=0; i<60; i++ ) 
         tau->t_1min_Intervall[i] = all_tau_mw;
-    for( i=0; i<param_all_tau_mittel_zeit; i++ ) 
+    for( i=0; i<param.all.tau_mittel_zeit; i++ )
         tau->t_1h_mittel_36h_Intervall[i] = all_tau_mw;
     tau->t_1h_summe = all_tau_mw * 60;
-    tau->t_36h_summe = all_tau_mw * param_all_tau_mittel_zeit;
+    tau->t_36h_summe = all_tau_mw * param.all.tau_mittel_zeit;
 }
 
 

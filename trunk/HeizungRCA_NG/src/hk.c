@@ -25,7 +25,7 @@
 #define _HK_C_
 
 #include "gen_types.h"
-#include "param_v2.h"
+#include "param.h"
 #include "hk.h"
 #include "reg.h"
 

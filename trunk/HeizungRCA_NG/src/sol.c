@@ -19,14 +19,14 @@
 #define _SOL_C_
 
 #include "sol.h"
-#include "param_v2.h"
+#include "param.h"
 
 void sol_Init( sol_class_t *self )
 {
     self->p.sp_t_max  = param.sol.sp_t_max;
     self->p.dt_ein_sw = param.sol.dt_ein_sw;
     self->p.dt_aus_sw = param.sol.dt_aus_sw;
-    self->p.TA        = MSEC2SEC(param_sys_zykluszeit);
+    self->p.TA        = MSEC2SEC(param.sys.zykluszeit);
     self->sol_wz      = 0.0;
 }
 
