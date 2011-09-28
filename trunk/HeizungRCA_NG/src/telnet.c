@@ -16,10 +16,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** \file Implementierung des Benutzerinterfaces ueber Telnet Protokoll
+/** \file telnet.c
+ *  \brief Implementierung des Benutzerinterfaces ueber Telnet Protokoll
   * \author Volker Stegmann
   */
-
 
 #define _TELNET_C_
 

@@ -16,7 +16,9 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** \file Zeitini Datei einlesen und waehrend Laufzeit Absenkungen ermitteln
+/**
+ *  \file zeit.c
+ *  \brief Zeitini Datei einlesen und waehrend Laufzeit Absenkungen ermitteln
  *  \author Andreas und Volker Stegmann
  */
 #define _ZEIT_C_

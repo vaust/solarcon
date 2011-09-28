@@ -16,6 +16,13 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file param.c
+ * @brief Methoden zum Einlesen der Parameter aus einer ASCII Datei bzw. falls nicht vorhanden Initialisierung der
+ * Parameter aus Defaultwerten
+ * @author Andreas und Volker Stegmann
+ */
+
 #define _PARAM_C_
 
 #include <stdio.h>
