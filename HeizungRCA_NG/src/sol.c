@@ -16,6 +16,13 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file sol.c
+ * @brief Solarkreissteuerung fuer 2 Speicherkreise und einer Solarpumpe. Der Code ist auf weitere Speicherkreise
+ * und weitere Pumpen skalierbar.
+ * @author Volker Stegmann
+ */
+
 #define _SOL_C_
 
 #include "sol.h"

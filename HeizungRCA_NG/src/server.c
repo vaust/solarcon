@@ -16,8 +16,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** \file server.c
- *  Code aus Buch Linux Systemprogrammierung
+/**
+ * @file server.c
+ *  @brief Controller Task zyklisch ausführen und Telnet Task in Endlosschleife laufen lassen.
+ *  Code aus Buch Linux Systemprogrammierung.
+ *  @author Volker Stegmann
  */
 
 #define _SERVER_C_

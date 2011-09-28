@@ -88,6 +88,10 @@
 /* <Defines/> */
 
 /* <Typen> */
+
+/**
+ * @brief Datenstruktur zur Ausgabe von beliebigen Variablen ueber Telnet Interface
+ */
 typedef struct parse_set_s {
     char *VarName;
     void *VarPointer;
@@ -95,6 +99,9 @@ typedef struct parse_set_s {
     // char *einheit;
 } parse_set_t;
 
+/**
+ * @brief Parametersatz fuer allgemeine Parameter
+ */
 typedef struct param_all_s {
     s16_t tau_mittel_zeit; /**< Zeit ueber die die Aussentemperatur gemittelt wird (in Stunden)           */
     s16_t partydauer;      /**< Fussbodenheizkreis Dauer der Betriebsverlaengerung (in Minuten)           */
@@ -102,6 +109,9 @@ typedef struct param_all_s {
     float at_start;        /**< Aussentemperatur unter der Heizung startet in Grad C                      */
 } param_all_t;
 
+/**
+ * @brief Parametersatz fuer den Solarregler
+ */
 typedef struct param_sol_s {
     float dt_ein_sw;       /**< Einschalt-Differenztemp. fuer Solarpumpe und Speicherabsperrv. in Grad C  */
     float dt_aus_sw;       /**< Ausschalt-Differenztemp. fuer Solarpumpe und Speicherabsperrv. in Grad C  */
@@ -110,10 +120,16 @@ typedef struct param_sol_s {
     float sp1_t_min;       /**< Min. Temperatur Speicher 1 in Grad C                                      */
 } param_sol_t;
 
+/**
+ * @brief Parametersatz fuer die Kesselsteuerung
+ */
 typedef struct param_kes_s {
     float sp_dt_sw;        /**< Temperaturdifferenz zwischen Kessel- und Speicher-SW in Grad C            */
 } param_kes_t;
 
+/**
+ * @brief Parametersatz der alle Vorlauftemperaturregelungsgroessen zusammenfasst
+ */
 typedef struct param_tvl_s {
     float steigung;         /**< Heizkreis Heizkurvensteigung                                             */
     float niveau;           /**< Heizkreis Heizkurvenparallelverschiebung                                 */
@@ -122,12 +138,18 @@ typedef struct param_tvl_s {
     float max;              /**< Heizkreis maximale Vorlauftemperatur in Grad C                           */
 } param_tvl_t;
 
+/**
+ * @brief Parametersatz fuer einen allgemeinen PI-Regler
+ */
 typedef struct param_reg_s {
-    float kp;               /**< Regler Verstaerkung PI-Regler in %/K                                     */
-    float ki;               /**< Regler Verstaerkung PI-Regler I-Anteil in %/(K x s)                      */
-    float ap;               /**< Regler Arbeitspunktoffset in %                                           */
+    float kp;               /**< Regler Verstaerkung PI-Regler in 100/K                                    */
+    float ki;               /**< Regler Verstaerkung PI-Regler I-Anteil in 100/(K x s)                     */
+    float ap;               /**< Regler Arbeitspunktoffset in 100                                          */
 } param_reg_t;
 
+/**
+ * @brief Parametersatz fuer die Heizkoerperheizkreisregelung
+ */
 typedef struct param_hk_s {
     param_tvl_t tvl;
     param_reg_t reg;
@@ -135,12 +157,18 @@ typedef struct param_hk_s {
     float       frostschutz;      /**< Aussentemperatur ab der Heizkreis in Betrieb ist in Grad C         */
 } param_hk_t;
 
+/**
+ * @brief Parametersatz fuer die Fussbodenheizkreisregelung
+ */
 typedef struct param_fb_s {
     param_tvl_t tvl;
     param_reg_t reg;
-    float tr_sw;                /**< Fussbodenheizkreis Raumtemperatursollwert in Grad C                  */
+    float tr_sw;            /**< Fussbodenheizkreis Raumtemperatursollwert in Grad C                  */
 } param_fb_t;
 
+/**
+ * @brief Parametersatz fuer die Warmwasserheizkreisregelung
+ */
 typedef struct param_ww_s {
     float tww_sw;           /**< Warmwasser-Temperatur-Sollwert in Grad C                              */
     float tww_max;          /**< Warmwasser-Maximaltemperatur in Grad C                                */
@@ -152,8 +180,11 @@ typedef struct param_ww_s {
     float tz_sw;            /**< Temperatursollwert des Zirkulationswassers in Grad C                  */
 } param_ww_t;
 
+/**
+ * @brief Parametersatz fuer allgemeine Systemgroessen
+ */
 typedef struct param_sys_s {
-    u32_t zykluszeit;          /**< Zykluszeit des Systems in Mikrosekunden                               */
+    u32_t zykluszeit;       /**< Zykluszeit des Systems in Mikrosekunden                               */
 } param_sys_t;
 
 /**

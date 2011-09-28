@@ -16,6 +16,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * \file ww.c
+ * \brief Warmwassertemperaturregelung
+ */
 #define _WW_C_
 
 #define __SCHWACHLAST__
