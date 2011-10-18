@@ -163,28 +163,28 @@ typedef struct param_hk_s {
 typedef struct param_fb_s {
     param_tvl_t tvl;
     param_reg_t reg;
-    float tr_sw;            /**< Fussbodenheizkreis Raumtemperatursollwert in Grad C                  */
+    float tr_sw;            /**< Fussbodenheizkreis Raumtemperatursollwert in Grad C                      */
 } param_fb_t;
 
 /**
  * @brief Parametersatz fuer die Warmwasserheizkreisregelung
  */
 typedef struct param_ww_s {
-    float tww_sw;           /**< Warmwasser-Temperatur-Sollwert in Grad C                              */
-    float tww_max;          /**< Warmwasser-Maximaltemperatur in Grad C                                */
-    float wz_faktor;        /**< Waermezaehler auf Pumpenstellbefehl                                   */
-    float wz_max;           /**< Max. Warmwasserdurchfluss in l/min                                    */
-    param_reg_t pu_reg;     /**< WW-Temperatur-Regler                                                  */
-    float mv_korr;          /**< WW Hzg-VL-Temperatur-Steurung (Mischer) Korrekturfaktor               */
-    float tww_tvl_faktor;   /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                  */
-    float tz_sw;            /**< Temperatursollwert des Zirkulationswassers in Grad C                  */
+    float tww_sw;           /**< Warmwasser-Temperatur-Sollwert in Grad C                                 */
+    float tww_max;          /**< Warmwasser-Maximaltemperatur in Grad C                                   */
+    float wz_faktor;        /**< Waermezaehler auf Pumpenstellbefehl                                      */
+    float wz_max;           /**< Max. Warmwasserdurchfluss in l/min                                       */
+    param_reg_t pu_reg;     /**< WW-Temperatur-Regler                                                     */
+    float mv_korr;          /**< WW Hzg-VL-Temperatur-Steurung (Mischer) Korrekturfaktor                  */
+    float tww_tvl_faktor;   /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                     */
+    float tz_sw;            /**< Temperatursollwert des Zirkulationswassers in Grad C                     */
 } param_ww_t;
 
 /**
  * @brief Parametersatz fuer allgemeine Systemgroessen
  */
 typedef struct param_sys_s {
-    u32_t zykluszeit;       /**< Zykluszeit des Systems in Mikrosekunden                               */
+    u32_t zykluszeit;       /**< Zykluszeit des Systems in Mikrosekunden                                  */
 } param_sys_t;
 
 /**
