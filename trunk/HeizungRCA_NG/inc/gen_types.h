@@ -47,10 +47,10 @@ typedef signed short    s16_t;
 typedef unsigned long   u32_t;
 typedef signed long     s32_t;
 
-typedef s16_t   temp10_pt1000_t;
+typedef s16_t   temp10_pt1000_t; /**< @brief Temperatur eines PT1000 Sensors in 0.1 Grad */
 typedef u8_t    di_bitbyte_t;
 
-typedef s16_t   ao_0_10V_t;
+typedef s16_t   ao_0_10V_t;      /**< @brief Analogstellgroesse */
 typedef u8_t    do_bitbyte_t;
 
 typedef s32_t   zeit_schaltpunkt_t;
