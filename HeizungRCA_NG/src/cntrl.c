@@ -19,7 +19,7 @@
 /**
  * @file cntrl.c
  * @brief Die gesamte Heizungsteuerungsapplikation.
- * In der Funktion \ref cntrl_open() werden alle alle Komponenten instanziert.
+ * In der Funktion \ref cntrl_open() werden alle Komponenten instanziert.
  * Die Funktion \ref cntrl_run() bildet den eigentlichen Heizungsregler und den Datenfluss ab.
 
  * @author Volker Stegmann
