@@ -130,7 +130,7 @@ void systimer_init( u32_t zykluszeit )
 }
 
 /**
- * \brief Main (internes Betriebssystem).
+ * @brief Main (internes Betriebssystem).
  * Hier wird der Intervalltimer fuer das zyklische Aufrufen der Steuerung
  * gestartet, der Mutex fuer das parallele Zugreifen auf globale Variablen erzeugt und
  * in der Endlosschleife auf eine Telnetverbindung gewartet.
@@ -144,7 +144,6 @@ int main( void )
     
     signal( SIGINT, terminate );
     
-    // signal( SIGALRM, cntrl_SetTaskFlag );
     signal( SIGALRM, cntrl_run );
     systimer_init( param.sys.zykluszeit );
 

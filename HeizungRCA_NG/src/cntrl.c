@@ -18,8 +18,9 @@
 
 /**
  * @file cntrl.c
- * @brief Die gesamte Heizungsteuerungsapplikation. Hier werden alle Komponenten instanziert
- * und der Datenfluss abgebildet.
+ * @brief Die gesamte Heizungsteuerungsapplikation.
+ * In der Funktion \ref cntrl_open() werden alle alle Komponenten instanziert.
+ * Die Funktion \ref cntrl_run() bildet den eigentlichen Heizungsregler und den Datenfluss ab.
 
  * @author Volker Stegmann
  */
@@ -68,6 +69,7 @@ extern pthread_mutex_t  mutex;
 #define MUTEX_lock
 #define MUTEX_unlock()
 #endif
+
 
 
 /**
