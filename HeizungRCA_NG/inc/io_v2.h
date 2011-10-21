@@ -25,6 +25,9 @@
 #define IO_EPS           0.1
 
 /* <Typen> */
+/**
+ * @brief Aufzaehlungstyp fuer Eingabefehlerarten
+ */
 typedef enum io_obj_status_e { io_Normal,             /**< Sensor-/Aktorwert ist innerhalb der Messbereichsgrenzen und gueltig */
                                io_Kabelbruch,         /**< Es liegt eine Kabelbruch vor */
                                io_Kurzschluss,        /**< Der Sensor/Aktor ist kurzgeschlossen */
@@ -35,6 +38,10 @@ typedef enum io_obj_status_e { io_Normal,             /**< Sensor-/Aktorwert ist
                                io_ManuelleZuweisung   /**< Der Mess-/Stellwert kann in der Diagnose manuell zugewiesen werden */
                               } io_obj_status_t;
 
+
+/**
+ * @brief Objektklasse eines Temperatursensors
+ */
 typedef struct io_tempsens_obj_s {
     float           messbereich_anfang;
     float           messbereich_ende;
@@ -43,6 +50,9 @@ typedef struct io_tempsens_obj_s {
     temp10_pt1000_t *kbus_adresse_p;
 } io_temp_obj_t;
 
+/**
+ * @brief Objektklasse eines 0-10V Stellausgangs
+ */
 typedef struct io_ao10V_obj_s {
     float           stellbereich_anfang;
     float           stellbereich_ende;
@@ -51,6 +61,9 @@ typedef struct io_ao10V_obj_s {
     ao_0_10V_t      *kbus_adresse_p;
 } io_ao10V_obj_t;
     
+/**
+ * @brief Objektklasse eines digitalen Eingangs
+ */
 typedef struct io_digin_obj_s {
     di_bitbyte_t    messwert;
     io_obj_status_t status;
