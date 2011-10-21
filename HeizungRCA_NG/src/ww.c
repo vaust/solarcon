@@ -71,11 +71,15 @@ void ww_VV_Steuerung( ww_class_t *self )
 }
 
 /** 
-  * Schwachlaststeuerung soll eingreifen, wenn nur wenig Warmwasser gebraucht wird und 10% 
-  * Pumpenleistung fuer den Waermetauscher bereits zu viel Leistung bringt
-  * @param self Pointer auf Instanz der Klasse ww_class_t
-  * @return kein
-  */
+ * @brief Schwachlaststeuerung fuer wenige Duschbenutzer
+ *
+ * Die Schwachlaststeuerung soll eingreifen, wenn nur wenig Warmwasser gebraucht wird und 10%
+ * Pumpenleistung fuer den Waermetauscher bereits zu viel Leistung bringt. Dann soll die Pumpe nach
+ * einer definierten Zeit komplett abschalten.
+ *
+ * @param self Pointer auf Instanz der Klasse \ref ww_class_t
+ * @return kein
+ */
 static 
 void ww_Schwachlast_Steuerung( ww_class_t *self )
 {
@@ -92,13 +96,14 @@ void ww_Schwachlast_Steuerung( ww_class_t *self )
 }
 
 /**
-  * \brief Initialisierung der ww-Task.
-  *
-  * Die minimale Pumpenleistung wird bei 11% Stellgroesse erreicht. Unter 10% ist die 
-  * Pumpe aus. Der PI-Regler der fuer die wird hier mit initialisiert.
-  * \param self Pointer auf Instanz der Klasse ww_class_t
-  * \return kein
-  */
+ * \brief Initialisierung der ww-Task.
+ *
+ * Die minimale Pumpenleistung wird bei 11% Stellgroesse erreicht. Unter 10% ist die
+ * Pumpe aus. Der PI-Regler der fuer die wird hier mit initialisiert.
+ *
+ * \param self Pointer auf Instanz der Klasse ww_class_t
+ * \return kein
+ */
 void ww_Init( ww_class_t *self )
 {
     self->p.kes_sp_dt_sw        = param.kes.sp_dt_sw;
