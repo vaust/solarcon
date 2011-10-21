@@ -22,20 +22,16 @@
  */
 #define _WW_C_
 
-#define __SCHWACHLAST__
-
 #include "param.h"
 #include "ww.h"
 
-
-
 /** 
-  * \brief Steuerung des Mischventils.
+  * @brief Steuerung des Mischventils.
   *
   * Steuert die Stellung des Mischventils, das die Vorlauftemperatur
   * fuer den Warmwasser-Waermetauscher einstellt.
-  * \param self Pointer auf Instanz der Klasse ww_class_t
-  * \return kein
+  * @param self Pointer auf Instanz der Klasse ww_class_t
+  * @return kein
   */
 static 
 void ww_MV_Steuerung( ww_class_t *self )
@@ -54,12 +50,12 @@ void ww_MV_Steuerung( ww_class_t *self )
 }
 
 /** 
-  * \brief Verteilventilsteuerung.
+  * @brief Verteilventilsteuerung.
   *
   * Verteilventil zwischen den Speichern 1 und 2 entsprechend der Speichertemperaturen
   * einstellen.
-  * \param self Pointer auf Instanz der Klasse ww_class_t
-  * \return kein
+  * @param self Pointer auf Instanz der Klasse ww_class_t
+  * @return kein
   */
 static 
 void ww_VV_Steuerung( ww_class_t *self )
@@ -74,12 +70,11 @@ void ww_VV_Steuerung( ww_class_t *self )
     }
 }
 
-#ifdef __SCHWACHLAST__
 /** 
   * Schwachlaststeuerung soll eingreifen, wenn nur wenig Warmwasser gebraucht wird und 10% 
   * Pumpenleistung fuer den Waermetauscher bereits zu viel Leistung bringt
-  * \param self Pointer auf Instanz der Klasse ww_class_t
-  * \return kein
+  * @param self Pointer auf Instanz der Klasse ww_class_t
+  * @return kein
   */
 static 
 void ww_Schwachlast_Steuerung( ww_class_t *self )
@@ -95,7 +90,6 @@ void ww_Schwachlast_Steuerung( ww_class_t *self )
         self->schwachlastzeit = 0;
     }
 }
-#endif
 
 /**
   * \brief Initialisierung der ww-Task.
@@ -114,6 +108,7 @@ void ww_Init( ww_class_t *self )
     self->p.mv_korr             = param.ww.mv_korr;
     self->p.hzg_pu_y_min        = 11.0;
     self->p.schwachlastzeit_max = 300;
+    self->p.schwachlast_aktiv   = zEin;
     self->schwachlastzeit       = 0;        /* Schwachlaststeuerung komponententauglich */
 
     reg_PI_Init( &(self->reg_pu), MSEC2SEC(param.sys.zykluszeit),
@@ -150,10 +145,11 @@ void ww_Run( ww_class_t *self )
     /* Berechnung von WW_HZG_MV_Y aus den Temperaturen von Speicher und Ruecklauf */
     ww_MV_Steuerung( self );
 
-    /* Schwachlast Steuerung */
-#ifdef __SCHWACHLAST__
-    ww_Schwachlast_Steuerung( self );
-#endif
+    /* Schwachlast Steuerung (ueber Telnet Interface ausschaltbar, default eingeschaltet) */
+    if( self->p.schwachlast_aktiv == zEin ) {
+        ww_Schwachlast_Steuerung( self );
+    }
+
     /* Kriterium fuer Warmwasser Heizungsverteilventil */
     ww_VV_Steuerung( self );
 }

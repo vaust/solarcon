@@ -105,6 +105,7 @@ static const parse_set_t telnet_ww_Vars[] =
     { "ww.p.mv_korr",             &(cntrl_ww.p.mv_korr),             "%f" },
     { "ww.p.hzg_pu_y_min",        &(cntrl_ww.p.hzg_pu_y_min),        "%f" },
     { "ww.p.schwachlastzeit_max", &(cntrl_ww.p.schwachlastzeit_max), "%d" },
+    { "ww.p.schwachlast_aktiv",   &(cntrl_ww.p.schwachlast_aktiv),   "%x" },
 
     { "ww.i.tww_mw",              &(cntrl_ww.i.tww_mw),              "%f" },
     { "ww.i.tau_mw",              &(cntrl_ww.i.tau_mw),              "%f" },
