@@ -56,7 +56,7 @@ void filter_avg_Run( filter_avg_t *self, const float xn )
     self->sum += xn - self->x[self->idx];
     self->x[self->idx] = xn;
     self->idx ++;
-    if( self->idx > self->len ) {
+    if( self->idx >= self->len ) {
         self->idx = 0;
     }
     self->avg = self->sum/self->len;
@@ -72,7 +72,7 @@ void filter_fir_Run( filter_fir_t *self, const float xn )
    }
    self->fir = self->sum / self->nrm;
    self->idx ++;
-   if( self->idx > self->len ) {
+   if( self->idx >= self->len ) {
        self->idx = 0;
    }
 }
