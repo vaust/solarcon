@@ -54,6 +54,7 @@ typedef struct filter_fir_s {
 /** @brief Definition der Komponentenklasse des infinite Impulse Response Filters */
 typedef struct filter_iir_s {
     float   x[FILTER_MAXLEN];   /**< Ringspeicher der Eingangswerte                    */
+    float   y[FILTER_MAXLEN];   /**< Ringspeicher der Ausgangswerte                    */
     u16_t   idx;                /**< Indexzeiger auf aktuelles Element im Ringspeicher */
     u16_t   len;                /**< Laenge des Ringspeichers                          */
     float   a[FILTER_MAXLEN];   /**< Zaehlerkoeffizienten multipliziert mit nrm        */
