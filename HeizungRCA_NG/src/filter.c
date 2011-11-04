@@ -43,6 +43,22 @@ void filter_avg_Init( filter_avg_t *self, u16_t len )
 }
 
 /**
+ * @brief Initialisierung eines FIR Filters.
+ */
+void filter_fir_Init( filter_fir_t *self, u16_t len )
+{
+    s16_t   n;
+
+    self->len = len;
+    for( n=0; n<FILTER_MAXLEN; n++ ) {
+        self->x[n] = 0.0;
+    }
+    self->idx = 0;
+    self->sum = 0;
+    self->fir = 0;
+}
+
+/**
  * @brief Aufruffunktion zur Aktualisierung eins gleitenden Mittelwerts.
  *
  * Diese Funktion wird jedesmal aufgerufen, wenn ein neuer Messwert zur Verfuegung steht.
