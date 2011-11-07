@@ -27,7 +27,7 @@
 #include "gen_types.h"
 
 /* <Defines> */
-#define FILTER_MAXLEN 60  /**< @brief Maximale Laenge eines Ringspeichers digitaler Filter */
+#define FILTER_MAXLEN 64  /**< @brief Maximale Laenge eines Ringspeichers digitaler Filter */
 /* <Defines/> */
 
 /* <Typen> */
@@ -42,13 +42,13 @@ typedef struct filter_avg_s {
 
 /** @brief Definition der Komponentenklasse des Finite Impulse Response Filters */
 typedef struct filter_fir_s {
-    float   x[FILTER_MAXLEN];   /**< Ringspeicher der Eingangswerte                    */
-    u16_t   idx;                /**< Indexzeiger auf aktuelles Element im Ringspeicher */
-    u16_t   len;                /**< Laenge des Ringspeichers                          */
-    float   a[FILTER_MAXLEN];   /**< Koeffizienten des Ringspeichers mult. mit nrm     */
-    float   nrm;                /**< Normierungsfaktor, um Rundungsfehler zu min.      */
-    float   sum;                /**< Summe vor Normierung durch nrm                    */
-    float   fir;                /**< Eigentlicher Filterwert                           */
+    float   x[FILTER_MAXLEN];   /**< Ringspeicher der Eingangswerte                     */
+    u16_t   idx;                /**< Indexzeiger auf aktuelles Element im Ringspeicher  */
+    u16_t   len;                /**< Laenge des Ringspeichers                           */
+    float   a[FILTER_MAXLEN];   /**< Koeffizienten des Ringspeichers mult. mit \ref nrm */
+    float   nrm;                /**< Normierungsfaktor, um Rundungsfehler zu min.       */
+    float   sum;                /**< Summe vor Normierung durch \ref nrm                */
+    float   fir;                /**< Eigentlicher Filterwert                            */
 } filter_fir_t;
 
 /** @brief Definition der Komponentenklasse des infinite Impulse Response Filters */
