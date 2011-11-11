@@ -178,7 +178,7 @@ void ww_WriteInp(           ww_class_t *self,
     self->i.tww_mw       = tww_mw;
     self->i.tau_mw       = tau_mw;
     self->i.tau_avg      = tau_avg;
-    self->i.wz_mw        = wz_mw,
+    self->i.wz_mw        = wz_mw;
     self->i.hzg_tvl_mw   = hzg_tvl_mw;
     self->i.hzg_trl_mw   = hzg_trl_mw;
     self->i.hk_tvl_sw    = hk_tvl_sw;
