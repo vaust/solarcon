@@ -9,10 +9,11 @@ import os
 SVN     = '$Revision$'
 SVN_URL = '$HeadURL$'
 # SVN_REV = SVN.split(':')[1].split('$')[0]
+
 with open( './svn.txt', 'r' ) as file:
     revtxt = file.readline()
 SVN_REV = revtxt.split('M')[0]
-VERSION = '0.8.1 SVN: '+SVN_REV
+VERSION = '0.9.0 SVN: '+SVN_REV
 DEVPATH = SVN_URL.split('.com')[1].split('/write')[0]
 now = datetime.datetime.now()
 now = datetime.datetime( now.year, now.month, now.day, now.hour, now.minute, now.second )
