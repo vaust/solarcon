@@ -25,7 +25,6 @@
 #define _FB_H_
 
 #include "gen_types.h"
-#include "all_types.h"
 #include "reg.h"
 
 /* <Typen> */
@@ -78,7 +77,12 @@ typedef struct fb_class_s {
 /* <Prototypen> */
 void fb_Init( fb_class_t *self );
 void fb_Run( fb_class_t *self );
-
+void fb_WriteInp(       fb_class_t   *self,
+                  const float        tau_mw,
+                  const float        tau_avg,
+                  const float        sek_tvl_mw,
+                  const abgesenkt_t  zustand,
+                  const u8_t         partytime_flg );
 /* <Prototypen/> */
 
 #endif /* _FB_H_ */

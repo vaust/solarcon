@@ -28,17 +28,13 @@
 #include "fb.h"
 #include "param.h"
 
-
 /**
  * @brief Fussbodenheizung Initialisierung.
  *
  * @param self Pointer auf Instanz der Klasse fb_class
  * @return kein
  */
-void fb_Init( fb_class_t   *self,
-              param_satz_t *param,
-              reg_ret_t (*fb_reg_write_y)( float *y ),
-              reg_ret_t (*fb_reg_read_u)( float *soll, float *ist ) )
+void fb_Init( fb_class_t *self )
 {
     /* Vorgaben aus Parametrierung */
     self->p.frostschutz   = param.all.frostschutz;
@@ -56,8 +52,9 @@ void fb_Init( fb_class_t   *self,
                                param.fb.reg.ap,
                                MIN_Y_PCT,
                                MAX_Y_PCT,
-                               fb_reg_write_y,
-                               fb_reg_read_u  );
+                               &(self->o.prim_mv_y),
+                               &(self->o.tvl_sw),
+                               &(self->i.sek_tvl_mw)  );
     
     self->o.prim_pu_sb = IO_AUS;
     self->o.sek_pu_sb = IO_AUS;

@@ -20,7 +20,6 @@
 #define _REG_H_
 
 #include "gen_types.h"
-#include "all_types.h"
 
 /* <Konstanten> */
 #define REG_STATEVARS 4
@@ -28,16 +27,13 @@
 
 /* <Typen> */
 /**
- * @brief Standard Return Wert aller Regler Methoden.
- */
-typedef enum reg_ret_e { reg_OK, reg_NOK } reg_ret_t;
-
-/**
  * @brief Struktur mit allen Parameter des Reglers
  */
 typedef struct reg_par_s {
-    all_reg_t pi;           /**< Reglerparameter ki, kp und AP        */
     float TA;               /**< Abtastzeit                           */
+    float kp;               /**< Proportionalbeiwert                  */
+    float ki;               /**< Integralbeiwert                      */
+    float ap;               /**< Arbeitspunkt des Reglers             */
 //  float ki_x_TA;          /**< Ki x TA in init() einmalig berechnen */
     float lower_limit;      /**< Untere Begrenzung des Reglerausgangs */
     float upper_limit;      /**< Obere  Begrenzung des Reglerausgangs */
@@ -51,8 +47,9 @@ typedef struct reg_par_s {
  */
 typedef struct reg_class_s {
     reg_par_t   p;                    /**< Parametersatz des PI-Reglers   */
-    reg_ret_t   (*write_y)( float *y );
-    reg_ret_t   (*read_u)( float *soll, float *ist );
+    float       *y;                   /**< Pointer auf Stellgroesse zum Zeitpunkt t   */
+    float       *soll;                /**< Pointer auf Sollwert zum Zeitpunkt t       */
+    float       *ist;                 /**< Pointer auf Istwert zum Zeitpunkt t        */
     float       x[REG_STATEVARS];     /**< Zustandsgroessen fuer Blockdarstellung des Anti Windup PI-Reglers */
 } reg_class_t;
 
@@ -67,10 +64,9 @@ void reg_PI_Init(       reg_class_t *self,
                   const float        ap,
                   const float        lower_limit,
                   const float        upper_limit,
-                  reg_ret_t   (*write_y)( float *y ),
-                  reg_ret_t   (*read_u)( float *soll, float *ist )
-                 );
-
+                        float       *y,
+                        float       *soll,
+                        float       *ist      );
 
 float reg_PI_Run( reg_class_t *self );
 /* <Prototypen/> */

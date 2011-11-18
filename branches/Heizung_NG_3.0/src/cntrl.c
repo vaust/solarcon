@@ -70,11 +70,6 @@ extern pthread_mutex_t  mutex;
 #define MUTEX_unlock()
 #endif
 
-/**
- * @brief Interfacemethoden der einzelnen Komponenten
- */
-reg_ret_t cntrl_fb_reg_write_y( float *y )
-{
 
 
 /**

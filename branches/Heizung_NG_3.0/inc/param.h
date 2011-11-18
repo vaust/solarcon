@@ -1,3 +1,21 @@
+/*
+ *  SOLARCON Modular Solar Supported Home Heating Controller
+ *  Copyright (C) 2011  Volker Stegmann
+ *
+ *  This program is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  any later version.
+ *
+ *  This program is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #ifndef _PARAM_H_
 #define _PARAM_H_
 
@@ -59,15 +77,21 @@
 
 #define MAX_ALL_Tau_mittel_Zeit   48                /**< max. Wert aus Kommentar in vorgaben.ini                     */
 
-#define USEC2SEC(x)     (((float)(x))/1.0e6)        /**< usec in sekunden umrechnen                                  */
-#define USEC2MSEC(x)    ((x)/1000)                  /**< usec in msec umrechnen                                      */
-#define ABTASTZEIT_USEC 500000L                     /**< das gleiche als LONG in Mikrosekunden fuer Timerlaufzeit    */
-#define ABTASTZEIT      USEC2SEC(ABTASTZEIT_USEC)   /**< Abtastzeit fuer digitale Regler Algorithmen als float       */
+// #define USEC2SEC(x)     (((float)(x))/1.0e6)        /**< usec in sekunden umrechnen                                  */
+// #define USEC2MSEC(x)    ((x)/1000)                  /**< usec in msec umrechnen                                      */
+#define MSEC2SEC(x)     (((float)(x))/1000.0)       /**< msec in sekunden umrechnen                                  */
+
+#define ABTASTZEIT_MSEC 1000L                       /**< das gleiche als LONG in Millisekunden fuer Timerlaufzeit    */
+#define ABTASTZEIT      MSEC2SEC(ABTASTZEIT_MSEC)   /**< Abtastzeit fuer digitale Regler Algorithmen als float       */
 
 
 /* <Defines/> */
 
 /* <Typen> */
+
+/**
+ * @brief Datenstruktur zur Ausgabe von beliebigen Variablen ueber Telnet Interface
+ */
 typedef struct parse_set_s {
     char *VarName;
     void *VarPointer;
@@ -75,6 +99,9 @@ typedef struct parse_set_s {
     // char *einheit;
 } parse_set_t;
 
+/**
+ * @brief Parametersatz fuer allgemeine Parameter
+ */
 typedef struct param_all_s {
     s16_t tau_mittel_zeit; /**< Zeit ueber die die Aussentemperatur gemittelt wird (in Stunden)           */
     s16_t partydauer;      /**< Fussbodenheizkreis Dauer der Betriebsverlaengerung (in Minuten)           */
@@ -82,6 +109,9 @@ typedef struct param_all_s {
     float at_start;        /**< Aussentemperatur unter der Heizung startet in Grad C                      */
 } param_all_t;
 
+/**
+ * @brief Parametersatz fuer den Solarregler
+ */
 typedef struct param_sol_s {
     float dt_ein_sw;       /**< Einschalt-Differenztemp. fuer Solarpumpe und Speicherabsperrv. in Grad C  */
     float dt_aus_sw;       /**< Ausschalt-Differenztemp. fuer Solarpumpe und Speicherabsperrv. in Grad C  */
@@ -90,11 +120,36 @@ typedef struct param_sol_s {
     float sp1_t_min;       /**< Min. Temperatur Speicher 1 in Grad C                                      */
 } param_sol_t;
 
+/**
+ * @brief Parametersatz fuer die Kesselsteuerung
+ */
 typedef struct param_kes_s {
     float sp_dt_sw;        /**< Temperaturdifferenz zwischen Kessel- und Speicher-SW in Grad C            */
 } param_kes_t;
 
+/**
+ * @brief Parametersatz der alle Vorlauftemperaturregelungsgroessen zusammenfasst
+ */
+typedef struct param_tvl_s {
+    float steigung;         /**< Heizkreis Heizkurvensteigung                                             */
+    float niveau;           /**< Heizkreis Heizkurvenparallelverschiebung                                 */
+    float absenk;           /**< Heizkreis Nachtabsenkung in Grad C                                       */
+    float min;              /**< Heizkreis Frostschutztemperatur in Grad C                                */
+    float max;              /**< Heizkreis maximale Vorlauftemperatur in Grad C                           */
+} param_tvl_t;
 
+/**
+ * @brief Parametersatz fuer einen allgemeinen PI-Regler
+ */
+typedef struct param_reg_s {
+    float kp;               /**< Regler Verstaerkung PI-Regler in 100/K                                    */
+    float ki;               /**< Regler Verstaerkung PI-Regler I-Anteil in 100/(K x s)                     */
+    float ap;               /**< Regler Arbeitspunktoffset in 100                                          */
+} param_reg_t;
+
+/**
+ * @brief Parametersatz fuer die Heizkoerperheizkreisregelung
+ */
 typedef struct param_hk_s {
     param_tvl_t tvl;
     param_reg_t reg;
@@ -102,25 +157,34 @@ typedef struct param_hk_s {
     float       frostschutz;      /**< Aussentemperatur ab der Heizkreis in Betrieb ist in Grad C         */
 } param_hk_t;
 
+/**
+ * @brief Parametersatz fuer die Fussbodenheizkreisregelung
+ */
 typedef struct param_fb_s {
     param_tvl_t tvl;
     param_reg_t reg;
-    float tr_sw;                /**< Fussbodenheizkreis Raumtemperatursollwert in Grad C                  */
+    float tr_sw;            /**< Fussbodenheizkreis Raumtemperatursollwert in Grad C                      */
 } param_fb_t;
 
+/**
+ * @brief Parametersatz fuer die Warmwasserheizkreisregelung
+ */
 typedef struct param_ww_s {
-    float tww_sw;           /**< Warmwasser-Temperatur-Sollwert in Grad C                              */
-    float tww_max;          /**< Warmwasser-Maximaltemperatur in Grad C                                */
-    float wz_faktor;        /**< Waermezaehler auf Pumpenstellbefehl                                   */
-    float wz_max;           /**< Max. Warmwasserdurchfluss in l/min                                    */
-    param_reg_t pu_reg;     /**< WW-Temperatur-Regler                                                  */
-    float mv_korr;          /**< WW Hzg-VL-Temperatur-Steurung (Mischer) Korrekturfaktor               */
-    float tww_tvl_faktor;   /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                  */
-    float tz_sw;            /**< Temperatursollwert des Zirkulationswassers in Grad C                  */
+    float tww_sw;           /**< Warmwasser-Temperatur-Sollwert in Grad C                                 */
+    float tww_max;          /**< Warmwasser-Maximaltemperatur in Grad C                                   */
+    float wz_faktor;        /**< Waermezaehler auf Pumpenstellbefehl                                      */
+    float wz_max;           /**< Max. Warmwasserdurchfluss in l/min                                       */
+    param_reg_t pu_reg;     /**< WW-Temperatur-Regler                                                     */
+    float mv_korr;          /**< WW Hzg-VL-Temperatur-Steurung (Mischer) Korrekturfaktor                  */
+    float tww_tvl_faktor;   /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                     */
+    float tz_sw;            /**< Temperatursollwert des Zirkulationswassers in Grad C                     */
 } param_ww_t;
 
+/**
+ * @brief Parametersatz fuer allgemeine Systemgroessen
+ */
 typedef struct param_sys_s {
-    u32_t zykluszeit;          /**< Zykluszeit des Systems in Mikrosekunden                               */
+    u32_t zykluszeit;       /**< Zykluszeit des Systems in Mikrosekunden                                  */
 } param_sys_t;
 
 /**
@@ -164,7 +228,7 @@ const parse_set_t param_Vorgaben[] = {
     { "SOL_KOLL_T_max",      &(param.sol.koll_t_max),      "%f" },
     { "SOL_SP_T_max",        &(param.sol.sp_t_max),        "%f" },
     { "SOL_SP1_T_min",       &(param.sol.sp1_t_min),       "%f" },
-    { "KES_SP_dT_SW",        &(param.kes_sp_dt_sw),        "%f" },
+    { "KES_SP_dT_SW",        &(param.kes.sp_dt_sw),        "%f" },
     { "HK_Tvl_Steigung",     &(param.hk.tvl.steigung),     "%f" },
     { "HK_Tvl_Niveau",       &(param.hk.tvl.niveau),       "%f" },
     { "HK_Tvl_Absenk",       &(param.hk.tvl.absenk),       "%f" },
@@ -186,7 +250,7 @@ const parse_set_t param_Vorgaben[] = {
     { "FB_Tr_SW",            &(param.fb.tr_sw),            "%f" },
     { "WW_Tww_SW",           &(param.ww.tww_sw),           "%f" },
     { "WW_Tww_Max",          &(param.ww.tww_max),          "%f" },
-    { "WZ_Faktor",           &(param.wz.faktor),           "%f" },
+    { "WZ_Faktor",           &(param.ww.wz_faktor),        "%f" },
     { "WZ_Max",              &(param.ww.wz_max),           "%f" },
     { "WW_PU_REG_Kp",        &(param.ww.pu_reg.kp),        "%f" },
     { "WW_PU_REG_Ki",        &(param.ww.pu_reg.ki),        "%f" },

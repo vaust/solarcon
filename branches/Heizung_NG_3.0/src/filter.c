@@ -78,15 +78,6 @@ void filter_avg_Run( filter_avg_t *self, const float xn )
     self->avg = self->sum/self->len;
 }
 
-/**
- * @brief Aufruffunktion zur Aktualisierung eins gleitenden Mittelwerts.
- *
- * Diese Funktion wird jedesmal aufgerufen, wenn ein neuer Messwert zur Verfuegung steht.
- * In der Regel wird der Messwert in einem festen Zeitraster ermittelt und dem Filter zugefuehrt.
- *
- * @param     self Pointer auf Objekt der Klasse \ref filter_fir_t
- * @param[in] xn   Neuer Messwert
- */
 void filter_fir_Run( filter_fir_t *self, const float xn )
 {
    s16_t i;
