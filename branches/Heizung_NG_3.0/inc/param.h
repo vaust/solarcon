@@ -142,9 +142,9 @@ typedef struct param_tvl_s {
  * @brief Parametersatz fuer einen allgemeinen PI-Regler
  */
 typedef struct param_reg_s {
-    float kp;               /**< Regler Verstaerkung PI-Regler in 100/K                                    */
-    float ki;               /**< Regler Verstaerkung PI-Regler I-Anteil in 100/(K x s)                     */
-    float ap;               /**< Regler Arbeitspunktoffset in 100                                          */
+    float kp;               /**< Regler Verstaerkung PI-Regler in 100/K                                   */
+    float ki;               /**< Regler Verstaerkung PI-Regler I-Anteil in 100/(K x s)                    */
+    float ap;               /**< Regler Arbeitspunktoffset in 100                                         */
 } param_reg_t;
 
 /**

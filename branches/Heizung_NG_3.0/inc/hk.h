@@ -25,6 +25,7 @@
 #define _HK_H_
 
 #include "reg.h"
+#include "param.h"  /* Fuer generische Parametertypen */
 
 /* <Typen> */
 
@@ -32,11 +33,12 @@
  * @brief Zusammenfassung der Heizkoerperparameter
  */
 typedef struct hk_param_s {
-    float tvl_absenk;            /**< Nachtabsenkung in Grad C             */
-    float tvl_steigung;          /**< Heizkurvensteigung                   */
-    float tvl_niveau;            /**< Heizkurven Parallelverschiebung      */
-    float tvl_min;               /**< min. Vorlauftemperatur in Grad C     */
-    float tvl_max;               /**< max. Vorlauftemperatur in Grad C     */
+    param_tvl_t * tvl;
+//    float tvl_absenk;            /**< Nachtabsenkung in Grad C             */
+//    float tvl_steigung;          /**< Heizkurvensteigung                   */
+//    float tvl_niveau;            /**< Heizkurven Parallelverschiebung      */
+//    float tvl_min;               /**< min. Vorlauftemperatur in Grad C     */
+//    float tvl_max;               /**< max. Vorlauftemperatur in Grad C     */
     float at_start;              /**< Aussentemperatur ab der geheizt wird */
     float frostschutz;           /**< Frostschutztemperatur in Grad C      */
     float tr_sw;                 /**< Raumtemperatursollwert in Grad C     */
