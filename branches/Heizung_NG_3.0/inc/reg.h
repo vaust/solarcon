@@ -38,7 +38,7 @@ typedef enum reg_ret_e { reg_OK, reg_NOK } reg_ret_t;
 typedef struct reg_par_s {
     all_reg_t pi;           /**< Reglerparameter ki, kp und AP        */
     float TA;               /**< Abtastzeit                           */
-    float ki_x_TA;          /**< Ki x TA in init() einmalig berechnen */
+//  float ki_x_TA;          /**< Ki x TA in init() einmalig berechnen */
     float lower_limit;      /**< Untere Begrenzung des Reglerausgangs */
     float upper_limit;      /**< Obere  Begrenzung des Reglerausgangs */
 } reg_par_t;

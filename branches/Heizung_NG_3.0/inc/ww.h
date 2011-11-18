@@ -36,6 +36,7 @@ typedef struct ww_param_s {
     float at_start;
     float mv_korr;
     float hzg_pu_y_min;             /**< minimaler Prozentsatz ab der die Pumpe laeuft            */
+    ein_aus_t schwachlast_aktiv;    /**< Schwachlaststeuerung per Diagnose ein-/ausschaltbar */
     u16_t schwachlastzeit_max;
 } ww_param_t;
 
@@ -71,6 +72,7 @@ typedef struct ww_class_s {
     ww_param_t  p;
     ww_in_t     i;
     ww_out_t    o;
+    u16_t       schwachlastzeit;    /**< Schwachlaststeuerung komponententauglich */
 } ww_class_t;
 
 /* <Typen/> */
