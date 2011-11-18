@@ -41,19 +41,19 @@ void fb_Init( fb_class_t   *self,
               reg_ret_t (*fb_reg_read_u)( float *soll, float *ist ) )
 {
     /* Vorgaben aus Parametrierung */
-    self->p.frostschutz   = param->all.frostschutz;
-    self->p.at_start      = param->all.at_start;
-    self->p.tvl_absenk    = param->fb.tvl.absenk;
-    self->p.tvl_max       = param->fb.tvl.max;
-    self->p.tvl_min       = param->fb.tvl.min;
-    self->p.tvl_niveau    = param->fb.tvl.niveau;
-    self->p.tvl_steigung  = param->fb.tvl.steigung;
-    self->p.tr_sw         = param->fb.tr_sw;
+    self->p.frostschutz   = param.all.frostschutz;
+    self->p.at_start      = param.all.at_start;
+    self->p.tvl_absenk    = param.fb.tvl.absenk;
+    self->p.tvl_max       = param.fb.tvl.max;
+    self->p.tvl_min       = param.fb.tvl.min;
+    self->p.tvl_niveau    = param.fb.tvl.niveau;
+    self->p.tvl_steigung  = param.fb.tvl.steigung;
+    self->p.tr_sw         = param.fb.tr_sw;
 
-    reg_PI_Init( &(self->reg), USEC2SEC(param_sys_zykluszeit),
-                               param_fb_reg_kp,
-                               param_fb_reg_ki,
-                               param_fb_reg_ap,
+    reg_PI_Init( &(self->reg), MSEC2SEC(param.sys.zykluszeit),
+                               param.fb.reg.kp,
+                               param.fb.reg.ki,
+                               param.fb.reg.ap,
                                MIN_Y_PCT,
                                MAX_Y_PCT,
                                fb_reg_write_y,
@@ -87,7 +87,7 @@ void fb_Run( fb_class_t *self )
         self->o.prim_pu_sb = IO_EIN;
         self->o.sek_pu_sb  = IO_EIN;
     }
-    else if( self->i.tau_avg > (self->p.at_start+1.0) ) {
+    else if( self->i.tau_avg > (self->p.at_start+1.0) ) {  /* 1.0 ist Pumpenschalthysterese : todo Parameter! */
         self->o.prim_pu_sb = IO_AUS;
         self->o.sek_pu_sb  = IO_AUS;
     }

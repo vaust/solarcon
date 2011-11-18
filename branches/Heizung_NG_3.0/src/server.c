@@ -16,8 +16,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** \file server.c
- *  Code aus Buch Linux Systemprogrammierung
+/**
+ * @file server.c
+ *  @brief Controller Task zyklisch ausführen und Telnet Task in Endlosschleife laufen lassen.
+ *  Code aus Buch Linux Systemprogrammierung.
+ *  @author Volker Stegmann
  */
 
 #define _SERVER_C_
@@ -106,23 +109,28 @@ void terminate( int sig )
     exit( sig );
 }
 
-/** \brief system Timer fuer Steuerungsprozess initialisieren.
- *  Dieses API funktioniert auf dem momentanen WAGO uCLinux nur bis herab zu 500ms.
- *  Kleinere Timerwerte führen immer zu 500ms Zykluszeit.
+/**
+ * @brief system Timer fuer Steuerungsprozess initialisieren.
+ *
+ * Dieses API funktioniert auf dem momentanen WAGO uCLinux nur bis herab zu 500ms.
+ * Kleinere Timerwerte führen immer zu 500ms Zykluszeit.
+ *
+ * @param zykluszeit Zykluszeit in Millisekunden
+ * @return kein
  */
 void systimer_init( u32_t zykluszeit )
 {
     struct itimerval   timer;
 
-    timer.it_value.tv_sec = 0;
-    timer.it_value.tv_usec = zykluszeit;
-    timer.it_interval.tv_sec = 0;
-    timer.it_interval.tv_usec = zykluszeit;
+    timer.it_value.tv_sec     = zykluszeit / 1000L;
+    timer.it_value.tv_usec    = (zykluszeit % 1000L) * 1000L;
+    timer.it_interval.tv_sec  = zykluszeit / 1000L;
+    timer.it_interval.tv_usec = (zykluszeit % 1000L) * 1000L;
     setitimer( ITIMER_REAL, &timer, NULL );
 }
 
 /**
- * \brief Main (internes Betriebssystem).
+ * @brief Main (internes Betriebssystem).
  * Hier wird der Intervalltimer fuer das zyklische Aufrufen der Steuerung
  * gestartet, der Mutex fuer das parallele Zugreifen auf globale Variablen erzeugt und
  * in der Endlosschleife auf eine Telnetverbindung gewartet.
@@ -136,9 +144,8 @@ int main( void )
     
     signal( SIGINT, terminate );
     
-    // signal( SIGALRM, cntrl_SetTaskFlag );
     signal( SIGALRM, cntrl_run );
-    systimer_init( param_sys_zykluszeit );
+    systimer_init( param.sys.zykluszeit );
 
     server_sock_fd = create_server_sock( TCP_PORT );
 
@@ -175,4 +182,5 @@ int main( void )
             }
         }
     }
+    return 0;
 }

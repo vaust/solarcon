@@ -18,8 +18,9 @@
 
 /**
  * @file cntrl.c
- * @brief Die gesamte Heizungsteuerungsapplikation. Hier werden alle Komponenten instanziert
- * und der Datenfluss abgebildet.
+ * @brief Die gesamte Heizungsteuerungsapplikation.
+ * In der Funktion \ref cntrl_open() werden alle Komponenten instanziert.
+ * Die Funktion \ref cntrl_run() bildet den eigentlichen Heizungsregler und den Datenfluss ab.
 
  * @author Volker Stegmann
  */
@@ -75,12 +76,6 @@ extern pthread_mutex_t  mutex;
 reg_ret_t cntrl_fb_reg_write_y( float *y )
 {
 
-}
-
-reg_ret_t cntrl_fb_reg_read_u( float *soll, float *ist )
-{
-
-}
 
 /**
  * \brief Steuerung initialisieren.
@@ -144,7 +139,7 @@ void cntrl_run( int sig )
         /* alles was im Sekunden-, Minuten- und Stundenraster ablaufen muss und *
          * Aussentemperaturmittelwerte ermitteln                                */
         if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
-        task_Run( param_all_partydauer,
+        task_Run( param.all.partydauer,
                   io_get_ALL_PARTY(),
                   io_get_WW_PARTY(),
                   io_ALL_Tau_MW.messwert,

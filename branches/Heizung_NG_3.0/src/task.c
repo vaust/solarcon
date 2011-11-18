@@ -16,10 +16,13 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** \file Modul mit allen Methoden, die in einem bestimmten Zeitraster aufgerufen
-  * werden muessen.
-  * \author Volker Stegmann 
-  */
+/**
+ * @file task.c
+ * @brief Modul mit allen Methoden, die in einem bestimmten Zeitraster aufgerufen
+ * werden muessen.
+ *
+ * @author Volker Stegmann
+ */
   
 #define _TASK_C_
 
@@ -35,7 +38,7 @@ void task_partytime_schalter_lesen( const int                               all_
 {
     if(    ( schaltzustand     >= IO_EIN ) 
         && ( status->alterwert == IO_AUS ) ) {
-        status->partytime_flg = SET;   /* Ruecksetzen in task_min() */
+        status->partytime_flg = SET;   /* Ruecksetzen in task_test_partytime() */
         status->party_restzeit_min = all_partydauer;
     }
     status->alterwert = schaltzustand;
@@ -112,9 +115,9 @@ void task_stunde( task_tau_t * const tau )
     tau->t_36h_summe += tau->t_1h_mittel - tau->t_1h_mittel_36h_Intervall[index];
     tau->t_1h_mittel_36h_Intervall[index] = tau->t_1h_mittel;
     index ++;
-    if( index >= param_all_tau_mittel_zeit )
+    if( index >= param.all.tau_mittel_zeit )
         index = 0;
-    tau->t_36h_mittel = tau->t_36h_summe / param_all_tau_mittel_zeit;
+    tau->t_36h_mittel = tau->t_36h_summe / param.all.tau_mittel_zeit;
 }
 
 void task_Init(       task_tau_t * const tau, 
@@ -124,10 +127,10 @@ void task_Init(       task_tau_t * const tau,
 
     for( i=0; i<60; i++ ) 
         tau->t_1min_Intervall[i] = all_tau_mw;
-    for( i=0; i<param_all_tau_mittel_zeit; i++ ) 
+    for( i=0; i<param.all.tau_mittel_zeit; i++ )
         tau->t_1h_mittel_36h_Intervall[i] = all_tau_mw;
     tau->t_1h_summe = all_tau_mw * 60;
-    tau->t_36h_summe = all_tau_mw * param_all_tau_mittel_zeit;
+    tau->t_36h_summe = all_tau_mw * param.all.tau_mittel_zeit;
 }
 
 
