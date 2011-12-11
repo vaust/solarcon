@@ -5,64 +5,17 @@ import sys
 import telnetlib
 import datetime
 import time
-import tkinter 
+from tkinter import * 
 
-TEMPNAMES = ( "ALL_Tau_MW", "SOL_KOLL_T_MW", "SOL_SP1_To_MW", "SOL_SP1_Tu_MW", "SOL_SP2_To_MW",
+TEMPNAMES = { "ALL_Tau_MW", "SOL_KOLL_T_MW", "SOL_SP1_To_MW", "SOL_SP1_Tu_MW", "SOL_SP2_To_MW",
               "SOL_SP2_Tu_MW", "KES_Tvl_MW", "KES_Trl_MW", "HK_Tvl_MW", "HK_Trl_MW",
               "FB_PRIM_Trl_MW", "FB_SEK_Tvl_MW", "WW_HZG_Tvl_MW", "WW_HZG_Trl_MW", "WW_Tww_MW",
-              "Tau_1h_mittel", "Tau_36h_mittel" )        
+              "Tau_1h_mittel", "Tau_36h_mittel" }        
 
 HOST = "localhost"
 PORT = 1969
+temp = dict()
 
-'''
-tn = telnetlib.Telnet()
-tn.open(HOST, PORT)
-
-tn.read_very_eager()     # lese Ueberschriftenblock
-'''
-
-#   GUI erzeugen:
-
-Bttn_list = {}
-
-win = tkinter.Tk()
-win.title('Mein Fenster')
-
-def close_app():
-    win.quit()
-    quit()
-
-cnames = tkinter.StringVar(value=TEMPNAMES)
-List = tkinter.Listbox( listvariable=cnames)
-Scrl = tkinter.Scrollbar()
-
-#for name in TEMPNAMES:
-#    List.insert(tkinter.END, name)
-
-
-List.pack(side='left', fill=tkinter.Y)
-Scrl.pack(side='right', fill=tkinter.Y)
-
-Lbl = tkinter.Label()
-Lbl.pack()
-
-def poll():
-    Lbl.after(200, poll)
-    sel=List.curselection()
-    if len(sel)==1:
-        i = int(sel[0])
-        code = TEMPNAMES[i]
-        Lbl.config(text=code)
-    
-quit_button = tkinter.Button(text='Quit', command=close_app )
-quit_button.pack()
-
-poll()
-win.mainloop()
-
-'''    
-fd.close()
 
 def getValues( cmdstr ):
     tn.write(cmdstr)
@@ -72,84 +25,48 @@ def getValues( cmdstr ):
     lines = bufdecode.splitlines()
     return lines
 
-while (time.time() < (startTime+logTime)):
-
+def getT():
     lines = getValues( b"GET T\n" )
-    # alle Temperaturen auf unplausible Werte initialisieren
-    temp = []
-    for i in range(len(TEMPNAMES)):
-        temp.append(-100.0)
 
     for line in lines:
-        i = 0
         for name in TEMPNAMES:
             if (line.startswith(name)):
-                temp[i] = float(line.split('=')[1].split('°')[0])
-            i += 1
+                temp[name] = str(line.split('=')[1].split('°')[0])
 
-    lines = getValues( b"GET DI\n" )
-    # alle DI auf unplausible Strings initialisieren
-    din = []
-    for i in range(len(DINAMES)):
-        din.append( "NDEF" )
+def get_Tau():
+    getT()
+    win.Tau_Txt.config( text=temp["ALL_Tau_MW"] )
 
-    for line in lines:
-        i = 0
-        for name in DINAMES:
-            if (line.startswith(name)):
-                din[i] = line.split('= ')[1]
-            i += 1
+def get_SOL():
+    getT()
+    win.SOL_Txt.config( text=temp["SOL_KOLL_T_MW"] )
+ 
+tn = telnetlib.Telnet()
+tn.open(HOST, PORT)
+tn.read_very_eager()     # lese Ueberschriftenblock
 
-    lines = getValues( b"GET DO\n" )
-    # alle DO auf unplausible Strings initialisieren
-    dout = []
-    for i in range(len(DONAMES)):
-        dout.append( "NDEF" )
+#   GUI erzeugen:
 
-    for line in lines:
-        i = 0
-        for name in DONAMES:
-            if (line.startswith(name)):
-                dout[i] = line.split('= ')[1]
-            i += 1
+win = Tk()
+win.title('Mein Fenster')
 
-    lines = getValues( b"GET AO\n" )
-    # alle AO auf unplausible Strings initialisieren
-    ao = []
-    for i in range(len(AONAMES)):
-        ao.append( -99.9 )
+win.Tau_Bttn = Button( win, text='Aussentemperatur', command = get_Tau )
+win.Tau_Txt  = Label( win, relief=SUNKEN, bg='black', fg='red', width=10, font=('arial',18) )
+win.Tau_Bttn.pack( padx=10, pady=10 )
+win.Tau_Txt.pack( padx=10, pady=10 )
 
-    for line in lines:
-        i = 0
-        for name in AONAMES:
-            if (line.startswith(name)):
-                ao[i] = float(line.split('=')[1].split('pct')[0])
-            i += 1
-    
-    now = datetime.datetime.now()
-    # Mikrosekundenteil auf 0 setzen, damit Excel den ISO Zeitstring versteht
-    now = datetime.datetime( now.year, now.month, now.day, now.hour, now.minute, now.second )
-    csvstr = now.isoformat(' ') + ";";
+win.SOL_Bttn = Button( win, text='Solarkollektortemperatur', command = get_SOL )
+win.SOL_Txt  = Label( win, relief=SUNKEN, bg='black', fg='red', width=10, font=('arial',18) )
+win.SOL_Bttn.pack( padx=10, pady=10 )
+win.SOL_Txt.pack( padx=10, pady=10 )
 
-    for i in range(len(TEMPNAMES)):
-        csvstr += "{0:.1f};".format( temp[i] )
-    for i in range(len(DINAMES)):
-        csvstr += din[i]+";"
-    for i in range(len(DONAMES)):
-        csvstr += dout[i]+";"
-    for i in range(len(AONAMES)):
-        csvstr += "{0};".format( ao[i] )
-                   
-    fd = open( Filename_Prefix+"_IO.csv", "a" )
-    fd.write( csvstr + "\n" )
-    fd.close()
-    print( csvstr )
-    time.sleep(1)
 
-# Logzeit abgelaufen:    
+win.mainloop()
+   
 tn.close()
 
-'''
+
+
 
 
 
