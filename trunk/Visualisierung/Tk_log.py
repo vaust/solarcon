@@ -25,7 +25,7 @@ def getValues( cmdstr ):
     lines = bufdecode.splitlines()
     return lines
 
-def getT():
+def get_T():
     lines = getValues( b"GET T\n" )
 
     for line in lines:
@@ -34,17 +34,20 @@ def getT():
                 temp[name] = str(line.split('=')[1].split('°')[0])
 
 def get_Tau():
-    getT()
-    win.Tau_Txt.config( text=temp["ALL_Tau_MW"] )
+    # get_T()
+    # win.Tau_Txt.config( text=temp["ALL_Tau_MW"] )
+    win.Tau_Txt.config( text="22.4" )
+
 
 def get_SOL():
-    getT()
-    win.SOL_Txt.config( text=temp["SOL_KOLL_T_MW"] )
- 
+    # get_T()
+    # win.SOL_Txt.config( text=temp["SOL_KOLL_T_MW"] )
+    win.SOL_Txt.config( text="12.5" )
+''' 
 tn = telnetlib.Telnet()
 tn.open(HOST, PORT)
 tn.read_very_eager()     # lese Ueberschriftenblock
-
+'''
 #   GUI erzeugen:
 
 win = Tk()
@@ -52,12 +55,12 @@ win.title('Mein Fenster')
 
 win.Tau_Bttn = Button( win, text='Aussentemperatur', command = get_Tau )
 win.Tau_Txt  = Label( win, relief=SUNKEN, bg='black', fg='red', width=10, font=('arial',18) )
-win.Tau_Bttn.pack( padx=10, pady=10 )
-win.Tau_Txt.pack( padx=10, pady=10 )
+win.Tau_Bttn.pack( side=LEFT, padx=10, pady=10 )
+win.Tau_Txt.pack( side=LEFT, after=win.Tau_Bttn, padx=10, pady=10 )
 
 win.SOL_Bttn = Button( win, text='Solarkollektortemperatur', command = get_SOL )
 win.SOL_Txt  = Label( win, relief=SUNKEN, bg='black', fg='red', width=10, font=('arial',18) )
-win.SOL_Bttn.pack( padx=10, pady=10 )
+win.SOL_Bttn.pack( side=TOP, after=win.Tau_Bttn, padx=10, pady=10 )
 win.SOL_Txt.pack( padx=10, pady=10 )
 
 
