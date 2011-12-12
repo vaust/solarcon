@@ -53,12 +53,12 @@ tn.read_very_eager()     # lese Ueberschriftenblock
 win = Tk()
 win.title('Mein Fenster')
 
-win.Tau_Bttn = Button( win, text='Aussentemperatur', command = get_Tau )
+win.Tau_Bttn = Button( win, text='Aussentemperatur', command = get_Tau, font=('arial',18) )
 win.Tau_Txt  = Label( win, relief=SUNKEN, bg='black', fg='red', width=10, font=('arial',18) )
 win.Tau_Bttn.pack( side=LEFT, padx=10, pady=10 )
 win.Tau_Txt.pack( side=LEFT, after=win.Tau_Bttn, padx=10, pady=10 )
 
-win.SOL_Bttn = Button( win, text='Solarkollektortemperatur', command = get_SOL )
+win.SOL_Bttn = Button( win, text='Solarkollektortemperatur', command = get_SOL, font=('arial',18) )
 win.SOL_Txt  = Label( win, relief=SUNKEN, bg='black', fg='red', width=10, font=('arial',18) )
 win.SOL_Bttn.pack( side=TOP, after=win.Tau_Bttn, padx=10, pady=10 )
 win.SOL_Txt.pack( padx=10, pady=10 )
