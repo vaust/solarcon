@@ -1,12 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-
-CNT_NAMES = { "WW_WZ_MW" }
-
-cnt_lbl = dict()
-mv_lbl = dict()
-
 def cllbck(event):
     print('Mouse clicked at ', main.canvasx(event.x), main.canvasy(event.y) )
 
@@ -43,17 +37,26 @@ for t_name in TEMP_NAMES:
     temp_lbl[t_name] = tk.Label( main, width=8, bg='yellow', relief='sunken', font=('arial', 12), text='---.-°C' )
 
 PU_NAMES = { "WW_HZG_PU_SB", "HK_PU_SB", "WW_ZIRK_PU_SB", "HK_PU_SB", "FB_SEK_PU_SB", "FB_PRIM_PU_SB",
-             "KES_PU_SP1_SB", "KES_PU_SP2_SB",}
+             "KES_PU_SP1_SB", "KES_PU_SP2_SB", "SOL_PU_SB" }
 pu_lbl = dict()
 for pu_name in PU_NAMES:
     pu_lbl[pu_name] = tk.Label( main, width=8, bg='yellow', relief='sunken', font=('arial', 12), text='---' )
 
 MV_NAMES = { "WW_HZG_MV_Y", "FB_PRIM_MV_Y", "HK_MV_Y", "WW_HZG_VV_Y" }
+mv_lbl = dict()
 for mv_name in MV_NAMES:
     mv_lbl[mv_name] = tk.Label( main, width=8, bg='yellow', relief='sunken', font=('arial', 12), text='---%' )
 
+CNT_NAMES = { "WW_WZ_MW" }
+cnt_lbl = dict()
 cnt_lbl["WW_WZ_MW"] = tk.Label( main, width=8, bg='yellow', relief='sunken', font=('arial', 12), text='-.---' )
 
+AV_NAMES = { "SOL_SP1_AV_SB", "SOL_SP2_AV_SB" }
+av_lbl = dict()
+for av_name in AV_NAMES:
+    av_lbl[av_name] = tk.Label( main, width=8, bg='yellow', relief='sunken', font=('arial', 12), text='---' )
+
+##
 main.create_window(370, 441, window=temp_lbl["SOL_KOLL_T_MW"])
 main.create_window(560, 476, window=temp_lbl["WW_Tww_MW"])
 main.create_window(560, 812, window=temp_lbl["WW_HZG_Tvl_MW"])
@@ -66,7 +69,10 @@ main.create_window(483, 1460, window=temp_lbl["SOL_SP2_To_MW"])
 main.create_window(483, 1647, window=temp_lbl["SOL_SP2_Tu_MW"])
 main.create_window(781, 812, window=temp_lbl["HK_Tvl_MW"])
 main.create_window(879, 812, window=temp_lbl["HK_Trl_MW"])
-
+main.create_window(1403, 1168, window=temp_lbl["KES_Tvl_MW"])
+main.create_window(1403, 1355, window=temp_lbl["KES_Trl_MW"])
+main.create_window(1637, 978, window=temp_lbl["ALL_Tau_MW"])
+##
 main.create_window(759, 755, window=pu_lbl["HK_PU_SB"])
 main.create_window(980, 487, window=pu_lbl["FB_SEK_PU_SB"])
 main.create_window(980, 754, window=pu_lbl["FB_PRIM_PU_SB"])
@@ -74,13 +80,17 @@ main.create_window(538, 756, window=pu_lbl["WW_HZG_PU_SB"])
 main.create_window(861, 425, window=pu_lbl["WW_ZIRK_PU_SB"])
 main.create_window(1289, 1157, window=pu_lbl["KES_PU_SP1_SB"])
 main.create_window(1289, 1240, window=pu_lbl["KES_PU_SP2_SB"])
-    
+main.create_window(257, 996, window=pu_lbl["SOL_PU_SB"])
+##    
 main.create_window(657, 427, window=cnt_lbl["WW_WZ_MW"])
-
+##
 main.create_window(550, 855, window=mv_lbl["WW_HZG_MV_Y"])
 main.create_window(772, 855, window=mv_lbl["FB_PRIM_MV_Y"])
 main.create_window(993, 855, window=mv_lbl["HK_MV_Y"])
 main.create_window(750, 1071, window=mv_lbl["WW_HZG_VV_Y"])
+##
+main.create_window(403, 1252, window=av_lbl["SOL_SP1_AV_SB"])
+main.create_window(335, 1714, window=av_lbl["SOL_SP2_AV_SB"])
 
 root.mainloop()
 
