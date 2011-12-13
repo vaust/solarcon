@@ -42,7 +42,8 @@ temp_lbl = dict()
 for t_name in TEMP_NAMES:
     temp_lbl[t_name] = tk.Label( main, width=8, bg='yellow', relief='sunken', font=('arial', 12), text='---.-°C' )
 
-PU_NAMES = { "WW_HZG_PU_SB", "HK_PU_SB", "WW_ZIRK_PU_SB", "HK_PU_SB", "FB_SEK_PU_SB", "FB_PRIM_PU_SB" }
+PU_NAMES = { "WW_HZG_PU_SB", "HK_PU_SB", "WW_ZIRK_PU_SB", "HK_PU_SB", "FB_SEK_PU_SB", "FB_PRIM_PU_SB",
+             "KES_PU_SP1_SB", "KES_PU_SP2_SB",}
 pu_lbl = dict()
 for pu_name in PU_NAMES:
     pu_lbl[pu_name] = tk.Label( main, width=8, bg='yellow', relief='sunken', font=('arial', 12), text='---' )
@@ -71,7 +72,9 @@ main.create_window(980, 487, window=pu_lbl["FB_SEK_PU_SB"])
 main.create_window(980, 754, window=pu_lbl["FB_PRIM_PU_SB"])
 main.create_window(538, 756, window=pu_lbl["WW_HZG_PU_SB"])
 main.create_window(861, 425, window=pu_lbl["WW_ZIRK_PU_SB"])
-
+main.create_window(1289, 1157, window=pu_lbl["KES_PU_SP1_SB"])
+main.create_window(1289, 1240, window=pu_lbl["KES_PU_SP2_SB"])
+    
 main.create_window(657, 427, window=cnt_lbl["WW_WZ_MW"])
 
 main.create_window(550, 855, window=mv_lbl["WW_HZG_MV_Y"])
