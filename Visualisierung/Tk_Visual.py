@@ -1,3 +1,5 @@
+VERSION = "0.1"
+
 import tkinter as tk
 import tkinter.ttk as ttk
 
@@ -5,14 +7,16 @@ def cllbck(event):
     print('Mouse clicked at ', main.canvasx(event.x), main.canvasy(event.y) )
 
 root = tk.Tk()
-bgpic = tk.PhotoImage(file='Visualisierung.gif')
+root.title( "Ruderclub Aschaffenburg Heizungsanlagenvisualisierung  Version: "+VERSION )
+
 
 vbar = ttk.Scrollbar( root, orient=tk.VERTICAL)
 hbar = ttk.Scrollbar( root, orient=tk.HORIZONTAL)
+
 main = tk.Canvas(root, bg='white', scrollregion=(0,0,2000,2000),
                        yscrollcommand=vbar.set, xscrollcommand=hbar.set, width=1024, height=768)
-
 main.bind('<Button-1>', cllbck)
+bgpic = tk.PhotoImage(file='Visualisierung.gif')
 main.create_image(1000,1000, image=bgpic)
                              
 vbar.grid(row=0, column=1, sticky=tk.NS)
@@ -21,6 +25,9 @@ main.grid(row=0, column=0, sticky=tk.NSEW)
 
 vbar.config(command=main.yview)
 hbar.config(command=main.xview)
+
+update_bttn = tk.Button( text='Aktualisieren' )
+update_bttn.grid(row=2, column=0, padx=10, pady=10) #, sticky=tk.EW)
 
 '''
 Widgets in Canvas plazieren:
