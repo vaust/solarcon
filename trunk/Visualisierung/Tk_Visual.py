@@ -45,7 +45,7 @@ port_entry.pack(padx=PD, pady=PD, side=tk.LEFT)
 
 connect_bttn = tk.Button( bttn_frame, text='Verbinden' )
 update_bttn = tk.Button( bttn_frame, text='Aktualisieren' )
-disconnect_bttn = tk.Button( bttn_frame, text='Trennen' )
+# disconnect_bttn = tk.Button( bttn_frame, text='Trennen' )
 connect_bttn.pack(padx=PD, pady=PD, side=tk.LEFT)
 # disconnect_bttn.pack(padx=PD, pady=PD, side=tk.LEFT)
 update_bttn.pack(padx=PD, pady=PD, side=tk.RIGHT)
