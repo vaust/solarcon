@@ -1,4 +1,4 @@
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -137,8 +137,8 @@ def leseWerte():
     for mv_name in MV_NAMES:
         for line in lines:
             if (line.startswith(mv_name)):
-                mv_str = str( line.split('=')[1] )
-                mv_lbl[mv_name].config( text=mv_str )
+                mv_str = str( line.split('=')[1].split('p')[0] )
+                mv_lbl[mv_name].config( text=mv_str+'%' )
 
 
 update_bttn.config( command=leseWerte )
