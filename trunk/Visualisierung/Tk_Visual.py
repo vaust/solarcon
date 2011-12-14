@@ -117,7 +117,7 @@ main.create_window(1289, 1157, window=pu_lbl["KES_PU_SP1_SB"])
 main.create_window(1289, 1240, window=pu_lbl["KES_PU_SP2_SB"])
 main.create_window(257, 996, window=pu_lbl["SOL_PU_SB"])
 ##    
-main.create_window(657, 427, window=cnt_lbl["WW_WZ_MW"])
+# main.create_window(657, 427, window=cnt_lbl["WW_WZ_MW"])
 ##
 main.create_window(550, 855, window=mv_lbl["WW_HZG_MV_Y"])
 main.create_window(772, 855, window=mv_lbl["FB_PRIM_MV_Y"])
@@ -180,14 +180,11 @@ def leseWerte():
 def connect():
     HOST = server_entry.get()
     PORT = port_entry.get()
-    tn.open("localhost", 1969)
+    tn.open(HOST, PORT)
     tn.read_very_eager()
     update_bttn.config( command=leseWerte )
-    
-def disconnect():
-    tn.close()
-    update_bttn.deletecommand()
-    
+    leseWerte()
+        
 #-------------
     
 connect_bttn.config( command=connect )
