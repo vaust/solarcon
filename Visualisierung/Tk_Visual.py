@@ -11,7 +11,6 @@ def cllbck(event):
 root = tk.Tk()
 root.title( "Ruderclub Aschaffenburg Heizungsanlagenvisualisierung  Version: "+VERSION )
 
-
 vbar = ttk.Scrollbar( root, orient=tk.VERTICAL)
 hbar = ttk.Scrollbar( root, orient=tk.HORIZONTAL)
 
@@ -28,7 +27,6 @@ main.grid(row=0, column=0, sticky=tk.NSEW)
 vbar.config(command=main.yview)
 hbar.config(command=main.xview)
 
-
 update_bttn = tk.Button( text='Aktualisieren' )
 update_bttn.grid(row=2, column=0, padx=10, pady=10) #, sticky=tk.EW)
 
@@ -38,40 +36,49 @@ Widgets in Canvas plazieren:
 2. Mit .create_window() Methode auf Canvas platzieren. Der Parameter window benennt das Widget Objekt
 '''
 
+SCHRIFT = ('Arial', 12, 'bold')
+L       = 8
+HFARBE  =  'LightGoldenrod1'
+
 TEMP_NAMES = { "ALL_Tau_MW", "SOL_KOLL_T_MW", "SOL_SP1_To_MW", "SOL_SP1_Tu_MW", "SOL_SP2_To_MW",
               "SOL_SP2_Tu_MW", "KES_Tvl_MW", "KES_Trl_MW", "HK_Tvl_MW", "HK_Trl_MW",
               "FB_PRIM_Trl_MW", "FB_SEK_Tvl_MW", "WW_HZG_Tvl_MW", "WW_HZG_Trl_MW", "WW_Tww_MW",
               "Tau_1h_mittel", "Tau_36h_mittel" }        
 temp_lbl = dict()
 for t_name in TEMP_NAMES:
-    temp_lbl[t_name] = tk.Label( main, width=8, bg='yellow', relief='sunken', font=('arial', 12), text='---.-°C' )
+    temp_lbl[t_name] = tk.Label( main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---.-°C' )
 
 PU_NAMES = { "WW_HZG_PU_SB", "HK_PU_SB", "WW_ZIRK_PU_SB", "HK_PU_SB", "FB_SEK_PU_SB", "FB_PRIM_PU_SB",
              "KES_PU_SP1_SB", "KES_PU_SP2_SB", "SOL_PU_SB" }
 pu_lbl = dict()
 for pu_name in PU_NAMES:
-    pu_lbl[pu_name] = tk.Label( main, width=8, bg='yellow', relief='sunken', font=('arial', 12), text='---' )
+    pu_lbl[pu_name] = tk.Label( main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---' )
 
 MV_NAMES = { "WW_HZG_MV_Y", "FB_PRIM_MV_Y", "HK_MV_Y", "WW_HZG_VV_Y" }
 mv_lbl = dict()
 for mv_name in MV_NAMES:
-    mv_lbl[mv_name] = tk.Label( main, width=8, bg='yellow', relief='sunken', font=('arial', 12), text='---%' )
+    mv_lbl[mv_name] = tk.Label( main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---%' )
 
 CNT_NAMES = { "WW_WZ_MW" }
 cnt_lbl = dict()
-cnt_lbl["WW_WZ_MW"] = tk.Label( main, width=8, bg='yellow', relief='sunken', font=('arial', 12), text='-.---' )
+cnt_lbl["WW_WZ_MW"] = tk.Label( main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='-.---' )
 
 AV_NAMES = { "SOL_SP1_AV_SB", "SOL_SP2_AV_SB" }
 av_lbl = dict()
 for av_name in AV_NAMES:
-    av_lbl[av_name] = tk.Label( main, width=8, bg='yellow', relief='sunken', font=('arial', 12), text='---' )
+    av_lbl[av_name] = tk.Label( main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---' )
 
+DI_NAMES = { "ALL_PARTY", "WW_PARTY" }
+di_lbl = dict()
+for di_name in DI_NAMES:
+    di_lbl[di_name] = tk.Label( main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---' )
+    
 ##
 main.create_window(370, 441, window=temp_lbl["SOL_KOLL_T_MW"])
 main.create_window(560, 476, window=temp_lbl["WW_Tww_MW"])
 main.create_window(560, 812, window=temp_lbl["WW_HZG_Tvl_MW"])
 main.create_window(658, 812, window=temp_lbl["WW_HZG_Trl_MW"])
-main.create_window(1002, 556, window=temp_lbl["FB_SEK_Tvl_MW"])
+main.create_window(1002, 555, window=temp_lbl["FB_SEK_Tvl_MW"])
 main.create_window(1101, 813, window=temp_lbl["FB_PRIM_Trl_MW"])
 main.create_window(483, 968, window=temp_lbl["SOL_SP1_To_MW"])
 main.create_window(483, 1155, window=temp_lbl["SOL_SP1_Tu_MW"])
@@ -81,11 +88,11 @@ main.create_window(781, 812, window=temp_lbl["HK_Tvl_MW"])
 main.create_window(879, 812, window=temp_lbl["HK_Trl_MW"])
 main.create_window(1403, 1168, window=temp_lbl["KES_Tvl_MW"])
 main.create_window(1403, 1355, window=temp_lbl["KES_Trl_MW"])
-main.create_window(1637, 978, window=temp_lbl["ALL_Tau_MW"])
+main.create_window(1742, 978, window=temp_lbl["ALL_Tau_MW"])
 ##
 main.create_window(759, 755, window=pu_lbl["HK_PU_SB"])
 main.create_window(980, 487, window=pu_lbl["FB_SEK_PU_SB"])
-main.create_window(980, 754, window=pu_lbl["FB_PRIM_PU_SB"])
+main.create_window(980, 756, window=pu_lbl["FB_PRIM_PU_SB"])
 main.create_window(538, 756, window=pu_lbl["WW_HZG_PU_SB"])
 main.create_window(861, 425, window=pu_lbl["WW_ZIRK_PU_SB"])
 main.create_window(1289, 1157, window=pu_lbl["KES_PU_SP1_SB"])
@@ -101,6 +108,9 @@ main.create_window(750, 1071, window=mv_lbl["WW_HZG_VV_Y"])
 ##
 main.create_window(403, 1252, window=av_lbl["SOL_SP1_AV_SB"])
 main.create_window(335, 1714, window=av_lbl["SOL_SP2_AV_SB"])
+##
+main.create_window(1742, 1008, window=di_lbl["ALL_PARTY"])
+main.create_window(1742, 1038, window=di_lbl["WW_PARTY"])
 
 #-------- Eigentliche Anwendung --------
 
@@ -125,8 +135,8 @@ def leseWerte():
         for line in lines:
             if (line.startswith(pu_name)):
                 pu_str = str( line.split('=')[1] )
-                pu_lbl[pu_name].config( text=pu_str )
-
+                pu_lbl[pu_name].config( text=pu_str )                   
+                
     for av_name in AV_NAMES:
         for line in lines:
             if (line.startswith(av_name)):
@@ -139,6 +149,13 @@ def leseWerte():
             if (line.startswith(mv_name)):
                 mv_str = str( line.split('=')[1].split('p')[0] )
                 mv_lbl[mv_name].config( text=mv_str+'%' )
+
+    lines = getValues( b"GET DI\n" )
+    for di_name in DI_NAMES:
+        for line in lines:
+            if (line.startswith(di_name)):
+                di_str = str( line.split('=')[1] )
+                di_lbl[di_name].config( text=di_str )                   
 
 
 update_bttn.config( command=leseWerte )
