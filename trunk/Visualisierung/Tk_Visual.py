@@ -1,4 +1,4 @@
-VERSION = "0.1.2"
+VERSION = "0.2.1"
 
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -27,8 +27,26 @@ main.grid(row=0, column=0, sticky=tk.NSEW)
 vbar.config(command=main.yview)
 hbar.config(command=main.xview)
 
-update_bttn = tk.Button( text='Aktualisieren' )
-update_bttn.grid(row=2, column=0, padx=10, pady=10) #, sticky=tk.EW)
+bttn_frame = tk.LabelFrame( root, text='Verbindung mit Server' )
+bttn_frame.grid(row=2, column=0, padx=10, pady=10, sticky=tk.EW)
+
+server_lbl = tk.Label(bttn_frame, text='Server: ')
+server_entry = tk.Entry(bttn_frame, width=30)
+port_lbl = tk.Label(bttn_frame, text='Port: ')
+port_entry = tk.Entry(bttn_frame, width=6)
+
+PD = 5
+server_lbl.pack(padx=PD, pady=PD, side=tk.LEFT)
+server_entry.pack(padx=PD, pady=PD, side=tk.LEFT)
+port_lbl.pack(padx=PD, pady=PD, side=tk.LEFT)
+port_entry.pack(padx=PD, pady=PD, side=tk.LEFT)
+
+connect_bttn = tk.Button( bttn_frame, text='Verbinden' )
+update_bttn = tk.Button( bttn_frame, text='Aktualisieren' )
+disconnect_bttn = tk.Button( bttn_frame, text='Trennen' )
+connect_bttn.pack(padx=PD, pady=PD, side=tk.LEFT)
+# disconnect_bttn.pack(padx=PD, pady=PD, side=tk.LEFT)
+update_bttn.pack(padx=PD, pady=PD, side=tk.RIGHT)
 
 '''
 Widgets in Canvas plazieren:
@@ -38,7 +56,7 @@ Widgets in Canvas plazieren:
 
 SCHRIFT = ('Arial', 12, 'bold')
 L       = 8
-HFARBE  =  'LightGoldenrod1'
+HFARBE  = 'LightGoldenrod1'
 
 TEMP_NAMES = { "ALL_Tau_MW", "SOL_KOLL_T_MW", "SOL_SP1_To_MW", "SOL_SP1_Tu_MW", "SOL_SP2_To_MW",
               "SOL_SP2_Tu_MW", "KES_Tvl_MW", "KES_Trl_MW", "HK_Tvl_MW", "HK_Trl_MW",
@@ -157,15 +175,27 @@ def leseWerte():
                 di_str = str( line.split('=')[1] )
                 di_lbl[di_name].config( text=di_str )                   
 
-
-update_bttn.config( command=leseWerte )
+#-------------
+                
+def connect():
+    HOST = server_entry.get()
+    PORT = port_entry.get()
+    tn.open("localhost", 1969)
+    tn.read_very_eager()
+    update_bttn.config( command=leseWerte )
+    
+def disconnect():
+    tn.close()
+    update_bttn.deletecommand()
+    
+#-------------
+    
+connect_bttn.config( command=connect )
 
 tn = telnetlib.Telnet()
-tn.open("localhost", 1969)
-tn.read_very_eager()
-
 root.mainloop()
 
 tn.close()
+
 
         
