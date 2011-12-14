@@ -1,7 +1,9 @@
-VERSION = "0.1"
+VERSION = "0.1.1"
 
 import tkinter as tk
 import tkinter.ttk as ttk
+import telnetlib
+import time
 
 def cllbck(event):
     print('Mouse clicked at ', main.canvasx(event.x), main.canvasy(event.y) )
@@ -14,7 +16,7 @@ vbar = ttk.Scrollbar( root, orient=tk.VERTICAL)
 hbar = ttk.Scrollbar( root, orient=tk.HORIZONTAL)
 
 main = tk.Canvas(root, bg='white', scrollregion=(0,0,2000,2000),
-                       yscrollcommand=vbar.set, xscrollcommand=hbar.set, width=1024, height=768)
+                       yscrollcommand=vbar.set, xscrollcommand=hbar.set, width=1024, height=600)
 main.bind('<Button-1>', cllbck)
 bgpic = tk.PhotoImage(file='Visualisierung.gif')
 main.create_image(1000,1000, image=bgpic)
@@ -25,6 +27,7 @@ main.grid(row=0, column=0, sticky=tk.NSEW)
 
 vbar.config(command=main.yview)
 hbar.config(command=main.xview)
+
 
 update_bttn = tk.Button( text='Aktualisieren' )
 update_bttn.grid(row=2, column=0, padx=10, pady=10) #, sticky=tk.EW)
@@ -99,6 +102,53 @@ main.create_window(750, 1071, window=mv_lbl["WW_HZG_VV_Y"])
 main.create_window(403, 1252, window=av_lbl["SOL_SP1_AV_SB"])
 main.create_window(335, 1714, window=av_lbl["SOL_SP2_AV_SB"])
 
+#-------- Eigentliche Anwendung --------
+
+def getValues( cmdstr ):
+    tn.write(cmdstr)
+    time.sleep(1)
+    buffer = tn.read_very_eager()
+    bufdecode = buffer.decode('utf8')
+    lines = bufdecode.splitlines()
+    return lines
+
+def leseWerte():
+    lines = getValues( b"GET T\n" )
+    for t_name in TEMP_NAMES:
+        for line in lines:
+            if (line.startswith(t_name)):
+                t_str = str( line.split('=')[1].split('°')[0] )
+                temp_lbl[t_name].config( text=t_str+'°C' )
+                
+    lines = getValues( b"GET DO\n" )
+    for pu_name in PU_NAMES:
+        for line in lines:
+            if (line.startswith(pu_name)):
+                pu_str = str( line.split('=')[1] )
+                pu_lbl[pu_name].config( text=pu_str )
+
+    for av_name in AV_NAMES:
+        for line in lines:
+            if (line.startswith(av_name)):
+                av_str = str( line.split('=')[1] )
+                av_lbl[av_name].config( text=pu_str )
+
+    lines = getValues( b"GET AO\n" )
+    for mv_name in MV_NAMES:
+        for line in lines:
+            if (line.startswith(mv_name)):
+                mv_str = str( line.split('=')[1] )
+                mv_lbl[mv_name].config( text=mv_str )
+
+
+update_bttn.config( command=leseWerte )
+
+tn = telnetlib.Telnet()
+tn.open("localhost", 1969)
+tn.read_very_eager()
+
 root.mainloop()
+
+tn.close()
 
         
