@@ -5,7 +5,9 @@ import tkinter.ttk as ttk
 import telnetlib
 import time
 
-def cllbck(event):
+#------- GUI aufbauen --------
+
+def cllbck(event): # Callback zur Ermittlung der Koordinaten, auf denen die Labels gesetzt werden müssen
     print('Mouse clicked at ', main.canvasx(event.x), main.canvasy(event.y) )
 
 root = tk.Tk()
@@ -31,9 +33,9 @@ bttn_frame = tk.LabelFrame( root, text='Verbindung mit Server' )
 bttn_frame.grid(row=2, column=0, padx=10, pady=10, sticky=tk.EW)
 
 server_lbl = tk.Label(bttn_frame, text='Server: ')
-server_entry = tk.Entry(bttn_frame, width=30)
+server_entry = tk.Entry(bttn_frame, width=30, bg='LightGoldenrod1')
 port_lbl = tk.Label(bttn_frame, text='Port: ')
-port_entry = tk.Entry(bttn_frame, width=6)
+port_entry = tk.Entry(bttn_frame, width=6, bg='LightGoldenrod1')
 
 PD = 5
 server_lbl.pack(padx=PD, pady=PD, side=tk.LEFT)
