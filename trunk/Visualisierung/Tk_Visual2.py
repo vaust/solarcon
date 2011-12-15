@@ -11,17 +11,19 @@ def cllbck(event): # Callback zur Ermittlung der Koordinaten, auf denen die Labe
     print('Mouse clicked at ', main.canvasx(event.x), main.canvasy(event.y) )
 
 root = tk.Tk()
-root.title( "Ruderclub Aschaffenburg Heizungsanlagenvisualisierung  Version: "+VERSION )
+root.title( "Ruder-Club-Aschaffenburg Visualisierung der Heizungsanlage  Version: "+VERSION )
 
 PD = 5
 nbook = ttk.Notebook(root)
 page_ALL = ttk.Frame(nbook)
+page_SOL = ttk.Frame(nbook)
 page_WW = ttk.Frame(nbook)
 page_FB = ttk.Frame(nbook)
 page_HK = ttk.Frame(nbook)
 page_KES = ttk.Frame(nbook)
 page_ERR = ttk.Frame(nbook)
 nbook.add(page_ALL, text='Gesamtübersicht')
+nbook.add(page_SOL, text='Solarheizkreis')
 nbook.add(page_WW, text='Warmwasser')
 nbook.add(page_FB, text='Fußbodenheizung')
 nbook.add(page_HK, text='Heizkörperheizung')
@@ -65,6 +67,10 @@ server_lbl.pack(padx=PD, pady=PD, side=tk.LEFT)
 server_entry.pack(padx=PD, pady=PD, side=tk.LEFT)
 port_lbl.pack(padx=PD, pady=PD, side=tk.LEFT)
 port_entry.pack(padx=PD, pady=PD, side=tk.LEFT)
+
+# Defaultwerte
+server_entry.insert( tk.END, 'stegmann.homelinux.org' )
+port_entry.insert( tk.END, '1969' )
 
 connect_bttn = tk.Button( bttn_frame, text='Verbinden' )
 connect_bttn.pack(padx=PD, pady=PD, side=tk.LEFT)
@@ -248,14 +254,39 @@ def hk_in_handauto():
     time.sleep(1)
 
 #-------- Störungsmeldungen -------------
-IO_FARBE = 'green'
+IO_FARBE  = 'green'
 NIO_FARBE = 'red'
 err_BSM_lbl = tk.Label( page_ERR, width=32, bg=IO_FARBE, relief='sunken',
                         font=SCHRIFT, text='Brennerstörung' )
 err_TSENS_lbl = tk.Label( page_ERR, width=32, bg=IO_FARBE, relief='sunken',
                           font=SCHRIFT, text='Temperatursensor Störung' )
+err_STBFB_lbl = tk.Label( page_ERR, width=32, bg=IO_FARBE, relief='sunken',
+                          font=SCHRIFT, text='STB Fußbodenheizung' )
 err_BSM_lbl.pack(padx=PD, pady=PD)
 err_TSENS_lbl.pack(padx=PD, pady=PD)
+err_STBFB_lbl.pack(padx=PD, pady=PD)
+
+err_update_bttn = tk.Button(page_ERR, text='Aktualisieren')
+err_update_bttn.pack(padx=PD, pady=PD)
+
+def err_update():
+    lines = getValues(b'get DI')
+    for l in lines:
+        if ( l.startswith('KES_SSM') ):
+            if( l.split('=')[1].find('NORMAL') > 0 ):
+                err_BSM_lbl.config( bg=IO_FARBE )
+            else:
+                err_BSM_lbl.config( bg=NIO_FARBE )
+            break
+    for l in lines:
+        if ( l.startswith('FB_SEK_TW') ):
+            if( l.split('=')[1].find('NORMAL') > 0 ):
+                err_STBFB_lbl.config( bg=IO_FARBE )
+            else:
+                err_STBFB_lbl.config( bg=NIO_FARBE )
+            break
+                
+err_update_bttn.config(command=err_update)
 
 #-------- Connect mit Server ------------
 
