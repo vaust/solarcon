@@ -37,7 +37,7 @@ all_vbar = ttk.Scrollbar( page_ALL, orient=tk.VERTICAL)
 all_hbar = ttk.Scrollbar( page_ALL, orient=tk.HORIZONTAL)
 
 all_main = tk.Canvas(page_ALL, bg='white', scrollregion=(0,0,2000,2000),
-                       yscrollcommand=all_vbar.set, xscrollcommand=all_hbar.set, width=1024, height=600)
+                       yscrollcommand=all_vbar.set, xscrollcommand=all_hbar.set, width=1220, height=560)
 all_main.bind('<Button-1>', cllbck)
 bgpic = tk.PhotoImage(file='Visualisierung.gif')
 all_main.create_image(1000,1000, image=bgpic)
