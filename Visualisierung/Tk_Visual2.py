@@ -15,39 +15,44 @@ root.title( "Ruderclub Aschaffenburg Heizungsanlagenvisualisierung  Version: "+V
 
 PD = 5
 nbook = ttk.Notebook(root)
-page1 = ttk.Frame(nbook)
-page2 = ttk.Frame(nbook)
-page3 = ttk.Frame(nbook)
-page4 = ttk.Frame(nbook)
-nbook.add(page1, text='Gesamtübersicht')
-nbook.add(page2, text='Warmwasser')
-nbook.add(page3, text='Fußbodenheizung')
-nbook.add(page4, text='Heizkörperheizung')
-nbook.pack(padx=5, pady=5, fill=tk.X)
+page_ALL = ttk.Frame(nbook)
+page_WW = ttk.Frame(nbook)
+page_FB = ttk.Frame(nbook)
+page_HK = ttk.Frame(nbook)
+page_KES = ttk.Frame(nbook)
+nbook.add(page_ALL, text='Gesamtübersicht')
+nbook.add(page_WW, text='Warmwasser')
+nbook.add(page_FB, text='Fußbodenheizung')
+nbook.add(page_HK, text='Heizkörperheizung')
+nbook.add(page_KES, text='Kesselsteuerung')
+nbook.pack(padx=PD, pady=PD, fill=tk.X)
 
 #------- Inhalt der Gesamtübersicht ------
 
-vbar = ttk.Scrollbar( page1, orient=tk.VERTICAL)
-hbar = ttk.Scrollbar( page1, orient=tk.HORIZONTAL)
+all_vbar = ttk.Scrollbar( page_ALL, orient=tk.VERTICAL)
+all_hbar = ttk.Scrollbar( page_ALL, orient=tk.HORIZONTAL)
 
-main = tk.Canvas(page1, bg='white', scrollregion=(0,0,2000,2000),
-                       yscrollcommand=vbar.set, xscrollcommand=hbar.set, width=1024, height=600)
-main.bind('<Button-1>', cllbck)
+all_main = tk.Canvas(page_ALL, bg='white', scrollregion=(0,0,2000,2000),
+                       yscrollcommand=all_vbar.set, xscrollcommand=all_hbar.set, width=1024, height=600)
+all_main.bind('<Button-1>', cllbck)
 bgpic = tk.PhotoImage(file='Visualisierung.gif')
-main.create_image(1000,1000, image=bgpic)
+all_main.create_image(1000,1000, image=bgpic)
                              
-vbar.grid(row=0, column=1, sticky=tk.NS)
-hbar.grid(row=1, column=0, sticky=tk.EW)
-main.grid(row=0, column=0, sticky=tk.NSEW)
+all_vbar.grid(row=0, column=1, sticky=tk.NS)
+all_hbar.grid(row=1, column=0, sticky=tk.EW)
+all_main.grid(row=0, column=0, sticky=tk.NSEW)
 
-vbar.config(command=main.yview)
-hbar.config(command=main.xview)
+all_vbar.config(command=all_main.yview)
+all_hbar.config(command=all_main.xview)
+
+all_update_bttn = tk.Button( page_ALL, text='Aktualisieren' )
+all_update_bttn.grid(row=2, column=0, padx=PD, pady=PD, sticky=tk.W)
 
 #-------- Frame für die Verbindung mit dem Server ------
 
 bttn_frame = tk.LabelFrame( root, text='Verbindung mit Server' )
 # bttn_frame.grid(row=2, column=0, padx=10, pady=10, sticky=tk.EW)
-bttn_frame.pack(padx=5, pady=5, fill=tk.X)
+bttn_frame.pack(padx=5, pady=5, side=tk.LEFT) #, fill=tk.X)
 
 server_lbl = tk.Label(bttn_frame, text='Server: ')
 server_entry = tk.Entry(bttn_frame, width=30, bg='LightGoldenrod1')
@@ -60,12 +65,7 @@ port_lbl.pack(padx=PD, pady=PD, side=tk.LEFT)
 port_entry.pack(padx=PD, pady=PD, side=tk.LEFT)
 
 connect_bttn = tk.Button( bttn_frame, text='Verbinden' )
-update_bttn = tk.Button( bttn_frame, text='Aktualisieren' )
-# disconnect_bttn = tk.Button( bttn_frame, text='Trennen' )
 connect_bttn.pack(padx=PD, pady=PD, side=tk.LEFT)
-# disconnect_bttn.pack(padx=PD, pady=PD, side=tk.LEFT)
-update_bttn.pack(padx=PD, pady=PD, side=tk.RIGHT)
-
 
 #----------- Gesamtübersicht mit Labels füllen ----------
 '''
@@ -84,71 +84,71 @@ TEMP_NAMES = { "ALL_Tau_MW", "SOL_KOLL_T_MW", "SOL_SP1_To_MW", "SOL_SP1_Tu_MW", 
               "Tau_1h_mittel", "Tau_36h_mittel" }        
 temp_lbl = dict()
 for t_name in TEMP_NAMES:
-    temp_lbl[t_name] = tk.Label( main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---.-°C' )
+    temp_lbl[t_name] = tk.Label( all_main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---.-°C' )
 
 PU_NAMES = { "WW_HZG_PU_SB", "HK_PU_SB", "WW_ZIRK_PU_SB", "HK_PU_SB", "FB_SEK_PU_SB", "FB_PRIM_PU_SB",
              "KES_PU_SP1_SB", "KES_PU_SP2_SB", "SOL_PU_SB" }
 pu_lbl = dict()
 for pu_name in PU_NAMES:
-    pu_lbl[pu_name] = tk.Label( main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---' )
+    pu_lbl[pu_name] = tk.Label( all_main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---' )
 
 MV_NAMES = { "WW_HZG_MV_Y", "FB_PRIM_MV_Y", "HK_MV_Y", "WW_HZG_VV_Y" }
 mv_lbl = dict()
 for mv_name in MV_NAMES:
-    mv_lbl[mv_name] = tk.Label( main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---%' )
+    mv_lbl[mv_name] = tk.Label( all_main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---%' )
 
 CNT_NAMES = { "WW_WZ_MW" }
 cnt_lbl = dict()
-cnt_lbl["WW_WZ_MW"] = tk.Label( main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='-.---' )
+cnt_lbl["WW_WZ_MW"] = tk.Label( all_main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='-.---' )
 
 AV_NAMES = { "SOL_SP1_AV_SB", "SOL_SP2_AV_SB" }
 av_lbl = dict()
 for av_name in AV_NAMES:
-    av_lbl[av_name] = tk.Label( main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---' )
+    av_lbl[av_name] = tk.Label( all_main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---' )
 
 DI_NAMES = { "ALL_PARTY", "WW_PARTY" }
 di_lbl = dict()
 for di_name in DI_NAMES:
-    di_lbl[di_name] = tk.Label( main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---' )
+    di_lbl[di_name] = tk.Label( all_main, width=L, bg=HFARBE, relief='sunken', font=SCHRIFT, text='---' )
     
 ##
-main.create_window(370, 441, window=temp_lbl["SOL_KOLL_T_MW"])
-main.create_window(560, 476, window=temp_lbl["WW_Tww_MW"])
-main.create_window(560, 812, window=temp_lbl["WW_HZG_Tvl_MW"])
-main.create_window(658, 812, window=temp_lbl["WW_HZG_Trl_MW"])
-main.create_window(1002, 555, window=temp_lbl["FB_SEK_Tvl_MW"])
-main.create_window(1101, 813, window=temp_lbl["FB_PRIM_Trl_MW"])
-main.create_window(483, 968, window=temp_lbl["SOL_SP1_To_MW"])
-main.create_window(483, 1155, window=temp_lbl["SOL_SP1_Tu_MW"])
-main.create_window(483, 1460, window=temp_lbl["SOL_SP2_To_MW"])
-main.create_window(483, 1647, window=temp_lbl["SOL_SP2_Tu_MW"])
-main.create_window(781, 812, window=temp_lbl["HK_Tvl_MW"])
-main.create_window(879, 812, window=temp_lbl["HK_Trl_MW"])
-main.create_window(1403, 1168, window=temp_lbl["KES_Tvl_MW"])
-main.create_window(1403, 1355, window=temp_lbl["KES_Trl_MW"])
-main.create_window(1742, 978, window=temp_lbl["ALL_Tau_MW"])
+all_main.create_window(370, 441, window=temp_lbl["SOL_KOLL_T_MW"])
+all_main.create_window(560, 476, window=temp_lbl["WW_Tww_MW"])
+all_main.create_window(560, 812, window=temp_lbl["WW_HZG_Tvl_MW"])
+all_main.create_window(658, 812, window=temp_lbl["WW_HZG_Trl_MW"])
+all_main.create_window(1002, 555, window=temp_lbl["FB_SEK_Tvl_MW"])
+all_main.create_window(1101, 813, window=temp_lbl["FB_PRIM_Trl_MW"])
+all_main.create_window(483, 968, window=temp_lbl["SOL_SP1_To_MW"])
+all_main.create_window(483, 1155, window=temp_lbl["SOL_SP1_Tu_MW"])
+all_main.create_window(483, 1460, window=temp_lbl["SOL_SP2_To_MW"])
+all_main.create_window(483, 1647, window=temp_lbl["SOL_SP2_Tu_MW"])
+all_main.create_window(781, 812, window=temp_lbl["HK_Tvl_MW"])
+all_main.create_window(879, 812, window=temp_lbl["HK_Trl_MW"])
+all_main.create_window(1403, 1168, window=temp_lbl["KES_Tvl_MW"])
+all_main.create_window(1403, 1355, window=temp_lbl["KES_Trl_MW"])
+all_main.create_window(1742, 978, window=temp_lbl["ALL_Tau_MW"])
 ##
-main.create_window(759, 755, window=pu_lbl["HK_PU_SB"])
-main.create_window(980, 487, window=pu_lbl["FB_SEK_PU_SB"])
-main.create_window(980, 756, window=pu_lbl["FB_PRIM_PU_SB"])
-main.create_window(538, 756, window=pu_lbl["WW_HZG_PU_SB"])
-main.create_window(861, 425, window=pu_lbl["WW_ZIRK_PU_SB"])
-main.create_window(1289, 1157, window=pu_lbl["KES_PU_SP1_SB"])
-main.create_window(1289, 1240, window=pu_lbl["KES_PU_SP2_SB"])
-main.create_window(257, 996, window=pu_lbl["SOL_PU_SB"])
+all_main.create_window(759, 755, window=pu_lbl["HK_PU_SB"])
+all_main.create_window(980, 487, window=pu_lbl["FB_SEK_PU_SB"])
+all_main.create_window(980, 756, window=pu_lbl["FB_PRIM_PU_SB"])
+all_main.create_window(538, 756, window=pu_lbl["WW_HZG_PU_SB"])
+all_main.create_window(861, 425, window=pu_lbl["WW_ZIRK_PU_SB"])
+all_main.create_window(1289, 1157, window=pu_lbl["KES_PU_SP1_SB"])
+all_main.create_window(1289, 1240, window=pu_lbl["KES_PU_SP2_SB"])
+all_main.create_window(257, 996, window=pu_lbl["SOL_PU_SB"])
 ##    
 # main.create_window(657, 427, window=cnt_lbl["WW_WZ_MW"])
 ##
-main.create_window(550, 855, window=mv_lbl["WW_HZG_MV_Y"])
-main.create_window(772, 855, window=mv_lbl["FB_PRIM_MV_Y"])
-main.create_window(993, 855, window=mv_lbl["HK_MV_Y"])
-main.create_window(750, 1071, window=mv_lbl["WW_HZG_VV_Y"])
+all_main.create_window(550, 855, window=mv_lbl["WW_HZG_MV_Y"])
+all_main.create_window(772, 855, window=mv_lbl["FB_PRIM_MV_Y"])
+all_main.create_window(993, 855, window=mv_lbl["HK_MV_Y"])
+all_main.create_window(750, 1071, window=mv_lbl["WW_HZG_VV_Y"])
 ##
-main.create_window(403, 1252, window=av_lbl["SOL_SP1_AV_SB"])
-main.create_window(335, 1714, window=av_lbl["SOL_SP2_AV_SB"])
+all_main.create_window(403, 1252, window=av_lbl["SOL_SP1_AV_SB"])
+all_main.create_window(335, 1714, window=av_lbl["SOL_SP2_AV_SB"])
 ##
-main.create_window(1742, 1008, window=di_lbl["ALL_PARTY"])
-main.create_window(1742, 1038, window=di_lbl["WW_PARTY"])
+all_main.create_window(1742, 1008, window=di_lbl["ALL_PARTY"])
+all_main.create_window(1742, 1038, window=di_lbl["WW_PARTY"])
 
 #-------- Eigentliche Gesamtübersichtsanwendung --------
 
@@ -200,16 +200,67 @@ def leseWerte():
 #-------- GUI für Fußbodenheizung -----------
 # todo
 
-                
+fb_lblframe_handauto = tk.LabelFrame( page_FB, text='Prozesssteuerung')
+fb_lblframe_handauto.pack(padx=PD, pady=PD, side=tk.LEFT)
+
+fb_handin_state_tkbl = tk.BooleanVar()
+fb_handin_chkbttn = ttk.Checkbutton(fb_lblframe_handauto, text='Prozesseingabe auf Handbetrieb',
+                                    variable=fb_handin_state_tkbl)
+fb_handin_chkbttn.pack(padx=PD, pady=PD)
+
+def fb_in_handauto():
+    if (fb_handin_state_tkbl.get() == True):
+        tn.write(b'hand infb')
+    else:
+        tn.write(b'auto infb')
+    time.sleep(1)
+ 
+#   ---   
+fb_hand_state_tkbl = tk.BooleanVar()
+fb_hand_chkbttn = ttk.Checkbutton(fb_lblframe_handauto, text='Prozess auf Handbetrieb',
+                                    variable=fb_hand_state_tkbl)
+fb_hand_chkbttn.pack(padx=PD, pady=PD, side=tk.LEFT)
+
+def fb_handauto():
+    if (fb_handin_state_tkbl.get() == True):
+        tn.write(b'hand fb')
+    else:
+        tn.write(b'auto fb')
+    time.sleep(1)
+
+#   ---
+
+#-------- GUI für Heizkörperheizung -----------
+# todo
+
+hk_handin_state_tkbl = tk.BooleanVar()
+hk_handin_chkbttn = ttk.Checkbutton(page_HK, text='Prozesseingabe auf Handbetrieb',
+                                    variable=hk_handin_state_tkbl)
+hk_handin_chkbttn.grid(row=2, column=0, padx=PD, pady=PD, sticky=tk.W)
+
+def hk_in_handauto():
+    if (hk_handin_state_tkbl.get() == True):
+        tn.write(b'hand inhk')
+    else:
+        tn.write(b'auto inhk')
+    time.sleep(1)
+
+#-------- Connect mit Server ------------
+
 def connect():
     HOST = server_entry.get()
     PORT = port_entry.get()
     tn.open(HOST, PORT)
     tn.read_very_eager()
-    update_bttn.config( command=leseWerte )
+
+    all_update_bttn.config( command=leseWerte )
+    fb_hand_chkbttn.config(command=fb_handauto)
+    fb_handin_chkbttn.config(command=fb_in_handauto)
+    hk_handin_chkbttn.config(command=hk_in_handauto)
+
     leseWerte()
         
-#-------------
+#------------- Hauptprogramm mit Mainloop() -----------
     
 connect_bttn.config( command=connect )
 
