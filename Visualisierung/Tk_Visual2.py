@@ -20,11 +20,13 @@ page_WW = ttk.Frame(nbook)
 page_FB = ttk.Frame(nbook)
 page_HK = ttk.Frame(nbook)
 page_KES = ttk.Frame(nbook)
+page_ERR = ttk.Frame(nbook)
 nbook.add(page_ALL, text='Gesamtübersicht')
 nbook.add(page_WW, text='Warmwasser')
 nbook.add(page_FB, text='Fußbodenheizung')
 nbook.add(page_HK, text='Heizkörperheizung')
 nbook.add(page_KES, text='Kesselsteuerung')
+nbook.add(page_ERR, text='Störungsmeldungen')
 nbook.pack(padx=PD, pady=PD, fill=tk.X)
 
 #------- Inhalt der Gesamtübersicht ------
@@ -244,6 +246,16 @@ def hk_in_handauto():
     else:
         tn.write(b'auto inhk')
     time.sleep(1)
+
+#-------- Störungsmeldungen -------------
+IO_FARBE = 'green'
+NIO_FARBE = 'red'
+err_BSM_lbl = tk.Label( page_ERR, width=32, bg=IO_FARBE, relief='sunken',
+                        font=SCHRIFT, text='Brennerstörung' )
+err_TSENS_lbl = tk.Label( page_ERR, width=32, bg=IO_FARBE, relief='sunken',
+                          font=SCHRIFT, text='Temperatursensor Störung' )
+err_BSM_lbl.pack(padx=PD, pady=PD)
+err_TSENS_lbl.pack(padx=PD, pady=PD)
 
 #-------- Connect mit Server ------------
 
