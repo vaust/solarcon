@@ -209,7 +209,7 @@ def leseWerte():
 # todo
 
 fb_lblframe_handauto = tk.LabelFrame( page_FB, text='Prozesssteuerung')
-fb_lblframe_handauto.pack(padx=PD, pady=PD, side=tk.LEFT)
+fb_lblframe_handauto.pack(padx=PD, pady=PD, side=tk.TOP)
 
 fb_handin_state_tkbl = tk.BooleanVar()
 fb_handin_chkbttn = ttk.Checkbutton(fb_lblframe_handauto, text='Prozesseingabe auf Handbetrieb',
@@ -237,6 +237,44 @@ def fb_handauto():
     time.sleep(1)
 
 #   ---
+
+#   --- FB Mischventilregler parametrieren ---
+fb_lblframe_mvregler = tk.LabelFrame( page_FB, text='Mischventilregler Parametrierung')
+fb_lblframe_mvregler.pack(padx=PD, pady=PD, side=tk.TOP)
+
+fb_mvregler_Kp_lbl = tk.Label(fb_lblframe_mvregler, text='Proportionalbeiwert Kp:')
+fb_mvregler_Kp_entry = tk.Entry(fb_lblframe_mvregler, width=8, bg='white')
+fb_mvregler_KpUnit_lbl = tk.Label(fb_lblframe_mvregler, text='%/K')
+
+fb_mvregler_Ki_lbl = tk.Label(fb_lblframe_mvregler, text='Integralbeiwert Ki:')
+fb_mvregler_Ki_entry = tk.Entry(fb_lblframe_mvregler, width=8, bg='white')
+fb_mvregler_KiUnit_lbl = tk.Label(fb_lblframe_mvregler, text='%/(K x sec)')
+
+fb_mvregler_AP_lbl = tk.Label(fb_lblframe_mvregler, text='Arbeitspunkt AP:')
+fb_mvregler_AP_entry = tk.Entry(fb_lblframe_mvregler, width=8, bg='white')
+fb_mvregler_APUnit_lbl = tk.Label(fb_lblframe_mvregler, text='%')
+
+fb_mvregler_Kp_scle = ttk.Scale(fb_lblframe_mvregler, orient=tk.HORIZONTAL, from_=0.0, to= 50.0, length=200)
+fb_mvregler_Ki_scle = ttk.Scale(fb_lblframe_mvregler, orient=tk.HORIZONTAL, from_=0.0, to= 50.0, length=200)
+fb_mvregler_AP_scle = ttk.Scale(fb_lblframe_mvregler, orient=tk.HORIZONTAL, from_=0.0, to=100.0, length=200)
+
+fb_mvregler_Kp_lbl.grid(column=0, row=0, padx=PD, pady=PD, sticky=tk.W )
+fb_mvregler_Ki_lbl.grid(column=0, row=1, padx=PD, pady=PD, sticky=tk.W )
+fb_mvregler_AP_lbl.grid(column=0, row=2, padx=PD, pady=PD, sticky=tk.W )
+fb_mvregler_Kp_entry.grid(column=1, row=0, padx=PD, pady=PD )
+fb_mvregler_Ki_entry.grid(column=1, row=1, padx=PD, pady=PD )
+fb_mvregler_AP_entry.grid(column=1, row=2, padx=PD, pady=PD )
+fb_mvregler_KpUnit_lbl.grid(column=2, row=0, padx=PD, pady=PD, sticky=tk.W )
+fb_mvregler_KiUnit_lbl.grid(column=2, row=1, padx=PD, pady=PD, sticky=tk.W )
+fb_mvregler_APUnit_lbl.grid(column=2, row=2, padx=PD, pady=PD, sticky=tk.W )
+fb_mvregler_Kp_scle.grid(column=3, row=0, padx=PD, pady=PD )
+fb_mvregler_Ki_scle.grid(column=3, row=1, padx=PD, pady=PD )
+fb_mvregler_AP_scle.grid(column=3, row=2, padx=PD, pady=PD )
+
+fb_mvregler_ReadBttn = tk.Button(fb_lblframe_mvregler, text='Lesen')
+fb_mvregler_ChangeBttn = tk.Button(fb_lblframe_mvregler, text='Schreiben')
+fb_mvregler_ReadBttn.grid(column=2, row=3, padx=PD, pady=PD )
+fb_mvregler_ChangeBttn.grid(column=3, row=3, padx=PD, pady=PD )
 
 #-------- GUI für Heizkörperheizung -----------
 # todo
@@ -277,14 +315,11 @@ def err_update():
                 err_BSM_lbl.config( bg=IO_FARBE )
             else:
                 err_BSM_lbl.config( bg=NIO_FARBE )
-            break
-    for l in lines:
-        if ( l.startswith('FB_SEK_TW') ):
+        elif ( l.startswith('FB_SEK_TW') ):
             if( l.split('=')[1].find('NORMAL') > 0 ):
                 err_STBFB_lbl.config( bg=IO_FARBE )
             else:
                 err_STBFB_lbl.config( bg=NIO_FARBE )
-            break
                 
 err_update_bttn.config(command=err_update)
 
