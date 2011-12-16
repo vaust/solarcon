@@ -22,6 +22,7 @@ page_FB = ttk.Frame(nbook)
 page_HK = ttk.Frame(nbook)
 page_KES = ttk.Frame(nbook)
 page_ERR = ttk.Frame(nbook)
+page_PAR = ttk.Frame(nbook)
 nbook.add(page_ALL, text='Gesamtübersicht')
 nbook.add(page_SOL, text='Solarheizkreis')
 nbook.add(page_WW, text='Warmwasser')
@@ -29,6 +30,7 @@ nbook.add(page_FB, text='Fußbodenheizung')
 nbook.add(page_HK, text='Heizkörperheizung')
 nbook.add(page_KES, text='Kesselsteuerung')
 nbook.add(page_ERR, text='Störungsmeldungen')
+nbook.add(page_PAR, text='Parameter')
 nbook.pack(padx=PD, pady=PD, fill=tk.X)
 
 #------- Inhalt der Gesamtübersicht ------
@@ -239,7 +241,7 @@ def fb_handauto():
 #   ---
 
 #   --- FB Mischventilregler parametrieren ---
-fb_lblframe_mvregler = tk.LabelFrame( page_FB, text='Mischventilregler Parametrierung')
+fb_lblframe_mvregler = tk.LabelFrame( page_FB, text='Mischventilregler Online Parametrierung')
 fb_lblframe_mvregler.pack(padx=PD, pady=PD, side=tk.TOP)
 
 fb_mvregler_Kp_lbl = tk.Label(fb_lblframe_mvregler, text='Proportionalbeiwert Kp:')
@@ -254,27 +256,61 @@ fb_mvregler_AP_lbl = tk.Label(fb_lblframe_mvregler, text='Arbeitspunkt AP:')
 fb_mvregler_AP_entry = tk.Entry(fb_lblframe_mvregler, width=8, bg='white')
 fb_mvregler_APUnit_lbl = tk.Label(fb_lblframe_mvregler, text='%')
 
-fb_mvregler_Kp_scle = ttk.Scale(fb_lblframe_mvregler, orient=tk.HORIZONTAL, from_=0.0, to= 50.0, length=200)
-fb_mvregler_Ki_scle = ttk.Scale(fb_lblframe_mvregler, orient=tk.HORIZONTAL, from_=0.0, to= 50.0, length=200)
-fb_mvregler_AP_scle = ttk.Scale(fb_lblframe_mvregler, orient=tk.HORIZONTAL, from_=0.0, to=100.0, length=200)
+fb_mvregler_Kp_scle = tk.Scale(fb_lblframe_mvregler, orient=tk.HORIZONTAL, from_=0.0, to= 50.0, length=200, resolution=0.1)
+fb_mvregler_Ki_scle = tk.Scale(fb_lblframe_mvregler, orient=tk.HORIZONTAL, from_=0.0, to= 50.0, length=200, resolution=0.1)
+fb_mvregler_AP_scle = tk.Scale(fb_lblframe_mvregler, orient=tk.HORIZONTAL, from_=0.0, to=100.0, length=200, resolution=0.1)
 
-fb_mvregler_Kp_lbl.grid(column=0, row=0, padx=PD, pady=PD, sticky=tk.W )
-fb_mvregler_Ki_lbl.grid(column=0, row=1, padx=PD, pady=PD, sticky=tk.W )
-fb_mvregler_AP_lbl.grid(column=0, row=2, padx=PD, pady=PD, sticky=tk.W )
-fb_mvregler_Kp_entry.grid(column=1, row=0, padx=PD, pady=PD )
-fb_mvregler_Ki_entry.grid(column=1, row=1, padx=PD, pady=PD )
-fb_mvregler_AP_entry.grid(column=1, row=2, padx=PD, pady=PD )
-fb_mvregler_KpUnit_lbl.grid(column=2, row=0, padx=PD, pady=PD, sticky=tk.W )
-fb_mvregler_KiUnit_lbl.grid(column=2, row=1, padx=PD, pady=PD, sticky=tk.W )
-fb_mvregler_APUnit_lbl.grid(column=2, row=2, padx=PD, pady=PD, sticky=tk.W )
-fb_mvregler_Kp_scle.grid(column=3, row=0, padx=PD, pady=PD )
-fb_mvregler_Ki_scle.grid(column=3, row=1, padx=PD, pady=PD )
-fb_mvregler_AP_scle.grid(column=3, row=2, padx=PD, pady=PD )
+fb_mvregler_Kp_lbl.grid(column=0, row=0, padx=PD, sticky=tk.W )
+fb_mvregler_Ki_lbl.grid(column=0, row=1, padx=PD, sticky=tk.W )
+fb_mvregler_AP_lbl.grid(column=0, row=2, padx=PD, sticky=tk.W )
+fb_mvregler_Kp_entry.grid(column=1, row=0, padx=PD )
+fb_mvregler_Ki_entry.grid(column=1, row=1, padx=PD )
+fb_mvregler_AP_entry.grid(column=1, row=2, padx=PD )
+fb_mvregler_KpUnit_lbl.grid(column=2, row=0, padx=PD, sticky=tk.W )
+fb_mvregler_KiUnit_lbl.grid(column=2, row=1, padx=PD, sticky=tk.W )
+fb_mvregler_APUnit_lbl.grid(column=2, row=2, padx=PD, sticky=tk.W )
+fb_mvregler_Kp_scle.grid(column=3, row=0, padx=PD )
+fb_mvregler_Ki_scle.grid(column=3, row=1, padx=PD )
+fb_mvregler_AP_scle.grid(column=3, row=2, padx=PD )
 
 fb_mvregler_ReadBttn = tk.Button(fb_lblframe_mvregler, text='Lesen')
 fb_mvregler_ChangeBttn = tk.Button(fb_lblframe_mvregler, text='Schreiben')
 fb_mvregler_ReadBttn.grid(column=2, row=3, padx=PD, pady=PD )
 fb_mvregler_ChangeBttn.grid(column=3, row=3, padx=PD, pady=PD )
+
+def SetEntryVal_Kp(event):
+    s = str(fb_mvregler_Kp_scle.get())[0:6]
+    fb_mvregler_Kp_entry.delete(0,tk.END)
+    fb_mvregler_Kp_entry.insert(0, s)
+
+def SetEntryVal_Ki(event):
+    s = str(fb_mvregler_Ki_scle.get())[0:6]
+    fb_mvregler_Ki_entry.delete(0,tk.END)
+    fb_mvregler_Ki_entry.insert(0, s)
+
+def SetEntryVal_AP(event):
+    s = str(fb_mvregler_AP_scle.get())[0:6]
+    fb_mvregler_AP_entry.delete(0,tk.END)
+    fb_mvregler_AP_entry.insert(0, s)
+
+def SetScleVal_Kp(event):
+    s = fb_mvregler_Kp_entry.get()
+    fb_mvregler_Kp_scle.set(s)
+
+def SetScleVal_Ki(event):
+    s = fb_mvregler_Ki_entry.get()
+    fb_mvregler_Ki_scle.set(s)
+
+def SetScleVal_AP(event):
+    s = fb_mvregler_AP_entry.get()
+    fb_mvregler_AP_scle.set(s)
+    
+fb_mvregler_Kp_scle.bind('<ButtonRelease-1>', SetEntryVal_Kp)
+fb_mvregler_Ki_scle.bind('<ButtonRelease-1>', SetEntryVal_Ki)
+fb_mvregler_AP_scle.bind('<ButtonRelease-1>', SetEntryVal_AP)
+fb_mvregler_Kp_entry.bind('<Return>', SetScleVal_Kp)
+fb_mvregler_Ki_entry.bind('<Return>', SetScleVal_Ki)
+fb_mvregler_AP_entry.bind('<Return>', SetScleVal_AP)
 
 #-------- GUI für Heizkörperheizung -----------
 # todo
