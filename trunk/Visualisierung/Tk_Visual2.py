@@ -1,4 +1,4 @@
-VERSION = "0.4.1"
+VERSION = "0.4.3"
 
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -311,6 +311,8 @@ fb_mvregler_AP_scle.bind('<ButtonRelease-1>', SetEntryVal_AP)
 fb_mvregler_Kp_entry.bind('<Return>', SetScleVal_Kp)
 fb_mvregler_Ki_entry.bind('<Return>', SetScleVal_Ki)
 fb_mvregler_AP_entry.bind('<Return>', SetScleVal_AP)
+
+# def write_fb_mvregler():
 
 #-------- GUI für Heizkörperheizung -----------
 # todo
