@@ -8,7 +8,7 @@ import time
 #------- GUI aufbauen --------
 
 def cllbck(event): # Callback zur Ermittlung der Koordinaten, auf denen die Labels gesetzt werden müssen
-    print('Mouse clicked at ', main.canvasx(event.x), main.canvasy(event.y) )
+    print('Mouse clicked at ', all_main.canvasx(event.x), all_main.canvasy(event.y) )
 
 root = tk.Tk()
 root.title( "Ruder-Club-Aschaffenburg Visualisierung der Heizungsanlage  Version: "+VERSION )
@@ -23,6 +23,7 @@ page_HK = ttk.Frame(nbook)
 page_KES = ttk.Frame(nbook)
 page_ERR = ttk.Frame(nbook)
 page_PAR = ttk.Frame(nbook)
+page_ZEIT = ttk.Frame(nbook)
 nbook.add(page_ALL, text='Gesamtübersicht')
 nbook.add(page_SOL, text='Solarheizkreis')
 nbook.add(page_WW, text='Warmwasser')
@@ -31,6 +32,7 @@ nbook.add(page_HK, text='Heizkörperheizung')
 nbook.add(page_KES, text='Kesselsteuerung')
 nbook.add(page_ERR, text='Störungsmeldungen')
 nbook.add(page_PAR, text='Parameter')
+nbook.add(page_ZEIT, text='Zeitprogramm')
 nbook.pack(padx=PD, pady=PD, fill=tk.X)
 
 #------- Inhalt der Gesamtübersicht ------
@@ -80,7 +82,7 @@ connect_bttn.pack(padx=PD, pady=PD, side=tk.LEFT)
 #----------- Gesamtübersicht mit Labels füllen ----------
 '''
 Widgets in Canvas plazieren:
-1. Widget Objekt erzeugen auf Canvas (main)
+1. Widget Objekt erzeugen auf Canvas (all_main)
 2. Mit .create_window() Methode auf Canvas platzieren. Der Parameter window benennt das Widget Objekt
 '''
 
@@ -312,7 +314,21 @@ fb_mvregler_Kp_entry.bind('<Return>', SetScleVal_Kp)
 fb_mvregler_Ki_entry.bind('<Return>', SetScleVal_Ki)
 fb_mvregler_AP_entry.bind('<Return>', SetScleVal_AP)
 
-# def write_fb_mvregler():
+def fb_schreibe_mvregler_parameter():
+    command_str = "put vfb 23 "+str(fb_mvregler_Kp_scle.get())[0:6] # Kp schreiben todo
+    tn.write(command_str.encode('utf-8'))
+    command_str = "put vfb 23 "+str(fb_mvregler_Ki_scle.get())[0:6] # Ki schreiben todo
+    tn.write(command_str.encode('utf-8')) 
+    command_str = "put vfb 23 "+str(fb_mvregler_AP_scle.get())[0:6] # Ki schreiben todo
+    tn.write(command_str.encode('utf-8'))
+    
+fb_mvregler_ChangeBttn.config(command=fb_schreibe_mvregler_parameter)
+
+def fb_lese_mvregler_parameter():
+    a = 0 # todo
+
+fb_mvregler_ReadBttn.config(command=fb_lese_mvregler_parameter)
+
 
 #-------- GUI für Heizkörperheizung -----------
 # todo
@@ -360,6 +376,12 @@ def err_update():
                 err_STBFB_lbl.config( bg=NIO_FARBE )
                 
 err_update_bttn.config(command=err_update)
+
+#--- Zeitprogrammeditor
+tp_main = tk.Canvas(page_ZEIT, bg='blue', width=1220, height=650)
+tp_main.pack(fill=tk.BOTH)
+#tp_main.create_rectangle
+
 
 #-------- Connect mit Server ------------
 
