@@ -237,10 +237,10 @@ fb_hand_chkbttn.grid(column=0, row=1, padx=PD, pady=PD, sticky=tk.NW)
 
 def fb_handauto():
     if (fb_handin_state_tkbl.get() == True):
-        tn.write(b'hand fb')
+#        tn.write(b'hand fb')
         fb_PrimPumpe_chkbttn.config(state=tk.DISABLED)
-    else:
-        tn.write(b'auto fb')
+#    else:
+#        tn.write(b'auto fb')
     time.sleep(1)
 
 fb_hand_chkbttn.config(command=fb_handauto)
@@ -258,8 +258,10 @@ fb_SekPumpe_chkbttn = ttk.Checkbutton(fb_lblframe_handauto, text='Sekundärpumpe
 fb_SekPumpe_chkbttn.grid(column=1, row=1, padx=PD, pady=PD, sticky=tk.NW)
 
 #   --- Mschventilstellung
+fb_Mischventil_lbl = tk.Label(fb_lblframe_handauto, text='Mischventilstellung in %')
+fb_Mischventil_lbl.grid( column=0, row=2, padx=PD, pady=PD, sticky=tk.SW) 
 fb_Mischventil_scle = tk.Scale(fb_lblframe_handauto, orient=tk.HORIZONTAL, from_=0.0, to=100.0, length=300, resolution=0)
-fb_Mischventil_scle.grid(column=1, row=2, columnspan=2, padx=PD, pady=PD, sticky=tk.NW)
+fb_Mischventil_scle.grid(column=1, row=2, padx=PD, pady=PD, sticky=tk.NW)
 
 
 #   ---
