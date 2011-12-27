@@ -218,7 +218,7 @@ fb_lblframe_handauto.pack(padx=PD, pady=PD, side=tk.TOP)
 fb_handin_state_tkbl = tk.BooleanVar()
 fb_handin_chkbttn = ttk.Checkbutton(fb_lblframe_handauto, text='Prozesseingabe auf Handbetrieb',
                                     variable=fb_handin_state_tkbl)
-fb_handin_chkbttn.pack(padx=PD, pady=PD)
+fb_handin_chkbttn.grid(column=0, row=0, padx=PD, pady=PD, sticky=tk.NW)
 
 def fb_in_handauto():
     if (fb_handin_state_tkbl.get() == True):
@@ -226,19 +226,41 @@ def fb_in_handauto():
     else:
         tn.write(b'auto infb')
     time.sleep(1)
- 
+
+fb_handin_chkbttn.config(command=fb_in_handauto)
+
 #   ---   
 fb_hand_state_tkbl = tk.BooleanVar()
 fb_hand_chkbttn = ttk.Checkbutton(fb_lblframe_handauto, text='Prozess auf Handbetrieb',
                                     variable=fb_hand_state_tkbl)
-fb_hand_chkbttn.pack(padx=PD, pady=PD, side=tk.LEFT)
+fb_hand_chkbttn.grid(column=0, row=1, padx=PD, pady=PD, sticky=tk.NW)
 
 def fb_handauto():
     if (fb_handin_state_tkbl.get() == True):
         tn.write(b'hand fb')
+        fb_PrimPumpe_chkbttn.config(state=tk.DISABLED)
     else:
         tn.write(b'auto fb')
     time.sleep(1)
+
+fb_hand_chkbttn.config(command=fb_handauto)
+
+#   --- Primärpumpe
+fb_PrimPumpe_state_tkbl = tk.BooleanVar()
+fb_PrimPumpe_chkbttn = ttk.Checkbutton(fb_lblframe_handauto, text='Primärpumpe',
+                                    variable=fb_PrimPumpe_state_tkbl)
+fb_PrimPumpe_chkbttn.grid(column=1, row=0, padx=PD, pady=PD, sticky=tk.NW)
+
+#   --- Sekundärpumpe
+fb_SekPumpe_state_tkbl = tk.BooleanVar()
+fb_SekPumpe_chkbttn = ttk.Checkbutton(fb_lblframe_handauto, text='Sekundärpumpe',
+                                    variable=fb_SekPumpe_state_tkbl)
+fb_SekPumpe_chkbttn.grid(column=1, row=1, padx=PD, pady=PD, sticky=tk.NW)
+
+#   --- Mschventilstellung
+fb_Mischventil_scle = tk.Scale(fb_lblframe_handauto, orient=tk.HORIZONTAL, from_=0.0, to=100.0, length=300, resolution=0)
+fb_Mischventil_scle.grid(column=1, row=2, columnspan=2, padx=PD, pady=PD, sticky=tk.NW)
+
 
 #   ---
 
