@@ -402,8 +402,10 @@ def err_update():
 err_update_bttn.config(command=err_update)
 
 #--- Zeitprogrammeditor
+'''
 tp_main = tk.Canvas(page_ZEIT, bg='blue', width=1220, height=650)
 tp_main.pack(fill=tk.BOTH)
+'''
 #tp_main.create_rectangle
 
 
