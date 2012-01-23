@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 VERSION = "0.4.3"
 
 import tkinter as tk
@@ -247,13 +248,13 @@ fb_hand_chkbttn.config(command=fb_handauto)
 
 #   --- Primärpumpe
 fb_PrimPumpe_state_tkbl = tk.BooleanVar()
-fb_PrimPumpe_chkbttn = ttk.Checkbutton(fb_lblframe_handauto, text='Primärpumpe',
+fb_PrimPumpe_chkbttn = ttk.Checkbutton(fb_lblframe_handauto, text='Prim�rpumpe',
                                     variable=fb_PrimPumpe_state_tkbl)
 fb_PrimPumpe_chkbttn.grid(column=1, row=0, padx=PD, pady=PD, sticky=tk.NW)
 
 #   --- Sekundärpumpe
 fb_SekPumpe_state_tkbl = tk.BooleanVar()
-fb_SekPumpe_chkbttn = ttk.Checkbutton(fb_lblframe_handauto, text='Sekundärpumpe',
+fb_SekPumpe_chkbttn = ttk.Checkbutton(fb_lblframe_handauto, text='Sekund�rpumpe',
                                     variable=fb_SekPumpe_state_tkbl)
 fb_SekPumpe_chkbttn.grid(column=1, row=1, padx=PD, pady=PD, sticky=tk.NW)
 
