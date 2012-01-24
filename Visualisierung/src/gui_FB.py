@@ -45,12 +45,17 @@ class GuiFB(tk.Frame):
         self.lf_Process.fb_SekPumpe_chkbttn.grid(column=1, row=1, padx=PD, pady=PD, sticky=tk.NW)
     
         '''   Mschventilstellung '''
-        self.lf_Process.fb_Mischventil_lbl = tk.Label(self.lf_Process, text='Mischventilstellung in %')
-        self.lf_Process.fb_Mischventil_lbl.grid( column=0, row=2, padx=PD, pady=PD, sticky=tk.SW) 
+        self.lf_Process.fb_Mischventil_lbl1 = tk.Label(self.lf_Process, text='Mischventilstellung in %:')
+        self.lf_Process.fb_Mischventil_lbl1.grid( column=0, row=2, padx=PD, pady=PD, sticky=tk.SW) 
+        self.lf_Process.fb_Mischventil_entry = tk.Entry(self.lf_Process, width=12, bg='white')
+        self.lf_Process.fb_Mischventil_entry.grid( column=1, row=2, padx=PD, pady=PD, sticky=tk.S)
         self.lf_Process.fb_Mischventil_scle = tk.Scale(self.lf_Process, orient=tk.HORIZONTAL, 
-                                    from_=0.0, to=100.0, length=300, resolution=0)
-        self.lf_Process.fb_Mischventil_scle.grid(column=1, row=2, columnspan=3, padx=PD, pady=PD, sticky=tk.NW)
+                                    from_=0.0, to=100.0, length=300, resolution=0, state=tk.DISABLED)
+        self.lf_Process.fb_Mischventil_scle.grid(column=2, row=2, columnspan=3, padx=PD, pady=PD) # , sticky=tk.NW)
 
+        self.lf_Process.fb_Mischventil_scle.bind('<ButtonRelease-1>', self.SetEntryVal_Mischventil)
+        self.lf_Process.fb_Mischventil_entry.bind('<Return>', self.SetScleVal_Mischventil)
+        
         ''' Temperatur Sekundärkreislauf '''
         self.lf_Process.Info1_lbl = tk.Label(self.lf_Process, text='Prim. Rücklauftemp.:')
         self.lf_Process.Info1_lbl.grid(column=2, row=0, padx=PD, pady=PD, sticky=tk.NW)
@@ -62,15 +67,26 @@ class GuiFB(tk.Frame):
         self.lf_Process.Info2_lbl.grid(column=2, row=1, padx=PD, pady=PD, sticky=tk.NW)
         self.lf_Process.PrimTrlMw_lbl = tk.Label(self.lf_Process, relief='sunken', width=8, bg=HFARBE, text='---.-°C')
         self.lf_Process.PrimTrlMw_lbl.grid(column=3, row=1, padx=PD, pady=PD, sticky=tk.NW)
-        
+    
+    def SetEntryVal_Mischventil(self, event):
+        s = str(self.lf_Process.fb_Mischventil_scle.get())[0:6]
+        self.lf_Process.fb_Mischventil_entry.delete(0,tk.END)
+        self.lf_Process.fb_Mischventil_entry.insert(0, s)
+    
+    def SetScleVal_Mischventil(self, event):
+        s = self.lf_Process.fb_Mischventil_entry.get()
+        self.lf_Process.fb_Mischventil_scle.set(s)
+               
     def procHandAuto(self):
         if (self.lf_Process.fb_hand_state_tkbl.get() == True):
             self.lf_Process.fb_PrimPumpe_chkbttn.config(state=tk.ACTIVE)
             self.lf_Process.fb_SekPumpe_chkbttn.config(state=tk.ACTIVE)
+            self.lf_Process.fb_Mischventil_scle.config(state=tk.ACTIVE)
         else:
             self.lf_Process.fb_PrimPumpe_chkbttn.config(state=tk.DISABLED)
             self.lf_Process.fb_SekPumpe_chkbttn.config(state=tk.DISABLED)
-           
+            self.lf_Process.fb_Mischventil_scle.config(state=tk.DISABLED)
+            
     def draw_lf_MvRegler(self):
         ''' FB Mischventilregler parametrieren '''
         self.lf_mvregler = tk.LabelFrame( self, text='Mischventilregler Online Parametrierung')
