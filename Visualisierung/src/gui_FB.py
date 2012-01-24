@@ -7,6 +7,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 PD = 5
+HFARBE  = 'LightGoldenrod1'
 
 class GuiFB(tk.Frame):
     def __init__(self, master=None):
@@ -18,7 +19,7 @@ class GuiFB(tk.Frame):
         self.lf_Process = tk.LabelFrame( self, text='Prozesssteuerung')
         self.lf_Process.pack(padx=PD, pady=PD, side=tk.TOP)
 
-        ''' Checkbutton fuer Hand/Autobetrieb des Reglers '''
+        ''' Checkbutton fuer Hand/Auto Eingabe des Reglers '''
         self.lf_Process.handin_state_tkbl = tk.BooleanVar()
         self.lf_Process.handin_chkbttn = ttk.Checkbutton(self.lf_Process, text='Prozesseingabe auf Handbetrieb',
                                     variable=self.lf_Process.handin_state_tkbl)
@@ -29,17 +30,18 @@ class GuiFB(tk.Frame):
         self.lf_Process.fb_hand_chkbttn = ttk.Checkbutton(self.lf_Process, text='Prozess auf Handbetrieb',
                                     variable=self.lf_Process.fb_hand_state_tkbl)
         self.lf_Process.fb_hand_chkbttn.grid(column=0, row=1, padx=PD, pady=PD, sticky=tk.NW)
-
+        self.lf_Process.fb_hand_chkbttn.config(command=self.procHandAuto)
+        
         ''' Checkbutton fuer Primaerpumpe ein/aus '''
         self.lf_Process.fb_PrimPumpe_state_tkbl = tk.BooleanVar()
         self.lf_Process.fb_PrimPumpe_chkbttn = ttk.Checkbutton(self.lf_Process, text='Primärpumpe ein/aus',
-                                    variable=self.lf_Process.fb_PrimPumpe_state_tkbl)
+                                    variable=self.lf_Process.fb_PrimPumpe_state_tkbl, state=tk.DISABLED)
         self.lf_Process.fb_PrimPumpe_chkbttn.grid(column=1, row=0, padx=PD, pady=PD, sticky=tk.NW)
 
         '''  Checkbutton fuer Sekundärpumpe ein/aus '''
         self.lf_Process.fb_SekPumpe_state_tkbl = tk.BooleanVar()
         self.lf_Process.fb_SekPumpe_chkbttn = ttk.Checkbutton(self.lf_Process, text='Sekundärpumpe ein/aus',
-                                    variable=self.lf_Process.fb_SekPumpe_state_tkbl)
+                                    variable=self.lf_Process.fb_SekPumpe_state_tkbl, state=tk.DISABLED)
         self.lf_Process.fb_SekPumpe_chkbttn.grid(column=1, row=1, padx=PD, pady=PD, sticky=tk.NW)
     
         '''   Mschventilstellung '''
@@ -47,9 +49,28 @@ class GuiFB(tk.Frame):
         self.lf_Process.fb_Mischventil_lbl.grid( column=0, row=2, padx=PD, pady=PD, sticky=tk.SW) 
         self.lf_Process.fb_Mischventil_scle = tk.Scale(self.lf_Process, orient=tk.HORIZONTAL, 
                                     from_=0.0, to=100.0, length=300, resolution=0)
-        self.lf_Process.fb_Mischventil_scle.grid(column=1, row=2, padx=PD, pady=PD, sticky=tk.NW)
+        self.lf_Process.fb_Mischventil_scle.grid(column=1, row=2, columnspan=3, padx=PD, pady=PD, sticky=tk.NW)
 
+        ''' Temperatur Sekundärkreislauf '''
+        self.lf_Process.Info1_lbl = tk.Label(self.lf_Process, text='Prim. Rücklauftemp.:')
+        self.lf_Process.Info1_lbl.grid(column=2, row=0, padx=PD, pady=PD, sticky=tk.NW)
+        self.lf_Process.SekTvlMw_lbl = tk.Label(self.lf_Process, relief='sunken', width=8, bg=HFARBE, text='---.-°C')
+        self.lf_Process.SekTvlMw_lbl.grid(column=3, row=0, padx=PD, pady=PD, sticky=tk.NW)
 
+        ''' Temperatur Primärkreislauf '''
+        self.lf_Process.Info2_lbl = tk.Label(self.lf_Process, text='Sek. Vorlauftemp.:')
+        self.lf_Process.Info2_lbl.grid(column=2, row=1, padx=PD, pady=PD, sticky=tk.NW)
+        self.lf_Process.PrimTrlMw_lbl = tk.Label(self.lf_Process, relief='sunken', width=8, bg=HFARBE, text='---.-°C')
+        self.lf_Process.PrimTrlMw_lbl.grid(column=3, row=1, padx=PD, pady=PD, sticky=tk.NW)
+        
+    def procHandAuto(self):
+        if (self.lf_Process.fb_hand_state_tkbl.get() == True):
+            self.lf_Process.fb_PrimPumpe_chkbttn.config(state=tk.ACTIVE)
+            self.lf_Process.fb_SekPumpe_chkbttn.config(state=tk.ACTIVE)
+        else:
+            self.lf_Process.fb_PrimPumpe_chkbttn.config(state=tk.DISABLED)
+            self.lf_Process.fb_SekPumpe_chkbttn.config(state=tk.DISABLED)
+           
     def draw_lf_MvRegler(self):
         ''' FB Mischventilregler parametrieren '''
         self.lf_mvregler = tk.LabelFrame( self, text='Mischventilregler Online Parametrierung')
@@ -68,11 +89,11 @@ class GuiFB(tk.Frame):
         self.lf_mvregler.APUnit_lbl = tk.Label(self.lf_mvregler, text='%')
 
         self.lf_mvregler.Kp_scle = tk.Scale(self.lf_mvregler, orient=tk.HORIZONTAL, 
-                                            from_=0.0, to= 50.0, length=200, resolution=0.1)
+                                            from_=0.0, to= 50.0, length=300, resolution=0.1)
         self.lf_mvregler.Ki_scle = tk.Scale(self.lf_mvregler, orient=tk.HORIZONTAL, 
-                                            from_=0.0, to= 50.0, length=200, resolution=0.1)
+                                            from_=0.0, to= 50.0, length=300, resolution=0.1)
         self.lf_mvregler.AP_scle = tk.Scale(self.lf_mvregler, orient=tk.HORIZONTAL, 
-                                            from_=0.0, to=100.0, length=200, resolution=0.1)
+                                            from_=0.0, to=100.0, length=300, resolution=0.1)
 
         self.lf_mvregler.Kp_lbl.grid(column=0, row=0, padx=PD, sticky=tk.W )
         self.lf_mvregler.Ki_lbl.grid(column=0, row=1, padx=PD, sticky=tk.W )
