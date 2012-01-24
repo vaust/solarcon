@@ -11,7 +11,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 import gui_overview
-
+import gui_FB
 
 root=tk.Tk()
 PD = 5
@@ -36,7 +36,11 @@ nbook.add(nbook.PAR, text='Parameter')
 nbook.add(nbook.ZEIT, text='Zeitprogramm')
 nbook.pack(padx=PD, pady=PD, fill=tk.X)
 
-gui = gui_overview.GuiOverview(nbook.ALL)
-gui.pack()
-gui.pu_lbl["WW_HZG_PU_SB"].config(text='666')
-gui.mainloop()
+guiAll = gui_overview.GuiOverview(nbook.ALL)
+guiAll.pack()
+guiAll.pu_lbl["WW_HZG_PU_SB"].config(text='666')
+
+guiFB = gui_FB.GuiFB(nbook.FB)
+guiFB.pack()
+
+guiAll.mainloop()
