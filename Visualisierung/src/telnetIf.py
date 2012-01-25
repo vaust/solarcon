@@ -21,7 +21,7 @@ class TelnetInterface(telnetlib.Telnet):
         
     def HoleAntwort(self, cmdstr):
         self.write(cmdstr)
-        time.sleep(1)
+        time.sleep(0.5)
         buffer = self.read_very_eager()
         bufdecode = buffer.decode('utf8')
         lines = bufdecode.splitlines()
@@ -61,7 +61,8 @@ class TelnetInterface(telnetlib.Telnet):
             for line in lines:
                 if (line.startswith(di_name)):
                     self.di_dict[di_name] = str( line.split('=')[1] )
-
+        
+        self.cnt_dict['WW_WZ_MW'] = 0
         return (self.t_dict, self.pu_dict, self.mv_dict, self.di_dict, self.cnt_dict, self.av_dict)
 
 
@@ -76,7 +77,7 @@ if __name__ == '__main__':
     print (interface.di_dict)
     print (interface.pu_dict)
     print (interface.mv_dict)
-    
+    print (interface.t_dict['FB_SEK_Tvl_MW'] )
     interface.close()
     
     
