@@ -13,6 +13,8 @@ import tkinter.ttk as ttk
 import gui_overview
 import gui_FB
 
+import telnetIf
+
 root=tk.Tk()
 PD = 5
 nbook = ttk.Notebook(root)
@@ -38,9 +40,13 @@ nbook.pack(padx=PD, pady=PD, fill=tk.X)
 
 guiAll = gui_overview.GuiOverview(nbook.ALL)
 guiAll.pack()
-guiAll.pu_lbl["WW_HZG_PU_SB"].config(text='666')
+
 
 guiFB = gui_FB.GuiFB(nbook.FB)
 guiFB.pack()
 
-guiAll.mainloop()
+
+iF = telnetIf.TelnetInterface('192.168.2.102', 1969, 10)
+guiAll.update_labels(iF.t_dict, iF.pu_dict, iF.mv_dict, iF.di_dict, iF.cnt_dict, iF.av_dict)
+
+root.mainloop()

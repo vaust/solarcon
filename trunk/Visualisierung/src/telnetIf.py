@@ -37,23 +37,27 @@ class TelnetInterface(telnetlib.Telnet):
                 
         lines = self.HoleAntwort( b"GET DO\n" )
         for pu_name in signals.PU_NAMES:
+            self.pu_dict[pu_name] = ''
             for line in lines:
                 if (line.startswith(pu_name)):
                     self.pu_dict[pu_name] = str( line.split('=')[1] )
                     
         for av_name in signals.AV_NAMES:
+            self.av_dict[av_name]=''
             for line in lines:
                 if (line.startswith(av_name)):
                     self.av_dict[av_name] = str( line.split('=')[1] )
 
         lines = self.HoleAntwort( b"GET AO\n" )
         for mv_name in signals.MV_NAMES:
+            self.mv_dict[mv_name] = 0.0
             for line in lines:
                 if (line.startswith(mv_name)):
                     self.mv_dict[mv_name] = float( line.split('=')[1].split('p')[0] )
 
         lines = self.HoleAntwort( b"GET DI\n" )
         for di_name in signals.DI_NAMES:
+            self.di_dict[di_name] = ''
             for line in lines:
                 if (line.startswith(di_name)):
                     self.di_dict[di_name] = str( line.split('=')[1] )
