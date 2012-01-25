@@ -109,6 +109,25 @@ class GuiOverview(tk.Frame):
         self.main.create_window(1742, 1008, window=self.di_lbl["ALL_PARTY"])
         self.main.create_window(1742, 1038, window=self.di_lbl["WW_PARTY"])
  
+    def update_labels(self, t_dict, pu_dict, mv_dict, di_dict, cnt_dict, av_dict):
+        for t_name in signals.TEMP_NAMES:
+            self.temp_lbl[t_name].config( text=str(t_dict[t_name]) )
+        
+        for pu_name in signals.PU_NAMES:
+            self.pu_lbl[pu_name].config( text=str(pu_dict[t_name]) )
+
+        for mv_name in signals.MV_NAMES:
+            self.mv_lbl[mv_name].config( text=str(mv_dict[t_name]) )
+
+        self.cnt_lbl["WW_WZ_MW"].config( text=str(cnt_dict["WW_WZ_MW"]) )
+
+        for av_name in signals.AV_NAMES:
+            self.av_lbl[av_name].config( text=str(av_dict[t_name]) )
+
+        for di_name in signals.DI_NAMES:
+            self.di_lbl[di_name].config( text=str(di_dict[t_name]) )
+
+#--------------------------------------------------
    
 if __name__ == "__main__":
     root=tk.Tk()
