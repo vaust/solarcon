@@ -6,7 +6,6 @@ Created on 10.01.2012
 
 # -*- coding: utf-8 -*-
 
-
 import tkinter as tk
 import tkinter.ttk as ttk
 
@@ -41,12 +40,12 @@ nbook.pack(padx=PD, pady=PD, fill=tk.X)
 guiAll = gui_overview.GuiOverview(nbook.ALL)
 guiAll.pack()
 
-
 guiFB = gui_FB.GuiFB(nbook.FB)
 guiFB.pack()
 
-
 iF = telnetIf.TelnetInterface('192.168.2.102', 1969, 10)
-guiAll.update_labels(iF.t_dict, iF.pu_dict, iF.mv_dict, iF.di_dict, iF.cnt_dict, iF.av_dict)
+iF.ErmittleMesswerte()
+guiAll.updateLabels(iF.t_dict, iF.pu_dict, iF.mv_dict, iF.di_dict, iF.cnt_dict, iF.av_dict)
+guiFB.updateLabels(iF.t_dict)
 
 root.mainloop()
