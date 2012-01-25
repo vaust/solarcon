@@ -135,7 +135,7 @@ if __name__ == "__main__":
     root=tk.Tk()
     gui = GuiOverview(root)
     gui.pack()
-    gui.mainloop()
+    root.mainloop()
     
 
 
