@@ -30,6 +30,7 @@ class TelnetInterface(telnetlib.Telnet):
     def ErmittleMesswerte(self):
         lines = self.HoleAntwort( b"GET T\n" )
         for t_name in signals.TEMP_NAMES:
+            self.t_dict[t_name] = 0.0
             for line in lines:
                 if (line.startswith(t_name)):
                     self.t_dict[t_name] = float( line.split('=')[1].split('°')[0] )
