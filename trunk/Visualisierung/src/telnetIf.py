@@ -79,7 +79,7 @@ class TelnetInterface(telnetlib.Telnet):
     def Fb_MvReglerParamLesen(self):
         command = "get vfb -1" 
         self.write( command.encode('utf-8') )
-        time.sleep(2.0)
+        time.sleep(3.0)
         buffer = self.read_very_eager()
         bufdecode = buffer.decode('utf8')
         lines = bufdecode.splitlines()
