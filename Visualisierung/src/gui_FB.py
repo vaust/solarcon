@@ -13,7 +13,9 @@ class GuiFB(tk.Frame):
     def __init__(self, master=None):
         tk.Frame.__init__(self, master)
         self.draw()
-
+        self.MvReglerParamSchreiben = None
+        self.MvReglerParamLesen = None
+        
     def draw_lf_Process(self):
         ''' Labelframe fuer Prozesssteuerung ''' 
         self.lf_Process = tk.LabelFrame( self, text='Prozesssteuerung')
@@ -87,6 +89,24 @@ class GuiFB(tk.Frame):
             self.lf_Process.fb_SekPumpe_chkbttn.config(state=tk.DISABLED)
             self.lf_Process.fb_Mischventil_scle.config(state=tk.DISABLED)
             
+    def MvReglerParameter_set(self):
+        kp = float(self.lf_mvregler.Kp_entry.get())
+        ki = float(self.lf_mvregler.Ki_entry.get())
+        ap = float(self.lf_mvregler.AP_entry.get())
+        self.MvReglerParamSchreiben(kp, ki, ap)
+    
+    def MvReglerParameter_get(self):
+        (kp, ki, ap) = self.MvReglerParamLesen()
+        self.lf_mvregler.Kp_scle.set(kp)
+        self.lf_mvregler.Ki_scle.set(ki)
+        self.lf_mvregler.AP_scle.set(ap)
+        self.lf_mvregler.Kp_entry.delete(0,tk.END)
+        self.lf_mvregler.Kp_entry.insert(0, kp)
+        self.lf_mvregler.Ki_entry.delete(0,tk.END)
+        self.lf_mvregler.Ki_entry.insert(0, ki)
+        self.lf_mvregler.AP_entry.delete(0,tk.END)
+        self.lf_mvregler.AP_entry.insert(0, ap)
+            
     def draw_lf_MvRegler(self):
         ''' FB Mischventilregler parametrieren '''
         self.lf_mvregler = tk.LabelFrame( self, text='Mischventilregler Online Parametrierung')
@@ -105,9 +125,9 @@ class GuiFB(tk.Frame):
         self.lf_mvregler.APUnit_lbl = tk.Label(self.lf_mvregler, text='%')
 
         self.lf_mvregler.Kp_scle = tk.Scale(self.lf_mvregler, orient=tk.HORIZONTAL, 
-                                            from_=0.0, to= 50.0, length=300, resolution=0.1)
+                                            from_=0.0, to= 20.0, length=300, resolution=0.01)
         self.lf_mvregler.Ki_scle = tk.Scale(self.lf_mvregler, orient=tk.HORIZONTAL, 
-                                            from_=0.0, to= 50.0, length=300, resolution=0.1)
+                                            from_=0.0, to= 5.0, length=300, resolution=0.001)
         self.lf_mvregler.AP_scle = tk.Scale(self.lf_mvregler, orient=tk.HORIZONTAL, 
                                             from_=0.0, to=100.0, length=300, resolution=0.1)
 
@@ -124,11 +144,14 @@ class GuiFB(tk.Frame):
         self.lf_mvregler.Ki_scle.grid(column=3, row=1, padx=PD )
         self.lf_mvregler.AP_scle.grid(column=3, row=2, padx=PD )
 
-        self.lf_mvregler.ReadBttn = tk.Button(self.lf_mvregler, text='Lesen')
-        self.lf_mvregler.ChangeBttn = tk.Button(self.lf_mvregler, text='Schreiben')
+        self.lf_mvregler.ReadBttn = tk.Button(self.lf_mvregler, text='Lesen',
+                                              command=self.MvReglerParameter_get)
+        self.lf_mvregler.ChangeBttn = tk.Button(self.lf_mvregler, text='Schreiben', 
+                                                command=self.MvReglerParameter_set)
         self.lf_mvregler.ReadBttn.grid(column=2, row=3, padx=PD, pady=PD )
         self.lf_mvregler.ChangeBttn.grid(column=3, row=3, padx=PD, pady=PD )
 
+        
         self.lf_mvregler.Kp_scle.bind('<ButtonRelease-1>', self.SetEntryVal_Kp)
         self.lf_mvregler.Ki_scle.bind('<ButtonRelease-1>', self.SetEntryVal_Ki)
         self.lf_mvregler.AP_scle.bind('<ButtonRelease-1>', self.SetEntryVal_AP)
@@ -170,7 +193,8 @@ class GuiFB(tk.Frame):
     def updateLabels(self, t_dict):
         self.lf_Process.PrimTrlMw_lbl.config(text=str(t_dict['FB_PRIM_Trl_MW'])+' °C')
         self.lf_Process.SekTvlMw_lbl.config(text=str(t_dict['FB_SEK_Tvl_MW'])+' °C')
-        
+    
+
 
 if __name__ == "__main__":
     root=tk.Tk()
