@@ -21,12 +21,12 @@ class GuiFB(tk.Frame):
         self.lf_Process = tk.LabelFrame( self, text='Prozesssteuerung')
         self.lf_Process.pack(padx=PD, pady=PD, side=tk.TOP)
 
-        ''' Checkbutton fuer Hand/Auto Eingabe des Reglers '''
+        ''' Checkbutton fuer Hand/Auto Eingabe des Reglers 
         self.lf_Process.handin_state_tkbl = tk.BooleanVar()
         self.lf_Process.handin_chkbttn = ttk.Checkbutton(self.lf_Process, text='Prozesseingabe auf Handbetrieb',
                                     variable=self.lf_Process.handin_state_tkbl)
         self.lf_Process.handin_chkbttn.grid(column=0, row=0, padx=PD, pady=PD, sticky=tk.NW)
-
+        '''
         ''' Checkbutton fuer Hand/Autobetrieb des Reglers '''
         self.lf_Process.fb_hand_state_tkbl = tk.BooleanVar()
         self.lf_Process.fb_hand_chkbttn = ttk.Checkbutton(self.lf_Process, text='Prozess auf Handbetrieb',
