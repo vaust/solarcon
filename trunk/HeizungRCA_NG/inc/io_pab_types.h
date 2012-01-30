@@ -88,6 +88,7 @@ typedef struct aout_s {
     ao_0_10V_t      res1;
     ao_0_10V_t      res2;
     ao_0_10V_t      res3;
+    //    cnt_t            all_wz;         /**< Wasserzaehler                                            Slot 11, C1 und C2 */
 } aout_t;
 
 /**
