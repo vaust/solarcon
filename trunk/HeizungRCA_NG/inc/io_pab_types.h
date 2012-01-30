@@ -51,6 +51,7 @@ typedef struct ain_s {
     temp10_pt1000_t  ww_hzg_trl_mw;  /**< Warmwasser, Heizungsruecklauftemperatur, AI, Pt1000              Slot 5, R2 */
     temp10_pt1000_t  ww_tww_mw;      /**< Warmwasser-Temperatur, AI, Pt1000                                Slot 5, R3 */
     temp10_pt1000_t  reserve;        /**< Ein Temperaturkanal als Reserve                                  Slot 5, R4 */
+//    cnt_t            all_wz;         /**< Wasserzaehler                                            Slot 11, C1 und C2 */
 } ain_t;
 
 /**
