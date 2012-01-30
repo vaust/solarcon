@@ -96,7 +96,7 @@ typedef struct aout_s {
  */
 typedef struct dout_s {
     do_bitbyte_t sol_pu_sb      :1;   /**< Solarkreislaufpumpe (ein/aus), DO, 24V+                          Slot 6, O1 */
-    do_bitbyte_t sol_sp1_av_sb  :1;   /**< Solar-Absperrventil, Speicher 1 (auf/zu), DO, 24V+               Slot 6, O2 */
+    do_bitbyte_t sol_sp1_av_sb  :1;   /**< Solar-Absperrventil, Speicher 1 (auf/zu), DO, 24V +              Slot 6, O2 */
     do_bitbyte_t sol_sp2_av_sb  :1;   /**< Solar-Absperrventil, Speicher 2 (auf/zu), DO, 24V +              Slot 6, O3 */
     do_bitbyte_t kes_pu_sp1_sb  :1;   /**< Ladepumpe fuer Speicher 1 (ein, aus), DO, 24V +                  Slot 6, O4 */
 
