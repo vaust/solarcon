@@ -58,12 +58,9 @@ typedef u8_t    do_bitbyte_t;        /**< @brief Digitaler Schaltzustand eines A
  * -Ausgaenge !! Eingaenge sind Statusbyte und Zaehlerstaende, Ausgaenge sind Steuerbyte und Zaehlerinitialisierung
  */
 typedef struct cnt_e {
-    u8_t    status_steuer_1;
-    u8_t    cnt_1_lsb;        /**< LSB des Zaehlerwertes */
-    u8_t    cnt_1_msb;        /**< MSB des Zählerwertes  */
-    u8_t    status_steuer_2;
-    u8_t    cnt_2_lsb;        /**< LSB des Zaehlerwertes */
-    u8_t    cnt_2_msb;        /**< MSB des Zählerwertes  */
+    u8_t    status_steuer;
+    u8_t    cnt_lsb;        /**< LSB des Zaehlerwertes */
+    u8_t    cnt_msb;        /**< MSB des Zählerwertes  */
 } cnt_t;
 
 

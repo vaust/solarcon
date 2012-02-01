@@ -4,18 +4,18 @@ CFLAGS = -D_REENTRANT -D__WAGO__ -D__DEBUG__
 objects = server.o main.o task.o zeit.o init_var.o log.o kbusapi.o \
           solar.o fb.o hk.o ww.o speicher.o kessel.o
 
-all: rca4
+all: rca4_z
 
-rca4: $(objects)
+rca4_z: $(objects)
 	$(CC) $(LDFLAGS) -o $@ $(objects) -lpthread $(LDLIBS$(LDLIBS-$(@)))
 #	cp rca2 /targetfs/
 
 romfs:
-	$(ROMFSINST) /bin/rca4
-	chmod 755 $(ROMFSDIR)/bin/rca4
+	$(ROMFSINST) /bin/rca4_z
+	chmod 755 $(ROMFSDIR)/bin/rca4_z
 
 clean:
-	-rm -f rca4 *.elf *.gdb *.o
+	-rm -f rca4_z *.elf *.gdb *.o
 
 server.o: server.h io.h vorgabe.h variablen.h
 main.o: io.h vorgabe.h variablen.h
