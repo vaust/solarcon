@@ -29,38 +29,38 @@ class TelnetInterface(telnetlib.Telnet):
 
     def ErmittleMesswerte(self):
         lines = self.HoleAntwort( b"GET T\n" )
-        for t_name in signals.TEMP_NAMES:
-            self.t_dict[t_name] = 0.0
+        for name in signals.TEMP_NAMES:
+            self.t_dict[name] = 0.0
             for line in lines:
-                if (line.startswith(t_name)):
-                    self.t_dict[t_name] = float( line.split('=')[1].split('°')[0] )
+                if (line.startswith(name)):
+                    self.t_dict[name] = float( line.split('=')[1].split('°')[0] )
                 
         lines = self.HoleAntwort( b"GET DO\n" )
-        for pu_name in signals.PU_NAMES:
-            self.pu_dict[pu_name] = ''
+        for name in signals.PU_NAMES:
+            self.pu_dict[name] = ''
             for line in lines:
-                if (line.startswith(pu_name)):
-                    self.pu_dict[pu_name] = str( line.split('=')[1] ).lstrip()
+                if (line.startswith(name)):
+                    self.pu_dict[name] = str( line.split('=')[1] ).lstrip()
                     
-        for av_name in signals.AV_NAMES:
-            self.av_dict[av_name]=''
+        for name in signals.AV_NAMES:
+            self.av_dict[name]=''
             for line in lines:
-                if (line.startswith(av_name)):
-                    self.av_dict[av_name] = str( line.split('=')[1] ).lstrip()
+                if (line.startswith(name)):
+                    self.av_dict[name] = str( line.split('=')[1] ).lstrip()
 
         lines = self.HoleAntwort( b"GET AO\n" )
-        for mv_name in signals.MV_NAMES:
-            self.mv_dict[mv_name] = 0.0
+        for name in signals.MV_NAMES:
+            self.mv_dict[name] = 0.0
             for line in lines:
-                if (line.startswith(mv_name)):
-                    self.mv_dict[mv_name] = float( line.split('=')[1].split('p')[0] )
+                if (line.startswith(name)):
+                    self.mv_dict[name] = float( line.split('=')[1].split('p')[0] )
 
         lines = self.HoleAntwort( b"GET DI\n" )
-        for di_name in signals.DI_NAMES:
-            self.di_dict[di_name] = ''
+        for name in signals.DI_NAMES:
+            self.di_dict[name] = ''
             for line in lines:
-                if (line.startswith(di_name)):
-                    self.di_dict[di_name] = str( line.split('=')[1] ).lstrip()
+                if (line.startswith(name)):
+                    self.di_dict[name] = str( line.split('=')[1] ).lstrip()
         
         self.cnt_dict['WW_WZ_MW'] = 0
         return (self.t_dict, self.pu_dict, self.mv_dict, self.di_dict, self.cnt_dict, self.av_dict)
