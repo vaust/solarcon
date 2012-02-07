@@ -51,6 +51,8 @@ typedef struct ain_s {
     temp10_pt1000_t  ww_hzg_trl_mw;  /**< Warmwasser, Heizungsruecklauftemperatur, AI, Pt1000              Slot 5, R2 */
     temp10_pt1000_t  ww_tww_mw;      /**< Warmwasser-Temperatur, AI, Pt1000                                Slot 5, R3 */
     temp10_pt1000_t  reserve;        /**< Ein Temperaturkanal als Reserve                                  Slot 5, R4 */
+    cnt_t            all_wz;         /**< Wasserzaehler                                                    Slot 11,C1 */
+    cnt_t            res_zaehler;    /**< 2. Zaehler als Reserve                                           Slot 11,C2 */
 } ain_t;
 
 /**
@@ -87,6 +89,8 @@ typedef struct aout_s {
     ao_0_10V_t      res1;
     ao_0_10V_t      res2;
     ao_0_10V_t      res3;
+    cnt_t           all_wz;           /**< Wasserzaehler                                                   Slot 11, C1 */
+    cnt_t           res_zaehler;      /**< 2. Zaehler als Reserve                                          Slot 11, C2 */
 } aout_t;
 
 /**
@@ -94,7 +98,7 @@ typedef struct aout_s {
  */
 typedef struct dout_s {
     do_bitbyte_t sol_pu_sb      :1;   /**< Solarkreislaufpumpe (ein/aus), DO, 24V+                          Slot 6, O1 */
-    do_bitbyte_t sol_sp1_av_sb  :1;   /**< Solar-Absperrventil, Speicher 1 (auf/zu), DO, 24V+               Slot 6, O2 */
+    do_bitbyte_t sol_sp1_av_sb  :1;   /**< Solar-Absperrventil, Speicher 1 (auf/zu), DO, 24V +              Slot 6, O2 */
     do_bitbyte_t sol_sp2_av_sb  :1;   /**< Solar-Absperrventil, Speicher 2 (auf/zu), DO, 24V +              Slot 6, O3 */
     do_bitbyte_t kes_pu_sp1_sb  :1;   /**< Ladepumpe fuer Speicher 1 (ein, aus), DO, 24V +                  Slot 6, O4 */
 
