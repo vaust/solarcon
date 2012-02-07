@@ -88,7 +88,11 @@
 /* <Defines/> */
 
 /* <Typen> */
-typedef struct {
+
+/**
+ * @brief Datenstruktur zur Ausgabe von beliebigen Variablen ueber Telnet Interface
+ */
+typedef struct parse_set_s {
     char *VarName;
     void *VarPointer;
     char *format;

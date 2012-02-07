@@ -84,7 +84,7 @@ void fb_Run( fb_class_t *self )
         self->o.prim_pu_sb = IO_EIN;
         self->o.sek_pu_sb  = IO_EIN;
     }
-    else if( self->i.tau_avg > (self->p.at_start+1.0) ) {
+    else if( self->i.tau_avg > (self->p.at_start+1.0) ) {  /* 1.0 ist Pumpenschalthysterese : todo Parameter! */
         self->o.prim_pu_sb = IO_AUS;
         self->o.sek_pu_sb  = IO_AUS;
     }

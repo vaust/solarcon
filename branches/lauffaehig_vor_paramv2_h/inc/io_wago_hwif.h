@@ -47,9 +47,6 @@ volatile Control_Input_t          pab_Dbg_In;
 volatile Control_Output_t * const pabOut_p = &pab_Dbg_Out;
 volatile Control_Input_t  * const pabIn_p  = &pab_Dbg_In;
 #else
-// extern volatile Control_Output_t         pab_Dbg_Out;
-// extern volatile Control_Input_t          pab_Dbg_In;
-
 extern volatile Control_Output_t * const pabOut_p;         
 extern volatile Control_Input_t  * const pabIn_p;  
 #endif /* _IO_MASTER_ */

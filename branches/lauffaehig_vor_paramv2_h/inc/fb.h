@@ -16,6 +16,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file fb.h
+ * @brief Interface fuer die Fussbodenheizkreiskomponente.
+ */
+
 #ifndef _FB_H_
 #define _FB_H_
 
@@ -27,35 +32,35 @@
  * @brief Zusammenfassung der Fussbodenheizungsparameter
  */
 typedef struct fb_param_s {
-    float tvl_absenk;   /**< Nachtabsenkung in Grad C         */
-    float tvl_steigung; /**< Heizkurvensteigung               */
-    float tvl_niveau;   /**< Heizkurven Parallelverschiebung  */
-    float tvl_min;
-    float tvl_max;      /**< max. Vorlauftemperatur in Grad C */
-    float at_start;
-    float frostschutz;  /**< Frostschutztemperatur in Grad C  */
-    float tr_sw;        /**< Raumtemperatursollwert in Grad C */
+    float tvl_absenk;   /**< Nachtabsenkung in Grad C             */
+    float tvl_steigung; /**< Heizkurvensteigung                   */
+    float tvl_niveau;   /**< Heizkurven Parallelverschiebung      */
+    float tvl_min;      /**< min. Vorlauftemperatur in Grad C     */
+    float tvl_max;      /**< max. Vorlauftemperatur in Grad C     */
+    float at_start;     /**< Aussentemperatur ab der geheizt wird */
+    float frostschutz;  /**< Frostschutztemperatur in Grad C      */
+    float tr_sw;        /**< Raumtemperatursollwert in Grad C     */
 } fb_param_t;
 
 /**
  * @brief Zusammenfassung der Eingangsgroessen der Fussbodenheizung
  */
 typedef struct fb_in_s {
-    float       tau_mw;
-    float       tau_avg;
-    float       sek_tvl_mw;
-    abgesenkt_t zustand;
-    u8_t        partytime_flg;
+    float       tau_mw;           /**< Messwert der Aussentemperatur                            */
+    float       tau_avg;          /**< gleitender Mittelwert der AT ueber 36h                   */
+    float       sek_tvl_mw;       /**< Vorlauftemperatur auf der Sek.-seite des Waermetauschers */
+    abgesenkt_t zustand;          /**< Absenkungsstatus der Fussbodenheizung                    */
+    u8_t        partytime_flg;    /**< Partyzeitanzeige                                         */
 } fb_in_t;
 
 /**
  * @brief Zusammenfassung der Ausgangsgroessen der Fussbodenheizung
  */
 typedef struct fb_out_s {
-    float            tvl_sw;
-    float            prim_mv_y;
-    do_bitbyte_t     prim_pu_sb;
-    do_bitbyte_t     sek_pu_sb;
+    float            tvl_sw;      /**< berechneter Vorlauftemperatursollwert          */
+    float            prim_mv_y;   /**< dazu notwendige Mischventilstellung in Prozent */
+    do_bitbyte_t     prim_pu_sb;  /**< Schaltstatus der Primaerpumpe                  */
+    do_bitbyte_t     sek_pu_sb;   /**< Schaltstatus der Sekundaerpumpe                */
 } fb_out_t;
 /* <Typen/> */
 

@@ -16,8 +16,10 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** \file Zeitini Datei einlesen und waehrend Laufzeit Absenkungen ermitteln
- *  \author Andreas und Volker Stegmann
+/**
+ *  @file zeit.c
+ *  @brief Zeitini Datei einlesen und waehrend Laufzeit Absenkungen ermitteln
+ *  @author Andreas und Volker Stegmann
  */
 #define _ZEIT_C_
 
@@ -29,7 +31,17 @@
 #include "param.h"
 #include "zeit.h"
 
-
+/**
+ * @brief Einlesen der Schaltzeiten aus einer ASCII Datei.
+ *
+ * Diese Funktion dient dazu, aus der Datei wochenzeitprogramm.ini die
+ * Schaltzeiten fuer die einzelnen Heizkreise und Pumpen einzulesen.
+ *
+ * @param[in]  states_max     Maximale Anzahl der Schaltpunkte
+ * @param[out] schaltzeiten[] Array vom Typ \ref zeit_schaltpunkt_t der Schaltzeiten
+ *                            fuer jeweils einen Heizkreis bzw. Pumpe
+ * @return     Anzahl der eingelesen Schaltpunkte
+ */
 static
 int zeit_einlesen( const int states_max, zeit_schaltpunkt_t schaltzeiten[] )
 {
@@ -65,6 +77,17 @@ int zeit_einlesen( const int states_max, zeit_schaltpunkt_t schaltzeiten[] )
     return( states );
 }
 
+/**
+ * @brief Einlesen der Feiertage, die wie Sonntage von den Schaltzeiten her behandelt
+ * werden sollen.
+ *
+ * Die Feiertage sind ebenfalls in der Datei wochenzeitprogramm.ini abgelegt.
+ *
+ * @param[in]  max_feiertage Die maximal verwaltbare Anzahl von Feiertagen. Die Zahl wird ueber eine
+ *                           Konstante definiert.
+ * @param[out] feiertag[]    Array vom Typ \ref zeit_schaltpunkt_t mit den Feiertagen.
+ * @return Anzahl der eingelesenen Feiertage
+ */
 static
 int zeit_feiertage_einlesen( const int max_feiertage, zeit_schaltpunkt_t feiertag[] )
 {
@@ -240,7 +263,8 @@ void zeit_Run( zeit_Betriebszustand_t * const absenkung,
         absenkung->Duschzeit = zNein;
 }
 
-/* \brief Hilfsfunktion um in Telnet die aktuelle Softwarezeit anzuzeigen.
+/**
+ * @brief Hilfsfunktion um in Telnet die aktuelle Softwarezeit anzuzeigen.
  * Hilfreich wegen des Bugs in der ucLinux Implementierung  von localtime().
  */
 void zeit_getLocaltime( s16_t * const wday,

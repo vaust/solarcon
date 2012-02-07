@@ -16,6 +16,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file sol.c
+ * @brief Solarkreissteuerung fuer 2 Speicherkreise und einer Solarpumpe. Der Code ist auf weitere Speicherkreise
+ * und weitere Pumpen skalierbar.
+ * @author Volker Stegmann
+ */
 #define _SOL_C_
 
 #include "sol.h"
@@ -97,7 +103,7 @@ void sol_Pumpe( sol_out_t *out_p )
  * Diese Methode implementiert einen einfachen Algorithmus zur Abschaetzung der
  * vom Solarkollektor an die Speicher gelieferte Waermemenge.
  *
- * @param self Pointer auf Instanz der Klasse sol_class_t
+ * @param self Pointer auf Instanz der Klasse \ref sol_class_t
  */
 void sol_Wz( sol_class_t *self )
 {
@@ -117,6 +123,7 @@ void sol_Wz( sol_class_t *self )
  * @brief eigentlicher Solarregler.
  *
  * Absperrventile steuern und die Pumpen entsprechend betaetigen.
+ *
  * @param self Pointer auf Instanz der Klasse sol_class_t
  * @return Fehlercode fuer Sammelstoerungsauswertung.
  */

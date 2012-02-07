@@ -16,8 +16,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-/** \file server.c
- *  Code aus Buch Linux Systemprogrammierung
+/**
+ * @file server.c
+ *  @brief Controller Task zyklisch ausführen und Telnet Task in Endlosschleife laufen lassen.
+ *  Code aus Buch Linux Systemprogrammierung.
+ *  @author Volker Stegmann
  */
 
 #define _SERVER_C_
@@ -127,7 +130,7 @@ void systimer_init( u32_t zykluszeit )
 }
 
 /**
- * \brief Main (internes Betriebssystem).
+ * @brief Main (internes Betriebssystem).
  * Hier wird der Intervalltimer fuer das zyklische Aufrufen der Steuerung
  * gestartet, der Mutex fuer das parallele Zugreifen auf globale Variablen erzeugt und
  * in der Endlosschleife auf eine Telnetverbindung gewartet.
@@ -141,7 +144,6 @@ int main( void )
     
     signal( SIGINT, terminate );
     
-    // signal( SIGALRM, cntrl_SetTaskFlag );
     signal( SIGALRM, cntrl_run );
     systimer_init( param_sys_zykluszeit );
 
@@ -180,4 +182,5 @@ int main( void )
             }
         }
     }
+    return 0;
 }
