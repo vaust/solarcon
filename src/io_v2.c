@@ -31,7 +31,9 @@
 #include "io_wago_hwif.h"
 #include "io_v2.h"
 
-/** \brief Initialisierung der Temperaturmessobjekte.
+/**
+ *  \brief Initialisierung der Temperaturmessobjekte.
+ *
  *  \param messbereich_anfang Plausibler kleinster Messwert in Grad C
  *  \param messbereich_ende Plausibler groesster Messwert in Grad C
  *  \param kbus_adresse_p Pointer auf die entsprechende Speicherstelle im Prozessabbild des Controllers
@@ -68,14 +70,17 @@ void io_InitTall( void )
     io_InitT( &io_WW_Tww_MW     ,   0.0, 100.0, (temp10_pt1000_t *) &(pabIn_p->ain.ww_tww_mw) );
 }
 
-/** \brief Methode zur Abfrage der Temperaturmessstellen.
-  * Der Messwert wird in der Objektstruktur abgelegt und im Normalfall auch zurueckgeben.
-  * Bei unplausiblen Messwerten wird der rohe Messwert zurueckgegeben und in der Objektstruktur
-  * die jeweilige Messbereichsgrenze abgelegt, so dass noch sinnvoll weitergerechnet werden kann
-  * \param self Pointer auf ein Temperaturmessobjekt
-  * \param mw   Pointer zur Rueckgabe der gemessenen Temperatur. NULL falls kein Wert
-  *             zurueckgegeben werden soll.
-  */
+/**
+ * \brief Methode zur Abfrage der Temperaturmessstellen.
+ *
+ * Der Messwert wird in der Objektstruktur abgelegt und im Normalfall auch zurueckgeben.
+ * Bei unplausiblen Messwerten wird der rohe Messwert zurueckgegeben und in der Objektstruktur
+ * die jeweilige Messbereichsgrenze abgelegt, so dass noch sinnvoll weitergerechnet werden kann.
+ *
+ * \param self Pointer auf ein Temperaturmessobjekt
+ * \param mw   Pointer zur Rueckgabe der gemessenen Temperatur. NULL falls kein Wert
+ *             zurueckgegeben werden soll.
+ */
 io_obj_status_t io_ReadT( io_temp_obj_t *self, float *mw )
 {
     float temp_val;
@@ -133,12 +138,15 @@ void io_InitYall( void )
     io_InitY( &io_WW_HZG_PU_Y,  MIN_Y_PCT-IO_EPS, MAX_Y_PCT+IO_EPS, io_Normal, (ao_0_10V_t *) &(pabOut_p->aout.ww_hzg_pu_y)  );
 }
 
-/** \brief Analogen Stellwert ausgeben mit Ueberpruefung auf Plausibilitaet.
-  * \param self Pointer auf Ausgabeobjekt 
-  * \param val Auszugebender Wert 
-  * Der Stellwert wird auf der PLC ausgegeben und im Feld stellwert abgelegt.
-  * Weiterhin wird geprueft, ob der gewuenschte Stellwert im plausiblen Bereich liegt.
-  */
+/**
+ * \brief Analogen Stellwert ausgeben mit Ueberpruefung auf Plausibilitaet.
+ *
+ * \param self Pointer auf Ausgabeobjekt
+ * \param val Auszugebender Wert
+ *
+ * Der Stellwert wird auf der PLC ausgegeben und im Feld \ref stellwert abgelegt.
+ * Weiterhin wird geprueft, ob der gewuenschte Stellwert im plausiblen Bereich liegt.
+ */
 io_obj_status_t io_WriteY( io_ao10V_obj_t *self, float val )
 {
     self->stellwert = val;
@@ -158,8 +166,9 @@ io_obj_status_t io_WriteY( io_ao10V_obj_t *self, float val )
     return(self->status);
 }
 
-/** \brief Alle IOs (Temperaturen und 0-10V Ausgaenge) initialisieren.
-  */
+/**
+ * \brief Alle IOs (Temperaturen und 0-10V Ausgaenge) initialisieren.
+ */
 void io_Init( void )
 {
     io_InitYall();

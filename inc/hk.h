@@ -16,37 +16,55 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file hk.h
+ * @brief Interface fuer die Heizkoerperheizkreiskomponente
+ */
+
 #ifndef _HK_H_
 #define _HK_H_
 
 #include "reg.h"
 
 /* <Typen> */
+
+/**
+ * @brief Zusammenfassung der Heizkoerperparameter
+ */
 typedef struct hk_param_s {
-    float tvl_absenk;
-    float tvl_steigung;
-    float tvl_niveau;
-    float tvl_min;
-    float tvl_max;
-    float at_start;
-    float frostschutz;
-    float tr_sw;
+    float tvl_absenk;            /**< Nachtabsenkung in Grad C             */
+    float tvl_steigung;          /**< Heizkurvensteigung                   */
+    float tvl_niveau;            /**< Heizkurven Parallelverschiebung      */
+    float tvl_min;               /**< min. Vorlauftemperatur in Grad C     */
+    float tvl_max;               /**< max. Vorlauftemperatur in Grad C     */
+    float at_start;              /**< Aussentemperatur ab der geheizt wird */
+    float frostschutz;           /**< Frostschutztemperatur in Grad C      */
+    float tr_sw;                 /**< Raumtemperatursollwert in Grad C     */
 } hk_param_t;
 
+/**
+ * @brief Zusammenfassung der Eingangsgroessen der Heizkoerperheizung
+ */
 typedef struct hk_in_s {
-    float        tau_mw;
-    float        tau_avg;
-    float        tvl_mw;
-    abgesenkt_t  zustand;
-    u8_t         partytime_flg;
+    float        tau_mw;         /**< Messwert der Aussentemperatur                            */
+    float        tau_avg;        /**< gleitender Mittelwert der AT ueber 36h                   */
+    float        tvl_mw;         /**< Vorlauftemperatur auf der Sek.-seite des Waermetauschers */
+    abgesenkt_t  zustand;        /**< Absenkungsstatus der Fussbodenheizung                    */
+    u8_t         partytime_flg;  /**< Partyzeitanzeige                                         */
 } hk_in_t;
 
+/**
+ * @brief Zusammenfassung der Ausgangsgroessen der Heizkoerperheizung
+ */
 typedef struct hk_out_s {
-    float            tvl_sw;
-    float            mv_y;
-    do_bitbyte_t     pu_sb;
+    float            tvl_sw;     /**< berechneter Vorlauftemperatursollwert          */
+    float            mv_y;       /**< dazu notwendige Mischventilstellung in Prozent */
+    do_bitbyte_t     pu_sb;      /**< Schaltstatus der Pumpe                         */
 } hk_out_t;
 
+/**
+ * @brief Definition der Komponentenklasse der Heizkoerperheizung
+ */
 typedef struct hk_class_s {
     reg_class_t reg;
     hk_param_t  p;

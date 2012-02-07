@@ -16,9 +16,11 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * \file ww.c
+ * \brief Warmwassertemperaturregelung
+ */
 #define _WW_C_
-
-#define __SCHWACHLAST__
 
 #include "param.h"
 #include "ww.h"
@@ -26,12 +28,12 @@
 
 
 /** 
-  * \brief Steuerung des Mischventils.
+  * @brief Steuerung des Mischventils.
   *
   * Steuert die Stellung des Mischventils, das die Vorlauftemperatur
   * fuer den Warmwasser-Waermetauscher einstellt.
-  * \param self Pointer auf Instanz der Klasse ww_class_t
-  * \return kein
+  * @param self Pointer auf Instanz der Klasse ww_class_t
+  * @return kein
   */
 static 
 void ww_MV_Steuerung( ww_class_t *self )
@@ -50,12 +52,12 @@ void ww_MV_Steuerung( ww_class_t *self )
 }
 
 /** 
-  * \brief Verteilventilsteuerung.
+  * @brief Verteilventilsteuerung.
   *
   * Verteilventil zwischen den Speichern 1 und 2 entsprechend der Speichertemperaturen
   * einstellen.
-  * \param self Pointer auf Instanz der Klasse ww_class_t
-  * \return kein
+  * @param self Pointer auf Instanz der Klasse ww_class_t
+  * @return kein
   */
 static 
 void ww_VV_Steuerung( ww_class_t *self )
@@ -70,13 +72,16 @@ void ww_VV_Steuerung( ww_class_t *self )
     }
 }
 
-#ifdef __SCHWACHLAST__
 /** 
-  * Schwachlaststeuerung soll eingreifen, wenn nur wenig Warmwasser gebraucht wird und 10% 
-  * Pumpenleistung fuer den Waermetauscher bereits zu viel Leistung bringt
-  * \param self Pointer auf Instanz der Klasse ww_class_t
-  * \return kein
-  */
+ * @brief Schwachlaststeuerung fuer wenige Duschbenutzer
+ *
+ * Die Schwachlaststeuerung soll eingreifen, wenn nur wenig Warmwasser gebraucht wird und 10%
+ * Pumpenleistung fuer den Waermetauscher bereits zu viel Leistung bringt. Dann soll die Pumpe nach
+ * einer definierten Zeit komplett abschalten.
+ *
+ * @param self Pointer auf Instanz der Klasse \ref ww_class_t
+ * @return kein
+ */
 static 
 void ww_Schwachlast_Steuerung( ww_class_t *self )
 {
@@ -91,16 +96,16 @@ void ww_Schwachlast_Steuerung( ww_class_t *self )
         self->schwachlastzeit = 0;
     }
 }
-#endif
 
 /**
-  * \brief Initialisierung der ww-Task.
-  *
-  * Die minimale Pumpenleistung wird bei 11% Stellgroesse erreicht. Unter 10% ist die 
-  * Pumpe aus. Der PI-Regler der fuer die wird hier mit initialisiert.
-  * \param self Pointer auf Instanz der Klasse ww_class_t
-  * \return kein
-  */
+ * \brief Initialisierung der ww-Task.
+ *
+ * Die minimale Pumpenleistung wird bei 11% Stellgroesse erreicht. Unter 10% ist die
+ * Pumpe aus. Der PI-Regler der fuer die wird hier mit initialisiert.
+ *
+ * \param self Pointer auf Instanz der Klasse ww_class_t
+ * \return kein
+ */
 void ww_Init( ww_class_t *self )
 {
     self->p.kes_sp_dt_sw        = param_kes_sp_dt_sw;
@@ -110,6 +115,7 @@ void ww_Init( ww_class_t *self )
     self->p.mv_korr             = param_ww_mv_korr;
     self->p.hzg_pu_y_min        = 11.0;
     self->p.schwachlastzeit_max = 300;
+    self->p.schwachlast_aktiv   = zEin;
     self->schwachlastzeit       = 0;        /* Schwachlaststeuerung komponententauglich */
 
     reg_PI_Init( &(self->reg_pu), MSEC2SEC(param_sys_zykluszeit),
@@ -146,10 +152,11 @@ void ww_Run( ww_class_t *self )
     /* Berechnung von WW_HZG_MV_Y aus den Temperaturen von Speicher und Ruecklauf */
     ww_MV_Steuerung( self );
 
-    /* Schwachlast Steuerung */
-#ifdef __SCHWACHLAST__
-    ww_Schwachlast_Steuerung( self );
-#endif
+    /* Schwachlast Steuerung (ueber Telnet Interface ausschaltbar, default eingeschaltet) */
+    if( self->p.schwachlast_aktiv == zEin ) {
+        ww_Schwachlast_Steuerung( self );
+    }
+
     /* Kriterium fuer Warmwasser Heizungsverteilventil */
     ww_VV_Steuerung( self );
 }
@@ -173,7 +180,7 @@ void ww_WriteInp(           ww_class_t *self,
     self->i.tww_mw       = tww_mw;
     self->i.tau_mw       = tau_mw;
     self->i.tau_avg      = tau_avg;
-    self->i.wz_mw        = wz_mw,
+    self->i.wz_mw        = wz_mw;
     self->i.hzg_tvl_mw   = hzg_tvl_mw;
     self->i.hzg_trl_mw   = hzg_trl_mw;
     self->i.hk_tvl_sw    = hk_tvl_sw;

@@ -16,6 +16,12 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+/**
+ * @file kes.c
+ * @brief Berechnung der notwendigen Kesselvorlauftemperatur aus den Temperaturanforderungen der
+ * beiden Speicher
+ * @author Volker und Andreas Stegmann
+ */
 #define _KES_C_
 
 #include "gen_types.h"

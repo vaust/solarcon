@@ -56,9 +56,9 @@ void err_Init( err_class_t *self )
 }
 
 /** 
-  * \brief Betriebszustaende lesen und auf Plausibiliteat pruefen.
-  * Falls nicht plausibel: Sammelstoermeldung setzen
-  */
+ * \brief Betriebszustaende lesen und auf Plausibiliteat pruefen.
+ * Falls nicht plausibel: Sammelstoermeldung setzen
+ */
 void err_Run( err_class_t *self )
 {
     if( self->i.kes_tvl_sw > (self->i.kes_tvl_mw + self->p.dt) ) {
