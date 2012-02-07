@@ -53,6 +53,17 @@ typedef u8_t    di_bitbyte_t;        /**< @brief Digitaler Schaltzustand eines E
 typedef s16_t   ao_0_10V_t;          /**< @brief Analogstellgroesse */
 typedef u8_t    do_bitbyte_t;        /**< @brief Digitaler Schaltzustand eines Ausgangs */
 
+/**
+ * @brief Datenstruktur fuer Zählerklemme. Achtung: Belegt nicht Digitaleingaenge, sondern Analogeingaenge und
+ * -Ausgaenge !! Eingaenge sind Statusbyte und Zaehlerstaende, Ausgaenge sind Steuerbyte und Zaehlerinitialisierung
+ */
+typedef struct cnt_e {
+    u8_t    status_steuer;
+    u8_t    cnt_lsb;        /**< LSB des Zaehlerwertes */
+    u8_t    cnt_msb;        /**< MSB des Zählerwertes  */
+} cnt_t;
+
+
 typedef s32_t   zeit_schaltpunkt_t;  /**< @brief Zeitpunkt eines Wochentags in Minuten seit Sonntag 0:00 Uhr */
 
 /* Betriebszustaende, die sich fuer die einzelnen Heizkreise aus dem Zeitprogramm ergeben */
