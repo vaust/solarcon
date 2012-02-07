@@ -22,7 +22,6 @@
  * und weitere Pumpen skalierbar.
  * @author Volker Stegmann
  */
-
 #define _SOL_C_
 
 #include "sol.h"
@@ -30,10 +29,10 @@
 
 void sol_Init( sol_class_t *self )
 {
-    self->p.sp_t_max  = param.sol.sp_t_max;
-    self->p.dt_ein_sw = param.sol.dt_ein_sw;
-    self->p.dt_aus_sw = param.sol.dt_aus_sw;
-    self->p.TA        = MSEC2SEC(param.sys.zykluszeit);
+    self->p.sp_t_max  = param_sol_sp_t_max;
+    self->p.dt_ein_sw = param_sol_dt_ein_sw;
+    self->p.dt_aus_sw = param_sol_dt_aus_sw;
+    self->p.TA        = MSEC2SEC(param_sys_zykluszeit);
     self->sol_wz      = 0.0;
 }
 
@@ -118,6 +117,7 @@ void sol_Wz( sol_class_t *self )
         }
     }
 }
+
 
 /**
  * @brief eigentlicher Solarregler.
