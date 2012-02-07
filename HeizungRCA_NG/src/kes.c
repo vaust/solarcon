@@ -30,8 +30,8 @@
 
 void kes_Init( kes_class_t *self )
 {
-    self->p.sp_dt_sw     = param.kes.sp_dt_sw;
-    self->p.ww_tww_sw    = param.ww.tww_sw;
+    self->p.sp_dt_sw     = param_kes_sp_dt_sw;
+    self->p.ww_tww_sw    = param_ww_tww_sw;
 
     /* Ausgaenge initialisieren: (notwendig wg. undefinierten Zustands in Hystereseschleife zum Programmstart */
     self->o.pu_sp1_sb = IO_AUS;

@@ -38,14 +38,14 @@
 #include "err.h"
 
 /**
- * @brief Fehlerkomponente initialisieren.
+ * @brief Fehlerkomponente initialisieren
  *
  * @param self Pointer auf Instanz der Klasse err_class_t
  */
 void err_Init( err_class_t *self )
 {
     self->p.br_TimeOut   = 480;                       /* 480 entspr. bei 0.5sec Zyklus 4min       */
-    self->p.dt           = param.kes.sp_dt_sw / 2.0;  /* Tvl_MW muss um diesen Betrag hoeher sein */
+    self->p.dt           = param_kes_sp_dt_sw / 2.0;  /* Tvl_MW muss um diesen Betrag hoeher sein */
 
     self->o.br_Countdown = self->p.br_TimeOut;
     

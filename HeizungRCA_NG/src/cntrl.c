@@ -71,7 +71,6 @@ extern pthread_mutex_t  mutex;
 #endif
 
 
-
 /**
  * \brief Steuerung initialisieren.
  */
@@ -134,7 +133,7 @@ void cntrl_run( int sig )
         /* alles was im Sekunden-, Minuten- und Stundenraster ablaufen muss und *
          * Aussentemperaturmittelwerte ermitteln                                */
         if( io_Normal != io_ReadT( &io_ALL_Tau_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
-        task_Run( param.all.partydauer,
+        task_Run( param_all_partydauer,
                   io_get_ALL_PARTY(),
                   io_get_WW_PARTY(),
                   io_ALL_Tau_MW.messwert,

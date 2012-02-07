@@ -25,6 +25,8 @@
 #include "param.h"
 #include "ww.h"
 
+
+
 /** 
   * @brief Steuerung des Mischventils.
   *
@@ -106,20 +108,20 @@ void ww_Schwachlast_Steuerung( ww_class_t *self )
  */
 void ww_Init( ww_class_t *self )
 {
-    self->p.kes_sp_dt_sw        = param.kes.sp_dt_sw;
-    self->p.tww_sw              = param.ww.tww_sw;
-    self->p.frostschutz         = param.all.frostschutz;
-    self->p.at_start            = param.all.at_start;
-    self->p.mv_korr             = param.ww.mv_korr;
+    self->p.kes_sp_dt_sw        = param_kes_sp_dt_sw;
+    self->p.tww_sw              = param_ww_tww_sw;
+    self->p.frostschutz         = param_all_frostschutz;
+    self->p.at_start            = param_all_at_start;
+    self->p.mv_korr             = param_ww_mv_korr;
     self->p.hzg_pu_y_min        = 11.0;
     self->p.schwachlastzeit_max = 300;
     self->p.schwachlast_aktiv   = zEin;
     self->schwachlastzeit       = 0;        /* Schwachlaststeuerung komponententauglich */
 
-    reg_PI_Init( &(self->reg_pu), MSEC2SEC(param.sys.zykluszeit),
-                                  param.ww.pu_reg.kp,
-                                  param.ww.pu_reg.ki,
-                                  param.ww.pu_reg.ap,
+    reg_PI_Init( &(self->reg_pu), MSEC2SEC(param_sys_zykluszeit),
+                                  param_ww_pu_reg_kp,
+                                  param_ww_pu_reg_ki,
+                                  param_ww_pu_reg_ap,
                                   MIN_Y_PCT,
                                   MAX_Y_PCT,
                                   &(self->o.hzg_pu_y),

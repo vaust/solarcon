@@ -98,108 +98,6 @@ typedef struct parse_set_s {
     char *format;
     // char *einheit;
 } parse_set_t;
-
-/**
- * @brief Parametersatz fuer allgemeine Parameter
- */
-typedef struct param_all_s {
-    s16_t tau_mittel_zeit; /**< Zeit ueber die die Aussentemperatur gemittelt wird (in Stunden)           */
-    s16_t partydauer;      /**< Fussbodenheizkreis Dauer der Betriebsverlaengerung (in Minuten)           */
-    float frostschutz;     /**< Aussentemperatur unter der Heizkreis immer in Betrieb in Grad C           */
-    float at_start;        /**< Aussentemperatur unter der Heizung startet in Grad C                      */
-} param_all_t;
-
-/**
- * @brief Parametersatz fuer den Solarregler
- */
-typedef struct param_sol_s {
-    float dt_ein_sw;       /**< Einschalt-Differenztemp. fuer Solarpumpe und Speicherabsperrv. in Grad C  */
-    float dt_aus_sw;       /**< Ausschalt-Differenztemp. fuer Solarpumpe und Speicherabsperrv. in Grad C  */
-    float koll_t_max;      /**< Max. Kollektortemperatur in Grad C                                        */
-    float sp_t_max;        /**< Max. Speichertemperatur in Grad C                                         */
-    float sp1_t_min;       /**< Min. Temperatur Speicher 1 in Grad C                                      */
-} param_sol_t;
-
-/**
- * @brief Parametersatz fuer die Kesselsteuerung
- */
-typedef struct param_kes_s {
-    float sp_dt_sw;        /**< Temperaturdifferenz zwischen Kessel- und Speicher-SW in Grad C            */
-} param_kes_t;
-
-/**
- * @brief Parametersatz der alle Vorlauftemperaturregelungsgroessen zusammenfasst
- */
-typedef struct param_tvl_s {
-    float steigung;         /**< Heizkreis Heizkurvensteigung                                             */
-    float niveau;           /**< Heizkreis Heizkurvenparallelverschiebung                                 */
-    float absenk;           /**< Heizkreis Nachtabsenkung in Grad C                                       */
-    float min;              /**< Heizkreis Frostschutztemperatur in Grad C                                */
-    float max;              /**< Heizkreis maximale Vorlauftemperatur in Grad C                           */
-} param_tvl_t;
-
-/**
- * @brief Parametersatz fuer einen allgemeinen PI-Regler
- */
-typedef struct param_reg_s {
-    float kp;               /**< Regler Verstaerkung PI-Regler in 100/K                                    */
-    float ki;               /**< Regler Verstaerkung PI-Regler I-Anteil in 100/(K x s)                     */
-    float ap;               /**< Regler Arbeitspunktoffset in 100                                          */
-} param_reg_t;
-
-/**
- * @brief Parametersatz fuer die Heizkoerperheizkreisregelung
- */
-typedef struct param_hk_s {
-    param_tvl_t tvl;
-    param_reg_t reg;
-    float       tr_sw;            /**< Heizkoerperheizkreis Raumtemperatur Sollwert                       */
-    float       frostschutz;      /**< Aussentemperatur ab der Heizkreis in Betrieb ist in Grad C         */
-} param_hk_t;
-
-/**
- * @brief Parametersatz fuer die Fussbodenheizkreisregelung
- */
-typedef struct param_fb_s {
-    param_tvl_t tvl;
-    param_reg_t reg;
-    float tr_sw;            /**< Fussbodenheizkreis Raumtemperatursollwert in Grad C                      */
-} param_fb_t;
-
-/**
- * @brief Parametersatz fuer die Warmwasserheizkreisregelung
- */
-typedef struct param_ww_s {
-    float tww_sw;           /**< Warmwasser-Temperatur-Sollwert in Grad C                                 */
-    float tww_max;          /**< Warmwasser-Maximaltemperatur in Grad C                                   */
-    float wz_faktor;        /**< Waermezaehler auf Pumpenstellbefehl                                      */
-    float wz_max;           /**< Max. Warmwasserdurchfluss in l/min                                       */
-    param_reg_t pu_reg;     /**< WW-Temperatur-Regler                                                     */
-    float mv_korr;          /**< WW Hzg-VL-Temperatur-Steurung (Mischer) Korrekturfaktor                  */
-    float tww_tvl_faktor;   /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                     */
-    float tz_sw;            /**< Temperatursollwert des Zirkulationswassers in Grad C                     */
-} param_ww_t;
-
-/**
- * @brief Parametersatz fuer allgemeine Systemgroessen
- */
-typedef struct param_sys_s {
-    u32_t zykluszeit;       /**< Zykluszeit des Systems in Mikrosekunden                                  */
-} param_sys_t;
-
-/**
- * @brief Zusammenfassung aller Parameter in einer Struktur
- */
-typedef struct param_satz_s {
-    param_all_t all;
-    param_sol_t sol;
-    param_kes_t kes;
-    param_hk_t  hk;
-    param_fb_t  fb;
-    param_ww_t  ww;
-    param_sys_t sys;
-} param_satz_t;
-
 /* <Typen/> */
 
 /* <Variablen> */
@@ -210,55 +108,98 @@ typedef struct param_satz_s {
     #define PUBLIC extern const
 #endif
 
-/**
- * @brief Instanz aller Parameter, die in der Struktur \ref param_satz_s definiert sind.
- */
-PUBLIC param_satz_t param;
+PUBLIC int   param_all_tau_mittel_zeit; /**< Zeit ueber die die Aussentemperatur gemittelt wird (in Stunden)           */
+PUBLIC int   param_all_partydauer;      /**< Fussbodenheizkreis Dauer der Betriebsverlaengerung (in Minuten)           */
+PUBLIC float param_all_frostschutz;     /**< Aussentemperatur unter der Heizkreis immer in Betrieb in Grad C           */
+PUBLIC float param_all_at_start;        /**< Aussentemperatur unter der Heizung startet in Grad C                      */
+                                                                                                                      
+PUBLIC float param_sol_dt_ein_sw;       /**< Einschalt-Differenztemp. fuer Solarpumpe und Speicherabsperrv. in Grad C  */
+PUBLIC float param_sol_dt_aus_sw;       /**< Ausschalt-Differenztemp. fuer Solarpumpe und Speicherabsperrv. in Grad C  */
+PUBLIC float param_sol_koll_t_max;      /**< Max. Kollektortemperatur in Grad C                                        */
+PUBLIC float param_sol_sp_t_max;        /**< Max. Speichertemperatur in Grad C                                         */
+PUBLIC float param_sol_sp1_t_min;       /**< Min. Temperatur Speicher 1 in Grad C                                      */
+                                                                                                                       
+PUBLIC float param_kes_sp_dt_sw;        /**< Temperaturdifferenz zwischen Kessel- und Speicher-SW in Grad C            */
+                                                                                                                       
+PUBLIC float param_hk_tvl_steigung;     /**< Heizkoerperheizkreis Heizkurvensteigung                                   */
+PUBLIC float param_hk_tvl_niveau;       /**< Heizkoerperheizkreis Heizkurvenparallelverschiebung                       */
+PUBLIC float param_hk_tvl_absenk;       /**< Heizkoerperheizkreis Nachtabsenkung in Grad C                             */
+PUBLIC float param_hk_tvl_min;          /**< Heizkoerperheizkreis Frostschutztemperatur in Grad C                      */
+PUBLIC float param_hk_tvl_max;          /**< Heizkoerperheizkreis maximale Vorlauftemperatur in Grad C                 */
+PUBLIC float param_hk_frostschutz;      /**< Aussentemperatur ab der Heizkreis in Betrieb ist in Grad C                */
+PUBLIC float param_hk_reg_kp;           /**< Heizkoerperheizkreis Verstaerkung PI-Regler in %/K                        */
+PUBLIC float param_hk_reg_ki;           /**< Heizkoerperheizkreis Verstaerkung PI-Regler I-Anteil in %/(K x s)         */
+PUBLIC float param_hk_reg_ap;           /**< Heizkoerperheizkreis Arbeitspunktoffset in %                              */
+PUBLIC float param_hk_tr_sw;            /**< Heizkoerperheizkreis Raumtemperatur Sollwert                              */
+                                                                                                                       
+PUBLIC float param_fb_tvl_steigung;     /**< Fussbodenheizkreis Heizkurvensteigung                                     */
+PUBLIC float param_fb_tvl_niveau;       /**< Fussbodenheizkreis Heizkurven Parallelverschiebung                        */
+PUBLIC float param_fb_tr_sw;            /**< Fussbodenheizkreis Raumtemperatursollwert in Grad C                       */
+PUBLIC float param_fb_tvl_absenk;       /**< Fussbodenheizkreis Nachtabsenkung in Grad C                               */
+PUBLIC float param_fb_tvl_min;          /**< Fussbodenheizkreis Frostschutztemperatur in Grad C                        */
+PUBLIC float param_fb_tvl_max;          /**< Fussbodenheizkreis max. Vorlauftemperatur in Grad C                       */
+PUBLIC float param_fb_reg_kp;           /**< Fussbodenheizkreis Verstaerkung PI-Regler in %/K                          */
+PUBLIC float param_fb_reg_ki;           /**< Fussbodenheizkreis Verstaerkung PI-Regler I-Anteil in %/(K x s)           */
+PUBLIC float param_fb_reg_ap;           /**< Fussbodenheizkreis Arbeitspunktoffset in %                                */
+                                                                                                                       
+PUBLIC float param_ww_tww_sw;           /**< Warmwasser-Temperatur-Sollwert in Grad C                                  */
+PUBLIC float param_ww_tww_max;          /**< Warmwasser-Maximaltemperatur in Grad C                                    */
+PUBLIC float param_wz_faktor;           /**< Waermezaehler auf Pumpenstellbefehl                                       */
+PUBLIC float param_wz_max;              /**< Max. Warmwasserdurchfluss in l/min                                        */
+PUBLIC float param_ww_pu_reg_kp;        /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung Kp                            */
+PUBLIC float param_ww_pu_reg_ki;        /**< WW-Temperatur-Regelung (Pumpe) Verstaerkung Ki in %/(K x s)               */
+PUBLIC float param_ww_pu_reg_ap;        /**< WW-Temperatur-Regelung (Pumpe) Arbeitspunktoffset in %                    */
+PUBLIC float param_ww_mv_korr;          /**< WW Hzg-VL-Temperatur-Steurung (Mischer) Korrekturfaktor                   */
+                                                                                                                       
+PUBLIC float param_ww_tww_tvl_faktor;   /**< Einfluss der WW-Temperatur auf die Heizungs-VL-Temp.                      */
+PUBLIC float param_ww_tz_sw;            /**< Temperatursollwert des Zirkulationswassers in Grad C                      */
+
+PUBLIC u32_t param_sys_zykluszeit;      /**< Zykluszeit des Systems in Millisekunden                                   */
 /* <Variablen/> */
 
 /* <Konstanten> */
 #ifdef _PARAM_C_
 const parse_set_t param_Vorgaben[] = {
-    { "ALL_Tau_mittel_Zeit", &(param.all.tau_mittel_zeit), "%d" },
-    { "ALL_Partydauer",      &(param.all.partydauer),      "%d" },
-    { "ALL_Frostschutz",     &(param.all.frostschutz),     "%f" },
-    { "ALL_AT_Start",        &(param.all.at_start),        "%f" },
-    { "SOL_dT_ein_SW",       &(param.sol.dt_ein_sw),       "%f" },
-    { "SOL_dT_aus_SW",       &(param.sol.dt_aus_sw),       "%f" },
-    { "SOL_KOLL_T_max",      &(param.sol.koll_t_max),      "%f" },
-    { "SOL_SP_T_max",        &(param.sol.sp_t_max),        "%f" },
-    { "SOL_SP1_T_min",       &(param.sol.sp1_t_min),       "%f" },
-    { "KES_SP_dT_SW",        &(param.kes.sp_dt_sw),        "%f" },
-    { "HK_Tvl_Steigung",     &(param.hk.tvl.steigung),     "%f" },
-    { "HK_Tvl_Niveau",       &(param.hk.tvl.niveau),       "%f" },
-    { "HK_Tvl_Absenk",       &(param.hk.tvl.absenk),       "%f" },
-    { "HK_Tvl_Min",          &(param.hk.tvl.min),          "%f" },
-    { "HK_Tvl_Max",          &(param.hk.tvl.max),          "%f" },
-    { "HK_Frostschutz",      &(param.hk.frostschutz),      "%f" },
-    { "HK_REG_Kp",           &(param.hk.reg.kp),           "%f" },
-    { "HK_REG_Ki",           &(param.hk.reg.ki),           "%f" },
-    { "HK_REG_AP",           &(param.hk.reg.ap),           "%f" },
-    { "HK_Tr_SW",            &(param.hk.tr_sw),            "%f" },
-    { "FB_Tvl_Steigung",     &(param.fb.tvl.steigung),     "%f" },
-    { "FB_Tvl_Niveau",       &(param.fb.tvl.niveau),       "%f" },
-    { "FB_Tvl_Absenk",       &(param.fb.tvl.absenk),       "%f" },
-    { "FB_Tvl_Min",          &(param.fb.tvl.min),          "%f" },
-    { "FB_Tvl_Max",          &(param.fb.tvl.max),          "%f" },
-    { "FB_REG_Kp",           &(param.fb.reg.kp),           "%f" },
-    { "FB_REG_Ki",           &(param.fb.reg.ki),           "%f" },
-    { "FB_REG_AP",           &(param.fb.reg.ap),           "%f" },
-    { "FB_Tr_SW",            &(param.fb.tr_sw),            "%f" },
-    { "WW_Tww_SW",           &(param.ww.tww_sw),           "%f" },
-    { "WW_Tww_Max",          &(param.ww.tww_max),          "%f" },
-    { "WZ_Faktor",           &(param.ww.wz_faktor),        "%f" },
-    { "WZ_Max",              &(param.ww.wz_max),           "%f" },
-    { "WW_PU_REG_Kp",        &(param.ww.pu_reg.kp),        "%f" },
-    { "WW_PU_REG_Ki",        &(param.ww.pu_reg.ki),        "%f" },
-    { "WW_PU_REG_AP",        &(param.ww.pu_reg.ap),        "%f" },
-    { "WW_MV_KORR",          &(param.ww.mv_korr),          "%f" },
-    { "WW_Tww_Tvl_Faktor",   &(param.ww.tww_tvl_faktor),   "%f" },
-    { "WW_Tz_SW",            &(param.ww.tz_sw),            "%f" },
-    { "SYS_Zykluszeit",      &(param.sys.zykluszeit),      "%d" },
+    { "ALL_Tau_mittel_Zeit", &param_all_tau_mittel_zeit, "%d" },
+    { "ALL_Partydauer",      &param_all_partydauer,      "%d" },
+    { "ALL_Frostschutz",     &param_all_frostschutz,     "%f" },
+    { "ALL_AT_Start",        &param_all_at_start,        "%f" },
+    { "SOL_dT_ein_SW",       &param_sol_dt_ein_sw,       "%f" },
+    { "SOL_dT_aus_SW",       &param_sol_dt_aus_sw,       "%f" },
+    { "SOL_KOLL_T_max",      &param_sol_koll_t_max,      "%f" },
+    { "SOL_SP_T_max",        &param_sol_sp_t_max,        "%f" },
+    { "SOL_SP1_T_min",       &param_sol_sp1_t_min,       "%f" },
+    { "KES_SP_dT_SW",        &param_kes_sp_dt_sw,        "%f" },
+    { "HK_Tvl_Steigung",     &param_hk_tvl_steigung,     "%f" },
+    { "HK_Tvl_Niveau",       &param_hk_tvl_niveau,       "%f" },
+    { "HK_Tvl_Absenk",       &param_hk_tvl_absenk,       "%f" },
+    { "HK_Tvl_Min",          &param_hk_tvl_min,          "%f" },
+    { "HK_Tvl_Max",          &param_hk_tvl_max,          "%f" },
+    { "HK_Frostschutz",      &param_hk_frostschutz,      "%f" },
+    { "HK_REG_Kp",           &param_hk_reg_kp,           "%f" },
+    { "HK_REG_Ki",           &param_hk_reg_ki,           "%f" },
+    { "HK_REG_AP",           &param_hk_reg_ap,           "%f" },
+    { "HK_Tr_SW",            &param_hk_tr_sw,            "%f" },
+    { "FB_Tvl_Steigung",     &param_fb_tvl_steigung,     "%f" },
+    { "FB_Tvl_Niveau",       &param_fb_tvl_niveau,       "%f" },
+    { "FB_Tr_SW",            &param_fb_tr_sw,            "%f" },
+    { "FB_Tvl_Absenk",       &param_fb_tvl_absenk,       "%f" },
+    { "FB_Tvl_Min",          &param_fb_tvl_min,          "%f" },
+    { "FB_Tvl_Max",          &param_fb_tvl_max,          "%f" },
+    { "FB_REG_Kp",           &param_fb_reg_kp,           "%f" },
+    { "FB_REG_Ki",           &param_fb_reg_ki,           "%f" },
+    { "FB_REG_AP",           &param_fb_reg_ap,           "%f" },
+    { "WW_Tww_SW",           &param_ww_tww_sw,           "%f" },
+    { "WW_Tww_Max",          &param_ww_tww_max,          "%f" },
+    { "WZ_Faktor",           &param_wz_faktor,           "%f" },
+    { "WZ_Max",              &param_wz_max,              "%f" },
+    { "WW_PU_REG_Kp",        &param_ww_pu_reg_kp,        "%f" },
+    { "WW_PU_REG_Ki",        &param_ww_pu_reg_ki,        "%f" },
+    { "WW_PU_REG_AP",        &param_ww_pu_reg_ap,        "%f" },
+    { "WW_MV_KORR",          &param_ww_mv_korr,          "%f" },
+    { "WW_Tww_Tvl_Faktor",   &param_ww_tww_tvl_faktor,   "%f" },
+    { "WW_Tz_SW",            &param_ww_tz_sw,            "%f" },
+    { "SYS_Zykluszeit",      &param_sys_zykluszeit,      "%d" },
     
 };
 const int param_Vorgaben_len = sizeof(param_Vorgaben)/sizeof(parse_set_t);
