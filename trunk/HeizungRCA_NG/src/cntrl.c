@@ -96,7 +96,7 @@ void cntrl_open( void )
         sol_Init( &cntrl_sol );
         fb_Init( &cntrl_fb );
         hk_Init( &cntrl_hk );
-        ww_Init( &cntrl_ww );
+        ww_Init( &cntrl_ww, io_get_WW_WZ_MW() );
         kes_Init( &cntrl_kes );
 
         /*----- Module aktivieren ----*/

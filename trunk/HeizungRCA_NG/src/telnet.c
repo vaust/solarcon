@@ -305,7 +305,7 @@ void *telnet_Task( void *arg )
                         sol_Init( &cntrl_sol );
                         fb_Init( &cntrl_fb );
                         hk_Init( &cntrl_hk );
-                        ww_Init( &cntrl_ww );
+                        ww_Init( &cntrl_ww, io_get_WW_WZ_MW() );
                         kes_Init( &cntrl_kes );
                         // systimer_init(); // Momentan nicht in Verwendung
                         snprintf( bufout, BFLN, "\tParameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
@@ -719,6 +719,8 @@ void telnet_writeWW( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "WW_HZG_MV_Y      = %5.1f pct\n", io_get_WW_HZG_MV_Y() );   BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_PU_Y      = %5.1f pct\n", io_get_WW_HZG_PU_Y() );   BFLSH();
     snprintf( bufout, BFLN, "WW_PARTY = %s", (io_get_WW_PARTY() == IO_AUS) ? "AUS\n" : "EIN" ); BFLSH();
+    snprintf( bufout, BFLN, "Wasserzaehler    = %6d\n", io_get_WW_WZ_MW() );            BFLSH();
+
     if (io_get_WW_PARTY() != IO_AUS) {
         snprintf( bufout, BFLN, "\t seit %d min, noch %d min aktiv\n",
         param_all_partydauer - cntrl_zeit_party.ww.party_restzeit_min, cntrl_zeit_party.ww.party_restzeit_min );

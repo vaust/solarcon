@@ -31,6 +31,15 @@
 #include "io_wago_hwif.h"
 #include "io_v2.h"
 
+#ifdef __WAGO__
+#include <asm/types.h>
+#include "kbusapi.h"
+#define KBUSUPDATE() KbusUpdate()
+#else
+#define KBUSUPDATE()
+#endif
+
+
 /**
  *  \brief Initialisierung der Temperaturmessobjekte.
  *
@@ -167,12 +176,32 @@ io_obj_status_t io_WriteY( io_ao10V_obj_t *self, float val )
 }
 
 /**
- * \brief Alle IOs (Temperaturen und 0-10V Ausgaenge) initialisieren.
+ * \brief Wasserzaehler initialisieren
+ */
+static
+void io_InitWz( void )
+{
+    pabOut_p->aout.all_wz.status_steuer.no_ueberlauf = 0;  /* Ueberlauf erlauben */
+    pabOut_p->aout.all_wz.status_steuer.rueckwaerts  = 0;  /* vorwaerts zaehlern */
+    pabOut_p->aout.all_wz.status_steuer.sperren      = 1;
+    KBUSUPDATE();
+    pabOut_p->aout.all_wz.bw.cntWord                 = 0x0000;
+    pabOut_p->aout.all_wz.status_steuer.setzen       = 1;
+    KBUSUPDATE();
+    pabOut_p->aout.all_wz.status_steuer.setzen       = 0;
+    pabOut_p->aout.all_wz.status_steuer.sperren      = 0;
+    KBUSUPDATE();
+}
+
+/**
+ * \brief Alle IOs (Temperaturen, 0-10V Ausgaenge und Wasserzaehler) initialisieren.
  */
 void io_Init( void )
 {
     io_InitYall();
     io_InitTall();
+    io_InitWz();
+
 #ifndef __WAGO__ // Temperaturwertsimulation
     pab_Dbg_In.ain.all_tau_mw     = 125;
     pab_Dbg_In.ain.sol_koll_t_mw  = 1015;
