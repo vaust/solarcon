@@ -106,8 +106,10 @@ void ww_Schwachlast_Steuerung( ww_class_t *self )
  * \param self Pointer auf Instanz der Klasse ww_class_t
  * \return kein
  */
-void ww_Init( ww_class_t *self )
+void ww_Init( ww_class_t *self, u16_t akt_wz )
 {
+    int n;
+
     self->p.kes_sp_dt_sw        = param_kes_sp_dt_sw;
     self->p.tww_sw              = param_ww_tww_sw;
     self->p.frostschutz         = param_all_frostschutz;
@@ -127,6 +129,20 @@ void ww_Init( ww_class_t *self )
                                   &(self->o.hzg_pu_y),
                                   &(self->p.tww_sw),
                                   &(self->i.tww_mw)    );
+
+    for( n=0; n<MAX_WZ_HISTORY; n++) {
+        self->wz_history[n] = akt_wz;
+    }
+}
+
+/**
+ * \brief Berechne den Durchfluss an Warmwasser
+ *
+ */
+static
+u16_t ww_calcDurchfluss( ww_class_t *self )
+{
+    return 0;
 }
 
 /**

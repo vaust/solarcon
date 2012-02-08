@@ -63,7 +63,7 @@ di_bitbyte_t io_get_FB_SEK_TW( void );                  /**< Fussbodenheizung, S
 float io_get_WW_HZG_Tvl_MW( void );                     /**< Warmwasser, Heizungsvorlauftemperatur, AI, Pt1000 */
 float io_get_WW_HZG_Trl_MW( void );                     /**< Warmwasser, Heizungsruecklauftemperatur, AI, Pt1000 */
 float io_get_WW_Tww_MW( void );                         /**< Warmwasser-Temperatur, AI, Pt1000 */
-u32_t io_get_WW_WZ_MW( void );                          /**< Warmwasserzaehler, Zaehlereingang */
+u16_t io_get_WW_WZ_MW( void );                          /**< Warmwasserzaehler, Zaehlereingang */
 void io_put_WW_HZG_MV_Y( float pct );                   /**< Warmwasser, Heizungsmischventil, Vorlauf, AO, 0-10V */
 float io_get_WW_HZG_MV_Y( void );                       /**< Warmwasser, Heizungsmischventil, Vorlauf, AO, 0-10V */
 di_bitbyte_t io_put_WW_HZG_VV_SB( do_bitbyte_t sb );    /**< Warmwasser, Heizungsverteilventil, Ruecklauf, (auf/zu), DO, 24V Ausgang auf Relais */
@@ -80,7 +80,6 @@ di_bitbyte_t io_get_STOERUNG( void );                   /**< Gesamtstörmeldung 
 di_bitbyte_t io_put_CONTROL_AKTIV( do_bitbyte_t sb );   /**< Ausgang Steuerung aktiv */    
 di_bitbyte_t io_get_CONTROL_AKTIV( void );              /**< Ausgang Steuerung aktiv */    
 /* <Prototypen/> */
-
 #endif /* _IO_H_ */
 
 

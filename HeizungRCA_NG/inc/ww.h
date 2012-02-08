@@ -25,6 +25,7 @@
 /* <Defines> */
 #define WW_VV_SP1       0x00
 #define WW_VV_SP2       0x01
+#define MAX_WZ_HISTORY    60
 /* <Defines> */
 
 /* <Typen> */
@@ -45,7 +46,7 @@ typedef struct ww_in_s {
     float tww_mw;
     float tau_mw;
     float tau_avg;
-    u32_t wz_mw;                    /**< Zaehlerstand des Wasserzaehlers (noch nicht in Verwendung */
+    u16_t wz_mw;                    /**< Zaehlerstand des Wasserzaehlers (noch nicht in Verwendung */
     float hzg_tvl_mw;
     float hzg_trl_mw;
     float hk_tvl_sw;
@@ -72,13 +73,15 @@ typedef struct ww_class_s {
     ww_param_t  p;
     ww_in_t     i;
     ww_out_t    o;
-    u16_t       schwachlastzeit;    /**< Schwachlaststeuerung komponententauglich */
+    u16_t       schwachlastzeit;             /**< Schwachlaststeuerung komponententauglich    */
+    u16_t       wz_history[MAX_WZ_HISTORY];  /**< Während jedem Aufruf die Möglichkeit haben Durchfluss zu messen */
+
 } ww_class_t;
 
 /* <Typen/> */
 
 /* <Prototypen> */
-void ww_Init( ww_class_t *self );
+void ww_Init( ww_class_t *self, u16_t akt_wz );
 void ww_Run( ww_class_t *self );
 void ww_WriteInp(       ww_class_t *self,
                   const float       tww_mw,

@@ -278,10 +278,9 @@ float io_get_WW_Tww_MW( void )
 }
 
 /** Warmwasserzaehler, Zaehlereingang */
-u32_t io_get_WW_WZ_MW( void )
+u16_t io_get_WW_WZ_MW( void )
 {
-    // TODO:    return (pabIn_p->din.ww_wz_mw)
-    return 9999;
+    return (pabIn_p->ain.all_wz.bw.cntWord);
 }
 
 /** Warmwasser, Heizungsmischventil, Vorlauf, AO, 0-10V */
