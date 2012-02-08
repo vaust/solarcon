@@ -75,7 +75,7 @@ typedef struct ww_class_s {
     ww_out_t    o;
     u16_t       schwachlastzeit;             /**< Schwachlaststeuerung komponententauglich    */
     u16_t       wz_history[MAX_WZ_HISTORY];  /**< Während jedem Aufruf die Möglichkeit haben Durchfluss zu messen */
-
+    u16_t       ringzaehler;                 /**< Ringzaehler fuer Durchflussmessung */
 } ww_class_t;
 
 /* <Typen/> */
@@ -87,7 +87,7 @@ void ww_WriteInp(       ww_class_t *self,
                   const float       tww_mw,
                   const float       tau_mw,
                   const float       tau_avg,
-                  const u32_t       wz_mw,
+                  const u16_t       wz_mw,
                   const float       hzg_tvl_mw,
                   const float       hzg_trl_mw,
                   const float       hk_tvl_sw,

@@ -133,16 +133,28 @@ void ww_Init( ww_class_t *self, u16_t akt_wz )
     for( n=0; n<MAX_WZ_HISTORY; n++) {
         self->wz_history[n] = akt_wz;
     }
+    self->ringzaehler = 0;
 }
 
 /**
- * \brief Berechne den Durchfluss an Warmwasser
+ * \brief Berechne den Durchfluss an Warmwasser innerhalb von \ref MAX_WZ_HISTORY Aufrufen
+ *
+ * Es wird die gleitende Differenz der Wasserzaehlerwerte ueber eine Zeitspanne von
+ * \ref MAX_WZ_HISTORY x \ref ABTASTZEIT berechnet
  *
  */
 static
-u16_t ww_calcDurchfluss( ww_class_t *self )
+s16_t ww_calcDurchfluss( ww_class_t *self )
 {
-    return 0;
+    s16_t   wz_diff;
+
+    wz_diff = self->i.wz_mw - self->wz_history[self->ringzaehler];
+    self->wz_history[self->ringzaehler] = self->i.wz_mw;
+    self->ringzaehler ++;
+    if( self->ringzaehler > MAX_WZ_HISTORY )
+        self->ringzaehler = 0;
+
+    return wz_diff;
 }
 
 /**
@@ -153,8 +165,28 @@ u16_t ww_calcDurchfluss( ww_class_t *self )
   */
 void ww_Run( ww_class_t *self )
 {
-    /* WW Heizungspumpe immer ein! */
-    self->o.hzg_pu_sb = IO_EIN;
+    /*
+    Anforderungen an WW Heizungspumpe:
+    1. Wenn 1 Minute (Parameter anlegen) kein Wasser verbraucht wurde,
+         dann Warmwasserheizungspumpe abschalten (geregelte Pumpe 0-10v)
+
+    2. Die Pumpe muss laufen, wenn
+         Außentemp. < -3°C UND WW-Temp. < 20°C (Gleiche Bedingungen, wie bei Zirkulationspumpe)
+    -    Die Pumpe mit einer Hysterese solange laufen lassen, bis WW-Temp. >  25°C
+
+    3.  2. Anforderung ist  höher prior als 1. Anforderung
+    */
+    if( (self->i.tww_mw < 20.0) && (self->i.tau_mw < self->p.frostschutz) ) {
+        self->o.hzg_pu_sb = IO_EIN;
+    }
+    else if( self->i.tww_mw > 25.0 ) {
+        if( ww_calcDurchfluss(self) != 0 ) {
+            self->o.hzg_pu_sb = IO_EIN;
+        }
+        else {
+            self->o.hzg_pu_sb = IO_AUS;
+        }
+    }
 
     /* Zirkulationspumpe ansteuern */
     if( (self->i.zirkzustand == zEin) || (self->i.tau_mw < self->p.frostschutz) )
@@ -184,7 +216,7 @@ void ww_WriteInp(           ww_class_t *self,
                       const float       tww_mw,
                       const float       tau_mw,
                       const float       tau_avg,
-                      const u32_t       wz_mw,
+                      const u16_t       wz_mw,
                       const float       hzg_tvl_mw,
                       const float       hzg_trl_mw,
                       const float       hk_tvl_sw,
