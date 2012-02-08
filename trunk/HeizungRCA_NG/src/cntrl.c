@@ -206,7 +206,7 @@ void cntrl_run( int sig )
             ww_WriteInp( &cntrl_ww, io_WW_Tww_MW.messwert,
                                     io_ALL_Tau_MW.messwert,
                                     cntrl_tau.t_36h_mittel,
-                                    0,  /* Wasserzaehler ist noch nicht genutzt */
+                                    io_get_WW_WZ_MW(),
                                     io_HK_Tvl_MW.messwert,
                                     io_HK_Trl_MW.messwert,
                                     cntrl_hk.o.tvl_sw, /* ww_Run() abhaengig von Ausgabe hk_Run() */
