@@ -13,8 +13,8 @@ import gui_overview
 import gui_FB
 
 import telnetIf
-# import main
-import time
+import main
+# import time
 
 root=tk.Tk()
 PD = 5
@@ -45,17 +45,18 @@ guiAll.pack()
 guiFB = gui_FB.GuiFB(nbook.FB)
 guiFB.pack()
 
-iF = telnetIf.TelnetInterface('192.168.3.33', 1969, 10)
+iF = telnetIf.TelnetInterface('stegmann.homelinux.org', 1969, 10)
 
 guiFB.MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben
 guiFB.MvReglerParamLesen = iF.Fb_MvReglerParamLesen
 
 def update():
     iF.ErmittleMesswerte()
-    guiAll.updateLabels(iF.t_dict, iF.pu_dict, iF.mv_dict, iF.di_dict, iF.cnt_dict, iF.av_dict)
+    guiAll.updateLabels(iF.t_dict, iF.pu_dict, iF.mv_dict, 
+                        iF.di_dict, iF.cnt_dict, iF.av_dict)
     guiFB.updateLabels(iF.t_dict)
-
-
-update()
+    
+updateBtn = tk.Button(text='Update', command=update)
+updateBtn.pack()
 
 root.mainloop()

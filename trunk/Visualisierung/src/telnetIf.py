@@ -49,7 +49,7 @@ class TelnetInterface(telnetlib.Telnet):
                     self.av_dict[name] = str( line.split('=')[1] ).lstrip()
 
         lines = self.HoleAntwort( b"GET AO\n" )
-        for name in signals.MV_NAMES:
+        for name in signals.AO_NAMES:
             self.mv_dict[name] = 0.0
             for line in lines:
                 if (line.startswith(name)):
