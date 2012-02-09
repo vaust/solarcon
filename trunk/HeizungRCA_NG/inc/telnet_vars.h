@@ -26,7 +26,6 @@ static const parse_set_t telnet_fb_Vars[] =
     { "fb.reg.p.ki",           &(cntrl_fb.reg.p.ki),           "%f" },
     { "fb.reg.p.ap",           &(cntrl_fb.reg.p.ap),           "%f" },
     { "fb.reg.p.TA",           &(cntrl_fb.reg.p.TA),           "%f" },
-    { "fb.reg.p.ki_x_TA",      &(cntrl_fb.reg.p.ki_x_TA),      "%f" },
     { "fb.reg.p.lower_limit",  &(cntrl_fb.reg.p.lower_limit),  "%f" },
     { "fb.reg.p.upper_limit",  &(cntrl_fb.reg.p.upper_limit),  "%f" },
 
@@ -60,7 +59,6 @@ static const parse_set_t telnet_hk_Vars[] =
     { "hk.reg.p.ki",           &(cntrl_hk.reg.p.ki),           "%f" },
     { "hk.reg.p.ap",           &(cntrl_hk.reg.p.ap),           "%f" },
     { "hk.reg.p.TA",           &(cntrl_hk.reg.p.TA),           "%f" },
-    { "hk.reg.p.ki_x_TA",      &(cntrl_hk.reg.p.ki_x_TA),      "%f" },
     { "hk.reg.p.lower_limit",  &(cntrl_hk.reg.p.lower_limit),  "%f" },
     { "hk.reg.p.upper_limit",  &(cntrl_hk.reg.p.upper_limit),  "%f" },
 
@@ -94,7 +92,6 @@ static const parse_set_t telnet_ww_Vars[] =
     { "ww.reg_pu.p.ki",           &(cntrl_ww.reg_pu.p.ki),           "%f" },
     { "ww.reg_pu.p.ap",           &(cntrl_ww.reg_pu.p.ap),           "%f" },
     { "ww.reg_pu.p.TA",           &(cntrl_ww.reg_pu.p.TA),           "%f" },
-    { "ww.reg_pu.p.ki_x_TA",      &(cntrl_ww.reg_pu.p.ki_x_TA),      "%f" },
     { "ww.reg_pu.p.lower_limit",  &(cntrl_ww.reg_pu.p.lower_limit),  "%f" },
     { "ww.reg_pu.p.upper_limit",  &(cntrl_ww.reg_pu.p.upper_limit),  "%f" },
 
