@@ -105,7 +105,7 @@ typedef struct parse_set_s {
 #ifdef _PARAM_C_
     #define PUBLIC
 #else
-    #define PUBLIC extern const
+    #define PUBLIC extern // const
 #endif
 
 PUBLIC int   param_all_tau_mittel_zeit; /**< Zeit ueber die die Aussentemperatur gemittelt wird (in Stunden)           */
