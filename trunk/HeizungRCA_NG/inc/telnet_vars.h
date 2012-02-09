@@ -259,6 +259,7 @@ static const char *telnet_help_text[] =
     "\tGET VSOL <n> : SOL Modul: Parameter-, Eingangs- und Ausgangsvariablen\n",
     "\tGET VKES <n> : KES Modul: Parameter-, Eingangs- und Ausgangsvariablen\n",
     "\tGET VERR <n> : ERR Modul: Parameter-, Eingangs- und Ausgangsvariablen\n",
+    "\tGET VPAR <n> : Parametervorgabevariable direkt aus Speicher lesen (vgl. GET PAR)\n",
     "\t               <n> Nummer der Variablen oder -1 für komplette Liste\n\n",
 
     "\tPUT V<mdl> <var-nr> <=| > <wert> \n",
