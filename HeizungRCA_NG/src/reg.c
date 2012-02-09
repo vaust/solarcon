@@ -87,7 +87,6 @@ void reg_PI_Init(       reg_class_t *self,
     self->p.TA = TA;
     self->p.kp = kp;
     self->p.ki = ki;
-    self->p.ki_x_TA = ki * TA;
     self->p.ap = ap;
     self->p.lower_limit = lower_limit;
     self->p.upper_limit = upper_limit;
@@ -111,7 +110,7 @@ float reg_PI_Run( reg_class_t *self )
     /* x[3] : Anti Windup Rueckfuehrung         */
     
     self->x[0] =  *(self->soll) - *(self->ist);
-    self->x[1] += self->p.ki_x_TA * self->x[0] - self->x[3];
+    self->x[1] += self->p.ki * self->p.TA * self->x[0] - self->x[3];
     self->x[2] =  self->p.kp * self->x[0] + self->x[1] + self->p.ap;
 
     *(self->y) = reg_Limit( self->x[2], self->p.lower_limit, self->p.upper_limit );
