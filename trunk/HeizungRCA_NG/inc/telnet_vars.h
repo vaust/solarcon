@@ -100,6 +100,8 @@ static const parse_set_t telnet_ww_Vars[] =
 
     { "ww.p.kes_sp_dt_sw",        &(cntrl_ww.p.kes_sp_dt_sw),        "%f" },
     { "ww.p.tww_sw",              &(cntrl_ww.p.tww_sw),              "%f" },
+    { "ww.p.tww_min_sw",          &(cntrl_ww.p.tww_min_sw),          "%f" },
+    { "ww.p.tww_hyst_sw",         &(cntrl_ww.p.tww_hyst_sw),         "%f" },
     { "ww.p.frostschutz",         &(cntrl_ww.p.frostschutz),         "%f" },
     { "ww.p.at_start",            &(cntrl_ww.p.at_start),            "%f" },
     { "ww.p.mv_korr",             &(cntrl_ww.p.mv_korr),             "%f" },
@@ -173,8 +175,8 @@ static const parse_set_t telnet_kes_Vars[] =
 
 static const parse_set_t telnet_err_Vars[] =
 {
-    { "err.p.br_TimeOut",           &(cntrl_err.p.br_TimeOut),           "%d" },
-    { "err.p.dt",                   &(cntrl_err.p.dt),                   "%f" },
+    { "err.p.br_TimeOut",            &(cntrl_err.p.br_TimeOut),            "%d" },
+    { "err.p.dt",                    &(cntrl_err.p.dt),                    "%f" },
 
     { "err.i.kes_tvl_sw",            &(cntrl_err.i.kes_tvl_sw),            "%f" },
     { "err.i.kes_tvl_mw",            &(cntrl_err.i.kes_tvl_mw),            "%f" },
@@ -186,8 +188,8 @@ static const parse_set_t telnet_err_Vars[] =
     { "err.i.ao_errcnt",             &(cntrl_err.i.ao_errcnt),             "%d" },
     { "err.i.common_errcnt",         &(cntrl_err.i.common_errcnt),         "%d" },
     
-    { "err.o.br_Countdown",         &(cntrl_err.o.br_Countdown),         "%d" },
-    { "err.o.Sammelstoermeldung",   &(cntrl_err.o.Sammelstoermeldung),   "%x" }
+    { "err.o.br_Countdown",          &(cntrl_err.o.br_Countdown),          "%d" },
+    { "err.o.Sammelstoermeldung",    &(cntrl_err.o.Sammelstoermeldung),    "%x" }
 };
 
 static const parse_set_t telnet_param_Vars[] =

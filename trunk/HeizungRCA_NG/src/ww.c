@@ -112,11 +112,13 @@ void ww_Init( ww_class_t *self, u16_t akt_wz )
 
     self->p.kes_sp_dt_sw        = param_kes_sp_dt_sw;
     self->p.tww_sw              = param_ww_tww_sw;
+    self->p.tww_min_sw          = 20.0;     /* todo Parameter anlegen */
+    self->p.tww_hyst_sw         =  5.0;     /* todo Parameter anlegen */
     self->p.frostschutz         = param_all_frostschutz;
     self->p.at_start            = param_all_at_start;
     self->p.mv_korr             = param_ww_mv_korr;
-    self->p.hzg_pu_y_min        = 11.0;
-    self->p.schwachlastzeit_max = 300;
+    self->p.hzg_pu_y_min        = 11.0;     /* todo Parameter anlegen */
+    self->p.schwachlastzeit_max = 300;      /* todo Parameter anlegen */
     self->p.schwachlast_aktiv   = zEin;
     self->schwachlastzeit       = 0;        /* Schwachlaststeuerung komponententauglich */
 
@@ -176,10 +178,10 @@ void ww_Run( ww_class_t *self )
 
     3.  2. Anforderung ist höher prior als 1. Anforderung
     */
-    if( (self->i.tww_mw < 20.0) && (self->i.tau_mw < self->p.frostschutz) ) {
+    if( (self->i.tww_mw < self->p.tww_min_sw) && (self->i.tau_mw < self->p.frostschutz) ) {
         self->o.hzg_pu_sb = IO_EIN;
     }
-    else if( self->i.tww_mw > 25.0 ) {
+    else if( self->i.tww_mw > (self->p.tww_min_sw + self->p.tww_hyst_sw) ) {
         if( ww_calcDurchfluss(self) != 0 ) {
             self->o.hzg_pu_sb = IO_EIN;
         }

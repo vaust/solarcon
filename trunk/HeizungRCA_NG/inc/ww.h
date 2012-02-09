@@ -33,8 +33,10 @@
 typedef struct ww_param_s {
     float kes_sp_dt_sw;
     float tww_sw;                   /**< Warmwasser Temperatur Sollwert                           */
+    float tww_min_sw;               /**< Minimale WW-Temperatur bei der Pumpe einschaltet         */
+    float tww_hyst_sw;              /**< Hysteres für Pumpenausschaltung                          */
     float frostschutz;              /**< Aussentemperatur ab der die Zirkulation dauerhaft laeuft */
-    float at_start;
+    float at_start;                 /**< Aussentemperatur ab der die Pumpen einschalten muessen   */
     float mv_korr;
     float hzg_pu_y_min;             /**< minimaler Prozentsatz ab der die Pumpe laeuft            */
     ein_aus_t schwachlast_aktiv;    /**< Schwachlaststeuerung per Diagnose ein-/ausschaltbar */
