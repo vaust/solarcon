@@ -190,6 +190,50 @@ static const parse_set_t telnet_err_Vars[] =
     { "err.o.Sammelstoermeldung",   &(cntrl_err.o.Sammelstoermeldung),   "%x" }
 };
 
+static const parse_set_t telnet_param_Vars[] =
+{
+    { "param_all_tau_mittel_zeit",   &(param_all_tau_mittel_zeit),     "%d" },
+    { "param_all_partydauer",        &(param_all_partydauer),          "%d" },
+    { "param_all_frostschutz",       &(param_all_frostschutz),         "%f" },
+    { "param_all_at_start",          &(param_all_at_start),            "%f" },
+    { "param_sol_dt_ein_sw",         &(param_sol_dt_ein_sw),           "%f" },
+    { "param_sol_dt_aus_sw",         &(param_sol_dt_aus_sw),           "%f" },
+    { "param_sol_koll_t_max",        &(param_sol_koll_t_max),          "%f" },
+    { "param_sol_sp_t_max",          &(param_sol_sp_t_max),            "%f" },
+    { "param_sol_sp1_t_min",         &(param_sol_sp1_t_min),           "%f" },
+    { "param_kes_sp_dt_sw",          &(param_kes_sp_dt_sw),            "%f" },
+    { "param_hk_tvl_steigung",       &(param_hk_tvl_steigung),         "%f" },
+    { "param_hk_tvl_niveau",         &(param_hk_tvl_niveau),           "%f" },
+    { "param_hk_tvl_absenk",         &(param_hk_tvl_absenk),           "%f" },
+    { "param_hk_tvl_min",            &(param_hk_tvl_min),              "%f" },
+    { "param_hk_tvl_max",            &(param_hk_tvl_max),              "%f" },
+    { "param_hk_frostschutz",        &(param_hk_frostschutz9,          "%f" },
+    { "param_hk_reg_kp",             &(param_hk_reg_kp),               "%f" },
+    { "param_hk_reg_ki",             &(param_hk_reg_ki),               "%f" },
+    { "param_hk_reg_ap",             &(param_hk_reg_ap),               "%f" },
+    { "param_hk_tr_sw",              &(param_hk_tr_sw),                "%f" },
+    { "param_fb_tvl_steigung",       &(param_fb_tvl_steigung),         "%f" },
+    { "param_fb_tvl_niveau",         &(param_fb_tvl_niveau),           "%f" },
+    { "param_fb_tr_sw",              &(param_fb_tr_sw),                "%f" },
+    { "param_fb_tvl_absenk",         &(param_fb_tvl_absenk),           "%f" },
+    { "param_fb_tvl_min",            &(param_fb_tvl_min),              "%f" },
+    { "param_fb_tvl_max",            &(param_fb_tvl_max),              "%f" },
+    { "param_fb_reg_kp",             &(param_fb_reg_kp),               "%f" },
+    { "param_fb_reg_ki",             &(param_fb_reg_ki),               "%f" },
+    { "param_fb_reg_ap"              &(param_fb_reg_ap),               "%f" },
+    { "param_ww_tww_sw",             &(param_ww_tww_sw),               "%f" },
+    { "param_ww_tww_max",            &(param_ww_tww_max),              "%f" },
+    { "param_wz_faktor",             &(param_wz_faktor),               "%f" },
+    { "param_wz_max",                &(param_wz_max),                  "%f" },
+    { "param_ww_pu_reg_kp",          &(param_ww_pu_reg_kp),            "%f" },
+    { "param_ww_pu_reg_ki",          &(param_ww_pu_reg_ki),            "%f" },
+    { "param_ww_pu_reg_ap",          &(param_ww_pu_reg_ap),            "%f" },
+    { "param_ww_mv_korr",            &(param_ww_mv_korr),              "%f" },
+    { "param_ww_tww_tvl_faktor",     &(param_ww_tww_tvl_faktor),       "%f" },
+    { "param_ww_tz_sw",              &(param_ww_tz_sw),                "%f" },
+    { "param_sys_zykluszeit",        &(param_sys_zykluszeit),          "%f" }
+}
+
 static const char *telnet_help_text[] =
 {
     "\nMögliche Befehle: \n\n",

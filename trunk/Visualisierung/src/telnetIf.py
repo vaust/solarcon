@@ -12,12 +12,12 @@ import signals
 class TelnetInterface(telnetlib.Telnet):
     def __init__(self, host, port, timeout):
         telnetlib.Telnet.__init__(self, host, port, timeout)
-        self.t_dict = dict()
-        self.pu_dict = dict()
-        self.mv_dict = dict()
-        self.di_dict = dict()
-        self.cnt_dict = dict()
-        self.av_dict = dict()
+        self.t = dict()
+        self.pu = dict()
+        self.mv = dict()
+        self.di = dict()
+        self.cnt = dict()
+        self.av = dict()
         
     def HoleAntwort(self, cmdstr):
         self.write(cmdstr)
@@ -30,40 +30,40 @@ class TelnetInterface(telnetlib.Telnet):
     def ErmittleMesswerte(self):
         lines = self.HoleAntwort( b"GET T\n" )
         for name in signals.TEMP_NAMES:
-            self.t_dict[name] = 0.0
+            self.t[name] = 0.0
             for line in lines:
                 if (line.startswith(name)):
-                    self.t_dict[name] = float( line.split('=')[1].split('°')[0] )
+                    self.t[name] = float( line.split('=')[1].split('°')[0] )
                 
         lines = self.HoleAntwort( b"GET DO\n" )
         for name in signals.PU_NAMES:
-            self.pu_dict[name] = ''
+            self.pu[name] = ''
             for line in lines:
                 if (line.startswith(name)):
-                    self.pu_dict[name] = str( line.split('=')[1] ).lstrip()
+                    self.pu[name] = str( line.split('=')[1] ).lstrip()
                     
         for name in signals.AV_NAMES:
-            self.av_dict[name]=''
+            self.av[name]=''
             for line in lines:
                 if (line.startswith(name)):
-                    self.av_dict[name] = str( line.split('=')[1] ).lstrip()
+                    self.av[name] = str( line.split('=')[1] ).lstrip()
 
         lines = self.HoleAntwort( b"GET AO\n" )
         for name in signals.AO_NAMES:
-            self.mv_dict[name] = 0.0
+            self.mv[name] = 0.0
             for line in lines:
                 if (line.startswith(name)):
-                    self.mv_dict[name] = float( line.split('=')[1].split('p')[0] )
+                    self.mv[name] = float( line.split('=')[1].split('p')[0] )
 
         lines = self.HoleAntwort( b"GET DI\n" )
         for name in signals.DI_NAMES:
-            self.di_dict[name] = ''
+            self.di[name] = ''
             for line in lines:
                 if (line.startswith(name)):
-                    self.di_dict[name] = str( line.split('=')[1] ).lstrip()
+                    self.di[name] = str( line.split('=')[1] ).lstrip()
         
-        self.cnt_dict['WW_WZ_MW'] = 0
-        return (self.t_dict, self.pu_dict, self.mv_dict, self.di_dict, self.cnt_dict, self.av_dict)
+        self.cnt['WW_WZ_MW'] = 0
+        return (self.t, self.pu, self.mv, self.di, self.cnt, self.av)
 
     def Fb_MvReglerParamSchreiben(self, kp, ki, ap):
         command = "put vfb 00="+str(kp)        

@@ -174,7 +174,7 @@ void ww_Run( ww_class_t *self )
          Außentemp. < -3°C UND WW-Temp. < 20°C (Gleiche Bedingungen, wie bei Zirkulationspumpe)
     -    Die Pumpe mit einer Hysterese solange laufen lassen, bis WW-Temp. >  25°C
 
-    3.  2. Anforderung ist  höher prior als 1. Anforderung
+    3.  2. Anforderung ist höher prior als 1. Anforderung
     */
     if( (self->i.tww_mw < 20.0) && (self->i.tau_mw < self->p.frostschutz) ) {
         self->o.hzg_pu_sb = IO_EIN;

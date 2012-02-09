@@ -11,9 +11,10 @@ import tkinter.ttk as ttk
 
 import gui_overview
 import gui_FB
+import gui_Param
 
 import telnetIf
-import main
+# import main
 # import time
 
 root=tk.Tk()
@@ -45,6 +46,9 @@ guiAll.pack()
 guiFB = gui_FB.GuiFB(nbook.FB)
 guiFB.pack()
 
+guiParam = gui_Param.GuiParam(nbook.PAR)
+guiParam.pack()
+
 iF = telnetIf.TelnetInterface('stegmann.homelinux.org', 1969, 10)
 
 guiFB.MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben
@@ -52,9 +56,8 @@ guiFB.MvReglerParamLesen = iF.Fb_MvReglerParamLesen
 
 def update():
     iF.ErmittleMesswerte()
-    guiAll.updateLabels(iF.t_dict, iF.pu_dict, iF.mv_dict, 
-                        iF.di_dict, iF.cnt_dict, iF.av_dict)
-    guiFB.updateLabels(iF.t_dict)
+    guiAll.updateLabels(iF.t, iF.pu, iF.mv, iF.di, iF.cnt, iF.av)
+    guiFB.updateLabels(iF.t)
     
 updateBtn = tk.Button(text='Update', command=update)
 updateBtn.pack()
