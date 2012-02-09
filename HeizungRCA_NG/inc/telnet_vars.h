@@ -209,7 +209,7 @@ static const parse_set_t telnet_param_Vars[] =
     { "param_hk_tvl_absenk",         &(param_hk_tvl_absenk),           "%f" },
     { "param_hk_tvl_min",            &(param_hk_tvl_min),              "%f" },
     { "param_hk_tvl_max",            &(param_hk_tvl_max),              "%f" },
-    { "param_hk_frostschutz",        &(param_hk_frostschutz9,          "%f" },
+    { "param_hk_frostschutz",        &(param_hk_frostschutz),          "%f" },
     { "param_hk_reg_kp",             &(param_hk_reg_kp),               "%f" },
     { "param_hk_reg_ki",             &(param_hk_reg_ki),               "%f" },
     { "param_hk_reg_ap",             &(param_hk_reg_ap),               "%f" },
@@ -222,7 +222,7 @@ static const parse_set_t telnet_param_Vars[] =
     { "param_fb_tvl_max",            &(param_fb_tvl_max),              "%f" },
     { "param_fb_reg_kp",             &(param_fb_reg_kp),               "%f" },
     { "param_fb_reg_ki",             &(param_fb_reg_ki),               "%f" },
-    { "param_fb_reg_ap"              &(param_fb_reg_ap),               "%f" },
+    { "param_fb_reg_ap",             &(param_fb_reg_ap),               "%f" },
     { "param_ww_tww_sw",             &(param_ww_tww_sw),               "%f" },
     { "param_ww_tww_max",            &(param_ww_tww_max),              "%f" },
     { "param_wz_faktor",             &(param_wz_faktor),               "%f" },
@@ -234,7 +234,7 @@ static const parse_set_t telnet_param_Vars[] =
     { "param_ww_tww_tvl_faktor",     &(param_ww_tww_tvl_faktor),       "%f" },
     { "param_ww_tz_sw",              &(param_ww_tz_sw),                "%f" },
     { "param_sys_zykluszeit",        &(param_sys_zykluszeit),          "%f" }
-}
+};
 
 static const char *telnet_help_text[] =
 {
