@@ -14,8 +14,8 @@ with open( './svn.txt', 'r' ) as file:
     revtxt = file.readline()
 SVN_REV = revtxt.split('M')[0]
 VERSION = '0.9.1'   #  +'SVN: '+SVN_REV
-# DEVPATH = SVN_URL.split('.com')[1].split('/write')[0]
-DEVPATH = SVN_URL.split('/write')[0]
+DEVPATH = SVN_URL.split('URL: ')[1].split('/write')[0]
+# DEVPATH = SVN_URL.split('/write')[0]
 now = datetime.datetime.now()
 now = datetime.datetime( now.year, now.month, now.day, now.hour, now.minute, now.second )
 jetzt = now.isoformat(' ')
