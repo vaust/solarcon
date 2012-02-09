@@ -151,7 +151,7 @@ s16_t ww_calcDurchfluss( ww_class_t *self )
     wz_diff = self->i.wz_mw - self->wz_history[self->ringzaehler];
     self->wz_history[self->ringzaehler] = self->i.wz_mw;
     self->ringzaehler ++;
-    if( self->ringzaehler > MAX_WZ_HISTORY )
+    if( self->ringzaehler >= MAX_WZ_HISTORY )
         self->ringzaehler = 0;
 
     return wz_diff;
