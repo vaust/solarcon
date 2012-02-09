@@ -290,6 +290,10 @@ void *telnet_Task( void *arg )
                                 telnet_putVars( telnet_dbg_Vars, sizeof(telnet_dbg_Vars)/sizeof(parse_set_t), fdesc, bufout );
                                 if( Debug ) printf( "TELNET.C: PUT VDBG Befehl erhalten\n" );
                             }
+                            else if( strncasecmp( token, "VPAR", 4 ) == 0 ) {
+                                telnet_putVars( telnet_param_Vars, sizeof(telnet_param_Vars)/sizeof(parse_set_t), fdesc, bufout );
+                                if( Debug ) printf( "TELNET.C: PUT VDBG Befehl erhalten\n" );
+                            }
                             else {
                                 snprintf( bufout, BFLN, "FEHLER (8) falscher erster Parameter fuer PUT Befehl\n" ); BFLSH();
                             }
@@ -445,6 +449,9 @@ void telnet_parseGet( int fdesc, char *bufout )
         }
         else if( strncasecmp( token, "VDBG", 4 ) == 0 ) {
             telnet_writeVars( telnet_dbg_Vars, sizeof(telnet_dbg_Vars)/sizeof(parse_set_t), fdesc, bufout );
+        }
+        else if( strncasecmp( token, "VPAR", 4 ) == 0 ) {
+            telnet_writeVars( telnet_param_Vars, sizeof(telnet_param_Vars)/sizeof(parse_set_t), fdesc, bufout );
         }
         else if( strncasecmp( token, "NOW",  3 ) == 0 ) {
             zeit_getLocaltime( &wday, &hour, &min, &sec );
