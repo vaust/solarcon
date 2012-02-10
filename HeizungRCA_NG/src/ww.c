@@ -141,22 +141,33 @@ void ww_Init( ww_class_t *self, u16_t akt_wz )
 /**
  * \brief Berechne den Durchfluss an Warmwasser innerhalb von \ref MAX_WZ_HISTORY Aufrufen
  *
- * Es wird die gleitende Differenz der Wasserzaehlerwerte ueber eine Zeitspanne von
- * \ref MAX_WZ_HISTORY x \ref ABTASTZEIT berechnet
+ * \param par_p Pointer auf Struktur mit Parametern
+ * \return Durchfluss als Integerzahl
  *
+ * Es wird die gleitende Differenz der Wasserzaehlerwerte ueber eine Zeitspanne von
+ * \ref MAX_WZ_HISTORY x \ref ABTASTZEIT berechnet.
+ * Dies entspricht bei MAX_WZ_HISTORY=60 und ABTASTZEIT=1.0sec dem durchschnittlichen Durchfluss der
+ * letzten Minute in Zaehlereinheiten pro Minute.
+ * Bei einem Impuls pro Liter entspricht dies der Einheit l/min.
+ *
+ * \todo Den Wasserzaehlerfaktor noch mit einbringen und damit den Rückgabewert auf l/min skalieren.
  */
 static
 s16_t ww_calcDurchfluss( ww_class_t *self )
 {
-    s16_t   wz_diff;
+    s32_t   wz_diff;
 
-    wz_diff = self->i.wz_mw - self->wz_history[self->ringzaehler];
+    wz_diff = (s32_t)self->i.wz_mw - (s32_t)self->wz_history[self->ringzaehler]);
+    if( self->i.wz_mw < self->wz_history[self->ringzaehler] ) {
+        /* neuer Zaehlerwert kleiner als alter Wert: unplausibles Ereignis -> Zaehler ist uebergelaufen! */
+        wz_diff = wz_diff+0x10000L;
+    }
     self->wz_history[self->ringzaehler] = self->i.wz_mw;
     self->ringzaehler ++;
-    if( self->ringzaehler >= MAX_WZ_HISTORY )
+    if( self->ringzaehler >= MAX_WZ_HISTORY ) {
         self->ringzaehler = 0;
-
-    return wz_diff;
+    }
+    return ((s16_t)wz_diff);
 }
 
 /**
