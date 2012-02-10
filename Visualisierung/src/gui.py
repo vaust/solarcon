@@ -62,7 +62,7 @@ def update():
     guiAll.updateLabels(iF.t, iF.pu, iF.mv, iF.di, iF.cnt, iF.av)
     guiFB.updateLabels(iF.t)
     
-updateBtn = tk.Button(text='Update', command=update)
-updateBtn.pack()
+updateBtn = tk.Button(nbook.ALL, text='Update', command=update)
+updateBtn.pack( padx=PD, pady=PD )
 
 root.mainloop()
