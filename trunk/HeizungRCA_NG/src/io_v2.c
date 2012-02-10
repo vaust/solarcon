@@ -183,6 +183,7 @@ void io_InitWz( void )
 {
     pabOut_p->aout.all_wz.status_steuer.no_ueberlauf = 0;  /* Ueberlauf erlauben */
     pabOut_p->aout.all_wz.status_steuer.rueckwaerts  = 0;  /* vorwaerts zaehlern */
+    pabOut_p->aout.all_wz.status_steuer.setzen       = 0;
     pabOut_p->aout.all_wz.status_steuer.sperren      = 1;
     KBUSUPDATE();
     pabOut_p->aout.all_wz.bw.cntWord                 = 0x0000;
