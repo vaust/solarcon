@@ -94,6 +94,35 @@ class TelnetInterface(telnetlib.Telnet):
         
         return (kp, ki, ap)
 
+    def WW_PuReglerParamSchreiben(self, kp, ki, ap):
+        command = "put vww 00="+str(kp)        
+        self.write( command.encode('utf-8') )
+        time.sleep(0.5)
+        command = "put vww 01="+str(ki)
+        self.write( command.encode('utf-8') )
+        time.sleep(0.5)
+        command = "put vww 02="+str(ap)
+        self.write( command.encode('utf-8') )
+        time.sleep(0.5) 
+    
+    def WW_PuReglerParamLesen(self):
+        command = "get vww -1" 
+        self.write( command.encode('utf-8') )
+        time.sleep(3.0)
+        buffer = self.read_very_eager()
+        bufdecode = buffer.decode('utf-8')
+        lines = bufdecode.splitlines()
+        ap = kp = ki = 0.0
+        for line in lines:
+            if (line.startswith('(00)')):
+                kp = float(line.split('=')[1])
+            if (line.startswith('(01)')):
+                ki = float(line.split('=')[1])
+            if (line.startswith('(02)')):
+                ap = float(line.split('=')[1])
+        
+        return (kp, ki, ap)
+
     def Param_GetParam(self, values): # Parameter values ist ein dict, das CallbyRef uebergeben wird
         command = "get param"
         self.write( command.encode('utf-8') )
