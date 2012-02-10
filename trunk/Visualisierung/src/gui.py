@@ -51,8 +51,11 @@ guiParam.pack()
 
 iF = telnetIf.TelnetInterface('stegmann.homelinux.org', 1969, 10)
 
+# Interface initialisieren
 guiFB.MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben
 guiFB.MvReglerParamLesen = iF.Fb_MvReglerParamLesen
+guiParam.getParam = iF.Param_GetParam
+guiParam.putParam = iF.Param_PutParam
 
 def update():
     iF.ErmittleMesswerte()

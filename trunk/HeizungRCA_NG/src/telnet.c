@@ -668,6 +668,8 @@ void telnet_writeDI( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "KES_BR_BM = %s\n", (io_get_KES_BR_BM() == IO_AUS) ? "AUS" : "EIN" ); BFLSH();
     /* Fußbodenheizung Sekundaerseite Sicherheitstemperaturbegrenzer */
     snprintf( bufout, BFLN, "FB_SEK_TW = %s\n", (io_get_FB_SEK_TW() == IO_AUS) ?  "SToeRUNG (0)" : "NORMAL (1)" ); BFLSH();
+    /* Wasserzaehlerstand */
+    snprintf( bufout, BFLN, "WZ_MW = %6d\n" , io_get_WW_WZ_MW() ); BFLSH();
 }
 
 static
@@ -733,7 +735,7 @@ void telnet_writeWW( int fdesc, char *bufout )
     snprintf( bufout, BFLN, "WW_HZG_MV_Y      = %5.1f pct\n", io_get_WW_HZG_MV_Y() );   BFLSH();
     snprintf( bufout, BFLN, "WW_HZG_PU_Y      = %5.1f pct\n", io_get_WW_HZG_PU_Y() );   BFLSH();
     snprintf( bufout, BFLN, "WW_PARTY = %s", (io_get_WW_PARTY() == IO_AUS) ? "AUS\n" : "EIN" ); BFLSH();
-    snprintf( bufout, BFLN, "Wasserzaehler    = %6d\n", io_get_WW_WZ_MW() );            BFLSH();
+    snprintf( bufout, BFLN, "WZ_MW    = %6d\n", io_get_WW_WZ_MW() );            BFLSH();
 
     if (io_get_WW_PARTY() != IO_AUS) {
         snprintf( bufout, BFLN, "\t seit %d min, noch %d min aktiv\n",
