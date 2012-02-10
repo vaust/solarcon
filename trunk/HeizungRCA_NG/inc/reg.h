@@ -34,7 +34,6 @@ typedef struct reg_par_s {
     float kp;               /**< Proportionalbeiwert                  */
     float ki;               /**< Integralbeiwert                      */
     float ap;               /**< Arbeitspunkt des Reglers             */
-    float ki_x_TA;          /**< Ki x TA in init() einmalig berechnen */
     float lower_limit;      /**< Untere Begrenzung des Reglerausgangs */
     float upper_limit;      /**< Obere  Begrenzung des Reglerausgangs */
 } reg_par_t;
