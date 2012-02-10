@@ -292,6 +292,8 @@ void *telnet_Task( void *arg )
                             }
                             else if( strncasecmp( token, "VPAR", 4 ) == 0 ) {
                                 telnet_putVars( telnet_param_Vars, sizeof(telnet_param_Vars)/sizeof(parse_set_t), fdesc, bufout );
+                                telnet_InitModules();
+                                snprintf( bufout, BFLN, "\tModule neu initialisiert!" ); BFLSH();
                                 if( Debug ) printf( "TELNET.C: PUT VDBG Befehl erhalten\n" );
                             }
                             else {
@@ -305,13 +307,7 @@ void *telnet_Task( void *arg )
                     else if( strncasecmp( "INIT",       token, 4 ) == 0 ) {
                         if( Debug ) printf( "TELNET.C: INIT Befehl erhalten\n" );
                         cntrl_err.i.common_errcnt += param_Init();
-                        zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
-                        sol_Init( &cntrl_sol );
-                        fb_Init( &cntrl_fb );
-                        hk_Init( &cntrl_hk );
-                        ww_Init( &cntrl_ww, io_get_WW_WZ_MW() );
-                        kes_Init( &cntrl_kes );
-                        // systimer_init(); // Momentan nicht in Verwendung
+                        telnet_InitModules();
                         snprintf( bufout, BFLN, "\tParameter und Zeitprogramm initialisiert!\n\n" ); BFLSH();
                     }
                     else if( strncasecmp( "ENTSTOEREN", token, 8 ) == 0 ) {
@@ -329,6 +325,17 @@ void *telnet_Task( void *arg )
             } MUTEX_unlock();
         }
     }
+}
+
+static inline
+void telnet_InitModules( void )
+{
+    zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
+    sol_Init( &cntrl_sol );
+    fb_Init( &cntrl_fb );
+    hk_Init( &cntrl_hk );
+    ww_Init( &cntrl_ww, io_get_WW_WZ_MW() );
+    kes_Init( &cntrl_kes );
 }
 
 static inline
