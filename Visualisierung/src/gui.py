@@ -12,6 +12,7 @@ import tkinter.ttk as ttk
 import gui_overview
 import gui_FB
 import gui_Param
+import gui_WW
 
 import telnetIf
 # import main
@@ -49,13 +50,18 @@ guiFB.pack()
 guiParam = gui_Param.GuiParam(nbook.PAR)
 guiParam.pack()
 
+guiWW = gui_WW.GuiWW(nbook.WW)
+guiWW.pack( padx=PD, pady=PD )
+
 iF = telnetIf.TelnetInterface('stegmann.homelinux.org', 1969, 10)
 
 # Interface initialisieren
 guiFB.MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben
-guiFB.MvReglerParamLesen = iF.Fb_MvReglerParamLesen
-guiParam.getParam = iF.Param_GetParam
-guiParam.putParam = iF.Param_PutParam
+guiFB.MvReglerParamLesen     = iF.Fb_MvReglerParamLesen
+guiParam.getParam            = iF.Param_GetParam
+guiParam.putParam            = iF.Param_PutParam
+guiWW.PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben
+guiWW.PuReglerParamLesen     = iF.WW_PuReglerParamLesen
 
 def update():
     iF.ErmittleMesswerte()
