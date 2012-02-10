@@ -327,7 +327,7 @@ void *telnet_Task( void *arg )
     }
 }
 
-static inline
+static /* inline */
 void telnet_InitModules( void )
 {
     zeit_Init( &cntrl_zeit_absenkung, &cntrl_zeit_event );
