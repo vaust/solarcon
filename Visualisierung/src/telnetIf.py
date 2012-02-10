@@ -81,7 +81,7 @@ class TelnetInterface(telnetlib.Telnet):
         self.write( command.encode('utf-8') )
         time.sleep(3.0)
         buffer = self.read_very_eager()
-        bufdecode = buffer.decode('utf8')
+        bufdecode = buffer.decode('utf-8')
         lines = bufdecode.splitlines()
         ap = kp = ki = 0.0
         for line in lines:
@@ -94,7 +94,21 @@ class TelnetInterface(telnetlib.Telnet):
         
         return (kp, ki, ap)
 
+    def Param_GetParam(self, values): # Parameter values ist ein dict, das CallbyRef uebergeben wird
+        command = "get param"
+        self.write( command.encode('utf-8') )
+        time.sleep(3.0)
+        buffer = self.read_very_eager()
+        bufdecode = buffer.decode('utf-8')
+        lines = bufdecode.splitlines()
+        for line in lines:
+            for name in signals.PARAMETERS:
+                if (line.startswith(name)):
+                    values[name] = str(line.split('=')[1])
 
+    def Param_PutParam(self, values):
+        pass
+        
 if __name__ == '__main__':
     iface = TelnetInterface('stegmann.homelinux.org', 1969, 10)   
     iface.ErmittleMesswerte()
