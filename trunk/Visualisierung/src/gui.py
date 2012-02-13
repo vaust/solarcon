@@ -19,7 +19,7 @@ import telnetIf
 # import time
 
 root=tk.Tk()
-PD = 5
+PD = 2
 nbook = ttk.Notebook(root)
 nbook.ALL = ttk.Frame(nbook)
 nbook.SOL = ttk.Frame(nbook)
@@ -53,22 +53,48 @@ guiParam.pack()
 guiWW = gui_WW.GuiWW(nbook.WW)
 guiWW.pack( padx=PD, pady=PD )
 
-iF = telnetIf.TelnetInterface('stegmann.homelinux.org', 1969, 10)
+servernameLbl   = tk.Label(root, text='Servername:')
+servernameEntry = tk.Entry(root, width=32, bg='white')
+servernameEntry.insert(0, 'stegmann.homelinux.org')
 
-# Interface initialisieren
-guiFB.MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben
-guiFB.MvReglerParamLesen     = iF.Fb_MvReglerParamLesen
-guiParam.getParam            = iF.Param_GetParam
-guiParam.putParam            = iF.Param_PutParam
-guiWW.PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben
-guiWW.PuReglerParamLesen     = iF.WW_PuReglerParamLesen
+def connect():
+    global iF
+    srvname = servernameEntry.get()
+    iF = telnetIf.TelnetInterface(srvname, 1969, 10)
+    # Interface initialisieren
+    guiFB.MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben
+    guiFB.MvReglerParamLesen     = iF.Fb_MvReglerParamLesen
+    guiParam.getParam            = iF.Param_GetParam
+    guiParam.putParam            = iF.Param_PutParam
+    guiWW.PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben
+    guiWW.PuReglerParamLesen     = iF.WW_PuReglerParamLesen
+    #
+    updateBtn.config(state=tk.ACTIVE)
+    disconnectBtn.config(state=tk.ACTIVE)
+    connectBtn.config(state=tk.DISABLED)
+    servernameEntry.config(state=tk.DISABLED)
 
 def update():
+    global iF
     iF.ErmittleMesswerte()
     guiAll.updateLabels(iF.t, iF.pu, iF.mv, iF.di, iF.cnt, iF.av)
     guiFB.updateLabels(iF.t)
-    
+
+def disconnect():
+    global iF
+    iF.close()
+    quit()
+
 updateBtn = tk.Button(nbook.ALL, text='Update', command=update)
+connectBtn = tk.Button(root, text='Verbinden', command=connect)
+disconnectBtn = tk.Button(root, text='Verbindung trennen und Beenden', command=disconnect)
+disconnectBtn.config(state=tk.DISABLED)
+updateBtn.config(state=tk.DISABLED)
+
+servernameLbl.pack( padx=PD, pady=PD, side=tk.LEFT )
+servernameEntry.pack( padx=PD, pady=PD, side=tk.LEFT )
+connectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
+disconnectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 updateBtn.pack( padx=PD, pady=PD )
 
 root.mainloop()

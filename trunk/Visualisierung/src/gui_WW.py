@@ -5,7 +5,9 @@ Created on 10.02.2012
 '''
 
 import tkinter as tk
-import tkinter.ttk as ttk
+# import tkinter.ttk as ttk
+
+import xt_Diagram
 
 PD = 5
 HFARBE  = 'LightGoldenrod1'
@@ -16,7 +18,9 @@ class GuiWW(tk.Frame):
         self.PuReglerParamLesen = None
         self.PuReglerParamSchreiben = None
         self.draw()
-    
+        self.xt = xt_Diagram.XtDiagram(master)
+        self.xt.pack(padx=PD, pady=PD)
+        
     def draw(self):
         ''' WW Heizungspumpenregler parametrieren '''
         self.lf_pu_regler = tk.LabelFrame( self, text='Heizungspumpenregler Online Parametrierung')
@@ -33,7 +37,7 @@ class GuiWW(tk.Frame):
         self.lf_pu_regler.Kp_scle = tk.Scale(self.lf_pu_regler, orient=tk.HORIZONTAL, 
                                              from_=0.0, to= 50.0, length=300, resolution=0.1)
         self.lf_pu_regler.Ki_scle = tk.Scale(self.lf_pu_regler, orient=tk.HORIZONTAL, 
-                                             from_=0.0, to= 20.0, length=300, resolution=0.001)
+                                             from_=0.0, to= 20.0, length=300, resolution=0.01)
         self.lf_pu_regler.AP_scle = tk.Scale(self.lf_pu_regler, orient=tk.HORIZONTAL, 
                                              from_=0.0, to=100.0, length=300, resolution=0.1)
         self.lf_pu_regler.Kp_lbl.grid(column=0, row=0, padx=PD, sticky=tk.W )

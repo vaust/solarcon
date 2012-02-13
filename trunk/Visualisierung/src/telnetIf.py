@@ -141,12 +141,12 @@ class TelnetInterface(telnetlib.Telnet):
 if __name__ == '__main__':
     iface = TelnetInterface('stegmann.homelinux.org', 1969, 10)   
     iface.ErmittleMesswerte()
-    print(iface.t_dict)
-    print(iface.av_dict)
-    print(iface.cnt_dict)
-    print(iface.di_dict)
-    print(iface.pu_dict)
-    print(iface.mv_dict)
+    print(iface.t)
+    print(iface.av)
+    print(iface.cnt)
+    print(iface.di)
+    print(iface.pu)
+    print(iface.mv)
     iface.close()
     
     
