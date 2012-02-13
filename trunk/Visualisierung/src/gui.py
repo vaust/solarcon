@@ -84,6 +84,7 @@ def update():
 def disconnect():
     global iF
     iF.close()
+    guiWW.itimer.cancel()
     quit()
 
 updateBtn = tk.Button(nbook.ALL, text='Update', command=update)

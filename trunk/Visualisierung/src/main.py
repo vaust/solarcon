@@ -5,6 +5,8 @@ Created on 23.01.2012
 '''
 
 import threading
+import os
+
 
 class iTimer(threading.Thread):
     def __init__(self, interval, target):
