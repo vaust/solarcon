@@ -8,6 +8,7 @@ import tkinter as tk
 # import tkinter.ttk as ttk
 
 import xt_Diagram
+import time
 
 PD = 5
 HFARBE  = 'LightGoldenrod1'
@@ -17,11 +18,16 @@ class GuiWW(tk.Frame):
         tk.Frame.__init__(self, master)
         self.PuReglerParamLesen = None
         self.PuReglerParamSchreiben = None
-        self.draw()
+        self.TempLesen = None
         self.xt = xt_Diagram.XtDiagram(master)
-        self.xt.pack(padx=PD, pady=PD)
+        self.draw()
+        self.t0 = time.time()
         
     def draw(self):
+        self.xt.pack(padx=PD, pady=PD)
+        self.updateXtBtn = tk.Button(self, text='Plot Tww', command=self.plot_Tww_MW)
+        self.updateXtBtn.pack(padx=PD, pady=PD)
+        
         ''' WW Heizungspumpenregler parametrieren '''
         self.lf_pu_regler = tk.LabelFrame( self, text='Heizungspumpenregler Online Parametrierung')
         self.lf_pu_regler.pack(padx=PD, pady=PD, side=tk.TOP)
@@ -109,4 +115,13 @@ class GuiWW(tk.Frame):
         ki = float(self.lf_pu_regler.Ki_entry.get())
         ap = float(self.lf_pu_regler.AP_entry.get())
         self.PuReglerParamSchreiben(kp, ki, ap)
-  
+
+    #-------------------- Interface zu xt-Diagramm
+    
+    def plot_Tww_MW(self):
+        temp = self.TempLesen()
+        y=temp["WW_Tww_MW"]+40.0
+        x=time.time()-self.t0
+        self.xt.drawNewValue(x,y)
+        
+    
