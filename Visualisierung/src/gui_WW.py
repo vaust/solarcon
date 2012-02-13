@@ -9,6 +9,7 @@ import tkinter as tk
 
 import xt_Diagram
 import time
+from threading import Timer
 
 PD = 5
 HFARBE  = 'LightGoldenrod1'
@@ -21,11 +22,10 @@ class GuiWW(tk.Frame):
         self.TempLesen = None
         self.xt = xt_Diagram.XtDiagram(master)
         self.draw()
-        self.t0 = time.time()
         
     def draw(self):
         self.xt.pack(padx=PD, pady=PD)
-        self.updateXtBtn = tk.Button(self, text='Plot Tww', command=self.plot_Tww_MW)
+        self.updateXtBtn = tk.Button(self, text='Starte Plotten von Tww', command=self.startPlot)
         self.updateXtBtn.pack(padx=PD, pady=PD)
         
         ''' WW Heizungspumpenregler parametrieren '''
@@ -118,10 +118,21 @@ class GuiWW(tk.Frame):
 
     #-------------------- Interface zu xt-Diagramm
     
+    def startPlot(self):
+        temp = self.TempLesen()
+        self.xt.LastPhysX = 0
+        self.xt.LastPhysY = temp["WW_Tww_MW"]+40.0
+        self.t0 = time.time()
+        self.plot_Tww_MW()
+        
     def plot_Tww_MW(self):
         temp = self.TempLesen()
         y=temp["WW_Tww_MW"]+40.0
         x=time.time()-self.t0
         self.xt.drawNewValue(x,y)
+        self.itimer = Timer(2.0, self.plot_Tww_MW)
+        self.itimer.start()
+
+    def stopPlot(self):
+        self.itimer.cancel()
         
-    
