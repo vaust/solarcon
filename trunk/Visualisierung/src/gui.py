@@ -68,6 +68,7 @@ def connect():
     guiParam.putParam            = iF.Param_PutParam
     guiWW.PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben
     guiWW.PuReglerParamLesen     = iF.WW_PuReglerParamLesen
+    guiWW.TempLesen              = iF.get_T
     #
     updateBtn.config(state=tk.ACTIVE)
     disconnectBtn.config(state=tk.ACTIVE)

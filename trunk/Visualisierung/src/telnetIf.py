@@ -26,35 +26,44 @@ class TelnetInterface(telnetlib.Telnet):
         bufdecode = buffer.decode('utf8')
         lines = bufdecode.splitlines()
         return lines
-
-    def ErmittleMesswerte(self):
+    
+    def get_T(self):
         lines = self.HoleAntwort( b"GET T\n" )
         for name in signals.TEMP_NAMES:
             self.t[name] = 0.0
             for line in lines:
                 if (line.startswith(name)):
                     self.t[name] = float( line.split('=')[1].split('°')[0] )
-                
+        
+        return(self.t)
+    
+    def get_DO(self):
         lines = self.HoleAntwort( b"GET DO\n" )
         for name in signals.PU_NAMES:
             self.pu[name] = ''
             for line in lines:
                 if (line.startswith(name)):
                     self.pu[name] = str( line.split('=')[1] ).lstrip()
-                    
+
         for name in signals.AV_NAMES:
             self.av[name]=''
             for line in lines:
                 if (line.startswith(name)):
                     self.av[name] = str( line.split('=')[1] ).lstrip()
 
+        return(self.pu, self.av)
+
+    def get_AO(self):     
         lines = self.HoleAntwort( b"GET AO\n" )
         for name in signals.AO_NAMES:
             self.mv[name] = 0.0
             for line in lines:
                 if (line.startswith(name)):
                     self.mv[name] = float( line.split('=')[1].split('p')[0] )
-
+        
+        return(self.mv)
+    
+    def get_DI(self):
         lines = self.HoleAntwort( b"GET DI\n" )
         for name in signals.DI_NAMES:
             self.di[name] = ''
@@ -63,6 +72,14 @@ class TelnetInterface(telnetlib.Telnet):
                     self.di[name] = str( line.split('=')[1] ).lstrip()
         
         self.cnt['WW_WZ_MW'] = 0
+        
+        return(self.di, self.cnt)
+        
+    def ErmittleMesswerte(self):
+        self.get_T()
+        self.get_AO()
+        self.get_DO()
+        self.get_DI()
         return (self.t, self.pu, self.mv, self.di, self.cnt, self.av)
 
     def Fb_MvReglerParamSchreiben(self, kp, ki, ap):

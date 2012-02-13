@@ -7,13 +7,13 @@ Created on 13.02.2012
 import tkinter as tk
 
 class XtDiagram(tk.Frame):
-    Win_X       = 1024
-    Win_Y       = 320
+    Win_X       = 1000
+    Win_Y       = 400
     Win_Xoffset = 25
     Win_Yoffset = 20        
 
-    XTicks       = 20
-    YTicks       =  8
+    XTicks      = 20
+    YTicks      =  8
     TickLen     =  4 
     
     PhysX_TickUnit  = 10   # sec
@@ -22,10 +22,13 @@ class XtDiagram(tk.Frame):
     PhysY_Offs      = 36   # °C
 
     BackColor   = 'black'
-    Achsenfarbe = 'darkgreen'
+    Achsenfarbe = 'green'
+    Gridfarbe   = 'darkgreen'
     XAchsentext = 'sec'
     YAchsentext = '°C'
 
+    ChartWidth  = 2
+    
     def __init__(self, master=None):
         tk.Frame.__init__(self, master, relief=tk.SUNKEN)
 
@@ -45,17 +48,19 @@ class XtDiagram(tk.Frame):
         y1 = -y + (self.Win_Y-self.Win_Yoffset) 
         return (x1, y1)
     
-    def transformPhystoLogic(self, physX, physY):    
+    def transformPhystoCanvas(self, physX, physY):    
         x1=(physX-self.PhysX_Offs)/self.PhysX_TickUnit * self.Win_Xspan/self.XTicks
         y1=(physY-self.PhysY_Offs)/self.PhysY_TickUnit * self.Win_Yspan/self.YTicks
         (x2, y2) = self.transform(x1, y1)
         return (x2, y2)
     
     def drawAchses(self):
-        (x0, y0) = self.transform(-self.Win_Xoffset, 0)
+        # (x0, y0) = self.transform(-self.Win_Xoffset, 0)
+        (x0, y0) = self.transform(-10, 0)
         (x1, y1) = self.transform( self.Win_Xspan  , 0) 
         self.xtdiagCnvs.create_line( ((x0, y0), (x1, y1)), fill=self.Achsenfarbe, width=1, arrow=tk.LAST )
-        (x0, y0) = self.transform(0, -self.Win_Yoffset)
+        # (x0, y0) = self.transform(0, -self.Win_Yoffset)
+        (x0, y0) = self.transform(0, -10)
         (x1, y1) = self.transform(0,  self.Win_Yspan  )
         self.xtdiagCnvs.create_line( ((x0, y0), (x1, y1)), fill=self.Achsenfarbe, width=1, arrow=tk.LAST )
     
@@ -66,7 +71,9 @@ class XtDiagram(tk.Frame):
         while( n<self.XTicks):
             (x0, y0) = self.transform(n*dX, -self.TickLen)
             (x1, y1) = self.transform(n*dX, +self.TickLen)
+            (x2, y2) = self.transform(n*dX, self.Win_Yspan)
             self.xtdiagCnvs.create_line( ((x0, y0), (x1, y1)), fill=self.Achsenfarbe, width=1 )
+            self.xtdiagCnvs.create_line( ((x1, y1), (x2, y2)), fill=self.Gridfarbe, width=1 )
             self.xtdiagCnvs.create_text( (x0, y0+2*self.TickLen), fill=self.Achsenfarbe, 
                                          text=str(n*self.PhysX_TickUnit+self.PhysX_Offs))
             n += 1
@@ -78,7 +85,9 @@ class XtDiagram(tk.Frame):
         while( n<self.YTicks):
             (x0, y0) = self.transform( -self.TickLen, n*dY)
             (x1, y1) = self.transform(  self.TickLen, n*dY)
+            (x2, y2) = self.transform(  self.Win_Xspan, n*dY)
             self.xtdiagCnvs.create_line( ((x0, y0), (x1, y1)), fill=self.Achsenfarbe, width=1 )
+            self.xtdiagCnvs.create_line( ((x1, y1), (x2, y2)), fill=self.Gridfarbe, width=1 )
             self.xtdiagCnvs.create_text( (x0-2*self.TickLen, y0), fill=self.Achsenfarbe, 
                                          text=str(n*self.PhysY_TickUnit+self.PhysY_Offs))
             n += 1
@@ -94,10 +103,10 @@ class XtDiagram(tk.Frame):
         self.xtdiagCnvs.pack()
 
     def drawNewValue(self, newPhysX, newPhysY):
-        (x0, y0) = self.transformPhystoLogic(self.LastPhysX, self.LastPhysY)
-        (x1, y1) = self.transformPhystoLogic(newPhysX, newPhysY)
+        (x0, y0) = self.transformPhystoCanvas(self.LastPhysX, self.LastPhysY)
+        (x1, y1) = self.transformPhystoCanvas(newPhysX, newPhysY)
         (self.LastPhysX, self.LastPhysY) = (newPhysX, newPhysY)
-        self.xtdiagCnvs.create_line( ((x0, y0), (x1, y1)), fill='yellow', width=2 )
+        self.xtdiagCnvs.create_line( ((x0, y0), (x1, y1)), fill='yellow', width=self.ChartWidth )
     
         
 if __name__ == "__main__":
@@ -108,8 +117,8 @@ if __name__ == "__main__":
     gui.pack()
     gui.LastPhysX = 0
     gui.LastPhysY = random.gauss(40.0, 0.5)
-    dx = 0.5
-    x = 0.0
+    dx = 0.1
+    x  = 0.0
     while ( x<gui.XTicks*gui.PhysX_TickUnit):
         y=random.gauss(40.0, 0.5)
         x += dx

@@ -36,7 +36,7 @@ class GuiOverview(tk.Frame):
         self.hbar = ttk.Scrollbar( self, orient=tk.HORIZONTAL)
 
         self.main = tk.Canvas(self, bg='white', scrollregion=(0,0,2000,2000),
-                       yscrollcommand=self.vbar.set, xscrollcommand=self.hbar.set, width=1220, height=760)
+                       yscrollcommand=self.vbar.set, xscrollcommand=self.hbar.set, width=1220, height=600)
         self.main.bind('<Button-1>', self.cllbck)
         self.bgpic = tk.PhotoImage(file='Visualisierung.gif')
         
