@@ -21,7 +21,8 @@ AV_NAMES = { "SOL_SP1_AV_SB", "SOL_SP2_AV_SB" }
 
 DI_NAMES = { "ALL_PARTY", "WW_PARTY" }
 
-PARAMETERS = {"ALL_Tau_mittel_Zeit", "ALL_Partydauer", "ALL_Frostschutz", "ALL_AT_Start", "SOL_dT_ein_SW"
+PARAMETERS = {
+  "ALL_Tau_mittel_Zeit", "ALL_Partydauer", "ALL_Frostschutz", "ALL_AT_Start", "SOL_dT_ein_SW"
 , "SOL_dT_aus_SW", "SOL_KOLL_T_max", "SOL_SP_T_max", "SOL_SP1_T_min", "KES_SP_dT_SW"
 , "HK_Tvl_Steigung", "HK_Tvl_Niveau", "HK_Tvl_Absenk", "HK_Tvl_Min", "HK_Tvl_Max", "HK_Frostschutz"
 , "HK_REG_Kp", "HK_REG_Ki", "HK_REG_AP", "HK_Tr_SW"

@@ -25,8 +25,11 @@ class GuiWW(tk.Frame):
         
     def draw(self):
         self.xt.pack(padx=PD, pady=PD)
+        ''' Plotten kontrollieren '''
         self.updateXtBtn = tk.Button(self, text='Starte Plotten von Tww', command=self.startPlot)
+        self.stopXtBtn = tk.Button(self, text='Stoppe Plotten', command=self.stopPlot)
         self.updateXtBtn.pack(padx=PD, pady=PD)
+        self.stopXtBtn.pack(padx=PD, pady=PD)
         
         ''' WW Heizungspumpenregler parametrieren '''
         self.lf_pu_regler = tk.LabelFrame( self, text='Heizungspumpenregler Online Parametrierung')
@@ -135,4 +138,3 @@ class GuiWW(tk.Frame):
 
     def stopPlot(self):
         self.itimer.cancel()
-        
