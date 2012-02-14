@@ -17,6 +17,7 @@ import gui_WW
 import telnetIf
 # import main
 # import time
+from threading import Timer
 
 root=tk.Tk()
 PD = 2
@@ -80,12 +81,23 @@ def update():
     iF.ErmittleMesswerte()
     guiAll.updateLabels(iF.t, iF.pu, iF.mv, iF.di, iF.cnt, iF.av)
     guiFB.updateLabels(iF.t)
-
+'''
+    guiWW.plot_Tww_MW()
+    it = Timer(5.0, update)
+    it.start() 
+'''
+        
+def startUpdate():    
+    guiWW.startPlot()
+    it = Timer(5.0, update)
+    it.start() 
+   
 def disconnect():
     global iF
     iF.close()
     guiWW.itimer.cancel()
     quit()
+
 
 updateBtn = tk.Button(nbook.ALL, text='Update', command=update)
 connectBtn = tk.Button(root, text='Verbinden', command=connect)
