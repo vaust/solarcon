@@ -138,3 +138,7 @@ class GuiWW(tk.Frame):
 
     def stopPlot(self):
         self.itimer.cancel()
+        self.updateXtBtn.config( command=self.plot_Tww_MW )
+
+#------
+
