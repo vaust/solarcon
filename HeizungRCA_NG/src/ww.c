@@ -157,7 +157,7 @@ s16_t ww_calcDurchfluss( ww_class_t *self )
 {
     s32_t   wz_diff;
 
-    wz_diff = (s32_t)self->i.wz_mw - (s32_t)self->wz_history[self->ringzaehler]);
+    wz_diff = (s32_t) self->i.wz_mw - (s32_t) self->wz_history[self->ringzaehler];
     if( self->i.wz_mw < self->wz_history[self->ringzaehler] ) {
         /* neuer Zaehlerwert kleiner als alter Wert: unplausibles Ereignis -> Zaehler ist uebergelaufen! */
         wz_diff = wz_diff+0x10000L;
@@ -167,7 +167,7 @@ s16_t ww_calcDurchfluss( ww_class_t *self )
     if( self->ringzaehler >= MAX_WZ_HISTORY ) {
         self->ringzaehler = 0;
     }
-    return ((s16_t)wz_diff);
+    return ((s16_t) wz_diff);
 }
 
 /**
