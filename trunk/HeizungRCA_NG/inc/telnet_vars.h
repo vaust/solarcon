@@ -108,6 +108,7 @@ static const parse_set_t telnet_ww_Vars[] =
 
     { "ww.i.tww_mw",              &(cntrl_ww.i.tww_mw),              "%f" },
     { "ww.i.tau_mw",              &(cntrl_ww.i.tau_mw),              "%f" },
+    { "ww.i.wz_mw",               &(cntrl_ww.i.wz_mw),               "%d" },
     { "ww.i.tau_avg",             &(cntrl_ww.i.tau_avg),             "%f" },
     { "ww.i.hzg_tvl_mw",          &(cntrl_ww.i.hzg_tvl_mw),          "%f" },
     { "ww.i.hzg_trl_mw",          &(cntrl_ww.i.hzg_trl_mw),          "%f" },
