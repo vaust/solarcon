@@ -12,22 +12,22 @@ class XtDiagram(tk.Frame):
     Win_Xoffset = 25
     Win_Yoffset = 20        
 
-    XTicks      = 20
-    YTicks      =  8
+    XTicks      = 30
+    YTicks      = 10
     TickLen     =  4 
     
     PhysX_TickUnit  = 10   # sec
     PhysY_TickUnit  =  1   # °C
     PhysX_Offs      =  0   # sec
-    PhysY_Offs      = 36   # °C
+    PhysY_Offs      = 33   # °C
 
     BackColor   = 'black'
     Achsenfarbe = 'green'
-    Gridfarbe   = 'darkgreen' # 'DarkKhaki' # 
+    Gridfarbe   = 'DarkKhaki' # 'darkgreen' #
     XAchsentext = 'sec'
     YAchsentext = '°C'
 
-    ChartWidth  = 1 # 2
+    ChartWidth  = 2
     ChartFarbe  = 'DarkOrange1'
     
     def __init__(self, master=None):
@@ -134,8 +134,8 @@ if __name__ == "__main__":
     gui.pack()
     gui.LastPhysX = 0
     gui.LastPhysY = random.gauss(40.0, 0.25)
-    dx = 0.01
-    x  = 0.0
+    dx = 0.05
+    x  = 0.00
     while ( x<gui.XTicks*gui.PhysX_TickUnit ):
         y=random.gauss(40.0, 0.25)
         x += dx

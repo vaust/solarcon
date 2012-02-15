@@ -99,7 +99,7 @@ def disconnect():
     quit()
 
 
-updateBtn = tk.Button(nbook.ALL, text='Update', command=update)
+updateBtn = tk.Button(root, text='Update', command=update)
 connectBtn = tk.Button(root, text='Verbinden', command=connect)
 disconnectBtn = tk.Button(root, text='Verbindung trennen und Beenden', command=disconnect)
 disconnectBtn.config(state=tk.DISABLED)
@@ -109,6 +109,6 @@ servernameLbl.pack( padx=PD, pady=PD, side=tk.LEFT )
 servernameEntry.pack( padx=PD, pady=PD, side=tk.LEFT )
 connectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 disconnectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
-updateBtn.pack( padx=PD, pady=PD )
+updateBtn.pack( padx=PD, pady=PD, side=tk.RIGHT )
 
 root.mainloop()
