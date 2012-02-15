@@ -41,9 +41,9 @@ class GuiParam(tk.Frame):
         
         self.paramLesenRamBttn = tk.Button(self, text='Aus RAM Lesen', command=self.paramLesenRam)
         self.paramLesenRamBttn.grid(row=11, column=0, columnspan=2, padx=5, pady=5, sticky=tk.NE)
+        '''
         self.paramSchreibenRamBttn = tk.Button(self, text='In RAM Schreiben', command=self.paramSchreibenRam)
         self.paramSchreibenRamBttn.grid(row=11, column=2, columnspan=2, padx=5, pady=5, sticky=tk.NE)
-        '''
         self.paramDateiLesenBttn = tk.Button(self, text='Parameterdatei lesen')
         self.paramDateiLesenBttn.grid(row=11, column=4, columnspan=2, padx=5, pady=5, sticky=tk.NE)
         self.paramDateiSchreibenBttn = tk.Button(self, text='Parameterdatei schreiben')
