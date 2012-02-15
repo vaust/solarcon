@@ -48,7 +48,7 @@ typedef struct ww_in_s {
     float tww_mw;
     float tau_mw;
     float tau_avg;
-    u16_t wz_mw;                    /**< Zaehlerstand des Wasserzaehlers (noch nicht in Verwendung */
+    u16_t wz_mw;                    /**< Zaehlerstand des Wasserzaehlers  */
     float hzg_tvl_mw;
     float hzg_trl_mw;
     float hk_tvl_sw;
