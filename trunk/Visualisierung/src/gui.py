@@ -56,7 +56,7 @@ guiWW.pack( padx=PD, pady=PD )
 
 servernameLbl   = tk.Label(root, text='Servername:')
 servernameEntry = tk.Entry(root, width=32, bg='white')
-servernameEntry.insert(0, 'stegmann.homelinux.org')
+servernameEntry.insert(0, '192.168.3.33')
 
 def connect():
     global iF

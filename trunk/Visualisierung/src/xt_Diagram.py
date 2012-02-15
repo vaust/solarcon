@@ -7,8 +7,8 @@ Created on 13.02.2012
 import tkinter as tk
 
 class XtDiagram(tk.Frame):
-    Win_X       = 1000
-    Win_Y       = 400
+    Win_X       = 1200
+    Win_Y       = 340
     Win_Xoffset = 25
     Win_Yoffset = 20        
 
