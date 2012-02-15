@@ -124,13 +124,13 @@ class GuiWW(tk.Frame):
     def startPlot(self):
         temp = self.TempLesen()
         self.xt.LastPhysX = 0
-        self.xt.LastPhysY = temp["WW_Tww_MW"]+40.0
+        self.xt.LastPhysY = temp["WW_Tww_MW"] + 40.0 # zum Testen
         self.t0 = time.time()
         self.plot_Tww_MW()
         
     def plot_Tww_MW(self):
         temp = self.TempLesen()
-        y=temp["WW_Tww_MW"]+40.0
+        y=temp["WW_Tww_MW"] + 40.0 # zum Testen
         x=time.time()-self.t0
         self.xt.drawNewValue(x,y)
         self.itimer = Timer(2.0, self.plot_Tww_MW)
