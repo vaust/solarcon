@@ -29,7 +29,7 @@ if (len(sys.argv) > 1):
         PORT = 1969
         logTime = 10 # min
 else:
-    HOST = "localhost"
+    HOST = "stegmann.homelinux.org"
     PORT = 1969
     logTime = 10 # min
 
