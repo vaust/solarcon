@@ -16,7 +16,7 @@ import gui_WW
 
 import telnetIf
 # import main
-# import time
+import time
 from threading import Timer
 
 root=tk.Tk()
@@ -70,6 +70,7 @@ def connect():
     guiWW.PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben
     guiWW.PuReglerParamLesen     = iF.WW_PuReglerParamLesen
     guiWW.TempLesen              = iF.get_T
+    guiWW.t0                     = time.time()
     #
     updateBtn.config(state=tk.ACTIVE)
     disconnectBtn.config(state=tk.ACTIVE)
@@ -81,21 +82,11 @@ def update():
     iF.ErmittleMesswerte()
     guiAll.updateLabels(iF.t, iF.pu, iF.mv, iF.di, iF.cnt, iF.av)
     guiFB.updateLabels(iF.t)
-'''
-    guiWW.plot_Tww_MW()
-    it = Timer(5.0, update)
-    it.start() 
-'''
-        
-def startUpdate():    
-    guiWW.startPlot()
-    it = Timer(5.0, update)
-    it.start() 
-   
+    guiWW.plot_Tww_MW(iF.t)
+
 def disconnect():
     global iF
     iF.close()
-    guiWW.itimer.cancel()
     quit()
 
 
