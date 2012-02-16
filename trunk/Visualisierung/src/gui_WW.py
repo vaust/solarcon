@@ -30,7 +30,7 @@ class GuiWW(tk.Frame):
         
     def draw(self):
         self.xt.pack(padx=PD, pady=PD)
-
+        
         ''' WW Heizungspumpenregler parametrieren '''
         self.lf_pu_regler = tk.LabelFrame( self, text='Heizungspumpenregler Online Parametrierung')
         self.lf_pu_regler.pack(padx=PD, pady=PD, side=tk.TOP)

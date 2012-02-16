@@ -17,7 +17,6 @@ import gui_WW
 import telnetIf
 # import main
 import time
-from threading import Timer
 
 root=tk.Tk()
 PD = 2
@@ -114,5 +113,5 @@ connectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 disconnectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 quitBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 updateBtn.pack( padx=PD, pady=PD, side=tk.RIGHT )
-
+   
 root.mainloop()
