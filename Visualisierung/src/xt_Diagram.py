@@ -12,11 +12,11 @@ class XtDiagram(tk.Frame):
     Win_Xoffset = 25
     Win_Yoffset = 20        
 
-    XTicks      = 30
+    XTicks      = 25
     YTicks      = 10
     TickLen     =  4 
     
-    PhysX_TickUnit  = 10   # sec
+    PhysX_TickUnit  = 60   # sec
     PhysY_TickUnit  =  1   # °C
     PhysX_Offs      =  0   # sec
     PhysY_Offs      = 33   # °C
@@ -46,9 +46,9 @@ class XtDiagram(tk.Frame):
         todo Umbauen zu Funktion, um Messwerte als Phys Werte aus Diagramm anzuzeigen  
         '''
         (pX, pY) = self.inv_transformPhysToCnvs( self.xtCnvs.canvasx(event.x), self.xtCnvs.canvasy(event.y) ) 
-        
-                    
-        
+        self.xVal.config( text=str(pX)[0:6] )
+        self.yVal.config( text=str(pY)[0:6] )
+                                                      
     def transform(self, x, y):
         x1 =  x + self.Win_Xoffset
         y1 = -y + (self.Win_Y-self.Win_Yoffset) 
@@ -118,7 +118,16 @@ class XtDiagram(tk.Frame):
         self.drawAchses()
         self.drawTicks()
         self.xtCnvs.pack()
-
+        
+        self.xLbl = tk.Label( self, text='Mouse Click: x-Wert: ' )
+        self.yLbl = tk.Label( self, text='y-Wert: ' )
+        self.xVal = tk.Label( self, width=8, relief=tk.SUNKEN, bg='LightGoldenrod1' )
+        self.yVal = tk.Label( self, width=8, relief=tk.SUNKEN, bg='LightGoldenrod1' )
+        self.xLbl.pack( padx=5, pady=5, side=tk.LEFT )
+        self.xVal.pack( padx=5, pady=5, side=tk.LEFT )
+        self.yLbl.pack( padx=5, pady=5, side=tk.LEFT )
+        self.yVal.pack( padx=5, pady=5, side=tk.LEFT )
+    
     def drawNewValue(self, newPhysX, newPhysY):
         (x0, y0) = self.transformPhysToCnvs(self.LastPhysX, self.LastPhysY)
         (x1, y1) = self.transformPhysToCnvs(newPhysX, newPhysY)
