@@ -56,7 +56,8 @@ guiWW.pack( padx=PD, pady=PD )
 
 servernameLbl   = tk.Label(root, text='Servername:')
 servernameEntry = tk.Entry(root, width=32, bg='white')
-servernameEntry.insert(0, '192.168.3.33')
+# servernameEntry.insert(0, '192.168.3.33')
+servernameEntry.insert(0, 'stegmann.homelinux.org')
 
 def connect():
     global iF
@@ -71,6 +72,8 @@ def connect():
     guiWW.PuReglerParamLesen     = iF.WW_PuReglerParamLesen
     guiWW.TempLesen              = iF.get_T
     guiWW.t0                     = time.time()
+    guiWW.xt.LastPhysX           = 0
+    guiWW.xt.LastPhysY           = 40.0
     #
     updateBtn.config(state=tk.ACTIVE)
     disconnectBtn.config(state=tk.ACTIVE)
@@ -86,20 +89,31 @@ def update():
 
 def disconnect():
     global iF
+    updateBtn.config(state=tk.DISABLED)
+    disconnectBtn.config(state=tk.DISABLED)
+    connectBtn.config(state=tk.ACTIVE)
+    servernameEntry.config(state=tk.NORMAL)
+    iF.beenden()
+    iF.close()
+
+def beenden():
+    iF.beenden()
     iF.close()
     quit()
+    
 
-
-updateBtn = tk.Button(root, text='Update', command=update)
+updateBtn = tk.Button(root, text='Messwerte aktualisieren', command=update)
 connectBtn = tk.Button(root, text='Verbinden', command=connect)
-disconnectBtn = tk.Button(root, text='Verbindung trennen und Beenden', command=disconnect)
+disconnectBtn = tk.Button(root, text='Verbindung trennen', command=disconnect)
 disconnectBtn.config(state=tk.DISABLED)
 updateBtn.config(state=tk.DISABLED)
+quitBtn = tk.Button(root, text='Beenden', command=beenden)
 
 servernameLbl.pack( padx=PD, pady=PD, side=tk.LEFT )
 servernameEntry.pack( padx=PD, pady=PD, side=tk.LEFT )
 connectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 disconnectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
+quitBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 updateBtn.pack( padx=PD, pady=PD, side=tk.RIGHT )
 
 root.mainloop()

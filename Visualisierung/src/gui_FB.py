@@ -190,11 +190,9 @@ class GuiFB(tk.Frame):
         self.draw_lf_Process()
         self.draw_lf_MvRegler()
 
-    def updateLabels(self, t_dict):
+    def updateLabels(self, t_dict ):
         self.lf_Process.PrimTrlMw_lbl.config(text=str(t_dict['FB_PRIM_Trl_MW'])+' °C')
         self.lf_Process.SekTvlMw_lbl.config(text=str(t_dict['FB_SEK_Tvl_MW'])+' °C')
-    
-
 
 if __name__ == "__main__":
     root=tk.Tk()

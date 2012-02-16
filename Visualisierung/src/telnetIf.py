@@ -27,6 +27,9 @@ class TelnetInterface(telnetlib.Telnet):
         lines = bufdecode.splitlines()
         return lines
     
+    def beenden(self):
+        self.write(b"END\n")
+    
     def get_T(self):
         lines = self.HoleAntwort( b"GET T\n" )
         for name in signals.TEMP_NAMES:
