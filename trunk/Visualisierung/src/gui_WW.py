@@ -9,7 +9,7 @@ import tkinter as tk
 
 import xt_Diagram
 import time
-from threading import Timer
+# from threading import Timer
 
 PD = 5
 HFARBE  = 'LightGoldenrod1'
@@ -20,17 +20,17 @@ class GuiWW(tk.Frame):
         self.PuReglerParamLesen = None
         self.PuReglerParamSchreiben = None
         self.TempLesen = None
+        
         self.xt = xt_Diagram.XtDiagram(master)
+        self.xt.LastPhysX = 0.0
+        self.xt.LastPhysY = 0.0
+        self.t0 = time.time()
+        
         self.draw()
         
     def draw(self):
         self.xt.pack(padx=PD, pady=PD)
-        ''' Plotten kontrollieren '''
-        self.updateXtBtn = tk.Button(self, text='Starte Plotten von Tww', command=self.startPlot)
-        self.stopXtBtn = tk.Button(self, text='Stoppe Plotten', command=self.stopPlot)
-        self.updateXtBtn.pack(padx=PD, pady=PD)
-        self.stopXtBtn.pack(padx=PD, pady=PD)
-        
+
         ''' WW Heizungspumpenregler parametrieren '''
         self.lf_pu_regler = tk.LabelFrame( self, text='Heizungspumpenregler Online Parametrierung')
         self.lf_pu_regler.pack(padx=PD, pady=PD, side=tk.TOP)
@@ -121,24 +121,8 @@ class GuiWW(tk.Frame):
 
     #-------------------- Interface zu xt-Diagramm
     
-    def startPlot(self):
-        temp = self.TempLesen()
-        self.xt.LastPhysX = 0
-        self.xt.LastPhysY = temp["WW_Tww_MW"] + 40.0 # zum Testen
-        self.t0 = time.time()
-        self.plot_Tww_MW()
-        
-    def plot_Tww_MW(self):
-        temp = self.TempLesen()
+    def plot_Tww_MW(self, temp):
         y=temp["WW_Tww_MW"] + 40.0 # zum Testen
         x=time.time()-self.t0
         self.xt.drawNewValue(x,y)
-        self.itimer = Timer(2.0, self.plot_Tww_MW)
-        self.itimer.start()
-
-    def stopPlot(self):
-        self.itimer.cancel()
-        self.updateXtBtn.config( command=self.plot_Tww_MW )
-
-#------
 
