@@ -100,7 +100,6 @@ def beenden():
     iF.beenden()
     iF.close()
     quit()
-    
 
 updateBtn = tk.Button(root, text='Messwerte aktualisieren', command=update)
 connectBtn = tk.Button(root, text='Verbinden', command=connect)
