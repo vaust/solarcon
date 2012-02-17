@@ -51,8 +51,12 @@ typedef struct ain_s {
     temp10_pt1000_t  ww_hzg_trl_mw;  /**< Warmwasser, Heizungsruecklauftemperatur, AI, Pt1000              Slot 5, R2 */
     temp10_pt1000_t  ww_tww_mw;      /**< Warmwasser-Temperatur, AI, Pt1000                                Slot 5, R3 */
     temp10_pt1000_t  reserve;        /**< Ein Temperaturkanal als Reserve                                  Slot 5, R4 */
-    cnt_t            all_wz;         /**< Wasserzaehler                                                    Slot 11,C1 */
-    cnt_t            res_zaehler;    /**< 2. Zaehler als Reserve                                           Slot 11,C2 */
+    u8_t             cnt1_steuer;         /* Statusbyte des Zaehlers                                         Slot 13,    */
+    u8_t             cnt1_lsb;
+    u8_t             cnt1_msb;
+    u8_t             cnt2_steuer;         /* Statusbyte des Zaehlers                                         Slot 13,    */
+    u8_t             cnt2_lsb;
+    u8_t             cnt2_msb;
 } ain_t;
 
 /**
@@ -89,8 +93,12 @@ typedef struct aout_s {
     ao_0_10V_t      res1;
     ao_0_10V_t      res2;
     ao_0_10V_t      res3;
-    cnt_t           all_wz;           /**< Wasserzaehler                                                   Slot 11, C1 */
-    cnt_t           res_zaehler;      /**< 2. Zaehler als Reserve                                          Slot 11, C2 */
+    u8_t            cnt1_steuer;         /* Statusbyte des Zaehlers                                         Slot 13,    */
+    u8_t            cnt1_lsb;
+    u8_t            cnt1_msb;
+    u8_t            cnt2_steuer;         /* Statusbyte des Zaehlers                                         Slot 13,    */
+    u8_t            cnt2_lsb;
+    u8_t            cnt2_msb;
 } aout_t;
 
 /**

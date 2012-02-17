@@ -13,7 +13,7 @@ class XtDiagram(tk.Frame):
     Win_Yoffset = 20        
 
     XTicks      = 25
-    YTicks      = 10
+    YTicks      = 20
     TickLen     =  4 
     
     PhysX_TickUnit  = 60   # sec
