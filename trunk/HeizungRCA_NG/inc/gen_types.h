@@ -57,22 +57,19 @@ typedef u8_t    do_bitbyte_t;        /**< @brief Digitaler Schaltzustand eines A
  * @brief Datenstruktur fuer Zählerklemme. Achtung: Belegt nicht Digitaleingaenge, sondern Analogeingaenge und
  * -Ausgaenge !! Eingaenge sind Statusbyte und Zaehlerstaende, Ausgaenge sind Steuerbyte und Zaehlerinitialisierung
  */
+typedef struct cnt_status_steuer_s {
+    u8_t    no_ueberlauf : 1;
+    u8_t    rueckwaerts  : 1;
+    u8_t    notused_a    : 2;
+    u8_t    sperren      : 1;
+    u8_t    setzen       : 1;
+    u8_t    notused_b    : 2;
+} cnt_status_steuer_t;
+
 typedef struct cnt_s {
-    struct status_steuer_s {
-        u8_t    no_ueberlauf : 1;
-        u8_t    rueckwaerts  : 1;
-        u8_t    notused_a    : 2;
-        u8_t    sperren      : 1;
-        u8_t    setzen       : 1;
-        u8_t    notused_b    : 2;
-    } status_steuer;
-    union  bw_u {
-        struct b_s {
-            u8_t    lsb;        /**< LSB des Zaehlerwertes */
-            u8_t    msb;        /**< MSB des Zählerwertes  */
-        } cntByte;
-        u16_t cntWord;
-    } bw;
+    cnt_status_steuer_t st;
+    u8_t    lsb;        /**< LSB des Zaehlerwertes */
+    u8_t    msb;        /**< MSB des Zählerwertes  */
 } cnt_t;
 
 

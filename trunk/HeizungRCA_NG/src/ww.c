@@ -189,6 +189,7 @@ void ww_Run( ww_class_t *self )
 
     3.  2. Anforderung ist höher prior als 1. Anforderung
     */
+
     if( (self->i.tww_mw < self->p.tww_min_sw) && (self->i.tau_mw < self->p.frostschutz) ) {
         self->o.hzg_pu_sb = IO_EIN;
     }
@@ -200,6 +201,10 @@ void ww_Run( ww_class_t *self )
             self->o.hzg_pu_sb = IO_AUS;
         }
     }
+
+    /* Wasserzaehler funktioniert noch nicht. Erst mal alter Stand.
+    self->o.hzg_pu_sb = IO_EIN;
+    *
 
     /* Zirkulationspumpe ansteuern */
     if( (self->i.zirkzustand == zEin) || (self->i.tau_mw < self->p.frostschutz) )

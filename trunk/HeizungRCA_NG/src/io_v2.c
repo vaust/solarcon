@@ -181,16 +181,21 @@ io_obj_status_t io_WriteY( io_ao10V_obj_t *self, float val )
 static
 void io_InitWz( void )
 {
-    pabOut_p->aout.all_wz.status_steuer.no_ueberlauf = 0;  /* Ueberlauf erlauben */
-    pabOut_p->aout.all_wz.status_steuer.rueckwaerts  = 0;  /* vorwaerts zaehlern */
-    pabOut_p->aout.all_wz.status_steuer.setzen       = 0;
-    pabOut_p->aout.all_wz.status_steuer.sperren      = 1;
+    cnt_status_steuer_t *st_p;
+
+    st_p = &(pabOut_p->aout.cnt1_steuer);
+
+    st_p->no_ueberlauf      = 0;  /* Ueberlauf erlauben */
+    st_p->rueckwaerts       = 0;  /* vorwaerts zaehlern */
+    st_p->setzen            = 0;
+    st_p->sperren           = 1;
     KBUSUPDATE();
-    pabOut_p->aout.all_wz.bw.cntWord                 = 0x0000;
-    pabOut_p->aout.all_wz.status_steuer.setzen       = 1;
+    pabOut_p->aout.cnt1_lsb = 0x00;
+    pabOut_p->aout.cnt1_msb = 0x00;
+    st_p->setzen            = 1;
     KBUSUPDATE();
-    pabOut_p->aout.all_wz.status_steuer.setzen       = 0;
-    pabOut_p->aout.all_wz.status_steuer.sperren      = 0;
+    st_p->setzen            = 0;
+    st_p->sperren           = 0;
     KBUSUPDATE();
 }
 
