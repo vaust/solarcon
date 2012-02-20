@@ -21,7 +21,8 @@ class GuiWW(tk.Frame):
         self.PuReglerParamSchreiben = None
         self.TempLesen = None
         
-        self.xt = xt_Diagram.XtDiagram(master, physY_Offs=34, yTicks=10, win_Y=300 )
+        self.xt = xt_Diagram.XtDiagram(master, physY_Offs=30, yTicks=5, physY_TickUnit=5, yAchsentext='°C', win_Y=120 )
+        self.xt2 = xt_Diagram.XtDiagram(master, physY_Offs=0, yTicks=5, physY_TickUnit=20, yAchsentext='%', win_Y=120 )
         self.xt.LastPhysX = 0.0
         self.xt.LastPhysY = 0.0
         self.t0 = time.time()
@@ -30,6 +31,7 @@ class GuiWW(tk.Frame):
         
     def draw(self):
         self.xt.pack(padx=PD, pady=PD)
+        self.xt2.pack(padx=PD, pady=PD)
         
         ''' WW Heizungspumpenregler parametrieren '''
         self.lf_pu_regler = tk.LabelFrame( self, text='Heizungspumpenregler Online Parametrierung')
@@ -121,11 +123,13 @@ class GuiWW(tk.Frame):
 
     #-------------------- Interface zu xt-Diagramm
     
-    def plot_Tww_MW(self, temp):
-        y=temp["WW_Tww_MW"] + 40.0 # zum Testen
+    def plot_MW(self, temp, pu):
+        yt=temp["WW_Tww_MW"] + 40.0 # zum Testen
+        yp=pu["WW_HZG_PU_Y"]
         x=time.time()-self.t0
-        self.xt.drawNewValue(x,y)
-
+        self.xt.drawNewValue(x,yt)
+        self.xt.drawNewValue(x,yp)
+        
 if __name__ == "__main__":
     root=tk.Tk()
     gui = GuiWW(root)

@@ -18,26 +18,27 @@ import telnetIf
 # import main
 import time
 
-root=tk.Tk()
 PD = 2
-nbook = ttk.Notebook(root)
-nbook.ALL = ttk.Frame(nbook)
-nbook.SOL = ttk.Frame(nbook)
-nbook.WW = ttk.Frame(nbook)
-nbook.FB = ttk.Frame(nbook)
-nbook.HK = ttk.Frame(nbook)
-nbook.KES = ttk.Frame(nbook)
-nbook.ERR = ttk.Frame(nbook)
-nbook.PAR = ttk.Frame(nbook)
+
+root=tk.Tk()
+nbook      = ttk.Notebook(root)
+nbook.ALL  = ttk.Frame(nbook)
+nbook.SOL  = ttk.Frame(nbook)
+nbook.WW   = ttk.Frame(nbook)
+nbook.FB   = ttk.Frame(nbook)
+nbook.HK   = ttk.Frame(nbook)
+nbook.KES  = ttk.Frame(nbook)
+nbook.ERR  = ttk.Frame(nbook)
+nbook.PAR  = ttk.Frame(nbook)
 nbook.ZEIT = ttk.Frame(nbook)
-nbook.add(nbook.ALL, text='Gesamtübersicht')
-nbook.add(nbook.SOL, text='Solarheizkreis')
-nbook.add(nbook.WW, text='Warmwasser')
-nbook.add(nbook.FB, text='Fußbodenheizung')
-nbook.add(nbook.HK, text='Heizkörperheizung')
-nbook.add(nbook.KES, text='Kesselsteuerung')
-nbook.add(nbook.ERR, text='Störungsmeldungen')
-nbook.add(nbook.PAR, text='Parameter')
+nbook.add(nbook.ALL,  text='Gesamtübersicht')
+nbook.add(nbook.SOL,  text='Solarheizkreis')
+nbook.add(nbook.WW,   text='Warmwasser')
+nbook.add(nbook.FB,   text='Fußbodenheizung')
+nbook.add(nbook.HK,   text='Heizkörperheizung')
+nbook.add(nbook.KES,  text='Kesselsteuerung')
+nbook.add(nbook.ERR,  text='Störungsmeldungen')
+nbook.add(nbook.PAR,  text='Parameter')
 nbook.add(nbook.ZEIT, text='Zeitprogramm')
 nbook.pack(padx=PD, pady=PD, fill=tk.X)
 
@@ -84,7 +85,7 @@ def update():
     iF.ErmittleMesswerte()
     guiAll.updateLabels(iF.t, iF.pu, iF.mv, iF.di, iF.cnt, iF.av)
     guiFB.updateLabels(iF.t)
-    guiWW.plot_Tww_MW(iF.t)
+    guiWW.plot_MW(iF.t, iF.mv)
 
 def disconnect():
     global iF
@@ -96,6 +97,7 @@ def disconnect():
     iF.close()
 
 def beenden():
+    global iF
     try:
         iF.beenden()
         iF.close()
