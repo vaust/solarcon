@@ -84,6 +84,7 @@ void cntrl_open( void )
     
     KBUSOPEN();
     KBUSUPDATE();
+    sleep(1);
     
     MUTEX_lock {
         io_Init();
@@ -115,6 +116,7 @@ void cntrl_open( void )
     } MUTEX_unlock();
 
     KBUSUPDATE();
+    sleep(1);
 }
 
 /**
@@ -282,7 +284,7 @@ void cntrl_run( int sig )
         cntrl_Heartbeat = !cntrl_Heartbeat;
 
         if( cntrl_err.o.Sammelstoermeldung == RESET ) {
-            io_put_STOERUNG( IO_AUS );              /* Stoermeldung AUS */
+            io_put_STOERUNG( IO_AUS );                /* Stoermeldung AUS */
         }
         else {
             io_put_STOERUNG( cntrl_Stoerungslampe );  /* Stoermeldung blinken lassen */

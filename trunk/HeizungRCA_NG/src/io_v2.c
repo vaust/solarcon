@@ -31,6 +31,8 @@
 #include "io_wago_hwif.h"
 #include "io_v2.h"
 
+#include <unistd.h>     /* Wird fuer sleep() Befehl benoetigt */
+
 #ifdef __WAGO__
 #include <asm/types.h>
 #include "kbusapi.h"
@@ -181,22 +183,35 @@ io_obj_status_t io_WriteY( io_ao10V_obj_t *self, float val )
 static
 void io_InitWz( void )
 {
-    cnt_status_steuer_t *st_p;
+    cnt_status_steuer_t *ctl_p, *st_p;
+    s16_t n;
 
-    st_p = &(pabOut_p->aout.cnt1_steuer);
+    ctl_p = &(pabOut_p->aout.cnt1_steuer);
+    st_p  = &(pabIn_p->ain.cnt1_status);
 
-    st_p->no_ueberlauf      = 0;  /* Ueberlauf erlauben */
-    st_p->rueckwaerts       = 0;  /* vorwaerts zaehlern */
-    st_p->setzen            = 0;
-    st_p->sperren           = 1;
+    ctl_p->no_ueberlauf     = 0;   /* Ueberlauf erlauben    */
+    ctl_p->rueckwaerts      = 0;   /* vorwaerts zaehlen     */
+    ctl_p->notused_a        = 0;   /* Immer 0               */
+    ctl_p->setzen           = 0;   /* Noch nicht setzen     */
+    ctl_p->sperren          = 0;   /* Zaehler nicht sperren */
+    ctl_p->notused_b        = 0;   /* Immer 0               */
     KBUSUPDATE();
-    pabOut_p->aout.cnt1_lsb = 0x00;
+    sleep(1);
+
+    pabOut_p->aout.cnt1_lsb = 0x00; /* Zaehler auf 0 setzen */
     pabOut_p->aout.cnt1_msb = 0x00;
-    st_p->setzen            = 1;
+    ctl_p->setzen           = 1;
+    n = 16;                         /* Timeout falls setzen des Zaehler nicht klappt */
+    do {
+        KBUSUPDATE();
+        sleep(1);
+        n --;
+        /* Warten bis Zaehlerstatus meldet: Gesetzt = 1 oder Timeout (n=0)*/
+    } while( (st_p->setzen == 0) && (n > 0) );
+
+    ctl_p->setzen           = 0;   /* Setzen wieder loeschen */
     KBUSUPDATE();
-    st_p->setzen            = 0;
-    st_p->sperren           = 0;
-    KBUSUPDATE();
+    sleep(1);
 }
 
 /**
