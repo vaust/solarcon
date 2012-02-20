@@ -23,9 +23,9 @@
 #include "reg.h"
 
 /* <Defines> */
-#define WW_VV_SP1       0x00
-#define WW_VV_SP2       0x01
-#define MAX_WZ_HISTORY    60
+#define WW_VV_SP1       0x00        /**< Anlagenabhaengige Definition: NICHT AENDERN!!            */
+#define WW_VV_SP2       0x01        /**< Anlagenabhaengige Definition: NICHT AENDERN!!            */
+#define MAX_WZ_HISTORY    60        /**< Definiert das Delta T fuer die Durchflussmessung in Einheiten von TA */
 /* <Defines> */
 
 /* <Typen> */

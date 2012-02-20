@@ -51,12 +51,12 @@ typedef struct ain_s {
     temp10_pt1000_t  ww_hzg_trl_mw;  /**< Warmwasser, Heizungsruecklauftemperatur, AI, Pt1000              Slot 5, R2 */
     temp10_pt1000_t  ww_tww_mw;      /**< Warmwasser-Temperatur, AI, Pt1000                                Slot 5, R3 */
     temp10_pt1000_t  reserve;        /**< Ein Temperaturkanal als Reserve                                  Slot 5, R4 */
-    u8_t             cnt1_steuer;         /* Statusbyte des Zaehlers                                         Slot 13,    */
-    u8_t             cnt1_lsb;
-    u8_t             cnt1_msb;
-    u8_t             cnt2_steuer;         /* Statusbyte des Zaehlers                                         Slot 13,    */
-    u8_t             cnt2_lsb;
-    u8_t             cnt2_msb;
+    u8_t             cnt1_steuer;    /**< Statusbyte des Zaehlers 1 angeschlossen an Wasserzaehler         Slot 13    */
+    u8_t             cnt1_lsb;       /**< Lsb Zaehler 1                                                               */
+    u8_t             cnt1_msb;       /**< Msb Zaehler 1                                                               */
+    u8_t             cnt2_steuer;    /**< Statusbyte des Zaehlers 2 Reserve                                Slot 13,   */
+    u8_t             cnt2_lsb;       /**< Lsb Zaehler 2                                                               */
+    u8_t             cnt2_msb;       /**< Lsb Zaehler 2                                                               */
 } ain_t;
 
 /**
@@ -68,9 +68,9 @@ typedef struct din_s {
     di_bitbyte_t     kes_br_bm   :1;  /**< Heizkessel Brennerbetriebsmeldung, DI, 24V                      Slot 1, I3 */
     di_bitbyte_t     fb_sek_tw   :1;  /**< Fussbodenheizung, Sicherheitstemperaturwaechter, DI, 24V        Slot 1, I4 */
 
-    di_bitbyte_t     ww_party    :1;  /**< Partyschalter, Warmwasserbereitung, DI, 24V */
-    di_bitbyte_t     ww_wz_mw    :1;  /**< Warmwasserzaehler, DI, 24V                  */
-    di_bitbyte_t     res2        :2;  /**< Byte auffuellen */
+    di_bitbyte_t     ww_party    :1;  /**< Partyschalter, Warmwasserbereitung, DI, 24V                                */
+    di_bitbyte_t     ww_wz_mw    :1;  /**< Warmwasserzaehler, DI, 24V                                                 */
+    di_bitbyte_t     res2        :2;  /**< Byte auffuellen                                                            */
 } din_t;
 
 /**
@@ -93,12 +93,12 @@ typedef struct aout_s {
     ao_0_10V_t      res1;
     ao_0_10V_t      res2;
     ao_0_10V_t      res3;
-    u8_t            cnt1_steuer;         /* Statusbyte des Zaehlers                                         Slot 13,    */
-    u8_t            cnt1_lsb;
-    u8_t            cnt1_msb;
-    u8_t            cnt2_steuer;         /* Statusbyte des Zaehlers                                         Slot 13,    */
-    u8_t            cnt2_lsb;
-    u8_t            cnt2_msb;
+    u8_t            cnt1_steuer;      /**< Steuerbyte des Zaehlers                                         Slot 13,    */
+    u8_t            cnt1_lsb;         /**< Lsb Zaehlervorgabe 1                                                        */
+    u8_t            cnt1_msb;         /**< Msb ZaehlerZaehler 1                                                        */
+    u8_t            cnt2_steuer;      /**< Statusbyte des Zaehlers                                         Slot 13,    */
+    u8_t            cnt2_lsb;         /**< Lsb Zaehlervorgabe 2                                                        */
+    u8_t            cnt2_msb;         /**< Msb ZaehlerZaehler 2                                                        */
 } aout_t;
 
 /**
@@ -122,8 +122,8 @@ typedef struct dout_s {
 
     do_bitbyte_t res2           :1;   /**< reserviert fuer Primaermischventil Fussbodenheizung              Slot 8, O4 */
     do_bitbyte_t res3           :1;   /**< reserviert fuer Primaermischventil Fussbodenheizung              Slot 8, O4 */
-    do_bitbyte_t control_aktiv  :1;   /**< Kontrolllampe Steuerung aktiv    */
-    do_bitbyte_t stoerung       :1;   /**< Kontrolllampe Sammelstoermeldung */
+    do_bitbyte_t control_aktiv  :1;   /**< Kontrolllampe Steuerung aktiv                                               */
+    do_bitbyte_t stoerung       :1;   /**< Kontrolllampe Sammelstoermeldung                                            */
 } dout_t;
 
 /**
