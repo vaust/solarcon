@@ -133,7 +133,7 @@ class XtDiagram(tk.Frame):
         (x1, y1) = self.transformPhysToCnvs(newPhysX, newPhysY)
         (self.LastPhysX, self.LastPhysY) = (newPhysX, newPhysY)
         self.xtCnvs.create_line( ((x0, y0), (x1, y1)), fill=self.ChartFarbe, width=self.ChartWidth )
-    
+
         
 if __name__ == "__main__":
     import random
@@ -146,7 +146,7 @@ if __name__ == "__main__":
     dx = 0.05
     x  = 0.00
     while ( x<gui.XTicks*gui.PhysX_TickUnit ):
-        y=random.gauss(40.0, 0.25)
+        y=random.gauss(40.0, 0.5)
         x += dx
         gui.drawNewValue(x,y) 
     
