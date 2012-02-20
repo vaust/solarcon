@@ -21,7 +21,7 @@ class GuiWW(tk.Frame):
         self.PuReglerParamSchreiben = None
         self.TempLesen = None
         
-        self.xt = xt_Diagram.XtDiagram(master)
+        self.xt = xt_Diagram.XtDiagram(master, physY_Offs=34, yTicks=10, win_Y=300 )
         self.xt.LastPhysX = 0.0
         self.xt.LastPhysY = 0.0
         self.t0 = time.time()
@@ -122,7 +122,13 @@ class GuiWW(tk.Frame):
     #-------------------- Interface zu xt-Diagramm
     
     def plot_Tww_MW(self, temp):
-        y=temp["WW_Tww_MW"] # + 40.0 # zum Testen
+        y=temp["WW_Tww_MW"] + 40.0 # zum Testen
         x=time.time()-self.t0
         self.xt.drawNewValue(x,y)
+
+if __name__ == "__main__":
+    root=tk.Tk()
+    gui = GuiWW(root)
+    gui.pack()
+    root.mainloop()
 
