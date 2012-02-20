@@ -128,7 +128,7 @@ class GuiWW(tk.Frame):
         yp=pu["WW_HZG_PU_Y"]
         x=time.time()-self.t0
         self.xt.drawNewValue(x,yt)
-        self.xt.drawNewValue(x,yp)
+        self.xt2.drawNewValue(x,yp)
         
 if __name__ == "__main__":
     root=tk.Tk()
