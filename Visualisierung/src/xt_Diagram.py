@@ -7,32 +7,48 @@ Created on 13.02.2012
 import tkinter as tk
 
 class XtDiagram(tk.Frame):
-    Win_X       = 1200
-    Win_Y       = 340
-    Win_Xoffset = 25
-    Win_Yoffset = 20        
-
-    XTicks      = 25
-    YTicks      = 20
-    TickLen     =  4 
-    
-    PhysX_TickUnit  = 60   # sec
-    PhysY_TickUnit  =  1   # °C
-    PhysX_Offs      =  0   # sec
-    PhysY_Offs      = 33   # °C
-
-    BackColor   = 'black'
-    Achsenfarbe = 'green'
-    Gridfarbe   = 'DarkKhaki' # 'darkgreen' #
-    XAchsentext = 'sec'
-    YAchsentext = '°C'
-
-    ChartWidth  = 2
-    ChartFarbe  = 'DarkOrange1'
-    
-    def __init__(self, master=None):
+    def __init__(self, 
+                 master          = None,
+                 win_X           = 1200,   # Fensterbreite in Pixel
+                 win_Y           =  340,   # Fensterhoehe in Pixel
+                 win_Xoffset     =   25,   # x-Achsenoffset in Pixel 
+                 win_Yoffset     =   20,   # y-Achsenoffset in Pixel     
+                 xTicks          =   25,   # Anzahl der x-Achsenabschnitte
+                 yTicks          =   20,   # Anzahl der y-Achsenabschnitte
+                 tickLen         =    4,   # Achsenabschnittslinienlaenge in Pixel
+                 physX_TickUnit  =   60,   # physikalische x-Einheiten pro Achsenabschnitt 
+                 physY_TickUnit  =    1,   # physikalische y-Einheiten pro Achsenabschnitt
+                 physX_Offs      =    0,   # Startwert der x-Achse 
+                 physY_Offs      =   30,   # °C
+                 backColor       = 'black',      # Hintergrundfarbe
+                 achsenfarbe     = 'green',      # Achsenfarbe
+                 gridfarbe       = 'DarkKhaki',  # 'darkgreen' #
+                 xAchsentext     = 'sec',        # Einheitenname der x-Achse
+                 yAchsentext     = '°C',         # Einheitenname der y-Achse
+                 chartWidth      =    2,         # Staerke der Datenlinie
+                 chartFarbe      = 'DarkOrange1' # Gitterfarbe
+                  ):
         tk.Frame.__init__(self, master, relief=tk.SUNKEN)
 
+        self.Win_X           = win_X         
+        self.Win_Y           = win_Y         
+        self.Win_Xoffset     = win_Xoffset   
+        self.Win_Yoffset     = win_Yoffset   
+        self.XTicks          = xTicks        
+        self.YTicks          = yTicks        
+        self.TickLen         = tickLen       
+        self.PhysX_TickUnit  = physX_TickUnit
+        self.PhysY_TickUnit  = physY_TickUnit
+        self.PhysX_Offs      = physX_Offs    
+        self.PhysY_Offs      = physY_Offs    
+        self.BackColor       = backColor     
+        self.Achsenfarbe     = achsenfarbe   
+        self.Gridfarbe       = gridfarbe     
+        self.XAchsentext     = xAchsentext   
+        self.YAchsentext     = yAchsentext   
+        self.ChartWidth      = chartWidth    
+        self.ChartFarbe      = chartFarbe    
+               
         self.Win_Xspan   = self.Win_X-2*self.Win_Xoffset
         self.Win_Yspan   = self.Win_Y-2*self.Win_Yoffset
 
@@ -42,9 +58,6 @@ class XtDiagram(tk.Frame):
         self.draw()
 
     def cllbck(self, event): 
-        '''
-        todo Umbauen zu Funktion, um Messwerte als Phys Werte aus Diagramm anzuzeigen  
-        '''
         (pX, pY) = self.inv_transformPhysToCnvs( self.xtCnvs.canvasx(event.x), self.xtCnvs.canvasy(event.y) ) 
         self.xVal.config( text=str(pX)[0:6] )
         self.yVal.config( text=str(pY)[0:6] )
@@ -143,7 +156,7 @@ if __name__ == "__main__":
     gui.pack()
     gui.LastPhysX = 0
     gui.LastPhysY = random.gauss(40.0, 0.25)
-    dx = 0.05
+    dx = 0.1
     x  = 0.00
     while ( x<gui.XTicks*gui.PhysX_TickUnit ):
         y=random.gauss(40.0, 0.5)

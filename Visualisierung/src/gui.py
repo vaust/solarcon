@@ -55,8 +55,8 @@ guiWW.pack( padx=PD, pady=PD )
 
 servernameLbl   = tk.Label(root, text='Servername:')
 servernameEntry = tk.Entry(root, width=32, bg='white')
-servernameEntry.insert(0, '192.168.3.33')
-# servernameEntry.insert(0, 'stegmann.homelinux.org')
+# servernameEntry.insert(0, '192.168.3.33')
+servernameEntry.insert(0, 'stegmann.homelinux.org')
 
 def connect():
     global iF
@@ -96,8 +96,11 @@ def disconnect():
     iF.close()
 
 def beenden():
-    iF.beenden()
-    iF.close()
+    try:
+        iF.beenden()
+        iF.close()
+    except AttributeError:
+        pass
     quit()
 
 updateBtn = tk.Button(root, text='Messwerte aktualisieren', command=update)
