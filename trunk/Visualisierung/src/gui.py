@@ -17,6 +17,7 @@ import gui_WW
 import telnetIf
 # import main
 import time
+import sys
 
 PD = 2
 
@@ -114,7 +115,9 @@ def beenden():
         iF.close()
     except:
         pass
-    quit()
+    
+    sys.exit()
+    
 
 updateBtn = tk.Button(root, text='Messwerte aktualisieren', command=update)
 connectBtn = tk.Button(root, text='Verbinden', command=connect)
