@@ -21,16 +21,20 @@ class GuiWW(tk.Frame):
         self.PuReglerParamSchreiben = None
         self.TempLesen = None
         
-        self.xt = xt_Diagram.XtDiagram(master, physY_Offs=30, yTicks=5, physY_TickUnit=5, yAchsentext='°C', win_Y=120 )
-        self.xt2 = xt_Diagram.XtDiagram(master, physY_Offs=0, yTicks=5, physY_TickUnit=20, yAchsentext='%', win_Y=120 )
-        self.xt.LastPhysX = 0.0
-        self.xt.LastPhysY = 0.0
+        self.xt1 = xt_Diagram.XtDiagram(master, physY_Offs=30, yTicks=5, physY_TickUnit=5, 
+                                       yAchsentext='°C', win_Y=150 )
+        self.xt2 = xt_Diagram.XtDiagram(master, physY_Offs=0, yTicks=6, physY_TickUnit=20,
+                                        yAchsentext='%', win_Y=150 )
+        self.xt1.LastPhysX = 0.0
+        self.xt1.LastPhysY = 0.0
+        self.xt1.LastPhysX = 0.0
+        self.xt1.LastPhysY = 0.0
         self.t0 = time.time()
         
         self.draw()
         
     def draw(self):
-        self.xt.pack(padx=PD, pady=PD)
+        self.xt1.pack(padx=PD, pady=PD)
         self.xt2.pack(padx=PD, pady=PD)
         
         ''' WW Heizungspumpenregler parametrieren '''
@@ -127,7 +131,7 @@ class GuiWW(tk.Frame):
         yt=temp["WW_Tww_MW"] + 40.0 # zum Testen
         yp=pu["WW_HZG_PU_Y"]
         x=time.time()-self.t0
-        self.xt.drawNewValue(x,yt)
+        self.xt1.drawNewValue(x,yt)
         self.xt2.drawNewValue(x,yp)
         
 if __name__ == "__main__":

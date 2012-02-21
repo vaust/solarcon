@@ -9,20 +9,20 @@ import tkinter as tk
 class XtDiagram(tk.Frame):
     def __init__(self, 
                  master          = None,
-                 win_X           = 1200,   # Fensterbreite in Pixel
-                 win_Y           =  340,   # Fensterhoehe in Pixel
-                 win_Xoffset     =   25,   # x-Achsenoffset in Pixel 
-                 win_Yoffset     =   20,   # y-Achsenoffset in Pixel     
-                 xTicks          =   25,   # Anzahl der x-Achsenabschnitte
-                 yTicks          =   20,   # Anzahl der y-Achsenabschnitte
-                 tickLen         =    4,   # Achsenabschnittslinienlaenge in Pixel
-                 physX_TickUnit  =   60,   # physikalische x-Einheiten pro Achsenabschnitt 
-                 physY_TickUnit  =    1,   # physikalische y-Einheiten pro Achsenabschnitt
-                 physX_Offs      =    0,   # Startwert der x-Achse 
-                 physY_Offs      =   30,   # °C
+                 win_X           = 1200,         # Fensterbreite in Pixel
+                 win_Y           =  340,         # Fensterhoehe in Pixel
+                 win_Xoffset     =   25,         # x-Achsenoffset in Pixel 
+                 win_Yoffset     =   20,         # y-Achsenoffset in Pixel     
+                 xTicks          =   25,         # Anzahl der x-Achsenabschnitte
+                 yTicks          =   20,         # Anzahl der y-Achsenabschnitte
+                 tickLen         =    4,         # Achsenabschnittslinienlaenge in Pixel
+                 physX_TickUnit  =   60,         # physikalische x-Einheiten pro Achsenabschnitt 
+                 physY_TickUnit  =    1,         # physikalische y-Einheiten pro Achsenabschnitt
+                 physX_Offs      =    0,         # Startwert der x-Achse 
+                 physY_Offs      =   30,         # °C
                  backColor       = 'black',      # Hintergrundfarbe
                  achsenfarbe     = 'green',      # Achsenfarbe
-                 gridfarbe       = 'DarkKhaki',  # 'darkgreen' #
+                 gridfarbe       = 'darkgreen',  # 'DarkKhaki' #
                  xAchsentext     = 'sec',        # Einheitenname der x-Achse
                  yAchsentext     = '°C',         # Einheitenname der y-Achse
                  chartWidth      =    2,         # Staerke der Datenlinie
@@ -126,6 +126,7 @@ class XtDiagram(tk.Frame):
         self.xtCnvs.create_text( (x0, y0), fill=self.Achsenfarbe, text=self.YAchsentext )
         
     def draw(self):           
+        PD=2
         self.xtCnvs = tk.Canvas(self, bg=self.BackColor, relief=tk.SUNKEN, width=self.Win_X, height=self.Win_Y)
         self.xtCnvs.bind('<Button-1>', self.cllbck)
         self.drawAchses()
@@ -136,10 +137,10 @@ class XtDiagram(tk.Frame):
         self.yLbl = tk.Label( self, text='y-Wert: ' )
         self.xVal = tk.Label( self, width=8, relief=tk.SUNKEN, bg='LightGoldenrod1' )
         self.yVal = tk.Label( self, width=8, relief=tk.SUNKEN, bg='LightGoldenrod1' )
-        self.xLbl.pack( padx=5, pady=5, side=tk.LEFT )
-        self.xVal.pack( padx=5, pady=5, side=tk.LEFT )
-        self.yLbl.pack( padx=5, pady=5, side=tk.LEFT )
-        self.yVal.pack( padx=5, pady=5, side=tk.LEFT )
+        self.xLbl.pack( padx=PD, pady=PD, side=tk.LEFT )
+        self.xVal.pack( padx=PD, pady=PD, side=tk.LEFT )
+        self.yLbl.pack( padx=PD, pady=PD, side=tk.LEFT )
+        self.yVal.pack( padx=PD, pady=PD, side=tk.LEFT )
     
     def drawNewValue(self, newPhysX, newPhysY):
         (x0, y0) = self.transformPhysToCnvs(self.LastPhysX, self.LastPhysY)
@@ -152,7 +153,7 @@ if __name__ == "__main__":
     import random
     
     root=tk.Tk()
-    gui = XtDiagram(root)
+    gui = XtDiagram(root, win_X=1000, win_Y=800)
     gui.pack()
     gui.LastPhysX = 0
     gui.LastPhysY = random.gauss(40.0, 0.25)

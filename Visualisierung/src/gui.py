@@ -62,46 +62,57 @@ servernameEntry.insert(0, 'stegmann.homelinux.org')
 def connect():
     global iF
     srvname = servernameEntry.get()
-    iF = telnetIf.TelnetInterface(srvname, 1969, 10)
-    # Interface initialisieren
-    guiFB.MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben
-    guiFB.MvReglerParamLesen     = iF.Fb_MvReglerParamLesen
-    guiParam.getParam            = iF.Param_GetParam
-    guiParam.putParam            = iF.Param_PutParam
-    guiWW.PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben
-    guiWW.PuReglerParamLesen     = iF.WW_PuReglerParamLesen
-    guiWW.TempLesen              = iF.get_T
-    guiWW.t0                     = time.time()
-    guiWW.xt.LastPhysX           = 0
-    guiWW.xt.LastPhysY           = 40.0
-    #
-    updateBtn.config(state=tk.ACTIVE)
-    disconnectBtn.config(state=tk.ACTIVE)
-    connectBtn.config(state=tk.DISABLED)
-    servernameEntry.config(state=tk.DISABLED)
-
+    try:
+        iF = telnetIf.TelnetInterface(srvname, 1969, 10)
+        # Interface initialisieren
+        guiFB.MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben
+        guiFB.MvReglerParamLesen     = iF.Fb_MvReglerParamLesen
+        guiParam.getParam            = iF.Param_GetParam
+        guiParam.putParam            = iF.Param_PutParam
+        guiWW.PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben
+        guiWW.PuReglerParamLesen     = iF.WW_PuReglerParamLesen
+        guiWW.TempLesen              = iF.get_T
+        guiWW.t0                     = time.time()
+        guiWW.xt1.LastPhysX          = 0
+        guiWW.xt2.LastPhysX          = 0
+        guiWW.xt1.LastPhysY          = 40.0
+        guiWW.xt2.LastPhysY          = 50.0
+        
+        updateBtn.config(state=tk.ACTIVE)
+        disconnectBtn.config(state=tk.ACTIVE)
+        connectBtn.config(state=tk.DISABLED)
+        servernameEntry.config(state=tk.DISABLED)
+    except:
+        pass
+    
 def update():
     global iF
-    iF.ErmittleMesswerte()
-    guiAll.updateLabels(iF.t, iF.pu, iF.mv, iF.di, iF.cnt, iF.av)
-    guiFB.updateLabels(iF.t)
-    guiWW.plot_MW(iF.t, iF.mv)
-
+    try:
+        iF.ErmittleMesswerte()
+        guiAll.updateLabels(iF.t, iF.pu, iF.mv, iF.di, iF.cnt, iF.av)
+        guiFB.updateLabels(iF.t)
+        guiWW.plot_MW(iF.t, iF.mv)
+    except:
+        pass
+    
 def disconnect():
     global iF
     updateBtn.config(state=tk.DISABLED)
     disconnectBtn.config(state=tk.DISABLED)
     connectBtn.config(state=tk.ACTIVE)
     servernameEntry.config(state=tk.NORMAL)
-    iF.beenden()
-    iF.close()
-
+    try:
+        iF.beenden()
+        iF.close()
+    except:
+        pass
+    
 def beenden():
     global iF
     try:
         iF.beenden()
         iF.close()
-    except AttributeError:
+    except:
         pass
     quit()
 
