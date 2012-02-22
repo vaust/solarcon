@@ -95,9 +95,10 @@ def update():
         guiWW.plot_MW(iF.t, iF.mv)
     except:
         pass
+    nbook.after_id = nbook.after(2500,update) # rekursiver Aufruf!
     
 def disconnect():
-    global iF
+    global iF, after_id
     updateBtn.config(state=tk.DISABLED)
     disconnectBtn.config(state=tk.DISABLED)
     connectBtn.config(state=tk.ACTIVE)
@@ -107,6 +108,7 @@ def disconnect():
         iF.close()
     except:
         pass
+    nbook.after_cancel(nbook.after_id)
     
 def beenden():
     global iF
@@ -132,5 +134,5 @@ connectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 disconnectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 quitBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 updateBtn.pack( padx=PD, pady=PD, side=tk.RIGHT )
-   
+ 
 root.mainloop()
