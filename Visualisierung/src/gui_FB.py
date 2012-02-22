@@ -11,6 +11,9 @@ HFARBE  = 'LightGoldenrod1'
 
 class GuiFB(tk.Frame):
     def __init__(self, master=None):
+        self.SCHRIFT = ('Arial', 12, 'bold')
+        # self.SCHRIFT = ('Arial', 11)
+        
         tk.Frame.__init__(self, master)
         self.draw()
         self.MvReglerParamSchreiben = None
@@ -61,13 +64,15 @@ class GuiFB(tk.Frame):
         ''' Temperatur Sekundärkreislauf '''
         self.lf_Process.Info1_lbl = tk.Label(self.lf_Process, text='Prim. Rücklauftemp.:')
         self.lf_Process.Info1_lbl.grid(column=2, row=0, padx=PD, pady=PD, sticky=tk.NW)
-        self.lf_Process.SekTvlMw_lbl = tk.Label(self.lf_Process, relief='sunken', width=8, bg=HFARBE, text='---.-°C')
+        self.lf_Process.SekTvlMw_lbl = tk.Label(self.lf_Process, relief='sunken', width=8, bg=HFARBE, 
+                                                font=self.SCHRIFT, text='---.-°C')
         self.lf_Process.SekTvlMw_lbl.grid(column=3, row=0, padx=PD, pady=PD, sticky=tk.NW)
 
         ''' Temperatur Primärkreislauf '''
         self.lf_Process.Info2_lbl = tk.Label(self.lf_Process, text='Sek. Vorlauftemp.:')
         self.lf_Process.Info2_lbl.grid(column=2, row=1, padx=PD, pady=PD, sticky=tk.NW)
-        self.lf_Process.PrimTrlMw_lbl = tk.Label(self.lf_Process, relief='sunken', width=8, bg=HFARBE, text='---.-°C')
+        self.lf_Process.PrimTrlMw_lbl = tk.Label(self.lf_Process, relief='sunken', width=8, bg=HFARBE, 
+                                                 font=self.SCHRIFT, text='---.-°C')
         self.lf_Process.PrimTrlMw_lbl.grid(column=3, row=1, padx=PD, pady=PD, sticky=tk.NW)
     
     def SetEntryVal_Mischventil(self, event):
