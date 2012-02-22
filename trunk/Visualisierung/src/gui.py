@@ -95,7 +95,7 @@ def update():
         guiWW.plot_MW(iF.t, iF.mv)
     except:
         pass
-    nbook.after_id = nbook.after(2500,update) # rekursiver Aufruf!
+    nbook.after_id = nbook.after(5000,update) # rekursiver Aufruf!
     
 def disconnect():
     global iF, after_id
