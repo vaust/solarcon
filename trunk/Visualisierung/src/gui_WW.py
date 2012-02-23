@@ -30,6 +30,8 @@ class GuiWW(tk.Frame):
         self.xt1.LastPhysX = 0.0
         self.xt1.LastPhysY = 0.0
         self.t0 = time.time()
+        self.tSchiebeDelta = self.xt1.PhysX_TickUnit * self.xt1.XTicks
+        self.t0_Schieben = 0.0
         
         self.draw()
         
@@ -133,7 +135,11 @@ class GuiWW(tk.Frame):
         x=time.time()-self.t0
         self.xt1.drawNewValue(x,yt)
         self.xt2.drawNewValue(x,yp)
-        
+        if ( (x-self.t0_Schieben) > self.tSchiebeDelta ):
+            self.xt1.moveChart(-self.tSchiebeDelta)
+            self.xt2.moveChart(-self.tSchiebeDelta)
+            self.t0_Schieben = x
+            
 if __name__ == "__main__":
     root=tk.Tk()
     gui = GuiWW(root)

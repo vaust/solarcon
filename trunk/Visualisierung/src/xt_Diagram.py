@@ -13,7 +13,7 @@ class XtDiagram(tk.Frame):
                  win_Y           =  340,         # Fensterhoehe in Pixel
                  win_Xoffset     =   25,         # x-Achsenoffset in Pixel 
                  win_Yoffset     =   20,         # y-Achsenoffset in Pixel     
-                 xTicks          =   25,         # Anzahl der x-Achsenabschnitte
+                 xTicks          =   24,         # Anzahl der x-Achsenabschnitte (am besten gerade!)
                  yTicks          =   20,         # Anzahl der y-Achsenabschnitte
                  tickLen         =    4,         # Achsenabschnittslinienlaenge in Pixel
                  physX_TickUnit  =   60,         # physikalische x-Einheiten pro Achsenabschnitt 
@@ -55,6 +55,8 @@ class XtDiagram(tk.Frame):
         self.LastPhysX   = self.PhysX_Offs
         self.LastPhysY   = self.PhysY_Offs
         
+        self.chartline_id = list()
+        
         self.draw()
 
     def cllbck(self, event): 
@@ -88,49 +90,73 @@ class XtDiagram(tk.Frame):
         # (x0, y0) = self.transform(-self.Win_Xoffset, 0)
         (x0, y0) = self.transform(-10, 0)
         (x1, y1) = self.transform( self.Win_Xspan  , 0) 
-        self.xtCnvs.create_line( ((x0, y0), (x1, y1)), fill=self.Achsenfarbe, width=1, arrow=tk.LAST )
+        self.xAchsen_id = self.xtCnvs.create_line( ((x0, y0), (x1, y1)), 
+                                                   fill=self.Achsenfarbe, width=1, arrow=tk.LAST )
         # (x0, y0) = self.transform(0, -self.Win_Yoffset)
         (x0, y0) = self.transform(0, -10)
         (x1, y1) = self.transform(0,  self.Win_Yspan  )
-        self.xtCnvs.create_line( ((x0, y0), (x1, y1)), fill=self.Achsenfarbe, width=1, arrow=tk.LAST )
+        self.yAchsen_id =self.xtCnvs.create_line( ((x0, y0), (x1, y1)), 
+                                                  fill=self.Achsenfarbe, width=1, arrow=tk.LAST )
     
-    def drawTicks(self):
+    def drawXTicks(self):
         dX = self.Win_Xspan / self.XTicks
-        dY=  self.Win_Yspan / self.YTicks
+        self.xtick_id = list()
+        self.xgrid_id = list()
         n = 1
         while( n<self.XTicks):
             (x0, y0) = self.transform(n*dX, -self.TickLen)
             (x1, y1) = self.transform(n*dX, +self.TickLen)
             (x2, y2) = self.transform(n*dX, self.Win_Yspan)
-            self.xtCnvs.create_line( ((x0, y0), (x1, y1)), fill=self.Achsenfarbe, width=1 )
-            self.xtCnvs.create_line( ((x1, y1), (x2, y2)), fill=self.Gridfarbe, width=1 )
-            self.xtCnvs.create_text( (x0, y0+2*self.TickLen), fill=self.Achsenfarbe, 
-                                         text=str(n*self.PhysX_TickUnit+self.PhysX_Offs))
+            ident = self.xtCnvs.create_line( ((x0, y0), (x1, y1)), fill=self.Achsenfarbe, width=1 )
+            self.xtick_id.append(ident)
+            ident = self.xtCnvs.create_line( ((x1, y1), (x2, y2)), fill=self.Gridfarbe, width=1 )
+            self.xgrid_id.append(ident)
             n += 1
 
         (x0, y0) = self.transform(n*dX, -3*self.TickLen)
-        self.xtCnvs.create_text( (x0, y0), fill=self.Achsenfarbe, text=self.XAchsentext )
-        
+        self.xAchsentext_id = self.xtCnvs.create_text( (x0, y0), fill=self.Achsenfarbe, text=self.XAchsentext )
+
+    def writeXTickstext(self):
+        dX = self.Win_Xspan / self.XTicks
+        self.xticktext_id = list()
+        n = 1
+        while( n<self.XTicks):
+            (x0, y0) = self.transform(n*dX, -self.TickLen)
+            ident = self.xtCnvs.create_text( (x0, y0+2*self.TickLen), fill=self.Achsenfarbe, 
+                                         text=str(n*self.PhysX_TickUnit+self.PhysX_Offs))
+            self.xticktext_id.append(ident)
+            n += 1
+            
+    def drawYTicks(self):
+        dY=  self.Win_Yspan / self.YTicks
+        self.ytick_id = list()
+        self.yticktext_id = list()
+        self.ygrid_id = list()
         n = 1
         while( n<self.YTicks):
             (x0, y0) = self.transform( -self.TickLen, n*dY)
             (x1, y1) = self.transform(  self.TickLen, n*dY)
             (x2, y2) = self.transform(  self.Win_Xspan, n*dY)
-            self.xtCnvs.create_line( ((x0, y0), (x1, y1)), fill=self.Achsenfarbe, width=1 )
-            self.xtCnvs.create_line( ((x1, y1), (x2, y2)), fill=self.Gridfarbe, width=1 )
-            self.xtCnvs.create_text( (x0-2*self.TickLen, y0), fill=self.Achsenfarbe, 
+            ident = self.xtCnvs.create_line( ((x0, y0), (x1, y1)), fill=self.Achsenfarbe, width=1 )
+            self.ytick_id.append(ident)
+            ident = self.xtCnvs.create_line( ((x1, y1), (x2, y2)), fill=self.Gridfarbe, width=1 )
+            self.ygrid_id.append(ident)
+            ident = self.xtCnvs.create_text( (x0-2*self.TickLen, y0), fill=self.Achsenfarbe, 
                                          text=str(n*self.PhysY_TickUnit+self.PhysY_Offs))
+            self.yticktext_id.append(ident)
             n += 1
    
         (x0, y0) = self.transform( -3*self.TickLen, n*dY)
-        self.xtCnvs.create_text( (x0, y0), fill=self.Achsenfarbe, text=self.YAchsentext )
+        self.yAchsentext_id =self.xtCnvs.create_text( (x0, y0), fill=self.Achsenfarbe, text=self.YAchsentext )
         
     def draw(self):           
         PD=2
         self.xtCnvs = tk.Canvas(self, bg=self.BackColor, relief=tk.SUNKEN, width=self.Win_X, height=self.Win_Y)
         self.xtCnvs.bind('<Button-1>', self.cllbck)
         self.drawAchses()
-        self.drawTicks()
+        self.drawXTicks()
+        self.writeXTickstext()
+        self.drawYTicks()
         self.xtCnvs.pack()
         
         self.xLbl = tk.Label( self, text='Mouse Click: x-Wert: ' )
@@ -146,9 +172,29 @@ class XtDiagram(tk.Frame):
         (x0, y0) = self.transformPhysToCnvs(self.LastPhysX, self.LastPhysY)
         (x1, y1) = self.transformPhysToCnvs(newPhysX, newPhysY)
         (self.LastPhysX, self.LastPhysY) = (newPhysX, newPhysY)
-        self.xtCnvs.create_line( ((x0, y0), (x1, y1)), fill=self.ChartFarbe, width=self.ChartWidth )
-
+        ident = self.xtCnvs.create_line( ((x0, y0), (x1, y1)), fill=self.ChartFarbe, width=self.ChartWidth )
+        self.chartline_id.append(ident)
         
+    def moveChart(self, d_PhysX):
+        # x-Achsenbeschriftung löschen:
+        for i in self.xticktext_id:
+            self.xtCnvs.delete(i) 
+        # x-Achse neu beschriften
+        self.PhysX_Offs -= d_PhysX
+        self.writeXTickstext()
+        # Chartlinie verschieben
+        for i in self.chartline_id:
+            (dx, dy) = self.transformPhysToCnvs(d_PhysX, 0)
+            dy = 0 # Keine Verschiebung nach y!
+            self.xtCnvs.move(i, dx, dy)
+        # todo: unsichtbare Chartteile aus Liste löschen
+        for i in self.chartline_id:
+            c = self.xtCnvs.coords(i)
+            if (c[2] < 0):
+                self.chartline_id.remove(i)
+        
+#-------------------
+           
 if __name__ == "__main__":
     import random
     
@@ -163,5 +209,8 @@ if __name__ == "__main__":
         y=random.gauss(40.0, 0.5)
         x += dx
         gui.drawNewValue(x,y) 
+    
+    # gui.deleteChart()
+    gui.moveChart(-100)
     
     root.mainloop()
