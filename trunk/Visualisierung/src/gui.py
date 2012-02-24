@@ -15,7 +15,6 @@ import gui_Param
 import gui_WW
 
 import telnetIf
-# import main
 import time
 import sys
 
@@ -79,10 +78,11 @@ def connect():
         guiWW.xt1.LastPhysY          = 40.0
         guiWW.xt2.LastPhysY          = 50.0
         
-        updateBtn.config(state=tk.ACTIVE)
         disconnectBtn.config(state=tk.ACTIVE)
         connectBtn.config(state=tk.DISABLED)
         servernameEntry.config(state=tk.DISABLED)
+        # Messwerterfassung starten
+        update()
     except:
         pass
     
@@ -95,11 +95,10 @@ def update():
         guiWW.plot_MW(iF.t, iF.mv)
     except:
         pass
-    nbook.after_id = nbook.after(5000,update) # rekursiver Aufruf!
+    nbook.after_id = nbook.after(2500, update) # rekursiver Aufruf!
     
 def disconnect():
     global iF, after_id
-    updateBtn.config(state=tk.DISABLED)
     disconnectBtn.config(state=tk.DISABLED)
     connectBtn.config(state=tk.ACTIVE)
     servernameEntry.config(state=tk.NORMAL)
@@ -121,11 +120,9 @@ def beenden():
     sys.exit()
     
 
-updateBtn = tk.Button(root, text='Messwerte aktualisieren', command=update)
 connectBtn = tk.Button(root, text='Verbinden', command=connect)
 disconnectBtn = tk.Button(root, text='Verbindung trennen', command=disconnect)
 disconnectBtn.config(state=tk.DISABLED)
-updateBtn.config(state=tk.DISABLED)
 quitBtn = tk.Button(root, text='Beenden', command=beenden)
 
 servernameLbl.pack( padx=PD, pady=PD, side=tk.LEFT )
@@ -133,6 +130,5 @@ servernameEntry.pack( padx=PD, pady=PD, side=tk.LEFT )
 connectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 disconnectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 quitBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
-updateBtn.pack( padx=PD, pady=PD, side=tk.RIGHT )
  
 root.mainloop()
