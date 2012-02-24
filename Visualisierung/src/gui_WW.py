@@ -23,9 +23,9 @@ class GuiWW(tk.Frame):
         self.TempLesen = None
         
         self.xt1 = xt_Diagram.XtDiagram(master, physY_Offs=30, yTicks=5, physY_TickUnit=5, 
-                                       yAchsentext='°C', win_Y=150, xTicks=25, physX_TickUnit=10 )
+                                       yAchsentext='°C', win_Y=150, xTicks=12, physX_TickUnit=10 )
         self.xt2 = xt_Diagram.XtDiagram(master, physY_Offs=0, yTicks=6, physY_TickUnit=20,
-                                        yAchsentext='%', win_Y=150, xTicks=25, physX_TickUnit=10 )
+                                        yAchsentext='%', win_Y=150, xTicks=12, physX_TickUnit=10 )
         self.xt1.LastPhysX = 0.0
         self.xt1.LastPhysY = 0.0
         self.xt1.LastPhysX = 0.0
@@ -39,7 +39,7 @@ class GuiWW(tk.Frame):
         self.xt2.pack(padx=PD, pady=PD)
         
         ''' WW Heizungspumpenregler parametrieren '''
-        self.lf_pu_regler = tk.LabelFrame( self, text='Heizungspumpenregler Online Parametrierung')
+        self.lf_pu_regler = tk.LabelFrame( self, text='Heizungspumpenregler Parameter')
         self.lf_pu_regler.pack(padx=PD, pady=PD, side=tk.TOP)
         self.lf_pu_regler.Kp_lbl = tk.Label(self.lf_pu_regler, text='Proportionalbeiwert Kp:')
         self.lf_pu_regler.Kp_entry = tk.Entry(self.lf_pu_regler, width=8, bg='white')
@@ -129,12 +129,8 @@ class GuiWW(tk.Frame):
     #-------------------- Interface zu xt-Diagramm
     
     def plot_MW(self, temp, pu):
-        if __DEBUG__ == True:
-            yt=random.gauss(40.0, 5.0)
-            yp=random.gauss(50.0, 10.0)
-        else:
-            yt=temp["WW_Tww_MW"]
-            yp=pu["WW_HZG_PU_Y"]
+        yt=temp["WW_Tww_MW"] + 40.0 # zum Testen
+        yp=pu["WW_HZG_PU_Y"]
             
         x=time.time()-self.t0
         self.xt1.drawNewValue(x,yt)

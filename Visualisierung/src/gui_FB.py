@@ -114,7 +114,7 @@ class GuiFB(tk.Frame):
             
     def draw_lf_MvRegler(self):
         ''' FB Mischventilregler parametrieren '''
-        self.lf_mvregler = tk.LabelFrame( self, text='Mischventilregler Online Parametrierung')
+        self.lf_mvregler = tk.LabelFrame( self, text='Mischventilregler Parameter')
         self.lf_mvregler.pack(padx=PD, pady=PD, side=tk.TOP)
     
         self.lf_mvregler.Kp_lbl = tk.Label(self.lf_mvregler, text='Proportionalbeiwert Kp:')
