@@ -9,10 +9,11 @@ import tkinter as tk
 
 import xt_Diagram
 import time
-# from threading import Timer
+import random
 
 PD = 5
 HFARBE  = 'LightGoldenrod1'
+__DEBUG__ = True
 
 class GuiWW(tk.Frame):
     def __init__(self, master=None):
@@ -22,16 +23,14 @@ class GuiWW(tk.Frame):
         self.TempLesen = None
         
         self.xt1 = xt_Diagram.XtDiagram(master, physY_Offs=30, yTicks=5, physY_TickUnit=5, 
-                                       yAchsentext='°C', win_Y=150 )
+                                       yAchsentext='°C', win_Y=150, xTicks=25, physX_TickUnit=10 )
         self.xt2 = xt_Diagram.XtDiagram(master, physY_Offs=0, yTicks=6, physY_TickUnit=20,
-                                        yAchsentext='%', win_Y=150 )
+                                        yAchsentext='%', win_Y=150, xTicks=25, physX_TickUnit=10 )
         self.xt1.LastPhysX = 0.0
         self.xt1.LastPhysY = 0.0
         self.xt1.LastPhysX = 0.0
         self.xt1.LastPhysY = 0.0
         self.t0 = time.time()
-        self.tSchiebeDelta = self.xt1.PhysX_TickUnit * self.xt1.XTicks
-        self.t0_Schieben = 0.0
         
         self.draw()
         
@@ -130,15 +129,20 @@ class GuiWW(tk.Frame):
     #-------------------- Interface zu xt-Diagramm
     
     def plot_MW(self, temp, pu):
-        yt=temp["WW_Tww_MW"] + 40.0 # zum Testen
-        yp=pu["WW_HZG_PU_Y"]
+        if __DEBUG__ == True:
+            yt=random.gauss(40.0, 5.0)
+            yp=random.gauss(50.0, 10.0)
+        else:
+            yt=temp["WW_Tww_MW"]
+            yp=pu["WW_HZG_PU_Y"]
+            
         x=time.time()-self.t0
         self.xt1.drawNewValue(x,yt)
         self.xt2.drawNewValue(x,yp)
-        if ( (x-self.t0_Schieben) > self.tSchiebeDelta ):
-            self.xt1.moveChart(-self.tSchiebeDelta)
-            self.xt2.moveChart(-self.tSchiebeDelta)
-            self.t0_Schieben = x
+        if ( x > (self.xt1.XTicks-1)*self.xt1.PhysX_TickUnit+self.xt1.PhysX_Offs ):
+            self.xt1.moveChart(-self.xt1.PhysX_TickUnit)
+            self.xt2.moveChart(-self.xt1.PhysX_TickUnit)
+             
             
 if __name__ == "__main__":
     root=tk.Tk()

@@ -179,38 +179,38 @@ class XtDiagram(tk.Frame):
         # x-Achsenbeschriftung löschen:
         for i in self.xticktext_id:
             self.xtCnvs.delete(i) 
+        
+        # Chartlinie verschieben
+        for i in self.chartline_id:
+            dx = d_PhysX/self.PhysX_TickUnit *  self.Win_Xspan/self.XTicks 
+            self.xtCnvs.move(i, dx, 0)
+        
         # x-Achse neu beschriften
         self.PhysX_Offs -= d_PhysX
         self.writeXTickstext()
-        # Chartlinie verschieben
-        for i in self.chartline_id:
-            (dx, dy) = self.transformPhysToCnvs(d_PhysX, 0)
-            dy = 0 # Keine Verschiebung nach y!
-            self.xtCnvs.move(i, dx, dy)
-        # todo: unsichtbare Chartteile aus Liste löschen
-        for i in self.chartline_id:
-            c = self.xtCnvs.coords(i)
-            if (c[2] < 0):
-                self.chartline_id.remove(i)
         
 #-------------------
            
 if __name__ == "__main__":
     import random
     
+    def doit():
+        gui.moveChart(-5)
+        gui.after(2000, doit)
+        
     root=tk.Tk()
-    gui = XtDiagram(root, win_X=1000, win_Y=800)
+    gui = XtDiagram(root, win_X=1000, win_Y=400, xTicks=10, physX_TickUnit=10)
+    gui.after(2000, doit)
     gui.pack()
     gui.LastPhysX = 0
     gui.LastPhysY = random.gauss(40.0, 0.25)
-    dx = 0.1
+    dx = 0.2
     x  = 0.00
-    while ( x<gui.XTicks*gui.PhysX_TickUnit ):
+    while ( x<3*gui.XTicks*gui.PhysX_TickUnit ):
         y=random.gauss(40.0, 0.5)
         x += dx
         gui.drawNewValue(x,y) 
     
-    # gui.deleteChart()
-    gui.moveChart(-100)
+    # gui.moveChart(-10)
     
     root.mainloop()
