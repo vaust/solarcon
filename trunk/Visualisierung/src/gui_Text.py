@@ -33,7 +33,7 @@ class GuiText(tk.Frame):
         self.command_lbl.grid(column=0, row=0, padx=PD, pady=PD )
         self.command_entry.grid(column=1, row=0, padx=PD, pady=PD )
         self.command_bttn.grid(column=2, row=0, padx=PD, pady=PD )
-        self.text_window.grid(column=0, row=1, padx=PD, pady=PD, columnspan=4 )
+        self.text_window.grid(column=0, row=1, pady=PD, columnspan=4 )
         self.repeat_chkbttn.grid(column=3, row=0, padx=PD, pady=PD )
         self.vbar.grid(column=4, row=1, sticky=tk.NS)
         
