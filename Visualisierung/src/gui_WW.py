@@ -129,7 +129,7 @@ class GuiWW(tk.Frame):
     #-------------------- Interface zu xt-Diagramm
     
     def plot_MW(self, temp, pu):
-        yt=temp["WW_Tww_MW"] + 40.0 # zum Testen
+        yt=temp["WW_Tww_MW"] # + 40.0 # zum Testen
         yp=pu["WW_HZG_PU_Y"]
             
         x=time.time()-self.t0

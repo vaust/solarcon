@@ -19,22 +19,22 @@ class GuiText(tk.Frame):
                
     def draw(self):
         self.command_lbl    = tk.Label(self, text="Befehl: ")
-        self.command_entry  = tk.Entry(self, width=64, bg='white')
+        self.command_entry  = ttk.Combobox(self, width=64)
         self.command_bttn   = tk.Button(self, text='Befehl senden', command=self.druckeAusgabe)
         
         self.repeat_state_tkbl = tk.BooleanVar()
         self.repeat_chkbttn = ttk.Checkbutton(self, text='Senden wiederholen an/aus', 
                                               variable=self.repeat_state_tkbl, command=self.Repeat_changed)
         self.vbar          = ttk.Scrollbar( self, orient=tk.VERTICAL)
-        self.text_window   = tk.Text(self, width=100, height=32, yscrollcommand=self.vbar.set)
+        self.text_window   = tk.Text(self, width=100, height=30, yscrollcommand=self.vbar.set)
         
         self.vbar.config(command=self.text_window.yview)
         
-        self.command_lbl.grid(column=0, row=0, padx=PD, pady=PD )
-        self.command_entry.grid(column=1, row=0, padx=PD, pady=PD )
-        self.command_bttn.grid(column=2, row=0, padx=PD, pady=PD )
-        self.text_window.grid(column=0, row=1, pady=PD, columnspan=4 )
-        self.repeat_chkbttn.grid(column=3, row=0, padx=PD, pady=PD )
+        self.command_lbl.grid(column=0, row=0, padx=PD, pady=PD)
+        self.command_entry.grid(column=1, row=0, padx=PD, pady=PD, sticky=tk.EW)
+        self.command_bttn.grid(column=2, row=0, padx=PD, pady=PD)
+        self.text_window.grid(column=0, row=1, pady=PD, columnspan=4)
+        self.repeat_chkbttn.grid(column=3, row=0, padx=PD, pady=PD)
         self.vbar.grid(column=4, row=1, sticky=tk.NS)
         
     def Repeat_changed(self):
@@ -44,6 +44,7 @@ class GuiText(tk.Frame):
     def druckeAusgabe(self):
         self.zaehler += 1
         cmd = self.command_entry.get()
+        # self.command_entry
         lines = self.exec_command( cmd.encode('utf8') )
         self.text_window.insert(tk.END, '\n[- '+str(self.zaehler)+' -] :\n')
         for line in lines:
