@@ -102,7 +102,7 @@ def update():
     except:
         pass
     if( Aktualisieren_state_tkbl.get() == True ):
-        nbook.after_id = nbook.after(2500, update) # rekursiver Aufruf!
+        nbook.after_id = nbook.after(5000, update) # rekursiver Aufruf!
             
 def beenden():
     global iF
