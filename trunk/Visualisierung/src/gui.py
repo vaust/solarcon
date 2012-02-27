@@ -13,7 +13,7 @@ import gui_overview
 import gui_FB
 import gui_Param
 import gui_WW
-
+import gui_Text
 import telnetIf
 import time
 import sys
@@ -31,6 +31,8 @@ nbook.KES  = ttk.Frame(nbook)
 nbook.ERR  = ttk.Frame(nbook)
 nbook.PAR  = ttk.Frame(nbook)
 nbook.ZEIT = ttk.Frame(nbook)
+nbook.TEXT = ttk.Frame(nbook)
+nbook.add(nbook.TEXT, text='Rohtext')
 nbook.add(nbook.ALL,  text='Gesamtübersicht')
 nbook.add(nbook.SOL,  text='Solarheizkreis')
 nbook.add(nbook.WW,   text='Warmwasser')
@@ -53,6 +55,9 @@ guiParam.pack()
 
 guiWW = gui_WW.GuiWW(nbook.WW)
 guiWW.pack( padx=PD, pady=PD )
+
+guiText = gui_Text.GuiText(nbook.TEXT)
+guiText.pack( padx=PD, pady=PD )
 
 servernameLbl   = tk.Label(root, text='Servername:')
 servernameEntry = tk.Entry(root, width=32, bg='white')
@@ -77,8 +82,9 @@ def connect():
         guiWW.xt2.LastPhysX          = 0
         guiWW.xt1.LastPhysY          = 40.0
         guiWW.xt2.LastPhysY          = 50.0
+        #
+        guiText.exec_command         = iF.HoleAntwort
         
-        # disconnectBtn.config(state=tk.ACTIVE)
         connectBtn.config(state=tk.DISABLED)
         servernameEntry.config(state=tk.DISABLED)
         # Messwerterfassung starten
@@ -95,20 +101,9 @@ def update():
         guiWW.plot_MW(iF.t, iF.mv)
     except:
         pass
-    nbook.after_id = nbook.after(2500, update) # rekursiver Aufruf!
-    
-def disconnect():
-    global iF, after_id
-    # disconnectBtn.config(state=tk.DISABLED)
-    connectBtn.config(state=tk.ACTIVE)
-    servernameEntry.config(state=tk.NORMAL)
-    try:
-        iF.beenden()
-        iF.close()
-    except:
-        pass
-    nbook.after_cancel(nbook.after_id)
-    
+    if( Aktualisieren_state_tkbl.get() == True ):
+        nbook.after_id = nbook.after(2500, update) # rekursiver Aufruf!
+            
 def beenden():
     global iF
     try:
@@ -118,17 +113,25 @@ def beenden():
         pass
     
     sys.exit()
-    
 
+def Aktualisieren_changed():
+    if (Aktualisieren_state_tkbl.get() == True):
+        update()
+    else:
+        nbook.after_cancel(nbook.after_id)
+        
 connectBtn = tk.Button(root, text='Verbinden', command=connect)
-# disconnectBtn = tk.Button(root, text='Verbindung trennen', command=disconnect)
-# disconnectBtn.config(state=tk.DISABLED)
+''' Checkbutton fuer Aktualisierung ein/aus '''
+Aktualisieren_state_tkbl = tk.BooleanVar()
+Aktualisieren_chkbttn = ttk.Checkbutton(root, text='Aktualisieren an/aus', variable=Aktualisieren_state_tkbl,
+                                         command=Aktualisieren_changed)
+Aktualisieren_chkbttn.config()
 quitBtn = tk.Button(root, text='Beenden', command=beenden)
 
 servernameLbl.pack( padx=PD, pady=PD, side=tk.LEFT )
 servernameEntry.pack( padx=PD, pady=PD, side=tk.LEFT )
 connectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
-# disconnectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 quitBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
+Aktualisieren_chkbttn.pack( padx=PD, pady=PD, side=tk.LEFT )
  
 root.mainloop()
