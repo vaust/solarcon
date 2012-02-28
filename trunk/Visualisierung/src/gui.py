@@ -22,6 +22,7 @@ PD = 2
 
 root=tk.Tk()
 root.title('Ruderclub Aschaffenburg Heizungsanlagenbedienung V0.2')
+root.iconbitmap('RCA.ico')
 
 nbook      = ttk.Notebook(root)
 nbook.ALL  = ttk.Frame(nbook)
