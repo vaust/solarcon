@@ -55,6 +55,7 @@ class GuiText(tk.Frame):
         cmd = self.command_entry.get()
         if (self.cmdlist.count(cmd) == 0):
             self.cmdlist.append(cmd)
+        self.cmdlist.sort()
         self.command_entry.config( values=self.cmdlist )
         lines = self.exec_command( cmd.encode('utf8') )
         self.text_window.insert(tk.END, '\n[- '+str(self.zaehler)+' -] :\n')

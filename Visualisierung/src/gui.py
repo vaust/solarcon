@@ -75,8 +75,15 @@ def connect():
         # Interface initialisieren
         guiFB.MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben
         guiFB.MvReglerParamLesen     = iF.Fb_MvReglerParamLesen
+        guiFB.schalte_PrimPumpe      = iF.Fb_Schalte_PrimPumpe
+        guiFB.schalte_SekPumpe       = iF.Fb_Schalte_SekPumpe
+        guiFB.wechsle_HandAuto       = iF.Fb_wechsle_HandAuto
+        guiFB.leseMischventil        = iF.Fb_leseMischventil
+        guiFB.schreibeMischventil    = iF.Fb_schreibeMischventil
+
         guiParam.getParam            = iF.Param_GetParam
         guiParam.putParam            = iF.Param_PutParam
+
         guiWW.PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben
         guiWW.PuReglerParamLesen     = iF.WW_PuReglerParamLesen
         guiWW.TempLesen              = iF.get_T
@@ -100,7 +107,7 @@ def update():
     try:
         iF.ErmittleMesswerte()
         guiAll.updateLabels(iF.t, iF.pu, iF.mv, iF.di, iF.cnt, iF.av)
-        guiFB.updateLabels(iF.t)
+        guiFB.updateLabels(iF.t, iF.mv, iF.pu)
         guiWW.plot_MW(iF.t, iF.mv)
     except:
         pass
