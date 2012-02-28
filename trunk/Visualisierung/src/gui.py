@@ -63,13 +63,20 @@ guiText = gui_Text.GuiText(nbook.TEXT)
 guiText.pack( padx=PD, pady=PD )
 
 servernameLbl   = tk.Label(root, text='Servername:')
-servernameEntry = tk.Entry(root, width=32, bg='white')
-# servernameEntry.insert(0, '192.168.3.33')
-# servernameEntry.insert(0, 'stegmann.homelinux.org')
+serverlist = list()
+serverlist.append('stegmann.homelinux.org')
+serverlist.append('192.168.3.33')
+serverlist.append('192.168.2.104')
+servernameEntry = ttk.Combobox(root, width=32, values=serverlist)
 
 def connect():
     global iF
     srvname = servernameEntry.get()
+    if (serverlist.count(srvname) == 0):
+        serverlist.append(srvname)
+        serverlist.sort()
+        servernameEntry.config( values=serverlist )
+
     try:
         iF = telnetIf.TelnetInterface(srvname, 1969, 10)
         # Interface initialisieren

@@ -15,8 +15,11 @@ class GuiText(tk.Frame):
         self.exec_command = None
         self.zaehler    = 0
         self.repeatTime = 5000
+        
         self.cmdlist    = list()
         self.cmdlist.append('help')
+        self.cmdlist.append('version')
+        
         self.draw()
                
     def draw(self):

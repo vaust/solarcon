@@ -86,18 +86,18 @@ class TelnetInterface(telnetlib.Telnet):
         return (self.t, self.pu, self.mv, self.di, self.cnt, self.av)
 
     def Fb_MvReglerParamSchreiben(self, kp, ki, ap):
-        command = "put vfb 00="+str(kp)        
+        command = "put vfb 00="+str(kp)+"\n"        
         self.write( command.encode('utf-8') )
         time.sleep(0.5)
-        command = "put vfb 01="+str(ki)
+        command = "put vfb 01="+str(ki)+"\n"
         self.write( command.encode('utf-8') )
         time.sleep(0.5)
-        command = "put vfb 02="+str(ap)
+        command = "put vfb 02="+str(ap)+"\n"
         self.write( command.encode('utf-8') )
         time.sleep(0.5) 
     
     def Fb_MvReglerParamLesen(self):
-        command = "get vfb -1" 
+        command = "get vfb -1\n" 
         self.write( command.encode('utf-8') )
         time.sleep(3.0)
         buffer = self.read_very_eager()
@@ -117,9 +117,9 @@ class TelnetInterface(telnetlib.Telnet):
     def Fb_Schalte_PrimPumpe(self, value):
         command = "put vfb 24="
         if (value==True):
-            command += '1'
+            command += '1\n'
         else:
-            command += '0'
+            command += '0\n'
         self.write( command.encode('utf-8') )
         time.sleep(0.5)
         self.read_very_eager()
@@ -128,24 +128,24 @@ class TelnetInterface(telnetlib.Telnet):
     def Fb_Schalte_SekPumpe(self, value):
         command = "put vfb 25="
         if (value==True):
-            command += '1'
+            command += '1\n'
         else:
-            command += '0'
+            command += '0\n'
         self.write( command.encode('utf-8') )
         time.sleep(0.5)
         self.read_very_eager()
     
     def Fb_wechsle_HandAuto(self, state):
         if (state == True):
-            command = "hand fb"
+            command = "hand fb\n"
         else:
-            command = "auto fb"
+            command = "auto fb\n"
         self.write( command.encode('utf-8') )
         time.sleep(1.0)
         self.read_very_eager()
                 
     def Fb_leseMischventil(self):
-        command = "get vfb 19"
+        command = "get vfb 19\n"
         lines=self.HoleAntwort(command)
         mv_y = -999.9
         for line in lines:
@@ -154,24 +154,24 @@ class TelnetInterface(telnetlib.Telnet):
         return mv_y
             
     def Fb_schreibeMischventil(self, value):
-        command = "put vfb 19="+str(value)
+        command = "put vfb 19="+str(value)+"\n"
         self.write( command.encode('utf-8') )
         time.sleep(1.0)
         self.read_very_eager()
         
     def WW_PuReglerParamSchreiben(self, kp, ki, ap):
-        command = "put vww 00="+str(kp)        
+        command = "put vww 00="+str(kp)+"\n"        
         self.write( command.encode('utf-8') )
         time.sleep(0.5)
-        command = "put vww 01="+str(ki)
+        command = "put vww 01="+str(ki)+"\n"
         self.write( command.encode('utf-8') )
         time.sleep(0.5)
-        command = "put vww 02="+str(ap)
+        command = "put vww 02="+str(ap)+"\n"
         self.write( command.encode('utf-8') )
         time.sleep(0.5) 
     
     def WW_PuReglerParamLesen(self):
-        command = "get vww -1" 
+        command = "get vww -1\n" 
         self.write( command.encode('utf-8') )
         time.sleep(3.0)
         buffer = self.read_very_eager()
@@ -189,7 +189,7 @@ class TelnetInterface(telnetlib.Telnet):
         return (kp, ki, ap)
 
     def Param_GetParam(self, values): # Parameter values ist ein dict, das CallbyRef uebergeben wird
-        command = "get param"
+        command = "get param\n"
         self.write( command.encode('utf-8') )
         time.sleep(3.0)
         buffer = self.read_very_eager()
