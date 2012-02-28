@@ -114,6 +114,51 @@ class TelnetInterface(telnetlib.Telnet):
         
         return (kp, ki, ap)
 
+    def Fb_Schalte_PrimPumpe(self, value):
+        command = "put vfb 24="
+        if (value==True):
+            command += '1'
+        else:
+            command += '0'
+        self.write( command.encode('utf-8') )
+        time.sleep(0.5)
+        self.read_very_eager()
+        pass
+    
+    def Fb_Schalte_SekPumpe(self, value):
+        command = "put vfb 25="
+        if (value==True):
+            command += '1'
+        else:
+            command += '0'
+        self.write( command.encode('utf-8') )
+        time.sleep(0.5)
+        self.read_very_eager()
+    
+    def Fb_wechsle_HandAuto(self, state):
+        if (state == True):
+            command = "hand fb"
+        else:
+            command = "auto fb"
+        self.write( command.encode('utf-8') )
+        time.sleep(1.0)
+        self.read_very_eager()
+                
+    def Fb_leseMischventil(self):
+        command = "get vfb 19"
+        lines=self.HoleAntwort(command)
+        mv_y = -999.9
+        for line in lines:
+            if (line.startswith('fb.o.prim_mv_y')):
+                mv_y = float(line.split('=')[1])
+        return mv_y
+            
+    def Fb_schreibeMischventil(self, value):
+        command = "put vfb 19="+str(value)
+        self.write( command.encode('utf-8') )
+        time.sleep(1.0)
+        self.read_very_eager()
+        
     def WW_PuReglerParamSchreiben(self, kp, ki, ap):
         command = "put vww 00="+str(kp)        
         self.write( command.encode('utf-8') )
