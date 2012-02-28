@@ -21,8 +21,11 @@ class GuiText(tk.Frame):
                
     def draw(self):
         self.command_lbl    = tk.Label(self, text="Befehl: ")
+        
         self.command_entry  = ttk.Combobox(self, width=64)
         self.command_entry.config( values=self.cmdlist )
+        self.command_entry.bind('<Return>', self.Entry_ev)
+        
         self.command_bttn   = tk.Button(self, text='Befehl senden', command=self.druckeAusgabe)
         
         self.repeat_state_tkbl = tk.BooleanVar()
@@ -39,6 +42,9 @@ class GuiText(tk.Frame):
         self.text_window.grid(column=0, row=1, pady=PD, columnspan=4)
         self.repeat_chkbttn.grid(column=3, row=0, padx=PD, pady=PD)
         self.vbar.grid(column=4, row=1, sticky=tk.NS)
+        
+    def Entry_ev(self, event):
+        self.druckeAusgabe()
         
     def Repeat_changed(self):
         if( self.repeat_state_tkbl.get() == False ):
