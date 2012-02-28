@@ -15,11 +15,14 @@ class GuiText(tk.Frame):
         self.exec_command = None
         self.zaehler    = 0
         self.repeatTime = 5000
+        self.cmdlist    = list()
+        self.cmdlist.append('help')
         self.draw()
                
     def draw(self):
         self.command_lbl    = tk.Label(self, text="Befehl: ")
         self.command_entry  = ttk.Combobox(self, width=64)
+        self.command_entry.config( values=self.cmdlist )
         self.command_bttn   = tk.Button(self, text='Befehl senden', command=self.druckeAusgabe)
         
         self.repeat_state_tkbl = tk.BooleanVar()
@@ -44,7 +47,9 @@ class GuiText(tk.Frame):
     def druckeAusgabe(self):
         self.zaehler += 1
         cmd = self.command_entry.get()
-        # self.command_entry
+        if (self.cmdlist.count(cmd) == 0):
+            self.cmdlist.append(cmd)
+        self.command_entry.config( values=self.cmdlist )
         lines = self.exec_command( cmd.encode('utf8') )
         self.text_window.insert(tk.END, '\n[- '+str(self.zaehler)+' -] :\n')
         for line in lines:
