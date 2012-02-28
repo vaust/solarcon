@@ -21,6 +21,8 @@ import sys
 PD = 2
 
 root=tk.Tk()
+root.title('Ruderclub Aschaffenburg Heizungsanlagenbedienung V0.2')
+
 nbook      = ttk.Notebook(root)
 nbook.ALL  = ttk.Frame(nbook)
 nbook.SOL  = ttk.Frame(nbook)
@@ -62,7 +64,7 @@ guiText.pack( padx=PD, pady=PD )
 servernameLbl   = tk.Label(root, text='Servername:')
 servernameEntry = tk.Entry(root, width=32, bg='white')
 # servernameEntry.insert(0, '192.168.3.33')
-servernameEntry.insert(0, 'stegmann.homelinux.org')
+# servernameEntry.insert(0, 'stegmann.homelinux.org')
 
 def connect():
     global iF
