@@ -22,7 +22,7 @@ PD = 2
 
 root=tk.Tk()
 root.title('Ruderclub Aschaffenburg Heizungsanlagenbedienung V0.2')
-root.iconbitmap('RCA.ico')
+# root.iconbitmap('RCA.ico')
 
 nbook      = ttk.Notebook(root)
 nbook.ALL  = ttk.Frame(nbook)
@@ -63,10 +63,7 @@ guiText = gui_Text.GuiText(nbook.TEXT)
 guiText.pack( padx=PD, pady=PD )
 
 servernameLbl   = tk.Label(root, text='Servername:')
-serverlist = list()
-serverlist.append('stegmann.homelinux.org')
-serverlist.append('192.168.3.33')
-serverlist.append('192.168.2.104')
+serverlist = list( ('stegmann.homelinux.org', '192.168.3.33', '192.168.2.104') )
 servernameEntry = ttk.Combobox(root, width=32, values=serverlist)
 
 def connect():
@@ -93,17 +90,17 @@ def connect():
 
         guiWW.PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben
         guiWW.PuReglerParamLesen     = iF.WW_PuReglerParamLesen
-        guiWW.TempLesen              = iF.get_T
         guiWW.t0                     = time.time()
         guiWW.xt1.LastPhysX          = 0
         guiWW.xt2.LastPhysX          = 0
         guiWW.xt1.LastPhysY          = 40.0
         guiWW.xt2.LastPhysY          = 50.0
-        #
+
         guiText.exec_command         = iF.HoleAntwort
         
         connectBtn.config(state=tk.DISABLED)
         servernameEntry.config(state=tk.DISABLED)
+
         # Messwerterfassung starten
         update()
     except:
