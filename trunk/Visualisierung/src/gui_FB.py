@@ -224,11 +224,11 @@ class GuiFB(tk.Frame):
         self.lf_Process.fb_Mischventil_scle.set( float(mv['FB_PRIM_MV_Y']))
         self.lf_Process.fb_Mischventil_entry.delete(0,tk.END)
         self.lf_Process.fb_Mischventil_entry.insert(0,str(mv['FB_PRIM_MV_Y']))
-        if(pu['FB_PRIM_PU_SB'] == 'EIN'):
+        if (pu['FB_PRIM_PU_SB'].find('EIN') > 0 ):
             self.lf_Process.fb_PrimPumpe_state_tkbl.set(True)
         else:
             self.lf_Process.fb_PrimPumpe_state_tkbl.set(False)
-        if(pu['FB_SEK_PU_SB'] == 'EIN'):
+        if ( pu['FB_SEK_PU_SB'].find('EIN') > 0 ):
             self.lf_Process.fb_SekPumpe_state_tkbl.set(True)
         else:
             self.lf_Process.fb_SekPumpe_state_tkbl.set(False)
