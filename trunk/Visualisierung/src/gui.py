@@ -138,7 +138,7 @@ connectBtn = tk.Button(root, text='Verbinden', command=connect)
 ''' Checkbutton fuer Aktualisierung ein/aus '''
 Aktualisieren_state_tkbl = tk.BooleanVar()
 Aktualisieren_chkbttn = ttk.Checkbutton(root, text='Aktualisieren an/aus', variable=Aktualisieren_state_tkbl,
-                                         command=Aktualisieren_changed)
+                                        command=Aktualisieren_changed)
 quitBtn = tk.Button(root, text='Beenden', command=beenden)
 
 servernameLbl.pack( padx=PD, pady=PD, side=tk.LEFT )
