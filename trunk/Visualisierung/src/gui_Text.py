@@ -16,7 +16,7 @@ class GuiText(tk.Frame):
         self.zaehler    = 0
         self.repeatTime = 5000
         
-        self.cmdlist    = list( ('help', 'get t', 'get ao' ) )      
+        self.cmdlist    = ['help', 'version']      
         self.draw()
                
     def draw(self):
@@ -29,10 +29,10 @@ class GuiText(tk.Frame):
         self.command_bttn   = tk.Button(self, text='Befehl senden', command=self.druckeAusgabe)
         
         self.repeat_state_tkbl = tk.BooleanVar()
-        self.repeat_chkbttn = ttk.Checkbutton(self, text='Senden wiederholen an/aus', 
-                                              variable=self.repeat_state_tkbl, command=self.Repeat_changed)
-        self.vbar          = ttk.Scrollbar( self, orient=tk.VERTICAL)
-        self.text_window   = tk.Text(self, width=100, height=30, yscrollcommand=self.vbar.set)
+        self.repeat_chkbttn    = ttk.Checkbutton(self, text='Senden wiederholen an/aus', 
+                                                 variable=self.repeat_state_tkbl, command=self.Repeat_changed)
+        self.vbar              = ttk.Scrollbar( self, orient=tk.VERTICAL)
+        self.text_window       = tk.Text(self, width=100, height=30, yscrollcommand=self.vbar.set)
         
         self.vbar.config(command=self.text_window.yview)
         

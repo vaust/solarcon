@@ -63,7 +63,7 @@ guiText = gui_Text.GuiText(nbook.TEXT)
 guiText.pack( padx=PD, pady=PD )
 
 servernameLbl   = tk.Label(root, text='Servername:')
-serverlist = list( ('stegmann.homelinux.org', '192.168.3.33', '192.168.2.104') )
+serverlist = ['stegmann.homelinux.org', '192.168.3.33', '192.168.2.104']
 servernameEntry = ttk.Combobox(root, width=32, values=serverlist)
 
 def connect():
