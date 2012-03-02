@@ -6,6 +6,7 @@ Created on 27.02.2012
 
 import tkinter as tk
 import tkinter.ttk as ttk
+import time
 
 PD = 5
 
@@ -15,7 +16,6 @@ class GuiText(tk.Frame):
         self.exec_command = None
         self.zaehler    = 0
         self.repeatTime = 5000
-        
         self.cmdlist    = ['help', 'version']      
         self.draw()
                
@@ -26,7 +26,7 @@ class GuiText(tk.Frame):
         self.command_entry.config( values=self.cmdlist )
         self.command_entry.bind('<Return>', self.Entry_ev)
         
-        self.command_bttn   = tk.Button(self, text='Befehl senden', command=self.druckeAusgabe)
+        self.command_bttn      = tk.Button(self, text='Befehl senden', command=self.druckeAusgabe)
         
         self.repeat_state_tkbl = tk.BooleanVar()
         self.repeat_chkbttn    = ttk.Checkbutton(self, text='Senden wiederholen an/aus', 
@@ -58,7 +58,7 @@ class GuiText(tk.Frame):
         self.cmdlist.sort()
         self.command_entry.config( values=self.cmdlist )
         lines = self.exec_command( cmd.encode('utf8') )
-        self.text_window.insert(tk.END, '\n[- '+str(self.zaehler)+' -] :\n')
+        self.text_window.insert(tk.END, '\n[('+str(self.zaehler)+') '+time.asctime()[11:19]+']:\n')
         for line in lines:
             self.text_window.insert(tk.END, line+'\n')
         self.text_window.yview(tk.END)

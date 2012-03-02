@@ -10,6 +10,7 @@ import tkinter as tk
 import xt_Diagram
 import time
 import random
+import math
 
 PD = 5
 HFARBE  = 'LightGoldenrod1'
@@ -135,9 +136,11 @@ class GuiWW(tk.Frame):
         x=time.time()-self.t0
         self.xt1.drawNewValue(x,yt)
         self.xt2.drawNewValue(x,yp)
-        if ( x > (self.xt1.XTicks-1)*self.xt1.PhysX_TickUnit+self.xt1.PhysX_Offs ):
-            self.xt1.moveChart(-self.xt1.PhysX_TickUnit)
-            self.xt2.moveChart(-self.xt1.PhysX_TickUnit)
+        x_ultimo = (self.xt1.XTicks-1)*self.xt1.PhysX_TickUnit+self.xt1.PhysX_Offs 
+        if ( x > x_ultimo ):
+            x_shift = math.ceil( (x-x_ultimo)/self.xt1.PhysX_TickUnit ) * self.xt1.PhysX_TickUnit
+            self.xt1.moveChart(-x_shift)
+            self.xt2.moveChart(-x_shift)
              
             
 if __name__ == "__main__":

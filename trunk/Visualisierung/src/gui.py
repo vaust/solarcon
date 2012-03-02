@@ -75,7 +75,7 @@ def connect():
         servernameEntry.config( values=serverlist )
 
     try:
-        iF = telnetIf.TelnetInterface(srvname, 1969, 10)
+        iF = telnetIf.TelnetInterface(srvname, 1969, 30)
         # Interface initialisieren
         guiFB.MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben
         guiFB.MvReglerParamLesen     = iF.Fb_MvReglerParamLesen
