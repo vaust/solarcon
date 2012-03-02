@@ -32,7 +32,7 @@ class GuiText(tk.Frame):
         self.repeat_chkbttn    = ttk.Checkbutton(self, text='Senden wiederholen an/aus', 
                                                  variable=self.repeat_state_tkbl, command=self.Repeat_changed)
         self.vbar              = ttk.Scrollbar( self, orient=tk.VERTICAL)
-        self.text_window       = tk.Text(self, width=100, height=30, yscrollcommand=self.vbar.set)
+        self.text_window       = tk.Text(self, width=100, height=30, bg='white', yscrollcommand=self.vbar.set)
         
         self.vbar.config(command=self.text_window.yview)
         
