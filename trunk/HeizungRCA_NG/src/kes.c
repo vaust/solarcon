@@ -67,7 +67,7 @@ void kes_Run( kes_class_t *self )
         /* Wenn Sp.-pumpe 1 ein, Sp.-pumpe 2 immer aus! */
         self->o.pu_sp2_sb = IO_AUS;
     }
-    else if( self->i.sp1_to_mw >= (self->o.sp1_to_sw + self->p.sp_dt_sw) ) {
+    else if( self->i.sp1_to_mw >= (self->o.sp1_to_sw + self->p.sp_dt_sw/2) ) {
         self->o.tvl_sw_sp1 = 0.0;   /* Kessel AUS */
         self->o.pu_sp1_sb = IO_AUS;
     }
