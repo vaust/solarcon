@@ -130,7 +130,7 @@ void cntrl_run( int sig )
 {
     MUTEX_lock {
         /* Prozessabbild aktualisieren */
-        KBUSUPDATE();
+        // KBUSUPDATE(); // Muss nur einmal pro Taskdurchlauf sein!
 
         /* alles was im Sekunden-, Minuten- und Stundenraster ablaufen muss und *
          * Aussentemperaturmittelwerte ermitteln                                */
@@ -200,8 +200,8 @@ void cntrl_run( int sig )
         if( SET == cntrl_mdl_aktiv.inp_ww_aktiv ) {
             if( io_Normal != io_ReadT( &io_ALL_Tau_MW,    NULL ) ) cntrl_err.i.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_WW_Tww_MW,     NULL ) ) cntrl_err.i.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_HK_Tvl_MW,     NULL ) ) cntrl_err.i.tempsens_errcnt --;
-            if( io_Normal != io_ReadT( &io_HK_Trl_MW,     NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_WW_HZG_Tvl_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
+            if( io_Normal != io_ReadT( &io_WW_HZG_Trl_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_SOL_SP1_To_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
             if( io_Normal != io_ReadT( &io_SOL_SP2_Tu_MW, NULL ) ) cntrl_err.i.tempsens_errcnt --;
 
@@ -209,8 +209,8 @@ void cntrl_run( int sig )
                                     io_ALL_Tau_MW.messwert,
                                     cntrl_tau.t_36h_mittel,
                                     io_get_WW_WZ_MW(),
-                                    io_HK_Tvl_MW.messwert,
-                                    io_HK_Trl_MW.messwert,
+                                    io_WW_HZG_Tvl_MW.messwert,
+                                    io_WW_HZG_Trl_MW.messwert,
                                     cntrl_hk.o.tvl_sw, /* ww_Run() abhaengig von Ausgabe hk_Run() */
                                     io_SOL_SP1_To_MW.messwert,
                                     io_SOL_SP2_Tu_MW.messwert,
