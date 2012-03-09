@@ -186,8 +186,8 @@ void io_InitWz( void )
     cnt_status_steuer_t *ctl_p, *st_p;
     s16_t n;
 
-    ctl_p = &(pabOut_p->aout.cnt1_steuer);
-    st_p  = &(pabIn_p->ain.cnt1_status);
+    ctl_p = (cnt_status_steuer_t *) &(pabOut_p->aout.cnt1_steuer);
+    st_p  = (cnt_status_steuer_t *) &(pabIn_p->ain.cnt1_status);
 
     ctl_p->no_ueberlauf     = 0;   /* Ueberlauf erlauben    */
     ctl_p->rueckwaerts      = 0;   /* vorwaerts zaehlen     */
