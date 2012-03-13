@@ -8,6 +8,7 @@ Created on 10.01.2012
 
 import tkinter as tk
 import tkinter.ttk as ttk
+import tkinter.simpledialog as tksimple
 
 import gui_overview
 import gui_FB
@@ -20,6 +21,8 @@ import sys
 import os
 
 PD = 2
+
+PASSWORT = 'SONNENWASSER'
 
 root=tk.Tk()
 root.title('Ruderclub Aschaffenburg Heizungsanlagenbedienung V0.2')
@@ -65,49 +68,57 @@ guiText = gui_Text.GuiText(nbook.TEXT)
 guiText.pack( padx=PD, pady=PD )
 
 servernameLbl   = tk.Label(root, text='Servername:')
-serverlist = ['stegmann.homelinux.org', '192.168.3.33', '192.168.2.104']
+serverlist      = ['stegmann.homelinux.org', '192.168.3.33', '192.168.2.104']
 servernameEntry = ttk.Combobox(root, width=32, values=serverlist)
+passwordLbl     = tk.Label(root, text='Passwort:')
+passwordEntry   = tk.Entry(root, width=16, show='*')
+
 
 def connect():
     global iF
     srvname = servernameEntry.get()
-    if (serverlist.count(srvname) == 0):
-        serverlist.append(srvname)
-        serverlist.sort()
-        servernameEntry.config( values=serverlist )
-
-    try:
-        iF = telnetIf.TelnetInterface(srvname, 1969, 30)
-        # Interface initialisieren
-        guiFB.MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben
-        guiFB.MvReglerParamLesen     = iF.Fb_MvReglerParamLesen
-        guiFB.schalte_PrimPumpe      = iF.Fb_Schalte_PrimPumpe
-        guiFB.schalte_SekPumpe       = iF.Fb_Schalte_SekPumpe
-        guiFB.wechsle_HandAuto       = iF.Fb_wechsle_HandAuto
-        guiFB.leseMischventil        = iF.Fb_leseMischventil
-        guiFB.schreibeMischventil    = iF.Fb_schreibeMischventil
-
-        guiParam.getParam            = iF.Param_GetParam
-        guiParam.putParam            = iF.Param_PutParam
-
-        guiWW.PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben
-        guiWW.PuReglerParamLesen     = iF.WW_PuReglerParamLesen
-        guiWW.t0                     = time.time()
-        guiWW.xt1.LastPhysX          = 0
-        guiWW.xt2.LastPhysX          = 0
-        guiWW.xt1.LastPhysY          = 40.0
-        guiWW.xt2.LastPhysY          = 50.0
-
-        guiText.exec_command         = iF.HoleAntwort
-        
-        connectBtn.config(state=tk.DISABLED)
-        servernameEntry.config(state=tk.DISABLED)
-
-        # Messwerterfassung starten
-        update()
-    except:
-        pass
+    passwd = passwordEntry.get()
+    passwd = passwd.upper() 
+    if (passwd.find('SONNENWASSER') >= 0):
+        if (serverlist.count(srvname) == 0):
+            serverlist.append(srvname)
+            serverlist.sort()
+            servernameEntry.config( values=serverlist )
     
+        try:
+            iF = telnetIf.TelnetInterface(srvname, 1969, 30)
+            # Interface initialisieren
+            guiFB.MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben
+            guiFB.MvReglerParamLesen     = iF.Fb_MvReglerParamLesen
+            guiFB.schalte_PrimPumpe      = iF.Fb_Schalte_PrimPumpe
+            guiFB.schalte_SekPumpe       = iF.Fb_Schalte_SekPumpe
+            guiFB.wechsle_HandAuto       = iF.Fb_wechsle_HandAuto
+            guiFB.leseMischventil        = iF.Fb_leseMischventil
+            guiFB.schreibeMischventil    = iF.Fb_schreibeMischventil
+    
+            guiParam.getParam            = iF.Param_GetParam
+            guiParam.putParam            = iF.Param_PutParam
+    
+            guiWW.PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben
+            guiWW.PuReglerParamLesen     = iF.WW_PuReglerParamLesen
+            guiWW.t0                     = time.time()
+            guiWW.xt1.LastPhysX          = 0
+            guiWW.xt2.LastPhysX          = 0
+            guiWW.xt1.LastPhysY          = 40.0
+            guiWW.xt2.LastPhysY          = 50.0
+    
+            guiText.exec_command         = iF.HoleAntwort
+            
+            connectBtn.config(state=tk.DISABLED)
+            servernameEntry.config(state=tk.DISABLED)
+    
+            # Messwerterfassung starten
+            update()
+        except:
+            pass
+    else:
+        pass
+        
 def update():
     global iF
     try:
@@ -148,5 +159,7 @@ servernameEntry.pack( padx=PD, pady=PD, side=tk.LEFT )
 connectBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 quitBtn.pack( padx=PD, pady=PD, side=tk.LEFT )
 Aktualisieren_chkbttn.pack( padx=PD, pady=PD, side=tk.LEFT )
- 
+passwordLbl.pack( padx=PD, pady=PD, side=tk.LEFT )
+passwordEntry.pack( padx=PD, pady=PD, side=tk.LEFT )
+
 root.mainloop()
