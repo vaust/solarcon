@@ -17,12 +17,14 @@ import gui_Text
 import telnetIf
 import time
 import sys
+import os
 
 PD = 2
 
 root=tk.Tk()
 root.title('Ruderclub Aschaffenburg Heizungsanlagenbedienung V0.2')
-# root.iconbitmap('RCA.ico')
+if (os.name.find('nt') >= 0):
+    root.iconbitmap('RCA.ico')
 
 nbook      = ttk.Notebook(root)
 nbook.ALL  = ttk.Frame(nbook)
