@@ -8,7 +8,6 @@ Created on 10.01.2012
 
 import tkinter as tk
 import tkinter.ttk as ttk
-import tkinter.simpledialog as tksimple
 
 import gui_overview
 import gui_FB
@@ -21,7 +20,6 @@ import sys
 import os
 
 PD = 2
-
 PASSWORT = 'SONNENWASSER'
 
 root=tk.Tk()
@@ -68,18 +66,17 @@ guiText = gui_Text.GuiText(nbook.TEXT)
 guiText.pack( padx=PD, pady=PD )
 
 servernameLbl   = tk.Label(root, text='Servername:')
-serverlist      = ['stegmann.homelinux.org', '192.168.3.33', '192.168.2.104']
+serverlist      = ['192.168.1.2', '192.168.2.104', 'stegmann.homelinux.org']
 servernameEntry = ttk.Combobox(root, width=32, values=serverlist)
 passwordLbl     = tk.Label(root, text='Passwort:')
 passwordEntry   = tk.Entry(root, width=16, show='*')
-
 
 def connect():
     global iF
     srvname = servernameEntry.get()
     passwd = passwordEntry.get()
     passwd = passwd.upper() 
-    if (passwd.find('SONNENWASSER') >= 0):
+    if (passwd.find(PASSWORT) >= 0):
         if (serverlist.count(srvname) == 0):
             serverlist.append(srvname)
             serverlist.sort()
