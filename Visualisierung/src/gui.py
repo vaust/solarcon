@@ -27,42 +27,35 @@ root.title('Ruderclub Aschaffenburg Heizungsanlagenbedienung V0.2')
 if (os.name.find('nt') >= 0):
     root.iconbitmap('RCA.ico')
 
+'''
+books = ('Text (Telnet)', 'Anlagengrafik', 'Solar', 'Warmwasser', 'Fußbodenheizung', 
+         'Heizkörperheizung', 'Kessel', 'Störungen', 'Parameter', 'Zeitprogramm' )
+'''
+books = ('Text (Telnet)', 'Anlagengrafik', 'Warmwasser', 'Fußbodenheizung', 'Parameter' )    
+    
 nbook      = ttk.Notebook(root)
-nbook.ALL  = ttk.Frame(nbook)
-nbook.SOL  = ttk.Frame(nbook)
-nbook.WW   = ttk.Frame(nbook)
-nbook.FB   = ttk.Frame(nbook)
-nbook.HK   = ttk.Frame(nbook)
-nbook.KES  = ttk.Frame(nbook)
-nbook.ERR  = ttk.Frame(nbook)
-nbook.PAR  = ttk.Frame(nbook)
-nbook.ZEIT = ttk.Frame(nbook)
-nbook.TEXT = ttk.Frame(nbook)
-nbook.add(nbook.TEXT, text='Text (Telnet)')
-nbook.add(nbook.ALL,  text='Anlagengrafik')
-nbook.add(nbook.SOL,  text='Solar')
-nbook.add(nbook.WW,   text='Warmwasser')
-nbook.add(nbook.FB,   text='Fußbodenheizung')
-nbook.add(nbook.HK,   text='Heizkörperheizung')
-nbook.add(nbook.KES,  text='Kessel')
-nbook.add(nbook.ERR,  text='Störungen')
-nbook.add(nbook.PAR,  text='Parameter')
-nbook.add(nbook.ZEIT, text='Zeitprogramm')
+nbook.books = dict()
+
+for bk in books:
+    nbook.books[bk] = ttk.Frame(nbook)
+for bk in books:
+    nbook.add(nbook.books[bk], text=bk)
+
 nbook.pack(padx=PD, pady=PD, fill=tk.X)
 
-guiAll = gui_overview.GuiOverview(nbook.ALL)
+guiAll = gui_overview.GuiOverview(nbook.books['Anlagengrafik'])
 guiAll.pack()
 
-guiFB = gui_FB.GuiFB(nbook.FB)
+guiFB = gui_FB.GuiFB(nbook.books['Fußbodenheizung'])
 guiFB.pack()
 
-guiParam = gui_Param.GuiParam(nbook.PAR)
+guiParam = gui_Param.GuiParam(nbook.books['Parameter'])
 guiParam.pack()
 
-guiWW = gui_WW.GuiWW(nbook.WW)
+guiWW = gui_WW.GuiWW(nbook.books['Warmwasser'])
 guiWW.pack( padx=PD, pady=PD )
 
-guiText = gui_Text.GuiText(nbook.TEXT)
+guiText = gui_Text.GuiText(nbook.books['Text (Telnet)'])
 guiText.pack( padx=PD, pady=PD )
 
 servernameLbl   = tk.Label(root, text='Servername:')
