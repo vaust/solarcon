@@ -32,7 +32,7 @@ class GuiText(tk.Frame):
         self.repeat_chkbttn    = ttk.Checkbutton(self, text='Senden wiederholen an/aus', 
                                                  variable=self.repeat_state_tkbl, command=self.Repeat_changed)
         self.vbar              = ttk.Scrollbar( self, orient=tk.VERTICAL)
-        self.text_window       = tk.Text(self, width=100, height=30, bg='white', yscrollcommand=self.vbar.set)
+        self.text_window       = tk.Text(self, width=120, height=30, bg='white', yscrollcommand=self.vbar.set)
         
         self.vbar.config(command=self.text_window.yview)
         
@@ -47,7 +47,7 @@ class GuiText(tk.Frame):
         self.druckeAusgabe()
         
     def Repeat_changed(self):
-        if( self.repeat_state_tkbl.get() == False ):
+        if (self.repeat_state_tkbl.get() == False):
             self.after_cancel(self.after_id)
         
     def druckeAusgabe(self):
@@ -57,12 +57,12 @@ class GuiText(tk.Frame):
             self.cmdlist.append(cmd)
         self.cmdlist.sort()
         self.command_entry.config( values=self.cmdlist )
-        lines = self.exec_command( cmd.encode('utf8') )
+        lines = self.exec_command( cmd )
         self.text_window.insert(tk.END, '\n[('+str(self.zaehler)+') '+time.asctime()[11:19]+']:\n')
         for line in lines:
             self.text_window.insert(tk.END, line+'\n')
         self.text_window.yview(tk.END)
-        if( self.repeat_state_tkbl.get() == True ):
+        if (self.repeat_state_tkbl.get() == True):
             self.after_id=self.after(self.repeatTime, self.druckeAusgabe)
         
 if __name__ == "__main__":
