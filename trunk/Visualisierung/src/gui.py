@@ -33,7 +33,6 @@ nbook.books = dict()
 
 for bk in books:
     nbook.books[bk] = ttk.Frame(nbook)
-for bk in books:
     nbook.add(nbook.books[bk], text=bk)
 
 nbook.pack(padx=PD, pady=PD, fill=tk.X)
