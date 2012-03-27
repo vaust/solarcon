@@ -1,9 +1,10 @@
+# -*- coding: utf-8 -*-
+
 '''
 Created on 23.01.2012
 
-@author: stegmv
+@author: Volker Stegmann
 '''
-# -*- coding: utf-8 -*-
 
 TEMP_NAMES = { "ALL_Tau_MW", "SOL_KOLL_T_MW", "SOL_SP1_To_MW", "SOL_SP1_Tu_MW", "SOL_SP2_To_MW",
               "SOL_SP2_Tu_MW", "KES_Tvl_MW", "KES_Trl_MW", "HK_Tvl_MW", "HK_Trl_MW",

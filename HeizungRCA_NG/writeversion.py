@@ -7,7 +7,7 @@ import time
 import os
 
 SVN     = '$Revision$'
-SVN_URL = '$HeadURL$'
+SVN_URL = '$HeadURL: https://solarcon.googlecode.com/svn/trunk/HeizungRCA_NG/writeversion.py $'
 # SVN_REV = SVN.split(':')[1].split('$')[0]
 
 with open( './svn.txt', 'r' ) as file:
