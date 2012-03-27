@@ -10,18 +10,12 @@ Created on 10.01.2012
 import tkinter as tk
 import tkinter.ttk as ttk
 
-import gui_overview
-import gui_FB
-import gui_Param
-import gui_WW
-import gui_Text
+import gui_overview, gui_FB, gui_Param, gui_WW, gui_Text
 import telnetIf
-import time
-import sys
-import os
+import time, sys, os, hashlib
 
 PD = 2
-PASSWORT = 'SONNENWASSER'
+PASSWORTMD5HASH = '7d589d8a1a5f52ab2bc55cade4c1c608'
 
 root=tk.Tk()
 root.title('Ruderclub Aschaffenburg Heizungsanlagenbedienung V0.2')
@@ -69,8 +63,10 @@ def connect():
     global iF
     srvname = servernameEntry.get()
     passwd = passwordEntry.get()
-    passwd = passwd.upper() 
-    if (passwd.find(PASSWORT) >= 0):
+    h=hashlib.md5()
+    h.update(passwd.encode())
+    md5hex = h.hexdigest()
+    if (md5hex.find(PASSWORTMD5HASH) >= 0):
         if (serverlist.count(srvname) == 0):
             serverlist.append(srvname)
             serverlist.sort()
