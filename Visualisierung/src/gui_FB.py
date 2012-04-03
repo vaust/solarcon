@@ -10,20 +10,26 @@ PD = 5
 HFARBE  = 'LightGoldenrod1'
 
 class GuiFB(tk.Frame):
-    def __init__(self, master=None):
+    def __init__(self, master=None, 
+                 MvReglerParamSchreiben =None,
+                 MvReglerParamLesen     =None,
+                 schalte_PrimPumpe      =None,
+                 schalte_SekPumpe       =None,
+                 wechsle_HandAuto       =None,
+                 leseMischventil        =None,
+                 schreibeMischventil    =None ):
         self.SCHRIFT = ('Arial', 12, 'bold')
         # self.SCHRIFT = ('Arial', 11)
         
         tk.Frame.__init__(self, master)
         self.draw()
-        self.MvReglerParamSchreiben = None
-        self.MvReglerParamLesen     = None
-        self.schalte_PrimPumpe      = None
-        self.schalte_SekPumpe       = None
-        self.wechsle_HandAuto       = None
-        self.leseMischventil        = None
-        self.schreibeMischventil    = None
-        
+        self.MvReglerParamSchreiben = MvReglerParamSchreiben
+        self.MvReglerParamLesen     = MvReglerParamLesen    
+        self.schalte_PrimPumpe      = schalte_PrimPumpe     
+        self.schalte_SekPumpe       = schalte_SekPumpe      
+        self.wechsle_HandAuto       = wechsle_HandAuto      
+        self.leseMischventil        = leseMischventil       
+        self.schreibeMischventil    = schreibeMischventil
        
     def draw_lf_Process(self):
         ''' Labelframe fuer Prozesssteuerung ''' 

@@ -17,11 +17,14 @@ HFARBE  = 'LightGoldenrod1'
 __DEBUG__ = True
 
 class GuiWW(tk.Frame):
-    def __init__(self, master=None):
-        tk.Frame.__init__(self, master)
-        self.PuReglerParamLesen = None
-        self.PuReglerParamSchreiben = None
-        self.TempLesen = None
+    def __init__(self, master=None,
+                       PuReglerParamLesen = None,    
+                       PuReglerParamSchreiben = None,
+                       TempLesen = None               ):
+        tk.Frame.__init__(self, master )
+        self.PuReglerParamLesen     = PuReglerParamLesen
+        self.PuReglerParamSchreiben = PuReglerParamSchreiben
+        self.TempLesen              = TempLesen     
         
         self.xt1 = xt_Diagram.XtDiagram(master, physY_Offs=30, yTicks=5, physY_TickUnit=5, 
                                        yAchsentext='°C', win_Y=150, xTicks=12, physX_TickUnit=10 )

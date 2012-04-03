@@ -10,12 +10,14 @@ import signals
 HFARBE  = 'LightGoldenrod1'
 
 class GuiParam(tk.Frame):
-    def __init__(self, master=None):
+    def __init__(self, master  =None,
+                       getParam=None,
+                       putParam=None ):
         tk.Frame.__init__(self, master)
         
-        # Interfacefunktionen
-        self.getParam = None 
-        self.putParam = None 
+        # Interfacemethoden
+        self.getParam = getParam 
+        self.putParam = putParam 
         
         # Werte der Parameter als Strings
         self.paramValue = dict()
