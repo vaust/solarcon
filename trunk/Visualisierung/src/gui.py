@@ -40,18 +40,6 @@ nbook.pack(padx=PD, pady=PD, fill=tk.X)
 guiAll = gui_overview.GuiOverview(nbook.books['Anlagengrafik'])
 guiAll.pack()
 
-guiFB = gui_FB.GuiFB(nbook.books['Fußbodenheizung'])
-guiFB.pack()
-
-guiParam = gui_Param.GuiParam(nbook.books['Parameter'])
-guiParam.pack()
-
-guiWW = gui_WW.GuiWW(nbook.books['Warmwasser'])
-guiWW.pack( padx=PD, pady=PD )
-
-guiText = gui_Text.GuiText(nbook.books['Text (Telnet)'])
-guiText.pack( padx=PD, pady=PD )
-
 servernameLbl   = tk.Label(root, text='Servername:')
 serverlist      = ['192.168.1.2', '192.168.2.104', 'stegmann.homelinux.org']
 servernameEntry = ttk.Combobox(root, width=32, values=serverlist)
@@ -59,7 +47,7 @@ passwordLbl     = tk.Label(root, text='Passwort:')
 passwordEntry   = tk.Entry(root, width=16, show='*')
 
 def connect():
-    global iF
+    global iF, guiFB, guiWW, guiText, guiParam
     srvname = servernameEntry.get()
     passwd = passwordEntry.get()
     h=hashlib.md5()
@@ -74,26 +62,35 @@ def connect():
         try:
             iF = telnetIf.TelnetInterface(srvname, 1969, 30)
             # Interface initialisieren
-            guiFB.MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben
-            guiFB.MvReglerParamLesen     = iF.Fb_MvReglerParamLesen
-            guiFB.schalte_PrimPumpe      = iF.Fb_Schalte_PrimPumpe
-            guiFB.schalte_SekPumpe       = iF.Fb_Schalte_SekPumpe
-            guiFB.wechsle_HandAuto       = iF.Fb_wechsle_HandAuto
-            guiFB.leseMischventil        = iF.Fb_leseMischventil
-            guiFB.schreibeMischventil    = iF.Fb_schreibeMischventil
+            guiFB = gui_FB.GuiFB(nbook.books['Fußbodenheizung'],
+                                 MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben,
+                                 MvReglerParamLesen     = iF.Fb_MvReglerParamLesen,
+                                 schalte_PrimPumpe      = iF.Fb_Schalte_PrimPumpe,
+                                 schalte_SekPumpe       = iF.Fb_Schalte_SekPumpe,
+                                 wechsle_HandAuto       = iF.Fb_wechsle_HandAuto,
+                                 leseMischventil        = iF.Fb_leseMischventil,
+                                 schreibeMischventil    = iF.Fb_schreibeMischventil )
+            guiFB.pack()
+
+            guiParam = gui_Param.GuiParam(nbook.books['Parameter'],
+                                          getParam = iF.Param_GetParam,
+                                          putParam = iF.Param_PutParam  )
+            guiParam.pack()
     
-            guiParam.getParam            = iF.Param_GetParam
-            guiParam.putParam            = iF.Param_PutParam
+            guiWW = gui_WW.GuiWW(nbook.books['Warmwasser'], 
+   
+                                 PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben,
+                                 PuReglerParamLesen     = iF.WW_PuReglerParamLesen      )
+            guiWW.pack( padx=PD, pady=PD )
+            
+            guiWW.t0            = time.time()
+            guiWW.xt1.LastPhysX = 0
+            guiWW.xt2.LastPhysX = 0
+            guiWW.xt1.LastPhysY = 40.0
+            guiWW.xt2.LastPhysY = 50.0
     
-            guiWW.PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben
-            guiWW.PuReglerParamLesen     = iF.WW_PuReglerParamLesen
-            guiWW.t0                     = time.time()
-            guiWW.xt1.LastPhysX          = 0
-            guiWW.xt2.LastPhysX          = 0
-            guiWW.xt1.LastPhysY          = 40.0
-            guiWW.xt2.LastPhysY          = 50.0
-    
-            guiText.exec_command         = iF.HoleAntwort
+            guiText = gui_Text.GuiText(nbook.books['Text (Telnet)'], exec_command=iF.HoleAntwort)
+            guiText.pack( padx=PD, pady=PD )
             
             connectBtn.config(state=tk.DISABLED)
             servernameEntry.config(state=tk.DISABLED)
@@ -106,7 +103,7 @@ def connect():
         pass
         
 def update():
-    global iF
+    global iF, guiFB, guiWW
     try:
         iF.ErmittleMesswerte()
         guiAll.updateLabels(iF.t, iF.pu, iF.mv, iF.di, iF.cnt, iF.av)

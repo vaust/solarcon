@@ -11,9 +11,10 @@ import time
 PD = 5
 
 class GuiText(tk.Frame):
-    def __init__(self, master=None):
+    def __init__(self, master=None,
+                       exec_command=None):
         tk.Frame.__init__(self, master)
-        self.exec_command = None
+        self.exec_command = exec_command
         self.zaehler    = 0
         self.repeatTime = 5000
         self.cmdlist    = ['help', 'version']      
