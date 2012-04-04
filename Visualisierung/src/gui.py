@@ -2,10 +2,9 @@
 '''
 Created on 10.01.2012
 
-@author: stegmv
+@author: Volker Stegmann
 '''
 
-# -*- coding: utf-8 -*-
 
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -18,7 +17,7 @@ PD = 2
 PASSWORTMD5HASH = '7d589d8a1a5f52ab2bc55cade4c1c608'
 
 root=tk.Tk()
-root.title('Ruderclub Aschaffenburg Heizungsanlagenbedienung V0.2')
+root.title('Ruderclub Aschaffenburg Heizungsanlagenbedienung V0.3')
 if (os.name.find('nt') >= 0):
     root.iconbitmap('RCA.ico')
 
@@ -28,7 +27,7 @@ books = ('Text (Telnet)', 'Anlagengrafik', 'Solar', 'Warmwasser', 'Fußbodenheiz
 '''
 books = ('Text (Telnet)', 'Anlagengrafik', 'Warmwasser', 'Fußbodenheizung', 'Parameter' )    
     
-nbook      = ttk.Notebook(root)
+nbook       = ttk.Notebook(root)
 nbook.books = dict()
 
 for bk in books:
@@ -61,7 +60,7 @@ def connect():
     
         try:
             iF = telnetIf.TelnetInterface(srvname, 1969, 30)
-            # Interface initialisieren
+            # GUIs instanzieren und Interfaces initialisieren
             guiFB = gui_FB.GuiFB(nbook.books['Fußbodenheizung'],
                                  MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben,
                                  MvReglerParamLesen     = iF.Fb_MvReglerParamLesen,
@@ -78,7 +77,6 @@ def connect():
             guiParam.pack()
     
             guiWW = gui_WW.GuiWW(nbook.books['Warmwasser'], 
-   
                                  PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben,
                                  PuReglerParamLesen     = iF.WW_PuReglerParamLesen      )
             guiWW.pack( padx=PD, pady=PD )
