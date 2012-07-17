@@ -11,14 +11,14 @@ import tkinter.ttk as ttk
 
 import gui_overview, gui_FB, gui_Param, gui_WW, gui_Text
 import telnetIf
-import time, sys, os, hashlib
+import time, sys, hashlib
 
 PD = 2
 PASSWORTMD5HASH = '7d589d8a1a5f52ab2bc55cade4c1c608'
 
 root=tk.Tk()
 root.title('Ruderclub Aschaffenburg Heizungsanlagenbedienung V0.3')
-if (os.name.find('nt') >= 0):
+if (sys.platform.startswith('win32')):
     root.iconbitmap('RCA.ico')
 
 '''
