@@ -195,7 +195,7 @@ if __name__ == "__main__":
     import random
     
     def doit():
-        gui.moveChart(-5)
+        gui.moveChart(-2)
         gui.after(2000, doit)
         
     root=tk.Tk()
