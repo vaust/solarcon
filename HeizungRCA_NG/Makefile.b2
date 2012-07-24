@@ -37,3 +37,7 @@ io.o: io.c io.h gen_types.h
 #	rm *.o; rm test
 
 
+## einfach nur blödsinn
+##
+
+
