@@ -214,3 +214,7 @@ if __name__ == "__main__":
     # gui.moveChart(-10)
     
     root.mainloop()
+
+	
+	############ Nur Test
+	###
