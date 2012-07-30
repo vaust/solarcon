@@ -32,6 +32,7 @@ void kes_Init( kes_class_t *self )
 {
     self->p.sp_dt_sw     = param_kes_sp_dt_sw;
     self->p.ww_tww_sw    = param_ww_tww_sw;
+    self->p.fb_prim_mv_y_Max = 95.0;
 
     /* Ausgaenge initialisieren: (notwendig wg. undefinierten Zustands in Hystereseschleife zum Programmstart */
     self->o.pu_sp1_sb = IO_AUS;
@@ -93,7 +94,7 @@ void kes_Run( kes_class_t *self )
 
     /* Notfall in dem Sp.-pumpe 2 immer laufen soll: */
     /* if( self->i.sp2_to_mw < (self->i.fb_tvl_sw - self->p.sp_dt_sw) ) */
-    if( self->i.fb_prim_mv_y > 95.0 ) {
+    if( self->i.fb_prim_mv_y > self->p.fb_prim_mv_y_Max ) {
         if( self->i.br_bm == IO_EIN ) self->o.pu_sp2_sb = IO_EIN;
     }
     

@@ -150,25 +150,26 @@ static const parse_set_t telnet_sol_Vars[] =
 
 static const parse_set_t telnet_kes_Vars[] =
 {
-    { "kes.p.sp_dt_sw",     &(cntrl_kes.p.sp_dt_sw),     "%f" },
-    { "kes.p.ww_tww_sw",    &(cntrl_kes.p.ww_tww_sw),    "%f" },
+    { "kes.p.sp_dt_sw",         &(cntrl_kes.p.sp_dt_sw),         "%f" },
+    { "kes.p.ww_tww_sw",        &(cntrl_kes.p.ww_tww_sw),        "%f" },
+    { "kes.p.fb_prim_mv_y_Max", &(cntrl_kes.p.fb_prim_mv_y_Max), "%f" },
 
-    { "kes.i.sp1_to_mw",    &(cntrl_kes.i.sp1_to_mw),    "%f" },
-    { "kes.i.sp2_to_mw",    &(cntrl_kes.i.sp2_to_mw),    "%f" },
-    { "kes.i.tvl_mw",       &(cntrl_kes.i.tvl_mw),       "%f" },
-    { "kes.i.hk_tvl_sw",    &(cntrl_kes.i.hk_tvl_sw),    "%f" },
-    { "kes.i.fb_tvl_sw",    &(cntrl_kes.i.fb_tvl_sw),    "%f" },
-    { "kes.i.fb_prim_mv_y", &(cntrl_kes.i.fb_prim_mv_y), "%f" },
-    { "kes.i.duschzeit",    &(cntrl_kes.i.duschzeit),    "%x" },
-    { "kes.i.br_bm",        &(cntrl_kes.i.br_bm),        "%x" },
+    { "kes.i.sp1_to_mw",        &(cntrl_kes.i.sp1_to_mw),        "%f" },
+    { "kes.i.sp2_to_mw",        &(cntrl_kes.i.sp2_to_mw),        "%f" },
+    { "kes.i.tvl_mw",           &(cntrl_kes.i.tvl_mw),           "%f" },
+    { "kes.i.hk_tvl_sw",        &(cntrl_kes.i.hk_tvl_sw),        "%f" },
+    { "kes.i.fb_tvl_sw",        &(cntrl_kes.i.fb_tvl_sw),        "%f" },
+    { "kes.i.fb_prim_mv_y",     &(cntrl_kes.i.fb_prim_mv_y),     "%f" },
+    { "kes.i.duschzeit",        &(cntrl_kes.i.duschzeit),        "%x" },
+    { "kes.i.br_bm",            &(cntrl_kes.i.br_bm),            "%x" },
 
-    { "kes.o.sp1_to_sw",    &(cntrl_kes.o.sp1_to_sw),    "%f" },
-    { "kes.o.sp2_to_sw",    &(cntrl_kes.o.sp2_to_sw),    "%f" },
-    { "kes.o.tvl_sw_sp1",   &(cntrl_kes.o.tvl_sw_sp1),   "%f" },
-    { "kes.o.tvl_sw_sp2",   &(cntrl_kes.o.tvl_sw_sp2),   "%f" },
-    { "kes.o.tvl_sw",       &(cntrl_kes.o.tvl_sw),       "%f" },
-    { "kes.o.pu_sp1_sb",    &(cntrl_kes.o.pu_sp1_sb),    "%x" },
-    { "kes.o.pu_sp2_sb",    &(cntrl_kes.o.pu_sp2_sb),    "%x" }
+    { "kes.o.sp1_to_sw",        &(cntrl_kes.o.sp1_to_sw),        "%f" },
+    { "kes.o.sp2_to_sw",        &(cntrl_kes.o.sp2_to_sw),        "%f" },
+    { "kes.o.tvl_sw_sp1",       &(cntrl_kes.o.tvl_sw_sp1),       "%f" },
+    { "kes.o.tvl_sw_sp2",       &(cntrl_kes.o.tvl_sw_sp2),       "%f" },
+    { "kes.o.tvl_sw",           &(cntrl_kes.o.tvl_sw),           "%f" },
+    { "kes.o.pu_sp1_sb",        &(cntrl_kes.o.pu_sp1_sb),        "%x" },
+    { "kes.o.pu_sp2_sb",        &(cntrl_kes.o.pu_sp2_sb),        "%x" }
 };
 
 static const parse_set_t telnet_err_Vars[] =
