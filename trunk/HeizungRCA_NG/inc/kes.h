@@ -25,6 +25,7 @@
 typedef struct kes_param_s {
     float sp_dt_sw;                 /**< Globaler Wert div 2 !! */
     float ww_tww_sw;
+    float fb_prim_mv_y_Max;
 } kes_param_t;
 
 typedef struct kes_in_s {
