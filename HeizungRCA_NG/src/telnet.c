@@ -325,6 +325,7 @@ void *telnet_Task( void *arg )
             } MUTEX_unlock();
         }
     }
+    return NULL;
 }
 
 static /* inline */
