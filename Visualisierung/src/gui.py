@@ -14,7 +14,8 @@ import telnetIf
 import time, sys, hashlib
 
 PD = 2
-PASSWORTMD5HASH = '7d589d8a1a5f52ab2bc55cade4c1c608'
+# PASSWORTMD5HASH = '7d589d8a1a5f52ab2bc55cade4c1c608'
+PASSWORTMD5HASH = '19c7b2a53c6f0b0f6b1a6baf27729bd7'
 
 root=tk.Tk()
 root.title('Ruderclub Aschaffenburg Heizungsanlagenbedienung V0.3')
