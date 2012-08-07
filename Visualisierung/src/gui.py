@@ -14,7 +14,6 @@ import telnetIf
 import time, sys, hashlib
 
 PD = 2
-# PASSWORTMD5HASH = '7d589d8a1a5f52ab2bc55cade4c1c608'
 PASSWORTMD5HASH = '19c7b2a53c6f0b0f6b1a6baf27729bd7'
 
 root=tk.Tk()
@@ -47,7 +46,7 @@ passwordLbl     = tk.Label(root, text='Passwort:')
 passwordEntry   = tk.Entry(root, width=16, show='*')
 
 def connect():
-    global iF, guiFB, guiWW, guiText, guiParam
+    global iface, guiFB, guiWW, guiText, guiParam
     srvname = servernameEntry.get()
     passwd = passwordEntry.get()
     h=hashlib.md5()
@@ -60,26 +59,26 @@ def connect():
             servernameEntry.config( values=serverlist )
     
         try:
-            iF = telnetIf.TelnetInterface(srvname, 1969, 30)
+            iface = telnetIf.TelnetInterface(srvname, 1969, 30)
             # GUIs instanzieren und Interfaces initialisieren
             guiFB = gui_FB.GuiFB(nbook.books['Fußbodenheizung'],
-                                 MvReglerParamSchreiben = iF.Fb_MvReglerParamSchreiben,
-                                 MvReglerParamLesen     = iF.Fb_MvReglerParamLesen,
-                                 schalte_PrimPumpe      = iF.Fb_Schalte_PrimPumpe,
-                                 schalte_SekPumpe       = iF.Fb_Schalte_SekPumpe,
-                                 wechsle_HandAuto       = iF.Fb_wechsle_HandAuto,
-                                 leseMischventil        = iF.Fb_leseMischventil,
-                                 schreibeMischventil    = iF.Fb_schreibeMischventil )
+                                 MvReglerParamSchreiben = iface.Fb_MvReglerParamSchreiben,
+                                 MvReglerParamLesen     = iface.Fb_MvReglerParamLesen,
+                                 schalte_PrimPumpe      = iface.Fb_Schalte_PrimPumpe,
+                                 schalte_SekPumpe       = iface.Fb_Schalte_SekPumpe,
+                                 wechsle_HandAuto       = iface.Fb_wechsle_HandAuto,
+                                 leseMischventil        = iface.Fb_leseMischventil,
+                                 schreibeMischventil    = iface.Fb_schreibeMischventil )
             guiFB.pack()
 
             guiParam = gui_Param.GuiParam(nbook.books['Parameter'],
-                                          getParam = iF.Param_GetParam,
-                                          putParam = iF.Param_PutParam  )
+                                          getParam = iface.Param_GetParam,
+                                          putParam = iface.Param_PutParam  )
             guiParam.pack()
     
             guiWW = gui_WW.GuiWW(nbook.books['Warmwasser'], 
-                                 PuReglerParamSchreiben = iF.WW_PuReglerParamSchreiben,
-                                 PuReglerParamLesen     = iF.WW_PuReglerParamLesen      )
+                                 PuReglerParamSchreiben = iface.WW_PuReglerParamSchreiben,
+                                 PuReglerParamLesen     = iface.WW_PuReglerParamLesen      )
             guiWW.pack( padx=PD, pady=PD )
             
             guiWW.t0            = time.time()
@@ -88,7 +87,7 @@ def connect():
             guiWW.xt1.LastPhysY = 40.0
             guiWW.xt2.LastPhysY = 50.0
     
-            guiText = gui_Text.GuiText(nbook.books['Text (Telnet)'], exec_command=iF.HoleAntwort)
+            guiText = gui_Text.GuiText(nbook.books['Text (Telnet)'], exec_command=iface.HoleAntwort)
             guiText.pack( padx=PD, pady=PD )
             
             connectBtn.config(state=tk.DISABLED)
@@ -102,22 +101,22 @@ def connect():
         pass
         
 def update():
-    global iF, guiFB, guiWW
+    global iface, guiFB, guiWW
     try:
-        iF.ErmittleMesswerte()
-        guiAll.updateLabels(iF.t, iF.pu, iF.mv, iF.di, iF.cnt, iF.av)
-        guiFB.updateLabels(iF.t, iF.mv, iF.pu)
-        guiWW.plot_MW(iF.t, iF.mv)
+        iface.ErmittleMesswerte()
+        guiAll.updateLabels(iface.t, iface.pu, iface.mv, iface.di, iface.cnt, iface.av)
+        guiFB.updateLabels(iface.t, iface.mv, iface.pu)
+        guiWW.plot_MW(iface.t, iface.mv)
     except:
         pass
     if( Aktualisieren_state_tkbl.get() == True ):
         nbook.after_id = nbook.after(5000, update) # rekursiver Aufruf!
             
 def beenden():
-    global iF
+    global iface
     try:
-        iF.beenden()
-        iF.close()
+        iface.beenden()
+        iface.close()
     except:
         pass
     
@@ -132,6 +131,7 @@ def Aktualisieren_changed():
 connectBtn = tk.Button(root, text='Verbinden', command=connect)
 ''' Checkbutton fuer Aktualisierung ein/aus '''
 Aktualisieren_state_tkbl = tk.BooleanVar()
+Aktualisieren_state_tkbl.set(tk.TRUE)
 Aktualisieren_chkbttn = ttk.Checkbutton(root, text='Aktualisieren an/aus', variable=Aktualisieren_state_tkbl,
                                         command=Aktualisieren_changed)
 quitBtn = tk.Button(root, text='Beenden', command=beenden)
