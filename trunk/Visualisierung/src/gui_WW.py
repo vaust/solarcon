@@ -9,7 +9,6 @@ import tkinter as tk
 
 import xt_Diagram
 import time
-import random
 import math
 
 PD = 5
