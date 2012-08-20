@@ -61,30 +61,30 @@ typedef struct cntrl_enable_modul_s {
 /** @brief Instanz der Aktiv Flags */
 PUBLIC cntrl_enable_modul_t    cntrl_mdl_aktiv;
 
-/** \brief Variablen fuer Zeit */
+/** @brief Variablen fuer Zeit */
 PUBLIC zeit_Betriebszustand_t  cntrl_zeit_absenkung;
 PUBLIC zeit_event_t            cntrl_zeit_event;
 PUBLIC zeit_party_t            cntrl_zeit_party;
 
-/** \brief Mittelwertbildung fuer Aussentemperatur */
+/** @brief Mittelwertbildung fuer Aussentemperatur */
 PUBLIC task_tau_t          cntrl_tau;
 
-/** \brief Instanz des Solarkollektorheizkreises */
+/** @brief Instanz des Solarkollektorheizkreises */
 PUBLIC sol_class_t         cntrl_sol;
 
-/** \brief Instanz der Fussbodenheizung */
+/** @brief Instanz der Fussbodenheizung */
 PUBLIC fb_class_t          cntrl_fb;
 
-/** \brief Instanz des Heizkoerperheizkreises */
+/** @brief Instanz des Heizkoerperheizkreises */
 PUBLIC hk_class_t          cntrl_hk;
 
-/** \brief Instanz des Warmwasserheizkreises */
+/** @brief Instanz des Warmwasserheizkreises */
 PUBLIC ww_class_t          cntrl_ww;
 
-/** \brief Instanz des Kesselkreises */
+/** @brief Instanz des Kesselkreises */
 PUBLIC kes_class_t         cntrl_kes;
 
-/** \brief Instanz einer Stoermeldung */
+/** @brief Instanz einer Stoermeldung */
 PUBLIC err_class_t         cntrl_err;
 
 /** @brief DEBUG Variablen */
