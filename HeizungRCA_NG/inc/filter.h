@@ -33,11 +33,11 @@
 /* <Typen> */
 /** @brief Definition der Komponentenklasse des gleitenden Mittelwerts (Moving Average) */
 typedef struct filter_avg_s {
-    float   x[FILTER_MAXLEN];   /**< Ringspeicher der Eingangswerte                    */
-    u16_t   idx;                /**< Indexzeiger auf aktuelles Element im Ringspeicher */
-    u16_t   len;                /**< Laenge des Ringspeichers                          */
-    float   sum;                /**< Summe vor Normierung durch Laenge                 */
-    float   avg;                /**< Eigentlicher Mittelwert                           */
+    float   x[FILTER_MAXLEN];   /**< Ringspeicher der Eingangswerte                     */
+    u16_t   idx;                /**< Indexzeiger auf aktuelles Element im Ringspeicher  */
+    u16_t   len;                /**< Laenge des Ringspeichers                           */
+    float   sum;                /**< Summe vor Normierung durch Laenge                  */
+    float   avg;                /**< Eigentlicher Mittelwert                            */
 } filter_avg_t;
 
 /** @brief Definition der Komponentenklasse des Finite Impulse Response Filters */
@@ -53,15 +53,15 @@ typedef struct filter_fir_s {
 
 /** @brief Definition der Komponentenklasse des infinite Impulse Response Filters */
 typedef struct filter_iir_s {
-    float   x[FILTER_MAXLEN];   /**< Ringspeicher der Eingangswerte                    */
-    float   y[FILTER_MAXLEN];   /**< Ringspeicher der Ausgangswerte                    */
-    u16_t   idx;                /**< Indexzeiger auf aktuelles Element im Ringspeicher */
-    u16_t   len;                /**< Laenge des Ringspeichers                          */
-    float   a[FILTER_MAXLEN];   /**< Zaehlerkoeffizienten multipliziert mit nrm        */
-    float   b[FILTER_MAXLEN];   /**< Nennerkoeffizienten multipliziert mit nrm         */
-    float   nrm;                /**< Normierungsfaktor, um Rundungsfehler zu min.      */
-    float   sum;                /**< Summe vor Normierung durch nrm                    */
-    float   iir;                /**< Eigentlicher Filterwert                           */
+    float   x[FILTER_MAXLEN];   /**< Ringspeicher der Eingangswerte                     */
+    float   y[FILTER_MAXLEN];   /**< Ringspeicher der Ausgangswerte                     */
+    u16_t   idx;                /**< Indexzeiger auf aktuelles Element im Ringspeicher  */
+    u16_t   len;                /**< Laenge des Ringspeichers                           */
+    float   a[FILTER_MAXLEN];   /**< Zaehlerkoeffizienten multipliziert mit nrm         */
+    float   b[FILTER_MAXLEN];   /**< Nennerkoeffizienten multipliziert mit nrm          */
+    float   nrm;                /**< Normierungsfaktor, um Rundungsfehler zu min.       */
+    float   sum;                /**< Summe vor Normierung durch nrm                     */
+    float   iir;                /**< Eigentlicher Filterwert                            */
 } filter_iir_t;
  
 /* <Typen/> */
