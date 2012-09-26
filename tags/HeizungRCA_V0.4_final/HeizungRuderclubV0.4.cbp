@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Heizung Ruderclub V0.4" />
+		<Option pch_mode="2" />
+		<Option compiler="armelfgcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Heizung Ruderclub V0" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="armelfgcc" />
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Heizung Ruderclub V0" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="armelfgcc" />
+			</Target>
+		</Build>
+		<Unit filename="HeizungRuderclubV0.3.cbp" />
+		<Unit filename="Makefile" />
+		<Unit filename="fb.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="hk.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="init_var.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="io.h" />
+		<Unit filename="kbusapi.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="kbusapi.h" />
+		<Unit filename="kessel.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="log.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rca2" />
+		<Unit filename="rca2.gdb" />
+		<Unit filename="server.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="server.h" />
+		<Unit filename="solar.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="speicher.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="task.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="testpc.mak" />
+		<Unit filename="variablen.h" />
+		<Unit filename="vorgabe.h" />
+		<Unit filename="vorgaben.ini" />
+		<Unit filename="vorgaben04.ini" />
+		<Unit filename="wochenzeitprogramm.ini" />
+		<Unit filename="ww.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="zeit.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="zeitprogramm.h" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

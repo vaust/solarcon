@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="Debug" />
+	<File name="Makefile" open="0" top="0" tabpos="12">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="fb.c" open="1" top="0" tabpos="13">
+		<Cursor position="2324" topLine="38" />
+	</File>
+	<File name="hk.c" open="1" top="0" tabpos="4">
+		<Cursor position="2142" topLine="28" />
+	</File>
+	<File name="init_var.c" open="1" top="0" tabpos="12">
+		<Cursor position="18567" topLine="481" />
+	</File>
+	<File name="io.h" open="0" top="0" tabpos="14">
+		<Cursor position="2013" topLine="19" />
+	</File>
+	<File name="kessel.c" open="0" top="0" tabpos="13">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="log.c" open="0" top="0" tabpos="11">
+		<Cursor position="79" topLine="0" />
+	</File>
+	<File name="main.c" open="0" top="0" tabpos="15">
+		<Cursor position="18" topLine="2" />
+	</File>
+	<File name="server.c" open="1" top="0" tabpos="3">
+		<Cursor position="6169" topLine="175" />
+	</File>
+	<File name="server.h" open="0" top="0" tabpos="12">
+		<Cursor position="732" topLine="12" />
+	</File>
+	<File name="solar.c" open="0" top="0" tabpos="14">
+		<Cursor position="60" topLine="0" />
+	</File>
+	<File name="speicher.c" open="0" top="0" tabpos="12">
+		<Cursor position="0" topLine="0" />
+	</File>
+	<File name="task.c" open="1" top="0" tabpos="2">
+		<Cursor position="4414" topLine="138" />
+	</File>
+	<File name="variablen.h" open="1" top="0" tabpos="1">
+		<Cursor position="2496" topLine="27" />
+	</File>
+	<File name="vorgabe.h" open="0" top="0" tabpos="6">
+		<Cursor position="7948" topLine="62" />
+	</File>
+	<File name="vorgaben.ini" open="0" top="0" tabpos="2">
+		<Cursor position="2529" topLine="45" />
+	</File>
+	<File name="vorgaben04.ini" open="0" top="0" tabpos="9">
+		<Cursor position="173" topLine="0" />
+	</File>
+	<File name="wochenzeitprogramm.ini" open="0" top="0" tabpos="0">
+		<Cursor position="816" topLine="0" />
+	</File>
+	<File name="ww.c" open="1" top="1" tabpos="5">
+		<Cursor position="3142" topLine="77" />
+	</File>
+	<File name="zeit.c" open="1" top="0" tabpos="6">
+		<Cursor position="2396" topLine="39" />
+	</File>
+	<File name="zeitprogramm.h" open="0" top="0" tabpos="3">
+		<Cursor position="1038" topLine="18" />
+	</File>
+</CodeBlocks_layout_file>
