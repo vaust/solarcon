@@ -79,7 +79,7 @@ void filter_avg_Run( filter_avg_t *self, const float xn )
 }
 
 /**
- * @brief Aufruffunktion zur Aktualisierung eins gleitenden Mittelwerts.
+ * @brief Aufruffunktion zur Aktualisierung eins Finite Impulse Response Filters.
  *
  * Diese Funktion wird jedesmal aufgerufen, wenn ein neuer Messwert zur Verfuegung steht.
  * In der Regel wird der Messwert in einem festen Zeitraster ermittelt und dem Filter zugefuehrt.
