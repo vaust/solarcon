@@ -9,4 +9,5 @@ In Shell eingeben:
 > cd src
 > python3 gui.py
 
+
  
