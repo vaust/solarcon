@@ -52,9 +52,11 @@ typedef struct ain_s {
     temp10_pt1000_t  ww_tww_mw;      /**< Warmwasser-Temperatur, AI, Pt1000                                Slot 5, R3 */
     temp10_pt1000_t  reserve;        /**< Ein Temperaturkanal als Reserve                                  Slot 5, R4 */
     u8_t             cnt1_status;    /**< Statusbyte des Zaehlers 1 angeschlossen an Wasserzaehler         Slot 13    */
+    u8_t             align1;         /**< Align Byte (siehe WAGO Dokument zum 750.860 FBC Seite 156)                  */
     u8_t             cnt1_lsb;       /**< Lsb Zaehler 1                                                               */
     u8_t             cnt1_msb;       /**< Msb Zaehler 1                                                               */
     u8_t             cnt2_status;    /**< Statusbyte des Zaehlers 2 Reserve                                Slot 13,   */
+    u8_t             align2;         /**< Align Byte (siehe WAGO Dokument zum 750.860 FBC Seite 156)                  */
     u8_t             cnt2_lsb;       /**< Lsb Zaehler 2                                                               */
     u8_t             cnt2_msb;       /**< Lsb Zaehler 2                                                               */
 } ain_t;
@@ -93,10 +95,13 @@ typedef struct aout_s {
     ao_0_10V_t      res1;
     ao_0_10V_t      res2;
     ao_0_10V_t      res3;
+    /* Zaehlerklemme 750-638 belegt insgesamt 8 byte */
     u8_t            cnt1_steuer;      /**< Steuerbyte des Zaehlers                                         Slot 13,    */
+    u8_t            align1;           /**< Align Byte (siehe WAGO Dokument zum 750.860 FBC Seite 156)                  */
     u8_t            cnt1_lsb;         /**< Lsb Zaehlervorgabe 1                                                        */
     u8_t            cnt1_msb;         /**< Msb ZaehlerZaehler 1                                                        */
     u8_t            cnt2_steuer;      /**< Statusbyte des Zaehlers                                         Slot 13,    */
+    u8_t            align2;           /**< Align Byte (siehe WAGO Dokument zum 750-860 FBC Seite 156)                  */
     u8_t            cnt2_lsb;         /**< Lsb Zaehlervorgabe 2                                                        */
     u8_t            cnt2_msb;         /**< Msb ZaehlerZaehler 2                                                        */
 } aout_t;
