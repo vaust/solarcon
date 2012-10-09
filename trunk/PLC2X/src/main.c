@@ -64,6 +64,7 @@ void systimer_init( u32_t zykluszeit )
 int main( void )
 {
     /* Initialisierung der Regler */
+    test_init();
     test_open();
     
     signal( SIGINT, terminate );

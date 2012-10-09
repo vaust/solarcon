@@ -35,8 +35,40 @@ extern pthread_mutex_t  mutex;
 
 
 /**
- * \brief Steuerung initialisieren.
+ * @Interfacefunktionen
  */
+
+std_ret_t test_block_read_u( block_in_t *u )
+{
+    di_bitbyte_t a, b, c;
+
+    (void) io_ll_read_DigitalIn1( &a );
+    (void) io_ll_read_DigitalIn2( &b );
+    (void) io_ll_read_DigitalIn3( &c );
+
+    u->a = 4*((int)a) + 2*((int)b) + ((int)c);
+    u->b = 0;
+    u->c = 0;
+
+    return E_OK;
+}
+
+std_ret_t test_block_write_y( block_out_t *y )
+{
+    di_bitbyte_t d, e, f;
+
+    // todo
+}
+
+/**
+ * @brief Steuerung initialisieren.
+ */
+
+void test_init( void )
+{
+    block_Init( &Block1, test_block_read_u, test_block_write_y );
+}
+
 void test_open( void )
 {
     std_ret_t ret;
@@ -56,11 +88,11 @@ void test_open( void )
 }
 
 /**
- * \brief eigentlicher Steuerungsprozess.
+ * @brief eigentlicher Steuerungsprozess.
  *
  * test_run() wird zyklisch ueber einen Systemtimer in \ref main.c aufgerufen.
- * \param sig enthaelt das ausloesende Signal. Dieser Parameter wird aber nicht benoetigt.
- * \return kein
+ * @param sig enthaelt das ausloesende Signal. Dieser Parameter wird aber nicht benoetigt.
+ * @return kein
  */
 void test_run( int sig )
 {
@@ -69,7 +101,11 @@ void test_run( int sig )
     temperatur_t    data_temperatur;
 
     MUTEX_lock {
+        /* Eine RTE Funktion aufrufen */
         (void) io_ll_read_Zaehler1( &data_u16 );
+        /* Eine hoeher angesiedelte Block Run Funktion mit Inferfaces aufrufen */
+        (void) Block1.Run( &Block1 );
+
         printf( "TEST.C: Zaehler 1 = %5d (16bit Wert)\n", data_u16 );
 /*
         (void) io_ll_read_Zaehler2( &data_u16 );
