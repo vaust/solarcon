@@ -28,4 +28,3 @@ main.o: src/main.c inc/gen_types.h inc/io_ll.h \
 test.o: src/test.c inc/gen_types.h inc/io_ll.h \
  inc/gen_types.h inc/io_hl.h inc/test.h
 block.o: src/block.c inc/block.h inc/gen_types.h
-
