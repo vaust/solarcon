@@ -22,8 +22,8 @@ typedef struct block_out_s {
     int f;
 } block_out_t;
 
-typedef std_return_t (block_read_u_t *)(block_in_t *);
-typedef std_return_t (block_write_y_t*)(block_out_t *);
+typedef std_return_t (*block_read_u_t)(block_in_t *);
+typedef std_return_t (*block_write_y_t)(block_out_t *);
 
 typedef struct block_class_s {
     int history[16];
