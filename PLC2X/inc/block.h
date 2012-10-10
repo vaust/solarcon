@@ -32,7 +32,7 @@ typedef struct block_class_s {
     int para_c;
     block_read_u_t   read_u;
     block_write_y_t  write_y;
-    std_return_t (*Run)( struct block_class_s *self);
+    std_ret_t (*Run)( struct block_class_s *self);
 } block_class_t;
 
 std_ret_t block_Init( block_class_t*  self,
