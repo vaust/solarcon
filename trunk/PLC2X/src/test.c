@@ -8,6 +8,7 @@
 #include "io_ll.h"
 #include "io_hl.h"
 #include "test.h"
+#include "block.h"
 
 
 #ifdef __WAGO__
