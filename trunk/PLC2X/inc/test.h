@@ -2,6 +2,7 @@
 #define _TEST_H_
 
 #include "gen_types.h"
+#include "block.h"
 
 /* Globals */
 #undef PUBLIC
