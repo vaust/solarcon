@@ -45,39 +45,42 @@
 #endif
 
 /**
- * \brief Wasserzaehler initialisieren
+ * @brief Wasserzaehler initialisieren
  */
-static
-std_ret_t io_hl_InitZaehlerKanal( cnt_t *steuer_p,
-                             cnt_t *status_p  )
+std_ret_t io_hl_InitZaehlerKanal1( void )
 {
     s16_t       n;
     std_ret_t   ret;
+    cnt_status_steuer_t *status_p;
+    cnt_status_steuer_t *steuer_p;
 
-    steuer_p->st.no_ueberlauf = 0;   /* Ueberlauf erlauben    */
-    steuer_p->st.rueckwaerts  = 0;   /* vorwaerts zaehlen     */
-    steuer_p->st.notused_a    = 0;   /* Immer 0               */
-    steuer_p->st.setzen       = 0;   /* Noch nicht setzen     */
-    steuer_p->st.sperren      = 0;   /* Zaehler nicht sperren */
-    steuer_p->st.notused_b    = 0;   /* Immer 0               */
+    steuer_p = (cnt_status_steuer_t *) &(pabOut_p->aout.cnt2_steuer);
+    status_p = (cnt_status_steuer_t *) &(pabIn_p->ain.cnt2_status);
+
+    steuer_p->no_ueberlauf = 0;   /* Ueberlauf erlauben    */
+    steuer_p->rueckwaerts  = 0;   /* vorwaerts zaehlen     */
+    steuer_p->notused_a    = 0;   /* Immer 0               */
+    steuer_p->setzen       = 0;   /* Noch nicht setzen     */
+    steuer_p->sperren      = 0;   /* Zaehler nicht sperren */
+    steuer_p->notused_b    = 0;   /* Immer 0               */
     KBUSUPDATE();
     sleep(1);
 
-    steuer_p->lsb             = 0x00; /* Zaehler auf 0 setzen */
-    steuer_p->msb             = 0x00;
-    steuer_p->st.setzen       = 1;
+    pabOut_p->aout.cnt2_lsb = 0x00; /* Zaehler auf 0 setzen */
+    pabOut_p->aout.cnt2_msb = 0x00;
+    steuer_p->setzen        = 1;
 
-    n = 16;                           /* Timeout falls setzen des Zaehler nicht klappt */
+    n = 8;                           /* Timeout falls setzen des Zaehler nicht klappt */
     do {
         KBUSUPDATE();
         sleep(1);
         n --;
         /* Warten bis Zaehlerstatus meldet: Gesetzt = 1 oder Timeout (n=0)*/
-    } while( (status_p->st.setzen == 0) && (n > 0) );
+    } while( (status_p->setzen == 0) && (n > 0) );
 
     if( n > 0 ) {
         ret = E_OK;
-        steuer_p->st.setzen      = 0;   /* Setzen wieder loeschen */
+        steuer_p->setzen = 0;   /* Setzen wieder loeschen */
         KBUSUPDATE();
         sleep(1);
     }
@@ -87,11 +90,13 @@ std_ret_t io_hl_InitZaehlerKanal( cnt_t *steuer_p,
     return ret;
 }
 
-std_ret_t io_hl_InitZaehler( void )
-{
-    std_ret_t ret;
+/**
+ * @brief Zaehlerinitialisierung fuer beide Kanaele
+ */
 
-    ret = io_hl_InitZaehlerKanal( &(pabOut_p->aout.cnt1_steuer),
-                                  &(pabIn_p->ain.cnt1_status  )    );
-    return ret;
+std_ret_t io_hl_InitZaehler( u8_t *base )
+{
+	return E_NOK;
 }
+
+

@@ -18,7 +18,7 @@
 #endif
 
 /* <Prototypen> */
-std_ret_t io_hl_InitZaehler( void );
+std_ret_t io_hl_InitZaehlerKanal1( void );
 /* </Prototypen> */
 
 #endif /* _IO_V2_H_ */
