@@ -62,14 +62,14 @@ std_ret_t io_ll_read_DigitalIn4( di_bitbyte_t *data )
 
 std_ret_t io_ll_read_Zaehler1( u16_t *data )
 {
-	*data =   ((u16_t) pabIn_p->ain.cnt1_status.msb << 8)
-	        +  (u16_t) pabIn_p->ain.cnt1_status.lsb;
+	*data =   ((u16_t) pabIn_p->ain.cnt1_msb << 8)
+	        +  (u16_t) pabIn_p->ain.cnt1_lsb;
     return E_OK;
 }
 
 std_ret_t io_ll_read_Zaehler2( u16_t *data )
 {
-    *data =   ((u16_t) pabIn_p->ain.cnt2_status.msb << 8)
-            +  (u16_t) pabIn_p->ain.cnt2_status.lsb;
+    *data =   ((u16_t) pabIn_p->ain.cnt2_msb << 8)
+            +  (u16_t) pabIn_p->ain.cnt2_lsb;
     return E_OK;
 }

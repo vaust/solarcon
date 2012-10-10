@@ -71,13 +71,6 @@ typedef struct cnt_status_steuer_s {
     u8_t    notused_b    : 2;
 } cnt_status_steuer_t;
 
-typedef struct cnt_s {
-    cnt_status_steuer_t st;
-    u8_t                notused;
-    u8_t                lsb;            /**< LSB des Zaehlerwertes */
-    u8_t                msb;            /**< MSB des Zaehlerwertes */
-} cnt_t;
-
 typedef s32_t   zeit_schaltpunkt_t;  /**< @brief Zeitpunkt eines Wochentags in Minuten seit Sonntag 0:00 Uhr */
 
 /* Betriebszustaende, die sich fuer die einzelnen Heizkreise aus dem Zeitprogramm ergeben */

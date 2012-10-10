@@ -78,7 +78,7 @@ void test_open( void )
     sleep(1);
     
     MUTEX_lock {
-        ret = io_hl_InitZaehler();
+        ret = io_hl_InitZaehlerKanal1();
         if( ret == E_OK ) printf( "TEST.C: Zaehler initialisiert.\n" );
         else              printf( "TEST.C: FEHLER beim Initialisieren des Zaehlers.\n" );
     } MUTEX_unlock();
