@@ -42,9 +42,9 @@ std_ret_t test_block_read_u( block_in_t *u )
 {
     di_bitbyte_t a, b, c;
 
-    (void) io_ll_read_DigitalIn1( &a );
-    (void) io_ll_read_DigitalIn2( &b );
-    (void) io_ll_read_DigitalIn3( &c );
+    (void) io_ll_read_DigitalIn1( &a ); // a = DigitalIn1
+    (void) io_ll_read_DigitalIn2( &b ); // b = DigitalIn2
+    (void) io_ll_read_DigitalIn3( &c ); // c = DigitalIn3
 
     u->a = 4*((int)a) + 2*((int)b) + ((int)c);
     u->b = 0;
