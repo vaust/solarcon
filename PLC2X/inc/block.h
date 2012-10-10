@@ -8,6 +8,8 @@
 #ifndef BLOCK_H_
 #define BLOCK_H_
 
+#include "gen_types.h"
+
 typedef struct block_in_s {
     int a;
     int b;
