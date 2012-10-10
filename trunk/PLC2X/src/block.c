@@ -5,10 +5,10 @@
  *      Author: stegmv
  */
 
-#include "stdtypes.h"
+#include "gen_types.h"
 #include "block.h"
 
-std_return_t block_Init( block_class_t*  self,
+std_ret_t block_Init( block_class_t*  self,
                          block_read_u_t  read_f,
                          block_write_y_t write_f )
 {
@@ -26,7 +26,7 @@ std_return_t block_Init( block_class_t*  self,
     return E_OK;
 }
 
-std_return_t block_Run(block_class_t *self)
+std_ret_t block_Run(block_class_t *self)
 {
     block_in_t  u;
     block_out_t y;
