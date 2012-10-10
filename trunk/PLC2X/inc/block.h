@@ -32,12 +32,14 @@ typedef struct block_class_s {
     int para_c;
     block_read_u_t   read_u;
     block_write_y_t  write_y;
-    std_ret_t (*Run)( struct block_class_s *self);
+    std_ret_t (*Open) (struct block_class_s *self);
+    std_ret_t (*Run)  (struct block_class_s *self);
+    std_ret_t (*Close)(struct block_class_s *self);
 } block_class_t;
 
 std_ret_t block_Init( block_class_t*  self,
-                           block_read_u_t  read_f,
-                           block_write_y_t write_f );
+                      block_read_u_t  read_f,
+                      block_write_y_t write_f );
 
 std_ret_t block_Run(block_class_t *self);
 
