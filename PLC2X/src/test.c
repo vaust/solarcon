@@ -36,7 +36,7 @@ extern pthread_mutex_t  mutex;
 
 
 /**
- * @Interfacefunktionen
+ * @brief Interfacefunktionen
  */
 
 std_ret_t test_block_read_u( block_in_t *u )
