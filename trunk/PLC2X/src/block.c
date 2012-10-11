@@ -9,8 +9,8 @@
 #include "block.h"
 
 std_ret_t block_Init( block_class_t*  self,
-                         block_read_u_t  read_f,
-                         block_write_y_t write_f )
+                      block_read_u_t  read_f,
+                      block_write_y_t write_f )
 {
     int i;
 
