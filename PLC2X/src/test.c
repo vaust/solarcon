@@ -67,7 +67,7 @@ std_ret_t test_block_write_y( block_out_t *y )
 
 void test_init( void )
 {
-    block_Init( &Block1, test_block_read_u, test_block_write_y );
+    block_Init( &Block1, test_block_read_u, test_block_write_y ); // Beschreibt eine Netzliste
 }
 
 void test_open( void )

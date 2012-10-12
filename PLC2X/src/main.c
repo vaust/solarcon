@@ -52,7 +52,7 @@ void terminate( int sig )
  */
 void systimer_init( u32_t zykluszeit )
 {
-    struct itimerval   timer;
+    struct itimerval timer;
 
     timer.it_value.tv_sec     = zykluszeit / 1000L;
     timer.it_value.tv_usec    = (zykluszeit % 1000L) * 1000L;

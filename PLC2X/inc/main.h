@@ -43,9 +43,6 @@ void systimer_init( u32_t zykluszeit );
 /* <Global> */
 /** @brief Mutex Objekt */
 PUBLIC pthread_mutex_t mutex;
-
-/** @brief Timer Variablen - */
-PUBLIC struct itimerval   timer; /**< Timer fuer zyklischen Aufruf von test_run() */
 /* </Global> */
 
 #endif /* _MAIN_H_ */
