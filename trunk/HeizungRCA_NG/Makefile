@@ -9,17 +9,17 @@ VPATH := $(SRC):$(INC)
 OBJECTS := cntrl.o task.o zeit.o param.o sol.o fb.o hk.o ww.o reg.o kes.o io.o io_v2.o telnet.o server.o \
  kbusapi.o err.o
 
-all: rca7_z
+all: rca8
 
-rca7_z: $(OBJECTS)
+rca8: $(OBJECTS)
 	$(CC) $(LDFLAGS) -o $@ $(OBJECTS) -lpthread $(LDLIBS$(LDLIBS-$(@)))
 
 romfs:
-	$(ROMFSINST) /bin/rca6
-	chmod 755 $(ROMFSDIR)/bin/rca6
+	$(ROMFSINST) /bin/rca8
+	chmod 755 $(ROMFSDIR)/bin/rca8
 
 clean:
-	-rm -f rca7_z *.elf *.gdb *.o
+	-rm -f rca8 *.elf *.gdb *.o
 
 
 cntrl.o: cntrl.c \
