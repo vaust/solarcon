@@ -26,7 +26,6 @@
 #include "ww.h"
 
 
-
 /** 
   * @brief Steuerung des Mischventils.
   *
@@ -119,7 +118,9 @@ void ww_Init( ww_class_t *self, u16_t akt_wz )
     self->p.mv_korr             = param_ww_mv_korr;
     self->p.hzg_pu_y_min        = 11.0;     /* todo Parameter anlegen */
     self->p.schwachlastzeit_max = 300;      /* todo Parameter anlegen */
-    self->p.schwachlast_aktiv   = zEin;
+    self->p.schwachlast_aktiv   = zEin;     /* Schwachlaststeuerung nach Reset eingeschaltet */
+    self->p.wasserzaehler_aktiv = zAus;     /* Wasserzaehler abhaengige Steuerung nach Reset ausgeschaltet */
+
     self->schwachlastzeit       = 0;        /* Schwachlaststeuerung komponententauglich */
 
     reg_PI_Init( &(self->reg_pu), MSEC2SEC(param_sys_zykluszeit),
@@ -190,20 +191,24 @@ void ww_Run( ww_class_t *self )
     3.  2. Anforderung ist höher prior als 1. Anforderung
     */
 
-    if( (self->i.tww_mw < self->p.tww_min_sw) && (self->i.tau_mw < self->p.frostschutz) ) {
-        self->o.hzg_pu_sb = IO_EIN;
-    }
-    else if( self->i.tww_mw > (self->p.tww_min_sw + self->p.tww_hyst_sw) ) {
-        if( ww_calcDurchfluss(self) != 0 ) {
+    if( self->p.wasserzaehler_aktiv == zEin ) {   /* Anstelle bedingter Kompilierung mit #ifdef */
+        if(    (self->i.tww_mw < self->p.tww_min_sw )
+            && (self->i.tau_mw < self->p.frostschutz) ) {
             self->o.hzg_pu_sb = IO_EIN;
         }
-        else {
-            self->o.hzg_pu_sb = IO_AUS;
+        else if( self->i.tww_mw > (self->p.tww_min_sw + self->p.tww_hyst_sw) ) {
+            if( ww_calcDurchfluss(self) != 0 ) {
+                self->o.hzg_pu_sb = IO_EIN;
+            }
+            else {
+                self->o.hzg_pu_sb = IO_AUS;
+            }
         }
     }
-
-    // /* Wasserzaehler funktioniert noch nicht. Erst mal alter Stand: WW-Heizungspumpe immer ein */
-    // self->o.hzg_pu_sb = IO_EIN;
+    else {
+        /* falls Wasserzaehler nicht funktioniert. (Nach Reset aktiv) */
+        self->o.hzg_pu_sb = IO_EIN;
+    }
 
     /* Zirkulationspumpe ansteuern */
     if( (self->i.zirkzustand == zEin) || (self->i.tau_mw < self->p.frostschutz) )
@@ -217,8 +222,9 @@ void ww_Run( ww_class_t *self )
     /* Berechnung von WW_HZG_MV_Y aus den Temperaturen von Speicher und Ruecklauf */
     ww_MV_Steuerung( self );
 
-    /* Schwachlast Steuerung (ueber Telnet Interface ausschaltbar, default eingeschaltet) */
-    if( self->p.schwachlast_aktiv == zEin ) {
+    /* Schwachlast Steuerung (ueber Telnet Interface ausschaltbar, nach Reset eingeschaltet) */
+    /* Anstelle bedingter Kompilierung mit #ifdef */
+	if( self->p.schwachlast_aktiv == zEin ) {
         ww_Schwachlast_Steuerung( self );
     }
 
