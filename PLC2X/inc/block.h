@@ -41,6 +41,8 @@ std_ret_t block_Init( block_class_t*  self,
                       block_read_u_t  read_f,
                       block_write_y_t write_f );
 
+std_ret_t block_Open(block_class_t *self);
 std_ret_t block_Run(block_class_t *self);
+std_ret_t block_Close(block_class_t *self);
 
 #endif /* BLOCK_H_ */
