@@ -39,7 +39,9 @@ typedef struct ww_param_s {
     float at_start;                 /**< Aussentemperatur ab der die Pumpen einschalten muessen   */
     float mv_korr;
     float hzg_pu_y_min;             /**< minimaler Prozentsatz ab der die Pumpe laeuft            */
-    ein_aus_t schwachlast_aktiv;    /**< Schwachlaststeuerung per Diagnose ein-/ausschaltbar */
+    ein_aus_t schwachlast_aktiv;    /**< Schwachlaststeuerung per Diagnose ein-/ausschaltbar      */
+    ein_aus_t wasserzaehler_aktiv;  /**< Steuerung der Warmwasserpumpe auf Basis des
+                                         Wassserzaehlers ein-/ausschaltbar                        */
     u16_t schwachlastzeit_max;
 } ww_param_t;
 
