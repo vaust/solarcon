@@ -22,16 +22,30 @@ typedef struct block_out_s {
     int f;
 } block_out_t;
 
+typedef struct block_par_s {
+    int a;
+    int b;
+    int c;
+} block_par_t;
+
+typedef struct block_st_s {
+    int u[16];
+    int y[16];
+} block_st_t;
+
 typedef std_ret_t (*block_read_u_t)(block_in_t *);
 typedef std_ret_t (*block_write_y_t)(block_out_t *);
 
 typedef struct block_class_s {
-    int history[16];
-    int para_a;
-    int para_b;
-    int para_c;
+    /** @brief state describing data of the block */
+    block_st_t       st;
+    /** @brief parameters describing the block    */
+    block_par_t      par;
+    /** @brief Input interface                    */
     block_read_u_t   read_u;
+    /** @brief Output interface                   */
     block_write_y_t  write_y;
+    /** @brief block methodes                     */
     std_ret_t (*Open) (struct block_class_s *self);
     std_ret_t (*Run)  (struct block_class_s *self);
     std_ret_t (*Close)(struct block_class_s *self);
