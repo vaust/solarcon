@@ -39,6 +39,7 @@ extern pthread_mutex_t  mutex;
  * @brief Interfacefunktionen
  */
 
+static
 std_ret_t test_block_read_u( block_in_t *u )
 {
     di_bitbyte_t a, b, c;
@@ -54,6 +55,7 @@ std_ret_t test_block_read_u( block_in_t *u )
     return E_OK;
 }
 
+static
 std_ret_t test_block_write_y( block_out_t *y )
 {
     di_bitbyte_t d, e, f;
@@ -67,7 +69,7 @@ std_ret_t test_block_write_y( block_out_t *y )
 
 void test_init( void )
 {
-    block_Init( &Block1, test_block_read_u, test_block_write_y ); // Beschreibt eine Netzliste
+    block_Init( &Block1, test_block_read_u, test_block_write_y ); // Beschreibt prinzipell eine Netzliste
 }
 
 void test_open( void )
@@ -102,7 +104,7 @@ void test_run( int sig )
     temperatur_t    data_temperatur;
 
     MUTEX_lock {
-        /* Eine RTE Funktion aufrufen */
+        /* Eine Lowlevel IO Funktion aufrufen */
         (void) io_ll_read_Zaehler1( &data_u16 );
         /* Eine hoeher angesiedelte Block Run Funktion mit Inferfaces aufrufen */
         (void) Block1.Run( &Block1 );

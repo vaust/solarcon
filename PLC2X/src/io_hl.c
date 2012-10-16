@@ -34,7 +34,7 @@
 #include "io_wago_hwif.h"
 #include "io_hl.h"
 
-#include <unistd.h>     /* Wird fuer sleep() Befehl benoetigt */
+// #include <unistd.h>     /* Wird fuer sleep() Befehl benoetigt */
 
 #ifdef __WAGO__
 #include <asm/types.h>
