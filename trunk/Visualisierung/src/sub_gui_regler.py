@@ -9,7 +9,8 @@ PD = 5
 
 class GuiRegler(tk.Frame):
 
-    def __init__(self, lf_Name="None", ReglerParameter_get=None, ReglerParameter_set=None ):
+    def __init__(self, master=None, lf_Name="None", ReglerParameter_get=None, ReglerParameter_set=None ):
+        tk.Frame.__init__(self, master)
         self.lf_Name = lf_Name
         self.ReglerParameter_get = ReglerParameter_get
         self.ReglerParameter_set = ReglerParameter_set
@@ -72,3 +73,5 @@ if __name__ == "__main__":
     gui = GuiRegler(root)
     gui.pack()
     root.mainloop()
+    
+    
