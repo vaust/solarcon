@@ -9,11 +9,11 @@ PD = 5
 
 class GuiRegler(tk.Frame):
 
-    def __init__(self, master=None, lf_Name="None", ReglerParameter_get=None, ReglerParameter_set=None ):
+    def __init__(self, master=None, lf_Name="None", ParamSchreiben=None, ParamLesen=None ):
         tk.Frame.__init__(self, master)
         self.lf_Name = lf_Name
-        self.ReglerParameter_get = ReglerParameter_get
-        self.ReglerParameter_set = ReglerParameter_set
+        self.ParamSchreiben = ParamSchreiben
+        self.ParamLesen = ParamLesen
         self.draw()
         
     def draw(self):
@@ -53,9 +53,9 @@ class GuiRegler(tk.Frame):
         self.lf_regler.AP_scle.grid(column=3, row=2, padx=PD )
         
         self.lf_regler.ReadBttn = tk.Button(self.lf_regler, text='Lesen',
-                                            command=self.ReglerParameter_get)
+                                            command=self.ParameterGet)
         self.lf_regler.ChangeBttn = tk.Button(self.lf_regler, text='Schreiben', 
-                                              command=self.ReglerParameter_set)
+                                              command=self.ParameterSet)
         self.lf_regler.ReadBttn.grid(column=2, row=3, padx=PD, pady=PD )
         self.lf_regler.ChangeBttn.grid(column=3, row=3, padx=PD, pady=PD )
         
@@ -93,6 +93,24 @@ class GuiRegler(tk.Frame):
     def SetScleVal_AP(self, event):
         s = self.lf_regler.AP_entry.get()
         self.lf_regler.AP_scle.set(s)
+
+    def ParameterSet(self):
+        kp = float(self.lf_mvregler.Kp_entry.get())
+        ki = float(self.lf_mvregler.Ki_entry.get())
+        ap = float(self.lf_mvregler.AP_entry.get())
+        self.ParamSchreiben(kp, ki, ap)
+    
+    def ParameterGet(self):
+        (kp, ki, ap) = self.ParamLesen()
+        self.lf_regler.Kp_scle.set(kp)
+        self.lf_mvregler.Ki_scle.set(ki)
+        self.lf_mvregler.AP_scle.set(ap)
+        self.lf_mvregler.Kp_entry.delete(0,tk.END)
+        self.lf_mvregler.Kp_entry.insert(0, kp)
+        self.lf_mvregler.Ki_entry.delete(0,tk.END)
+        self.lf_mvregler.Ki_entry.insert(0, ki)
+        self.lf_mvregler.AP_entry.delete(0,tk.END)
+        self.lf_mvregler.AP_entry.insert(0, ap)
 
 
 
