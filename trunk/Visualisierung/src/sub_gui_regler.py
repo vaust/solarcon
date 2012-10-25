@@ -60,12 +60,40 @@ class GuiRegler(tk.Frame):
         self.lf_regler.ChangeBttn.grid(column=3, row=3, padx=PD, pady=PD )
         
         
-#        self.lf_regler.Kp_scle.bind('<ButtonRelease-1>', self.SetEntryVal_Kp)
-#        self.lf_regler.Ki_scle.bind('<ButtonRelease-1>', self.SetEntryVal_Ki)
-#        self.lf_regler.AP_scle.bind('<ButtonRelease-1>', self.SetEntryVal_AP)
-#        self.lf_regler.Kp_entry.bind('<Return>', self.SetScleVal_Kp)
-#        self.lf_regler.Ki_entry.bind('<Return>', self.SetScleVal_Ki)
-#        self.lf_regler.AP_entry.bind('<Return>', self.SetScleVal_AP)
+        self.lf_regler.Kp_scle.bind('<ButtonRelease-1>', self.SetEntryVal_Kp)
+        self.lf_regler.Ki_scle.bind('<ButtonRelease-1>', self.SetEntryVal_Ki)
+        self.lf_regler.AP_scle.bind('<ButtonRelease-1>', self.SetEntryVal_AP)
+        self.lf_regler.Kp_entry.bind('<Return>', self.SetScleVal_Kp)
+        self.lf_regler.Ki_entry.bind('<Return>', self.SetScleVal_Ki)
+        self.lf_regler.AP_entry.bind('<Return>', self.SetScleVal_AP)
+
+    def SetEntryVal_Kp(self, event):
+        s = str(self.lf_regler.Kp_scle.get())[0:6]
+        self.lf_regler.Kp_entry.delete(0,tk.END)
+        self.lf_regler.Kp_entry.insert(0, s)
+
+    def SetEntryVal_Ki(self, event):
+        s = str(self.lf_regler.Ki_scle.get())[0:6]
+        self.lf_regler.Ki_entry.delete(0,tk.END)
+        self.lf_regler.Ki_entry.insert(0, s)
+
+    def SetEntryVal_AP(self, event):
+        s = str(self.lf_regler.AP_scle.get())[0:6]
+        self.lf_regler.AP_entry.delete(0,tk.END)
+        self.lf_regler.AP_entry.insert(0, s)
+    
+    def SetScleVal_Kp(self, event):
+        s = self.lf_regler.Kp_entry.get()
+        self.lf_regler.Kp_scle.set(s)
+
+    def SetScleVal_Ki(self, event):
+        s = self.lf_regler.Ki_entry.get()
+        self.lf_regler.Ki_scle.set(s)
+
+    def SetScleVal_AP(self, event):
+        s = self.lf_regler.AP_entry.get()
+        self.lf_regler.AP_scle.set(s)
+
 
 
 if __name__ == "__main__":
