@@ -17,8 +17,8 @@ std_ret_t block_Init( block_class_t*  self,
 
     self->read_u = read_f;
     self->write_y = write_f;
-    self->Open = block_Open;
-    self->Run = block_Run;
+    self->Open  = block_Open;
+    self->Run   = block_Run;
     self->Close = block_Close;
     self->par.a = 2;
     self->par.b = 5;
@@ -59,6 +59,7 @@ std_ret_t block_Run(block_class_t *self)
 }
 
 /* PRIVATE */
+static
 std_ret_t block_Close(block_class_t *self)
 {
     // todo
