@@ -9,13 +9,17 @@ PD = 5
 
 class GuiRegler(tk.Frame):
 
-    def __init__(self, master=None, lf_Name="None", ParamSchreiben=None, ParamLesen=None ):
+    def __init__(self, master=None, lf_Name=None, ParamSchreiben=None, ParamLesen=None ):
         tk.Frame.__init__(self, master)
         self.lf_Name = lf_Name
         self.ParamSchreiben = ParamSchreiben
-        self.ParamLesen = ParamLesen
+        self.ParamLesen     = ParamLesen
         self.draw()
-        
+
+        self.SetEntryVal_Kp(0)
+        self.SetEntryVal_Ki(0)
+        self.SetEntryVal_AP(0)
+
     def draw(self):
         self.lf_regler = tk.LabelFrame( self, text=self.lf_Name )
         self.lf_regler.pack(padx=PD, pady=PD, side=tk.TOP)
@@ -95,24 +99,24 @@ class GuiRegler(tk.Frame):
         self.lf_regler.AP_scle.set(s)
 
     def ParameterSet(self):
-        kp = float(self.lf_mvregler.Kp_entry.get())
-        ki = float(self.lf_mvregler.Ki_entry.get())
-        ap = float(self.lf_mvregler.AP_entry.get())
+        kp = float(self.lf_regler.Kp_entry.get())
+        ki = float(self.lf_regler.Ki_entry.get())
+        ap = float(self.lf_regler.AP_entry.get())
         self.ParamSchreiben(kp, ki, ap)
     
     def ParameterGet(self):
         (kp, ki, ap) = self.ParamLesen()
         self.lf_regler.Kp_scle.set(kp)
-        self.lf_mvregler.Ki_scle.set(ki)
-        self.lf_mvregler.AP_scle.set(ap)
-        self.lf_mvregler.Kp_entry.delete(0,tk.END)
-        self.lf_mvregler.Kp_entry.insert(0, kp)
-        self.lf_mvregler.Ki_entry.delete(0,tk.END)
-        self.lf_mvregler.Ki_entry.insert(0, ki)
-        self.lf_mvregler.AP_entry.delete(0,tk.END)
-        self.lf_mvregler.AP_entry.insert(0, ap)
+        self.lf_regler.Ki_scle.set(ki)
+        self.lf_regler.AP_scle.set(ap)
+        self.lf_regler.Kp_entry.delete(0,tk.END)
+        self.lf_regler.Kp_entry.insert(0, kp)
+        self.lf_regler.Ki_entry.delete(0,tk.END)
+        self.lf_regler.Ki_entry.insert(0, ki)
+        self.lf_regler.AP_entry.delete(0,tk.END)
+        self.lf_regler.AP_entry.insert(0, ap)
 
-
+""" ------------------------------------------------------ """
 
 if __name__ == "__main__":
     root=tk.Tk()
