@@ -53,6 +53,8 @@ typedef u8_t    di_bitbyte_t;        /**< @brief Digitaler Schaltzustand eines E
 typedef s16_t   ao_0_10V_t;          /**< @brief Analogstellgroesse */
 typedef u8_t    do_bitbyte_t;        /**< @brief Digitaler Schaltzustand eines Ausgangs */
 
+typedef enum std_ret_e { E_NOK, E_OK } std_ret_t;
+
 /**
  * @brief Datenstruktur fuer Zählerklemme. Achtung: Belegt nicht Digitaleingaenge, sondern Analogeingaenge und
  * -Ausgaenge !! Eingaenge sind Statusbyte und Zaehlerstaende, Ausgaenge sind Steuerbyte und Zaehlerinitialisierung

@@ -65,13 +65,19 @@ typedef struct fb_out_s {
 /* <Typen/> */
 
 /**
+ * @brief Datentypen fuer die Interfacefunktionen
+ */
+typedef std_ret_t (*fb_in_Read_t)(fb_in_t *);
+typedef std_ret_t (*fb_out_Write_t)(fb_out_t *);
+
+/**
  * @brief Definition der Komponentenklasse der Fussbodenheizung
  */
 typedef struct fb_class_s {
-    reg_class_t reg;
-    fb_param_t  p;
-    fb_in_t     i;
-    fb_out_t    o;
+    reg_class_t 	reg;
+    fb_param_t  	p;
+	fb_in_Read_t	iRead;
+	fb_out_Write_t	oWrite;
 } fb_class_t;
 
 /* <Prototypen> */
