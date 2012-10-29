@@ -35,193 +35,217 @@
  */
 
 /** Aussentemperatur, AI, Pt1000     */
-float io_get_ALL_Tau_MW( void )
+std_ret_t io_Read_ALL_Tau_MW( float *data )
 {
-    return TF(pabIn_p->ain.all_tau_mw);
+    *data = TF(pabIn_p->ain.all_tau_mw);
+    return E_OK;
 }
 
 /** FBH, Partyschalter, DI, Taster   */
-u8_t io_get_ALL_PARTY( void )
+std_ret_t io_Read_ALL_PARTY( di_bitbyte_t *data )
 {
-    return (pabIn_p->din.all_party);
+    *data = pabIn_p->din.all_party;
+    return E_OK;
 }
 
 /** Kollektortemperatur, AI, Pt1000  */
-float io_get_SOL_KOLL_T_MW( void )
+std_ret_t io_Read_SOL_KOLL_T_MW( float *data )
 {
-    return TF(pabIn_p->ain.sol_koll_t_mw);
+    *data = TF(pabIn_p->ain.sol_koll_t_mw);
+    return E_OK;
 }
 
 /** Temperatur im Speicher 1 unten, AI, Pt1000 */
-float io_get_SOL_SP1_Tu_MW( void )
+std_ret_t io_Read_SOL_SP1_Tu_MW( float *data )
 {
-    return TF(pabIn_p->ain.sol_sp1_tu_mw);
+    *data = TF(pabIn_p->ain.sol_sp1_tu_mw);
+    return E_OK;
 }
 
 /** Temperatur im Speicher 1 oben, AI, Pt1000  */
-float io_get_SOL_SP1_To_MW( void )
+std_ret_t io_Read_SOL_SP1_To_MW( float *data )
 {
-    return TF(pabIn_p->ain.sol_sp1_to_mw);
+    *data = TF(pabIn_p->ain.sol_sp1_to_mw);
+    return E_OK;
 }
 
 /** Temperatur im Speicher 2 unten, AI, Pt1000 */
-float io_get_SOL_SP2_Tu_MW( void )
+std_ret_t io_Read_SOL_SP2_Tu_MW( float *data )
 {
-    return TF(pabIn_p->ain.sol_sp2_tu_mw);
+    *data = TF(pabIn_p->ain.sol_sp2_tu_mw);
+    return E_OK;
 }
 
 /** Temperatur im Speicher 2 oben, AI, Pt1000  */
-float io_get_SOL_SP2_To_MW( void )
+std_ret_t io_Read_SOL_SP2_To_MW( float *data )
 {
-   return TF(pabIn_p->ain.sol_sp2_to_mw);
+   *data = TF(pabIn_p->ain.sol_sp2_to_mw);
+   return E_OK;
 }
 
 /** Solarkreislaufpumpe (ein/aus), DO, 24V Ausgang auf Relais */
-di_bitbyte_t io_put_SOL_PU_SB( do_bitbyte_t sb )
+std_ret_t io_Write_SOL_PU_SB( do_bitbyte_t *data )
 {
-    pabOut_p->dout.sol_pu_sb = sb;
-    return (pabOut_p->dout.sol_pu_sb);
+    pabOut_p->dout.sol_pu_sb = *data;
+    return E_OK;
 }
 
-di_bitbyte_t io_get_SOL_PU_SB( void )
+std_ret_t io_Read_SOL_PU_SB( di_bitbyte_t *data )
 {
-    return (pabOut_p->dout.sol_pu_sb);
+    *data = pabOut_p->dout.sol_pu_sb;
+    return E_OK;
 }
 
 /** Solar-Absperrventil, Speicher 1 (auf/zu), DO, 24V Ausgang auf Relais */
-di_bitbyte_t io_put_SOL_SP1_AV_SB( do_bitbyte_t sb )
+std_ret_t io_Write_SOL_SP1_AV_SB( di_bitbyte_t *data )
 {
-    pabOut_p->dout.sol_sp1_av_sb = sb;
-    return (pabOut_p->dout.sol_sp1_av_sb);
+    pabOut_p->dout.sol_sp1_av_sb = *data;
+    return E_OK;
 }
 
-di_bitbyte_t io_get_SOL_SP1_AV_SB( void )
+std_ret_t io_Read_SOL_SP1_AV_SB( di_bitbyte_t *data )
 {
-    return (pabOut_p->dout.sol_sp1_av_sb);
+    *data = pabOut_p->dout.sol_sp1_av_sb;
+    return E_OK;
 }
 
 /** Solar-Absperrventil, Speicher 2 (auf/zu), DO, 24V Ausgang auf Relais */
-di_bitbyte_t io_put_SOL_SP2_AV_SB( do_bitbyte_t sb )
+std_ret_t io_Write_SOL_SP2_AV_SB( di_bitbyte_t *data )
 {
-    pabOut_p->dout.sol_sp2_av_sb = sb;
-    return (pabOut_p->dout.sol_sp2_av_sb);
+    pabOut_p->dout.sol_sp2_av_sb = *data;
+    return E_OK;
 }
 
-di_bitbyte_t io_get_SOL_SP2_AV_SB( void )
+std_ret_t io_Read_SOL_SP2_AV_SB( di_bitbyte_t *data )
 {
-    return (pabOut_p->dout.sol_sp2_av_sb);
+    *data = pabOut_p->dout.sol_sp2_av_sb)
+    return E_OK;
 }
 
 /** Kesselvorlauftemperatur, AI, Pt1000   */
-float io_get_KES_Tvl_MW( void )
+std_ret_t io_Read_KES_Tvl_MW( float *data )
 {
-    return TF(pabIn_p->ain.kes_tvl_mw);
+    *data = TF(pabIn_p->ain.kes_tvl_mw);
+    return E_OK;
 }
 
 /** Kesselruecklauftemperatur, AI, Pt1000 */
-float io_get_KES_Trl_MW( void )
+std_ret_t io_Read_KES_Trl_MW( float *data )
 {
-    return TF(pabIn_p->ain.kes_trl_mw);
+    *data = TF(pabIn_p->ain.kes_trl_mw);
+    return E_OK;
 }
 
 /** Kesselvorlauftemperaturvorgabe, AO, 0-10V */
-void io_put_KES_Tvl_Y( float pct )
+std_ret_t io_Write_KES_Tvl_Y( float *data )
 {
-    pabOut_p->aout.kes_tvl_y = (pct*AO_FULLSCALE)/100;
+    pabOut_p->aout.kes_tvl_y = (ao_0_10V_t) ((*data * AO_FULLSCALE)/100);
+    return E_OK;
 }
 
-float io_get_KES_Tvl_Y( void )
+std_ret_t io_Read_KES_Tvl_Y( float *data )
 {
-    return ((float)pabOut_p->aout.kes_tvl_y/AO_FULLSCALE * 100.0); /* % */
+    *data = ((float)pabOut_p->aout.kes_tvl_y/AO_FULLSCALE * 100.0); /* % */
+    return E_OK;
 }
 
 /** Ladepumpe fuer Speicher 1 (ein, aus), DO, 24V Ausgang auf Relais */
-di_bitbyte_t io_put_KES_PU_SP1_SB( do_bitbyte_t sb )
+std_ret_t io_Write_KES_PU_SP1_SB( di_bitbyte_t *data )
 {
-    pabOut_p->dout.kes_pu_sp1_sb = sb;
-    return (pabOut_p->dout.kes_pu_sp1_sb);
+    pabOut_p->dout.kes_pu_sp1_sb = *data;
+    return E_OK;
 }
 
-di_bitbyte_t io_get_KES_PU_SP1_SB( void )
+std_ret_t io_Read_KES_PU_SP1_SB( di_bitbyte_t *data )
 {
-    return (pabOut_p->dout.kes_pu_sp1_sb);
+    *data = pabOut_p->dout.kes_pu_sp1_sb;
+    return E_OK;
 }
 
 /** Ladepumpe fuer Speicher 2 (ein, aus), DO, 24V Ausgang auf Relais */
-di_bitbyte_t io_put_KES_PU_SP2_SB( do_bitbyte_t sb )
+std_ret_t io_Write_KES_PU_SP2_SB( di_bitbyte_t *data )
 {
-    pabOut_p->dout.kes_pu_sp2_sb = sb;
-    return (pabOut_p->dout.kes_pu_sp2_sb);
+    pabOut_p->dout.kes_pu_sp2_sb = *data;
+    return E_OK;
 }
 
-di_bitbyte_t io_get_KES_PU_SP2_SB( void )
+std_ret_t io_Read_KES_PU_SP2_SB( di_bitbyte_t *data )
 {
-    return (pabOut_p->dout.kes_pu_sp2_sb);
+    *data = pabOut_p->dout.kes_pu_sp2_sb;
+    return E_OK;
 }
 
 /** Heizkessel Sammelstoermeldung, DI, 24V */
-di_bitbyte_t io_get_KES_SSM( void )
+std_ret_t io_Read_KES_SSM( di_bitbyte_t *data )
 {
-    return (pabIn_p->din.kes_ssm);
+    *data = pabIn_p->din.kes_ssm;
+    return E_OK;
 }
 
 /** Heizkessel Brennerbetriebsmeldung, DI, 24V */
-di_bitbyte_t io_get_KES_BR_BM( void )
+std_ret_t io_Read_KES_BR_BM( di_bitbyte_t *data )
 {
-    return (pabIn_p->din.kes_br_bm);
+    *data = pabIn_p->din.kes_br_bm;
+    return E_OK;
 }
 
 /** Heizkoerper-Heizkreis Vorlauftemperatur, AI, Pt1000 */
-float io_get_HK_Tvl_MW( void )
+std_ret_t io_Read_HK_Tvl_MW( float *data )
 {
-    return TF(pabIn_p->ain.hk_tvl_mw);
+    *data = TF(pabIn_p->ain.hk_tvl_mw);
+    return E_OK;
 }
 
 /** Heizkoerper-Heizkreis Ruecklauftemperatur, AI, Pt1000 */
-float io_get_HK_Trl_MW( void )
+std_ret_t io_Read_HK_Trl_MW( float *data )
 {
-    return TF(pabIn_p->ain.hk_trl_mw);
+    *data = TF(pabIn_p->ain.hk_trl_mw);
 }
 
 /** Heizkoerper-Heizkreis Mischventil-Ansteuerung, AO, 0-10V */
-void io_put_HK_MV_Y( float pct )
+std_ret_t io_Write_HK_MV_Y( float *data )
 {
-    pabOut_p->aout.hk_mv_y = (pct*AO_FULLSCALE)/100;
+    pabOut_p->aout.hk_mv_y = (ao_0_10V_t) ((*data *AO_FULLSCALE)/100);
+    return E_OK;
 }
 
-float io_get_HK_MV_Y( void )
+std_ret_t io_Read_HK_MV_Y( float *data )
 {
-    return ((float)pabOut_p->aout.hk_mv_y/AO_FULLSCALE * 100.0); /* % */
+    *data = ((float)pabOut_p->aout.hk_mv_y/AO_FULLSCALE * 100.0); /* % */
+    return E_OK;
 }
 
 /** Heizkoerper-Heizkreis Pumpe (ein/aus), DO, 24V Ausgang auf Relais */
-di_bitbyte_t io_put_HK_PU_SB( do_bitbyte_t sb )
+std_ret_t io_Write_HK_PU_SB( di_bitbyte_t *data )
 {
-    pabOut_p->dout.hk_pu_sb = sb;
-    return (pabOut_p->dout.hk_pu_sb);
+    pabOut_p->dout.hk_pu_sb = *data;
+    return E_OK;
 }
 
-di_bitbyte_t io_get_HK_PU_SB( void )
+std_ret_t io_Read_HK_PU_SB( di_bitbyte_t *data )
 {
-    return (pabOut_p->dout.hk_pu_sb);
+    *data = pabOut_p->dout.hk_pu_sb;
+    return E_OK;
 }
 
 /** Fussbodenheizung, Primaerseite, Ruecklauftemperatur, AI, Pt1000 */
-float io_get_FB_PRIM_Trl_MW( void )
+std_ret_t io_Read_FB_PRIM_Trl_MW( float *data )
 {
-    return TF(pabIn_p->ain.fb_prim_trl_mw);
+    *data = TF(pabIn_p->ain.fb_prim_trl_mw);
+    return E_OK;
 }
 
 /** Fussbodenheizung, Sekundaerseite, Vorlauftemperatur, AI, Pt1000 */
-float io_get_FB_SEK_Tvl_MW( void )
+std_ret_t io_Read_FB_SEK_Tvl_MW( float *data )
 {
-    return TF(pabIn_p->ain.fb_sek_tvl_mw);
+    *data = TF(pabIn_p->ain.fb_sek_tvl_mw);
+    return E_OK;
 }
 
 /** Fussbodenheizung, Primaerseite, Mischerventilansteuerung, AO, 0-10V */
-void io_put_FB_PRIM_MV_Y( float pct )
+std_ret_t io_Write_FB_PRIM_MV_Y( float *data )
 {
-    pabOut_p->aout.fb_prim_mv_y = (pct*AO_FULLSCALE)/100;
+    pabOut_p->aout.fb_prim_mv_y = (ao_0_10V_t) ((*data *AO_FULLSCALE)/100);
 }
 
 float io_get_FB_PRIM_MV_Y( void )
