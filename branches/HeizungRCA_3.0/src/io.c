@@ -248,153 +248,168 @@ std_ret_t io_Write_FB_PRIM_MV_Y( float *data )
     pabOut_p->aout.fb_prim_mv_y = (ao_0_10V_t) ((*data *AO_FULLSCALE)/100);
 }
 
-float io_get_FB_PRIM_MV_Y( void )
+std_ret_t io_Read_FB_PRIM_MV_Y( float *data)
 {
-    return ((float)pabOut_p->aout.fb_prim_mv_y/AO_FULLSCALE * 100.0); /* % */
+    *data = (float)pabOut_p->aout.fb_prim_mv_y/AO_FULLSCALE * 100.0; /* % */
+    return E_OK;
 }
 
 /** Fussbodenheizung, Primaerseite, Pumpe (ein/aus), DO, 24V Ausgang auf Relais */
-di_bitbyte_t io_put_FB_PRIM_PU_SB( do_bitbyte_t sb )
+std_ret_t io_Write_FB_PRIM_PU_SB( di_bitbyte_t *data )
 {
-    pabOut_p->dout.fb_prim_pu_sb = sb;
-    return (pabOut_p->dout.fb_prim_pu_sb);
+    pabOut_p->dout.fb_prim_pu_sb = *data;
+    return E_OK;
 }
 
-di_bitbyte_t io_get_FB_PRIM_PU_SB( void )
+std_ret_t io_Read_FB_PRIM_PU_SB( di_bitbyte_t *data )
 {
-    return (pabOut_p->dout.fb_prim_pu_sb);
+    *data = pabOut_p->dout.fb_prim_pu_sb;
+    return E_OK;
 }
 
 /** Fussbodenheizung, Sekundaerseite, Pumpe (ein/aus), DO, 24V Ausgang auf Relais */
-di_bitbyte_t io_put_FB_SEK_PU_SB( do_bitbyte_t sb )
+std_ret_t io_Write_FB_SEK_PU_SB( di_bitbyte_t *data )
 {
-    pabOut_p->dout.fb_sek_pu_sb = sb;
-    return (pabOut_p->dout.fb_sek_pu_sb);
+    pabOut_p->dout.fb_sek_pu_sb = *data;
+    return E_OK;
 }
 
-di_bitbyte_t io_get_FB_SEK_PU_SB( void )
+std_ret_t io_Read_FB_SEK_PU_SB( di_bitbyte_t *data )
 {
-    return (pabOut_p->dout.fb_sek_pu_sb);
+    *data = pabOut_p->dout.fb_sek_pu_sb;
+    return E_OK;
 }
 
 /** Fussbodenheizung, Sicherheitstemperaturwaechter, DI, 24V */
-di_bitbyte_t io_get_FB_SEK_TW( void )
+std_ret_t io_Read_FB_SEK_TW( di_bitbyte_t *data )
 {
-    return (pabIn_p->din.fb_sek_tw);
+    *data = pabIn_p->din.fb_sek_tw;
+    return E_OK;
 }
 
 /** Warmwasser, Heizungsvorlauftemperatur, AI, Pt1000 */
-float io_get_WW_HZG_Tvl_MW( void )
+std_ret_t io_Read_WW_HZG_Tvl_MW( float *data )
 {
-    return TF(pabIn_p->ain.ww_hzg_tvl_mw);
+    *data = TF(pabIn_p->ain.ww_hzg_tvl_mw);
+    return E_OK;
 }
 
 /** Warmwasser, Heizungsruecklauftemperatur, AI, Pt1000 */
-float io_get_WW_HZG_Trl_MW( void )
+std_ret_t io_Read_WW_HZG_Trl_MW( float *data )
 {
-    return TF(pabIn_p->ain.ww_hzg_trl_mw);
+    *data = TF(pabIn_p->ain.ww_hzg_trl_mw);
+    return E_OK;
 }
 
 /** Warmwasser-Temperatur, AI, Pt1000 */
-float io_get_WW_Tww_MW( void )
+std_ret_t io_Read_WW_Tww_MW( float *data )
 {
-    return TF(pabIn_p->ain.ww_tww_mw);
+    *data = TF(pabIn_p->ain.ww_tww_mw);
+    return E_OK;
 }
 
 /** Warmwasserzaehler, Zaehlereingang */
-u16_t io_get_WW_WZ_MW( void )
+std_ret_t io_Read_WW_WZ_MW( u16_t *data )
 {
-    u16_t   wz;
-    wz = (u16_t)pabIn_p->ain.cnt1_lsb + ((u16_t)pabIn_p->ain.cnt1_msb << 8);
-    return (wz);
+    *data = (u16_t)pabIn_p->ain.cnt1_lsb + ((u16_t)pabIn_p->ain.cnt1_msb << 8);
+    return E_OK;
 }
 
 /** Warmwasser, Heizungsmischventil, Vorlauf, AO, 0-10V */
-void io_put_WW_HZG_MV_Y( float pct )
+std_ret_t io_Write_WW_HZG_MV_Y( float *data )
 {
-    pabOut_p->aout.ww_hzg_mv_y = (pct*AO_FULLSCALE)/100;
+    pabOut_p->aout.ww_hzg_mv_y = (*data *AO_FULLSCALE)/100;
+    return E_OK;
 }
 
-float io_get_WW_HZG_MV_Y( void )
+std_ret_t io_Read_WW_HZG_MV_Y( float *data )
 {
-    return ((float)pabOut_p->aout.ww_hzg_mv_y/AO_FULLSCALE * 100.0); /* % */
-
+    *data = (float)pabOut_p->aout.ww_hzg_mv_y/AO_FULLSCALE * 100.0; /* % */
+    return E_OK;
 }
 
 /** Warmwasser, Heizungsverteilventil, Ruecklauf, (auf/zu), DO, 24V Ausgang auf Relais */
-di_bitbyte_t io_put_WW_HZG_VV_SB( do_bitbyte_t sb )
+std_ret_t io_Write_WW_HZG_VV_SB( di_bitbyte_t *data )
 {
-    pabOut_p->dout.ww_hzg_vv_sb = sb;
-    return (pabOut_p->dout.ww_hzg_vv_sb);
+    pabOut_p->dout.ww_hzg_vv_sb = *data;
+    return E_OK;
 }
 
-di_bitbyte_t io_get_WW_HZG_VV_SB( void )
+std_ret_t io_Read_WW_HZG_VV_SB( di_bitbyte_t *data )
 {
-    return (pabOut_p->dout.ww_hzg_vv_sb);
+    *data = pabOut_p->dout.ww_hzg_vv_sb;
+    return E_OK;
 }
 
 /** Warmwasser, Heizungspumpe, (ein/aus), D0, 24 Ausgang auf Relais */
-di_bitbyte_t io_put_WW_HZG_PU_SB( do_bitbyte_t sb )
+std_ret_t io_Write_WW_HZG_PU_SB( di_bitbyte_t *data )
 {
     pabOut_p->dout.ww_hzg_pu_sb = sb;
     return (pabOut_p->dout.ww_hzg_pu_sb);
 }
 
-di_bitbyte_t io_get_WW_HZG_PU_SB( void )
+std_ret_t io_Read_WW_HZG_PU_SB( di_bitbyte_t *data )
 {
-    return (pabOut_p->dout.ww_hzg_pu_sb);
+    *data = pabOut_p->dout.ww_hzg_pu_sb;
+    return E_OK;
 }
 
 /** Warmwasser, Heizungspumpe, Leistung, A0, 0-10V */
-void io_put_WW_HZG_PU_Y( float pct )
+std_ret_t io_Write_WW_HZG_PU_Y( float *data )
 {
-    pabOut_p->aout.ww_hzg_pu_y = (pct*AO_FULLSCALE)/100;
+    pabOut_p->aout.ww_hzg_pu_y = (*data *AO_FULLSCALE)/100;
+    return E_OK;
 }
 
-float io_get_WW_HZG_PU_Y( void )
+std_ret_t io_Read_WW_HZG_PU_Y( float *data )
 {
-    return ((float)pabOut_p->aout.ww_hzg_pu_y/AO_FULLSCALE * 100.0); /* % */
+    *data = (float)pabOut_p->aout.ww_hzg_pu_y/AO_FULLSCALE * 100.0; /* % */
+    return E_OK;
 }
 
 /** Warmwasser, Zirkulationspumpe, (ein/aus), D0, 24 Ausgang auf Relais */
-di_bitbyte_t io_put_WW_ZIRK_PU_SB( do_bitbyte_t sb )
+std_ret_t io_Write_WW_ZIRK_PU_SB( di_bitbyte_t *data )
 {
-    pabOut_p->dout.ww_zirk_pu_sb = sb;
-    return (pabOut_p->dout.ww_zirk_pu_sb);
+    pabOut_p->dout.ww_zirk_pu_sb = *data;
+    return E_OK;
 }
 
-di_bitbyte_t io_get_WW_ZIRK_PU_SB( void )
+std_ret_t io_Read_WW_ZIRK_PU_SB( di_bitbyte_t *data )
 {
-    return (pabOut_p->dout.ww_zirk_pu_sb);
+    *data = pabOut_p->dout.ww_zirk_pu_sb;
+    return E_OK;
 }
 
 /** Warmwasser, Partyschalter, DI, Taster  */
-di_bitbyte_t io_get_WW_PARTY( void )
+std_ret_t io_Read_WW_PARTY( di_bitbyte_t *data )
 {
-    return (pabIn_p->din.ww_party);
+    *data = pabIn_p->din.ww_party;
+    return E_OK;
 }
 
 /** Gesamtstoermeldung */
-di_bitbyte_t io_put_STOERUNG( do_bitbyte_t sb )
+std_ret_t io_Write_STOERUNG( di_bitbyte_t *data )
 {
-    pabOut_p->dout.stoerung = sb;
-    return (pabOut_p->dout.stoerung);
+    pabOut_p->dout.stoerung = *data;
+    return E_OK;
 }
 
-di_bitbyte_t io_get_STOERUNG( void )
+std_ret_t io_Read_STOERUNG( di_bitbyte_t *data )
 {
-    return (pabOut_p->dout.stoerung);
+    *data = pabOut_p->dout.stoerung;
+    return E_OK;
 }
 
 /** Ausgang Steuerung aktiv */
-di_bitbyte_t io_put_CONTROL_AKTIV( do_bitbyte_t sb )
+std_ret_t io_Write_CONTROL_AKTIV( di_bitbyte_t *data )
 {
-    pabOut_p->dout.control_aktiv = sb;
-    return (pabOut_p->dout.control_aktiv);
+    pabOut_p->dout.control_aktiv = *data;
+    return E_OK;
 }
 
-di_bitbyte_t io_get_CONTROL_AKTIV( void )
+std_ret_t io_Read_CONTROL_AKTIV( di_bitbyte_t *data )
 {
-    return (pabOut_p->dout.control_aktiv);
+    *data = pabOut_p->dout.control_aktiv;
+    return E_OK;
 }
 
