@@ -9,11 +9,15 @@ PD = 5
 
 class GuiRegler(tk.Frame):
 
-    def __init__(self, master=None, lf_Name=None, ParamSchreiben=None, ParamLesen=None ):
+    def __init__(self, master=None, lf_Name=None, 
+                 ParamSchreiben=None, ParamLesen=None,
+                 Kp_To=20.0, Ki_To=5.0 ):
         tk.Frame.__init__(self, master)
         self.lf_Name = lf_Name
         self.ParamSchreiben = ParamSchreiben
         self.ParamLesen     = ParamLesen
+        self.Kp_To = Kp_To
+        self.Ki_To = Ki_To            
         self.draw()
 
         self.SetEntryVal_Kp(0)
@@ -37,9 +41,9 @@ class GuiRegler(tk.Frame):
         self.lf_regler.APUnit_lbl = tk.Label(self.lf_regler, text='%')
         
         self.lf_regler.Kp_scle = tk.Scale(self.lf_regler, orient=tk.HORIZONTAL, 
-                                          from_=0.0, to= 20.0, length=300, resolution=0.01)
+                                          from_=0.0, to=self.Kp_To, length=300, resolution=0.01)
         self.lf_regler.Ki_scle = tk.Scale(self.lf_regler, orient=tk.HORIZONTAL, 
-                                          from_=0.0, to= 5.0, length=300, resolution=0.001)
+                                          from_=0.0, to=self.Ki_To, length=300, resolution=0.001)
         self.lf_regler.AP_scle = tk.Scale(self.lf_regler, orient=tk.HORIZONTAL, 
                                           from_=0.0, to=100.0, length=300, resolution=0.1)
         

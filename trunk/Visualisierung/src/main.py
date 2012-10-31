@@ -39,7 +39,7 @@ guiAll = gui_overview.GuiOverview(nbook.books['Anlagengrafik'])
 guiAll.pack()
 
 servernameLbl   = tk.Label(root, text='Servername:')
-serverlist      = ['192.168.1.2', '192.168.2.104', 'stegmann.homelinux.org']
+serverlist      = ['192.168.2.106', 'stegmann.homelinux.org']
 servernameEntry = ttk.Combobox(root, width=32, values=serverlist)
 passwordLbl     = tk.Label(root, text='Passwort:')
 passwordEntry   = tk.Entry(root, width=16, show='*')
