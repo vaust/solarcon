@@ -114,18 +114,8 @@ class GuiFB(tk.Frame):
     
     def procHandAuto(self):
         if (self.lf_Process.fb_hand_state_tkbl.get() == True):
-            '''
-            self.lf_Process.fb_PrimPumpe_chkbttn.config(state=tk.ACTIVE)
-            self.lf_Process.fb_SekPumpe_chkbttn.config(state=tk.ACTIVE)
-            self.lf_Process.fb_Mischventil_scle.config(state=tk.ACTIVE)
-            '''
             self.wechsle_HandAuto(True)
         else:
-            '''
-            self.lf_Process.fb_PrimPumpe_chkbttn.config(state=tk.DISABLED)
-            self.lf_Process.fb_SekPumpe_chkbttn.config(state=tk.DISABLED)
-            self.lf_Process.fb_Mischventil_scle.config(state=tk.DISABLED)
-            '''
             self.wechsle_HandAuto(False)
             
         
