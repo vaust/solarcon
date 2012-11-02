@@ -16,7 +16,7 @@ PD = 2
 PASSWORTMD5HASH = '19c7b2a53c6f0b0f6b1a6baf27729bd7'
 
 root=tk.Tk()
-root.title('Ruderclub Aschaffenburg Heizungsanlagenbedienung V0.3')
+root.title('Ruderclub Aschaffenburg Heizungsanlagenbedienung V0.4')
 if (sys.platform.startswith('win32')):
     root.iconbitmap('RCA.ico')
 
