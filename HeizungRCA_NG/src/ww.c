@@ -97,13 +97,13 @@ void ww_Schwachlast_Steuerung( ww_class_t *self )
 }
 
 /**
- * \brief Initialisierung der ww-Task.
+ * @brief Initialisierung der ww-Task.
  *
  * Die minimale Pumpenleistung wird bei 11% Stellgroesse erreicht. Unter 10% ist die
  * Pumpe aus. Der PI-Regler der fuer die wird hier mit initialisiert.
  *
- * \param self Pointer auf Instanz der Klasse ww_class_t
- * \return kein
+ * @param self Pointer auf Instanz der Klasse ww_class_t
+ * @return kein
  */
 void ww_Init( ww_class_t *self, u16_t akt_wz )
 {
@@ -140,10 +140,10 @@ void ww_Init( ww_class_t *self, u16_t akt_wz )
 }
 
 /**
- * \brief Berechne den Durchfluss an Warmwasser innerhalb von \ref MAX_WZ_HISTORY Aufrufen
+ * @brief Berechne den Durchfluss an Warmwasser innerhalb von \ref MAX_WZ_HISTORY Aufrufen
  *
- * \param par_p Pointer auf Struktur mit Parametern
- * \return Durchfluss als Integerzahl
+ * @param par_p Pointer auf Struktur mit Parametern
+ * @return Durchfluss als Integerzahl
  *
  * Es wird die gleitende Differenz der Wasserzaehlerwerte ueber eine Zeitspanne von
  * \ref MAX_WZ_HISTORY x \ref ABTASTZEIT berechnet.
@@ -151,7 +151,7 @@ void ww_Init( ww_class_t *self, u16_t akt_wz )
  * letzten Minute in Zaehlereinheiten pro Minute.
  * Bei einem Impuls pro Liter entspricht dies der Einheit l/min.
  *
- * \todo Den Wasserzaehlerfaktor noch mit einbringen und damit den Rückgabewert auf l/min skalieren.
+ * @todo Den Wasserzaehlerfaktor noch mit einbringen und damit den Rückgabewert auf l/min skalieren.
  */
 static
 s16_t ww_calcDurchfluss( ww_class_t *self )
@@ -172,10 +172,10 @@ s16_t ww_calcDurchfluss( ww_class_t *self )
 }
 
 /**
-  * \brief Eigentlicher Warmwasser Task.
+  * @brief Eigentlicher Warmwasser Task.
   *
-  * \param par_p Pointer auf Struktur mit Parametern
-  * \return kein  
+  * @param par_p Pointer auf Struktur mit Parametern
+  * @return kein  
   */
 void ww_Run( ww_class_t *self )
 {
@@ -233,7 +233,7 @@ void ww_Run( ww_class_t *self )
 }
 
 /**
- * \brief Befuellen des Eingangsvektors.
+ * @brief Befuellen des Eingangsvektors.
  */
 void ww_WriteInp(           ww_class_t *self,
                       const float       tww_mw,
