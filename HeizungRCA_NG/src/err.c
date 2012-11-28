@@ -76,10 +76,10 @@ void err_Run( err_class_t *self )
     if(    (0          == self->o.br_Countdown        )
         || (SET        == self->i.br_StoerMeldung     )
         || (SET        == self->i.stb_Fussbodenheizung)
-        || (ERR_MAXCNT >  self->i.sol_errcnt          )
-        || (ERR_MAXCNT >  self->i.tempsens_errcnt     )
+//        || (ERR_MAXCNT >  self->i.sol_errcnt          )
+//        || (ERR_MAXCNT >  self->i.tempsens_errcnt     )
         || (ERR_MAXCNT >  self->i.ao_errcnt           )
-        || (0          >  self->i.common_errcnt       )
+//        || (0          >  self->i.common_errcnt       )
       ) {
         self->o.Sammelstoermeldung = SET;
     }
