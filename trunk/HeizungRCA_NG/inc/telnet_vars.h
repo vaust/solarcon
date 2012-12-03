@@ -308,7 +308,7 @@ extern char* REG_C_SVNVersion;
 extern char* SERVER_C_SVNVersion;
 extern char* SOL_C_SVNVersion;
 extern char* TASK_C_SVNVersion;
-extern char* TELNET_C_SVNVersion;
+// extern char* TELNET_C_SVNVersion;
 extern char* WW_C_SVNVersion;
 extern char* ZEIT_C_SVNVersion;
 
