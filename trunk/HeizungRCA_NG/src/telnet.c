@@ -350,6 +350,8 @@ void telnet_PrintModVersion( int fdesc, char *bufout )
     telnet_PrintSVNString( fdesc, bufout, "hk.c:     ", HK_C_SVNVersion );
     telnet_PrintSVNString( fdesc, bufout, "io.c:     ", IO_C_SVNVersion );
     telnet_PrintSVNString( fdesc, bufout, "io_v2.c:  ", IO_V2_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "kes.c:    ", KES_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "param.c:  ", PARAM_C_SVNVersion );
     telnet_PrintSVNString( fdesc, bufout, "reg.c:    ", REG_C_SVNVersion );
     telnet_PrintSVNString( fdesc, bufout, "server.c: ", SERVER_C_SVNVersion );
     telnet_PrintSVNString( fdesc, bufout, "sol.c:    ", SOL_C_SVNVersion );
