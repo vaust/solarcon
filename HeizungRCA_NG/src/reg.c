@@ -29,7 +29,7 @@
 #include "reg.h"
 
 /* Versionstring */
-const char* REG_C_SVNVersion = "$Revision$"
+const char* REG_C_SVNVersion = "$Revision$";
 
 /**
  * @brief Limitierungsfunktion

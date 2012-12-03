@@ -63,7 +63,7 @@
 #include "telnet_vars.h"    /* Arrays zur Ausgabe und Manipulierung der Systemzustandsvariablen */
 
 /* Versionstring */
-const char* TELNET_C_SVNVersion = "$Revision$"
+const char* TELNET_C_SVNVersion = "$Revision$";
 
 /**
   * \brief Thread mit dem Telnet Interface.

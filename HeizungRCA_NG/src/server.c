@@ -47,7 +47,7 @@
 #include "server.h"
 
 /* Versionstring */
-const char* SERVER_C_SVNVersion = "$Revision$"
+const char* SERVER_C_SVNVersion = "$Revision$";
 
 /**
  * \brief Erzeugen eines Telnet Server Sockets.

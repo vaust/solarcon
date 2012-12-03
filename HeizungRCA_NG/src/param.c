@@ -31,7 +31,7 @@
 #include "param.h"
 
 /* Versionstring */
-const char* PARAM_C_SVNVersion = "$Revision$"
+const char* PARAM_C_SVNVersion = "$Revision$";
 
 static int param_ReadVorgaben( FILE *handle )
 {

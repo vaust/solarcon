@@ -32,7 +32,7 @@
 #include "zeit.h"
 
 /* Versionstring */
-const char* ZEIT_C_SVNVersion = "$Revision$"
+const char* ZEIT_C_SVNVersion = "$Revision$";
 
 /**
  * @brief Einlesen der Schaltzeiten aus einer ASCII Datei.

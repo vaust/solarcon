@@ -30,7 +30,7 @@
 #include "reg.h"
 
 /* Versionstring */
-const char* HK_C_SVNVersion = "$Revision$"
+const char* HK_C_SVNVersion = "$Revision$";
 
 void hk_Init( hk_class_t *self )
 {

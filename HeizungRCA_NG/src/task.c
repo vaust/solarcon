@@ -32,7 +32,7 @@
 #include "task.h"
 
 /* Versionstring */
-const char* TASK_C_SVNVersion = "$Revision$"
+const char* TASK_C_SVNVersion = "$Revision$";
 
 static 
 void task_partytime_schalter_lesen( const int                               all_partydauer,

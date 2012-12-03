@@ -29,7 +29,7 @@
 #include "kes.h"
 
 /* Versionstring */
-const char* KES_C_SVNVersion = "$Revision$"
+const char* KES_C_SVNVersion = "$Revision$";
 
 void kes_Init( kes_class_t *self )
 {

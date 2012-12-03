@@ -42,7 +42,7 @@
 #endif
 
 /* Versionstring */
-const char* IO_V2_C_SVNVersion = "$Revision$"
+const char* IO_V2_C_SVNVersion = "$Revision$";
 
 /**
  *  \brief Initialisierung der Temperaturmessobjekte.
