@@ -38,7 +38,7 @@
 #include "err.h"
 
 /* Versionstring */
-const char* ERR_C_SVNVersion = "$Revision$"
+const char* ERR_C_SVNVersion = "$Revision$";
 
 /**
  * @brief Fehlerkomponente initialisieren

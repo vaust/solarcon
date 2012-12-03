@@ -30,7 +30,7 @@
  */
 
  /* Versionstring */
-const char* IO_C_SVNVersion = "$Revision$"
+const char* IO_C_SVNVersion = "$Revision$";
 
 /*
  * Temperaturen werden ueber Pt1000 Klemmen gemessen, die einen 16bit Wert

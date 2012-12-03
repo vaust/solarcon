@@ -71,7 +71,7 @@ extern pthread_mutex_t  mutex;
 #endif
 
 /* Versionstring */
-const char* CNTRL_C_SVNVersion = "$Revision$"
+const char* CNTRL_C_SVNVersion = "$Revision$";
 
 /**
  * \brief Steuerung initialisieren.

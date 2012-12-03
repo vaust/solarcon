@@ -28,7 +28,7 @@
 #include "param.h"
 
 /* Versionstring */
-const char* SOL_C_SVNVersion = "$Revision$"
+const char* SOL_C_SVNVersion = "$Revision$";
 
 void sol_Init( sol_class_t *self )
 {
