@@ -64,7 +64,6 @@
 
 /* Versionstring */
 const char* TELNET_C_SVNVersion = "$Revision$";
-extern char* FB_C_SVNVersion;
 
 /**
   * \brief Thread mit dem Telnet Interface.
@@ -117,9 +116,7 @@ void *telnet_Task( void *arg )
                         snprintf( bufout, BFLN, "\tEntwicklungszweig: " ); BFLSH();
                         snprintf( bufout, BFLN, VERSIONDEVPATH ); BFLSH();
                         snprintf( bufout, BFLN, "\tAndreas Stegmann\n\tVolker Stegmann\n" ); BFLSH();
-                        snprintf( bufout, BFLN, "\tFB.C Version: " ); BFLSH();
-                        snprintf( bufout, BFLN, FB_C_SVNVersion ); BFLSH();
-                        snprintf( bufout, BFLN, "\n" ); BFLSH();
+                        telnet_PrintModVersion( fdesc, bufout );
                     }
                     else if( strncasecmp( "GET",        token, 3 ) == 0 ) {
                         if( Debug ) printf( "TELNET.C: GET Befehl erhalten\n" );
@@ -334,6 +331,35 @@ void *telnet_Task( void *arg )
     }
     return NULL;
 }
+
+static inline
+void telnet_PrintSVNString( int fdesc, char *bufout, char *modname, char *svnrev  )
+{
+    snprintf( bufout, BFLN, modname ); BFLSH();
+    snprintf( bufout, BFLN, svnrev ); BFLSH();
+    snprintf( bufout, BFLN, "\n" ); BFLSH();
+}
+
+static
+void telnet_PrintModVersion( int fdesc, char *bufout )
+{
+    snprintf( bufout, BFLN, "\tSVN Versionen der Module: " ); BFLSH();
+    telnet_PrintSVNString( fdesc, bufout, "cntrl.c:  ", CNTRL_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "err.c:    ", ERR_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "fb.c:     ", FB_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "hk.c:     ", HK_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "io.c:     ", IO_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "io_v2.c:  ", IO_V2_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "reg.c:    ", REG_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "server.c: ", SERVER_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "sol.c:    ", SOL_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "task.c:   ", TASK_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "telnet.c: ", TELNET_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "ww.c:     ", WW_C_SVNVersion );
+    telnet_PrintSVNString( fdesc, bufout, "zeit.c:   ", ZEIT_C_SVNVersion );
+}
+
+
 
 static /* inline */
 void telnet_InitModules( void )

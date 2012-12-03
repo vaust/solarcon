@@ -295,6 +295,23 @@ static const char *telnet_wochentage[] =
     "Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"
 };
 
+/* Versionsinfo Konstanten: */
+extern char* CNTRL_C_SVNVersion;
+extern char* ERR_C_SVNVersion;
+extern char* FB_C_SVNVersion;
+extern char* HK_C_SVNVersion;
+extern char* IO_C_SVNVersion;
+extern char* IO_V2_C_SVNVersion;
+extern char* KES_C_SVNVersion;
+extern char* PARAM_C_SVNVersion;
+extern char* REG_C_SVNVersion;
+extern char* SERVER_C_SVNVersion;
+extern char* SOL_C_SVNVersion;
+extern char* TASK_C_SVNVersion;
+extern char* TELNET_C_SVNVersion;
+extern char* WW_C_SVNVersion;
+extern char* ZEIT_C_SVNVersion;
+
 #else
 #error "Header nicht von telnet.c eingebunden"
 #endif // _TELNET_C_
