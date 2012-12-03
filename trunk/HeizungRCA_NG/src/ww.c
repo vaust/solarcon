@@ -25,6 +25,8 @@
 #include "param.h"
 #include "ww.h"
 
+/* Versionstring */
+const char* WW_C_SVNVersion = "$Revision$"
 
 /** 
   * @brief Steuerung des Mischventils.

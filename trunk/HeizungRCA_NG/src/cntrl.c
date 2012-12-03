@@ -24,7 +24,7 @@
 
  * @author Volker Stegmann
  */
-
+ 
 #define _CNTRL_C_
 
 #include <stdio.h>
@@ -70,6 +70,8 @@ extern pthread_mutex_t  mutex;
 #define MUTEX_unlock()
 #endif
 
+/* Versionstring */
+const char* CNTRL_C_SVNVersion = "$Revision$"
 
 /**
  * \brief Steuerung initialisieren.

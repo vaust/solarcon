@@ -28,6 +28,9 @@
 #include "fb.h"
 #include "param.h"
 
+/* Versionstring */
+const char* FB_C_SVNVersion = "$Revision$"
+
 /**
  * @brief Fussbodenheizung Initialisierung.
  *

@@ -30,6 +30,9 @@
 #include "gen_types.h"
 #include "param.h"
 
+/* Versionstring */
+const char* PARAM_C_SVNVersion = "$Revision$"
+
 static int param_ReadVorgaben( FILE *handle )
 {
     char    linestr[128];

@@ -27,6 +27,9 @@
 #include "sol.h"
 #include "param.h"
 
+/* Versionstring */
+const char* SOL_C_SVNVersion = "$Revision$"
+
 void sol_Init( sol_class_t *self )
 {
     self->p.sp_t_max  = param_sol_sp_t_max;
