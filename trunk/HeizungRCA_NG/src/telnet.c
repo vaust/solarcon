@@ -64,6 +64,7 @@
 
 /* Versionstring */
 const char* TELNET_C_SVNVersion = "$Revision$";
+extern char* FB_C_SVNVersion;
 
 /**
   * \brief Thread mit dem Telnet Interface.
