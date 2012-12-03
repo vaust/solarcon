@@ -333,7 +333,7 @@ void *telnet_Task( void *arg )
 }
 
 static inline
-void telnet_PrintSVNString( int fdesc, char *bufout, char *modname, char *svnrev  )
+void telnet_PrintSVNString( int fdesc, char *bufout, const char *modname, const char *svnrev  )
 {
     snprintf( bufout, BFLN, "\n\t" ); BFLSH();
     snprintf( bufout, BFLN, modname ); BFLSH();
