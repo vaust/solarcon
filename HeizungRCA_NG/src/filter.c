@@ -26,6 +26,9 @@
 
 #include "filter.h"
 
+/* Versionstring */
+const char* FILTER_C_SVNVersion = "$Revision$"
+
 /**
  * @brief Initialisierung eines gleitenden Mittelwerts.
  */

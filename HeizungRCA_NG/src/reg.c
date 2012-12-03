@@ -28,6 +28,9 @@
 #include "param.h"
 #include "reg.h"
 
+/* Versionstring */
+const char* REG_C_SVNVersion = "$Revision$"
+
 /**
  * @brief Limitierungsfunktion
  *

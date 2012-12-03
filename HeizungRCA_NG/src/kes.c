@@ -28,6 +28,9 @@
 #include "param.h"
 #include "kes.h"
 
+/* Versionstring */
+const char* KES_C_SVNVersion = "$Revision$"
+
 void kes_Init( kes_class_t *self )
 {
     self->p.sp_dt_sw     = param_kes_sp_dt_sw;

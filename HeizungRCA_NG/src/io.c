@@ -29,6 +29,9 @@
  * @author Volker Stegmann
  */
 
+ /* Versionstring */
+const char* IO_C_SVNVersion = "$Revision$"
+
 /*
  * Temperaturen werden ueber Pt1000 Klemmen gemessen, die einen 16bit Wert
  * mit Vorzeichen ausgeben. 0°C entspricht 0x0000 mit 0.1K entsprechend einem Bit.

@@ -29,6 +29,9 @@
 #include "hk.h"
 #include "reg.h"
 
+/* Versionstring */
+const char* HK_C_SVNVersion = "$Revision$"
+
 void hk_Init( hk_class_t *self )
 {
     /* Vorgaben aus Parametrierung */

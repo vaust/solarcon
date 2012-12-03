@@ -46,6 +46,9 @@
 #include "telnet.h"
 #include "server.h"
 
+/* Versionstring */
+const char* SERVER_C_SVNVersion = "$Revision$"
+
 /**
  * \brief Erzeugen eines Telnet Server Sockets.
  * \param port[in] Portnummer fuer Socket
