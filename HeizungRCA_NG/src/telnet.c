@@ -116,6 +116,9 @@ void *telnet_Task( void *arg )
                         snprintf( bufout, BFLN, "\tEntwicklungszweig: " ); BFLSH();
                         snprintf( bufout, BFLN, VERSIONDEVPATH ); BFLSH();
                         snprintf( bufout, BFLN, "\tAndreas Stegmann\n\tVolker Stegmann\n" ); BFLSH();
+                        snprintf( bufout, BFLN, "\tFB.C Version: " ); BFLSH();
+                        snprintf( bufout, BFLN, FB_C_SVNVersion ); BFLSH();
+                        snprintf( bufout, BFLN, "\n" ); BFLSH();
                     }
                     else if( strncasecmp( "GET",        token, 3 ) == 0 ) {
                         if( Debug ) printf( "TELNET.C: GET Befehl erhalten\n" );
