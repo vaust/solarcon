@@ -335,9 +335,9 @@ void *telnet_Task( void *arg )
 static inline
 void telnet_PrintSVNString( int fdesc, char *bufout, char *modname, char *svnrev  )
 {
+    snprintf( bufout, BFLN, "\n\t" ); BFLSH();
     snprintf( bufout, BFLN, modname ); BFLSH();
     snprintf( bufout, BFLN, svnrev ); BFLSH();
-    snprintf( bufout, BFLN, "\n" ); BFLSH();
 }
 
 static
@@ -357,6 +357,7 @@ void telnet_PrintModVersion( int fdesc, char *bufout )
     telnet_PrintSVNString( fdesc, bufout, "telnet.c: ", TELNET_C_SVNVersion );
     telnet_PrintSVNString( fdesc, bufout, "ww.c:     ", WW_C_SVNVersion );
     telnet_PrintSVNString( fdesc, bufout, "zeit.c:   ", ZEIT_C_SVNVersion );
+    snprintf( bufout, BFLN, "\n" ); BFLSH();
 }
 
 
