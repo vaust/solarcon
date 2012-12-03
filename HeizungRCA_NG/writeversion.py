@@ -13,7 +13,7 @@ SVN_URL = '$HeadURL: https://solarcon.googlecode.com/svn/trunk/HeizungRCA_NG/wri
 with open( './svn.txt', 'r' ) as file:
     revtxt = file.readline()
 SVN_REV = revtxt.split('M')[0]
-VERSION = '0.9.1'   #  +'SVN: '+SVN_REV
+VERSION = '0.9.2'   #  +'SVN: '+SVN_REV
 DEVPATH = SVN_URL.split('URL: ')[1].split('/write')[0]
 # DEVPATH = SVN_URL.split('/write')[0]
 now = datetime.datetime.now()
