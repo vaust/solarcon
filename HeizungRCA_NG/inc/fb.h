@@ -40,6 +40,7 @@ typedef struct fb_param_s {
     float at_start;     /**< Aussentemperatur ab der geheizt wird */
     float frostschutz;  /**< Frostschutztemperatur in Grad C      */
     float tr_sw;        /**< Raumtemperatursollwert in Grad C     */
+    float at_hysterese  /**< Pumpenschalttemperaturhysterese in Grad C */
 } fb_param_t;
 
 /**

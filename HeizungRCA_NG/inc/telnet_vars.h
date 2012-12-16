@@ -37,6 +37,7 @@ static const parse_set_t telnet_fb_Vars[] =
     { "fb.p.at_start",         &(cntrl_fb.p.at_start),         "%f" },
     { "fb.p.frostschutz",      &(cntrl_fb.p.frostschutz),      "%f" },
     { "fb.p.tr_sw",            &(cntrl_fb.p.tr_sw),            "%f" },
+    { "fb.p.at_hysterese",     &(cntrl_fb.p.at_hysterese),     "%f" },
 
     { "fb.i.tau_mw",           &(cntrl_fb.i.tau_mw),           "%f" },
     { "fb.i.sek_tvl_mw",       &(cntrl_fb.i.sek_tvl_mw),       "%f" },

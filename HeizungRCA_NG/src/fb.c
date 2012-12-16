@@ -48,6 +48,7 @@ void fb_Init( fb_class_t *self )
     self->p.tvl_niveau    = param_fb_tvl_niveau;
     self->p.tvl_steigung  = param_fb_tvl_steigung;
     self->p.tr_sw         = param_fb_tr_sw;
+    self->p.at_hysterese  = 1.0;
 
     reg_PI_Init( &(self->reg), MSEC2SEC(param_sys_zykluszeit),
                                param_fb_reg_kp,
@@ -87,7 +88,7 @@ void fb_Run( fb_class_t *self )
         self->o.prim_pu_sb = IO_EIN;
         self->o.sek_pu_sb  = IO_EIN;
     }
-    else if( self->i.tau_avg > (self->p.at_start+1.0) ) {  /* 1.0 ist Pumpenschalthysterese : todo Parameter! */
+    else if( self->i.tau_avg > (self->p.at_start + self->p.at_hysterese) ) {
         self->o.prim_pu_sb = IO_AUS;
         self->o.sek_pu_sb  = IO_AUS;
     }
