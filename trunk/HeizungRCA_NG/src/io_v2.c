@@ -94,7 +94,7 @@ void io_InitTall( void )
  * \param mw   Pointer zur Rueckgabe der gemessenen Temperatur. NULL falls kein Wert
  *             zurueckgegeben werden soll.
  */
-io_obj_status_t io_ReadT( io_temp_obj_t *self, float *mw )
+io_obj_status_t io_ReadT( io_temp_obj_t *self )
 {
     float temp_val;
 
@@ -123,8 +123,6 @@ io_obj_status_t io_ReadT( io_temp_obj_t *self, float *mw )
         self->messwert = temp_val;
     }
     
-    if( (void *)mw != NULL ) *mw = self->messwert;  /* Strukturwert in die Arbeitsvariable kopieren */
-
     return (self->status);
 }
 
