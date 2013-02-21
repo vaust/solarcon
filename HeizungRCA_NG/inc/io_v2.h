@@ -105,7 +105,7 @@ PUBLIC io_ao10V_obj_t   io_WW_HZG_PU_Y;
 /* <Prototypen> */
 void io_Init( void );
 
-io_obj_status_t io_ReadT( io_temp_obj_t *this, float *mw );
+io_obj_status_t io_ReadT( io_temp_obj_t *this );
 io_obj_status_t io_WriteY( io_ao10V_obj_t *this, float val );
 /* </Prototypen> */
 
