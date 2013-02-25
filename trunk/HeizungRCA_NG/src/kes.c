@@ -41,11 +41,12 @@ void kes_Init( kes_class_t *self )
     self->o.pu_sp1_sb = IO_AUS;
     self->o.pu_sp2_sb = IO_AUS;
 }
+
 /**
- * \brief Speichersolltemperaturen berechnen, Speicherpumpen ansteuern
+ * @brief Speichersolltemperaturen berechnen, Speicherpumpen ansteuern
  * und Kesselsollvorlauftemperatur bestimmen.
  *
- * \param self Pointer auf Instanz der Klasse kes_class_t
+ * @param self Pointer auf Instanz der Klasse kes_class_t
  */
 void kes_Run( kes_class_t *self )
 {
