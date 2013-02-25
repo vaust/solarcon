@@ -133,7 +133,9 @@ void task_Init(       task_tau_t * const tau,
     for( i=0; i<param_all_tau_mittel_zeit; i++ ) 
         tau->t_1h_mittel_36h_Intervall[i] = all_tau_mw;
     tau->t_1h_summe = all_tau_mw * 60;
+    tau->t_1h_mittel = all_tau_mw;
     tau->t_36h_summe = all_tau_mw * param_all_tau_mittel_zeit;
+    tau->t_36h_mittel = all_tau_mw;
 }
 
 
