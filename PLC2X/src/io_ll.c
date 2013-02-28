@@ -12,6 +12,12 @@
  */
 
 
+static
+std_ret_t io_check_TempPlausib( temperatur_t t )
+{
+    if( t
+
+
 std_ret_t io_ll_read_Temperatur1( temperatur_t *data )
 {
     *data = (temperatur_t) pabIn_p->ain.temperatur1 / 10.0;

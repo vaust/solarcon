@@ -196,11 +196,11 @@ if __name__ == "__main__":
     
     def doit():
         gui.moveChart(-2)
-        gui.after(2000, doit)
+        gui.after(500, doit)
         
     root=tk.Tk()
     gui = XtDiagram(root, win_X=1000, win_Y=400, xTicks=10, physX_TickUnit=10)
-    gui.after(2000, doit)
+    gui.after(500, doit)
     gui.pack()
     gui.LastPhysX = 0
     gui.LastPhysY = random.gauss(40.0, 0.25)
