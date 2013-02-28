@@ -40,19 +40,27 @@ extern pthread_mutex_t  mutex;
  */
 
 static
+void assert( void )
+{
+    printf( "TEST.C: Assertion Fehler!\n" );
+}
+
+static
 std_ret_t test_block_read_u( block_in_t *u )
 {
     di_bitbyte_t a, b, c;
+    std_ret_t    result = E_OK;
 
-    (void) io_ll_read_DigitalIn1( &a ); // a = DigitalIn1
-    (void) io_ll_read_DigitalIn2( &b ); // b = DigitalIn2
-    (void) io_ll_read_DigitalIn3( &c ); // c = DigitalIn3
+    if     ( E_OK != io_ll_read_DigitalIn1( &a ) ) result = E_NOK;
+    else if( E_OK != io_ll_read_DigitalIn2( &b ) ) result = E_NOK;
+    else if( E_OK != io_ll_read_DigitalIn3( &c ) ) result = E_NOK;
+    else {
+        u->a = 4*((int)a) + 2*((int)b) + ((int)c);
+        u->b = 0;
+        u->c = 0;
+    }
 
-    u->a = 4*((int)a) + 2*((int)b) + ((int)c);
-    u->b = 0;
-    u->c = 0;
-
-    return E_OK;
+    return result;
 }
 
 static
@@ -70,6 +78,7 @@ std_ret_t test_block_write_y( block_out_t *y )
 void test_init( void )
 {
     block_Init( &Block1, test_block_read_u, test_block_write_y ); // Beschreibt prinzipell eine Netzliste
+
 }
 
 void test_open( void )

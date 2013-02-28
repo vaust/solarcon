@@ -43,7 +43,7 @@ class GuiRegler(tk.Frame):
         self.lf_regler.Kp_scle = tk.Scale(self.lf_regler, orient=tk.HORIZONTAL, 
                                           from_=0.0, to=self.Kp_To, length=300, resolution=0.01)
         self.lf_regler.Ki_scle = tk.Scale(self.lf_regler, orient=tk.HORIZONTAL, 
-                                          from_=0.0, to=self.Ki_To, length=300, resolution=0.001)
+                                          from_=0.0, to=self.Ki_To, length=300, resolution=0.01)
         self.lf_regler.AP_scle = tk.Scale(self.lf_regler, orient=tk.HORIZONTAL, 
                                           from_=0.0, to=100.0, length=300, resolution=0.1)
         

@@ -24,7 +24,7 @@ if (sys.platform.startswith('win32')):
 books = ('Text (Telnet)', 'Anlagengrafik', 'Solar', 'Warmwasser', 'Fußbodenheizung', 
          'Heizkörperheizung', 'Kessel', 'Störungen', 'Parameter', 'Zeitprogramm' )
 '''
-books = ('Text (Telnet)', 'Anlagengrafik', 'Warmwasser', 'Fußbodenheizung', 'Parameter' )    
+books = ('Text (Telnet)', 'Anlagengrafik', 'Warmwasser', 'Fußbodenheizung', 'Kessel', 'Parameter' )    
     
 nbook       = ttk.Notebook(root)
 nbook.books = dict()
@@ -47,11 +47,14 @@ passwordEntry   = tk.Entry(root, width=16, show='*')
 def connect():
     global iface, guiFB, guiWW, guiText, guiParam
     srvname = servernameEntry.get()
+    # '''
     passwd = passwordEntry.get()
     h=hashlib.md5()
     h.update(passwd.encode())
     md5hex = h.hexdigest()
     if (md5hex.find(PASSWORTMD5HASH) >= 0):
+    # '''
+    # if True:
         if (serverlist.count(srvname) == 0):
             serverlist.append(srvname)
             serverlist.sort()
