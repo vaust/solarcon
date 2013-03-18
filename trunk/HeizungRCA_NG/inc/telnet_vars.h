@@ -252,7 +252,7 @@ static const char *telnet_help_text[] =
     "\tGET HK       : Daten zu Heizkoerper-Heizkreis\n",
     "\tGET PAR      : Eingelesene Parameter ausgeben\n",
     "\tGET ZEIT     : Eingelesenes Zeitprogramm ausgeben\n",
-    "\tGET NOW      : akt. Steuerungszeit aus localtime() ausgeben (nicht Linux Zeit !!)\n",
+    "\tGET NOW      : korrigierte Steuerungszeit (getLocaltime() + hour_offset) ausgeben\n",
     "\tGET ABS      : Absenkungen ausgeben\n",
     "\tGET VFB <n>  : FB Modul: Parameter-, Eingangs- und Ausgangsvariablen\n",
     "\tGET VHK <n>  : HK Modul: Parameter-, Eingangs- und Ausgangsvariablen\n",
