@@ -12,6 +12,7 @@ OBJECTS := cntrl.o task.o zeit.o param.o sol.o fb.o hk.o ww.o reg.o kes.o io.o i
 all: rca8
 
 rca8: $(OBJECTS)
+	python3 writeversion.py
 	$(CC) $(LDFLAGS) -o $@ $(OBJECTS) -lpthread $(LDLIBS$(LDLIBS-$(@)))
 
 romfs:
