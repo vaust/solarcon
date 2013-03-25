@@ -69,6 +69,7 @@ std_ret_t test_block_write_y( block_out_t *y )
     di_bitbyte_t d, e, f;
 
     // todo
+    return E_OK;
 }
 
 /**
