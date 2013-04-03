@@ -79,7 +79,8 @@ typedef struct ww_class_s {
     ww_out_t    o;
     u16_t       schwachlastzeit;             /**< Schwachlaststeuerung komponententauglich    */
     u16_t       wz_history[MAX_WZ_HISTORY];  /**< Während jedem Aufruf die Möglichkeit haben, Durchfluss zu messen */
-    u16_t       ringzaehler;                 /**< Ringzaehler fuer Durchflussmessung */
+    u16_t       ringzaehler;                 /**< Ringzaehler fuer Durchflussmessung          */
+    s32_t       wz_diff;                     /**< momentaner Wasserverbrauch in l/min         */
 } ww_class_t;
 
 /* <Typen/> */
