@@ -190,13 +190,14 @@ void ww_Run( ww_class_t *self )
     3.  2. Anforderung ist höher prior als 1. Anforderung
     */
 
+    ww_calcDurchfluss(self); /* Muss bei jedem Aufruf ausgeführt werden! */
+
     if( self->p.wasserzaehler_aktiv == zEin ) {   /* Anstelle bedingter Kompilierung mit #ifdef */
         if(    (self->i.tww_mw < self->p.tww_min_sw )
             && (self->i.tau_mw < self->p.frostschutz) ) {
             self->o.hzg_pu_sb = IO_EIN;
         }
         else if( self->i.tww_mw > (self->p.tww_min_sw + self->p.tww_hyst_sw) ) {
-            ww_calcDurchfluss(self);
             if( self->wz_diff != 0 ) {
                 self->o.hzg_pu_sb = IO_EIN;
             }
