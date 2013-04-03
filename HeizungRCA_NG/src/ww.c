@@ -188,7 +188,7 @@ void ww_Run( ww_class_t *self )
 
     2. Die Pumpe muss laufen, wenn
          Außentemp. < -3°C UND WW-Temp. < 20°C (Gleiche Bedingungen, wie bei Zirkulationspumpe)
-    -    Die Pumpe mit einer Hysterese solange laufen lassen, bis WW-Temp. >  25°C
+         Die Pumpe mit einer Hysterese solange laufen lassen, bis WW-Temp. >  25°C
 
     3.  2. Anforderung ist höher prior als 1. Anforderung
     */
