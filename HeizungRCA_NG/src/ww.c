@@ -156,21 +156,18 @@ void ww_Init( ww_class_t *self, u16_t akt_wz )
  * @todo Den Wasserzaehlerfaktor noch mit einbringen und damit den Rückgabewert auf l/min skalieren.
  */
 static
-s16_t ww_calcDurchfluss( ww_class_t *self )
+void ww_calcDurchfluss( ww_class_t *self )
 {
-    s32_t   wz_diff;
-
-    wz_diff = (s32_t) self->i.wz_mw - (s32_t) self->wz_history[self->ringzaehler];
-    if( wz_diff < 0 ) {
+    self->wz_diff = (s32_t) self->i.wz_mw - (s32_t) self->wz_history[self->ringzaehler];
+    if( self->wz_diff < 0 ) {
         /* neuer Zaehlerwert kleiner als alter Wert: unplausibles Ereignis -> Zaehler ist uebergelaufen! */
-        wz_diff = wz_diff+0x10000L;
+        self->wz_diff += 0x10000L;
     }
     self->wz_history[self->ringzaehler] = self->i.wz_mw;
     self->ringzaehler ++;
     if( self->ringzaehler >= MAX_WZ_HISTORY ) {
         self->ringzaehler = 0;
     }
-    return ((s16_t) wz_diff);
 }
 
 /**
@@ -199,7 +196,8 @@ void ww_Run( ww_class_t *self )
             self->o.hzg_pu_sb = IO_EIN;
         }
         else if( self->i.tww_mw > (self->p.tww_min_sw + self->p.tww_hyst_sw) ) {
-            if( ww_calcDurchfluss(self) != 0 ) {
+            ww_calcDurchfluss(self);
+            if( self->wz_diff != 0 ) {
                 self->o.hzg_pu_sb = IO_EIN;
             }
             else {
