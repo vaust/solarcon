@@ -68,22 +68,18 @@
 #define WW_MV_KORR            3.0    /**< Korrekturfaktor fuer MV-Kennlinie                                          */
 
 #ifdef __WAGO__
-    #define VORGABENDATEI           "/home/vorgaben7.ini"
+    #define VORGABENDATEI   "/home/vorgaben.ini"
 #else
-    #define VORGABENDATEI           "vorgaben7.ini"
+    #define VORGABENDATEI   "vorgaben.ini"
 #endif
 
 #endif /* _PARAM_C_ */
 
-#define MAX_ALL_Tau_mittel_Zeit   48                /**< max. Wert aus Kommentar in vorgaben.ini                     */
+#define MAX_ALL_Tau_mittel_Zeit   48                /**< max. Wert aus Kommentar in vorgaben.ini                      */
 
-// #define USEC2SEC(x)     (((float)(x))/1.0e6)        /**< usec in sekunden umrechnen                                  */
-// #define USEC2MSEC(x)    ((x)/1000)                  /**< usec in msec umrechnen                                      */
-#define MSEC2SEC(x)     (((float)(x))/1000.0)       /**< msec in sekunden umrechnen                                  */
-
-#define ABTASTZEIT_MSEC 1000L                       /**< das gleiche als LONG in Millisekunden fuer Timerlaufzeit    */
-#define ABTASTZEIT      MSEC2SEC(ABTASTZEIT_MSEC)   /**< Abtastzeit fuer digitale Regler Algorithmen als float       */
-
+#define MSEC2SEC(x)     (((float)(x))/1000.0)       /**< msec in sekunden umrechnen                                   */
+#define ABTASTZEIT_MSEC 1000L                       /**< Abtastzeit in Millisekunden als LONG fuer Timerlaufzeit      */
+#define ABTASTZEIT      MSEC2SEC(ABTASTZEIT_MSEC)   /**< Abtastzeit fuer digitale Regler Algorithmen als float in sec */
 
 /* <Defines/> */
 
@@ -199,9 +195,9 @@ const parse_set_t param_Vorgaben[] = {
     { "WW_MV_KORR",          &param_ww_mv_korr,          "%f" },
     { "WW_Tww_Tvl_Faktor",   &param_ww_tww_tvl_faktor,   "%f" },
     { "WW_Tz_SW",            &param_ww_tz_sw,            "%f" },
-    { "SYS_Zykluszeit",      &param_sys_zykluszeit,      "%d" },
-    
+    { "SYS_Zykluszeit",      &param_sys_zykluszeit,      "%d" }
 };
+
 const int param_Vorgaben_len = sizeof(param_Vorgaben)/sizeof(parse_set_t);
 
 #else
