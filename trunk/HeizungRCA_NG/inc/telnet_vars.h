@@ -131,7 +131,7 @@ static const parse_set_t telnet_ww_Vars[] =
 
     { "ww.schwachlastzeit",       &(cntrl_ww.schwachlastzeit),       "%d" },
     { "ww.ringzaehler",           &(cntrl_ww.ringzaehler),           "%d" },
-    { "ww.wz_diff",                6(cntrl_ww.wz_diff),               "%d" }
+    { "ww.wz_diff",               &(cntrl_ww.wz_diff),               "%d" }
 };
 
 static const parse_set_t telnet_sol_Vars[] =
