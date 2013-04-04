@@ -9,9 +9,9 @@ VPATH := $(SRC):$(INC)
 OBJECTS := cntrl.o task.o zeit.o param.o sol.o fb.o hk.o ww.o reg.o kes.o io.o io_v2.o telnet.o server.o \
  kbusapi.o err.o
 
-all: rca8
+all: rca9
 
-rca8: $(OBJECTS)
+rca9: $(OBJECTS)
 	python3 writeversion.py
 	$(CC) $(LDFLAGS) -o $@ $(OBJECTS) -lpthread $(LDLIBS$(LDLIBS-$(@)))
 
@@ -20,7 +20,7 @@ romfs:
 	chmod 755 $(ROMFSDIR)/bin/rca8
 
 clean:
-	-rm -f rca8 *.elf *.gdb *.o
+	-rm -f rca9 *.elf *.gdb *.o
 
 
 cntrl.o: cntrl.c \
