@@ -219,6 +219,8 @@ void cntrl_run( int sig )
                                     cntrl_zeit_absenkung.Zirk_Zustand,
                                     cntrl_zeit_absenkung.Duschzeit     );
         }
+        /* Durchflussmessung aktualisieren */
+        ww_calcDurchfluss( &cntrl_ww );
         /* Warmwasserheizkreisregelung Task */
         if( SET == cntrl_mdl_aktiv.ww_aktiv ) {
             ww_Run( &cntrl_ww );
