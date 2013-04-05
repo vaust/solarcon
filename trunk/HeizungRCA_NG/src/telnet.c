@@ -778,7 +778,7 @@ void telnet_writeWW( int fdesc, char *bufout )
         param_all_partydauer - cntrl_zeit_party.ww.party_restzeit_min, cntrl_zeit_party.ww.party_restzeit_min );
         BFLSH();
     }
-    snprintf( bufout, BFLN, "WZ Durchfluss = %6d l/min\n", cntrl_ww.wz_diff ); BFLSH();
+    snprintf( bufout, BFLN, "WZ Durchfluss = %6ld L/min\n", cntrl_ww.wz_diff ); BFLSH();
 }
 
 static
