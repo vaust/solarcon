@@ -155,7 +155,7 @@ void ww_Init( ww_class_t *self, u16_t akt_wz )
  *
  * @todo Den Wasserzaehlerfaktor noch mit einbringen und damit den Rückgabewert auf l/min skalieren.
  */
-static
+
 void ww_calcDurchfluss( ww_class_t *self )
 {
     self->wz_diff = (s32_t) self->i.wz_mw - (s32_t) self->wz_history[self->ringzaehler];
@@ -190,7 +190,7 @@ void ww_Run( ww_class_t *self )
     3.  2. Anforderung ist höher prior als 1. Anforderung
     */
 
-    ww_calcDurchfluss(self); /* Muss bei jedem Aufruf ausgeführt werden! */
+    /* ww_calcDurchfluss() wird in cntrl_run() zyklisch aufgerufen und liefert self->wzdiff ! */
 
     if( self->p.wasserzaehler_aktiv == zEin ) {   /* Anstelle bedingter Kompilierung mit #ifdef */
         if(    (self->i.tww_mw < self->p.tww_min_sw )
