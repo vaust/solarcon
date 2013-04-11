@@ -21,7 +21,7 @@ if (len(sys.argv) > 1):
         PORT = 1969
         MAX_N = 10
 else:
-    HOST = "localhost"
+    HOST = "stegmann.homelinux.org"
     PORT = 1969
     MAX_N = 10
 
@@ -34,7 +34,7 @@ tn.read_very_eager()
 fd = open( "Temperaturen.csv", "w" )
 fd.write( "Zeit; ALL_Tau_MW; SOL_KOLL_T_MW; SOL_SP1_To_MW; SOL_SP1_Tu_MW; SOL_SP2_To_MW; SOL_SP2_Tu_MW; \
 KES_Tvl_MW; KES_Trl_MW; HK_Tvl_MW; HK_Trl_MW; FB_PRIM_Trl_MW; FB_SEK_Tvl_MW; WW_HZG_Tvl_MW; WW_HZG_Trl_MW;\
-WW_Tww_MW; Tau_1h_mittel_f; Tau_36h_mittel_f;\n" )
+WW_Tww_MW; Tau_1h_mittel; Tau_36h_mittel;\n" )
 fd.close()
 
 for n in range(MAX_N):
@@ -94,9 +94,9 @@ for n in range(MAX_N):
             ww_hzg_trl_mw = float(line.split('=')[1].split('°')[0])
         elif (line.startswith( "WW_Tww_MW" )):
             ww_tww_mw = float(line.split('=')[1].split('°')[0])
-        elif (line.startswith( "Tau_1h_mittel_f" )):
+        elif (line.startswith( "Tau_1h_mittel" )):
             tau_1h_mittel_f = float(line.split('=')[1].split('°')[0])
-        elif (line.startswith( "Tau_36h_mittel_f" )):
+        elif (line.startswith( "Tau_36h_mittel" )):
             tau_36h_mittel_f = float(line.split('=')[1].split('°')[0])
 
 
