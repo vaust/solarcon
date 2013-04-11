@@ -74,7 +74,7 @@ int sol_Speicherabsperrventil( const sol_param_t   *par_p,
         errorcode = SOL_NORMAL;
     }
     else {
-        /* Die Kollektortemperatur liegt ueber dem Maximalwert  */
+        /* Die Speichertemperatur liegt ueber dem Maximalwert  */
         *sp_av_sb_p  = IO_ZU;
         errorcode = SOL_UEBERTEMPERATUR;
     }
