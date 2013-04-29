@@ -253,7 +253,6 @@ void cntrl_run( int sig )
 
         /* Prozessdaten fuer Sammelstoermeldung */
         if( SET == cntrl_mdl_aktiv.inp_err_aktiv ) {
-            if( io_Normal != io_ReadT( &io_KES_Tvl_MW ) ) cntrl_err.i.tempsens_errcnt --;
             cntrl_err.i.br_RueckMeldung      = io_get_KES_BR_BM();
             cntrl_err.i.br_StoerMeldung      = io_get_KES_SSM();
             cntrl_err.i.kes_tvl_mw           = io_KES_Tvl_MW.messwert;
