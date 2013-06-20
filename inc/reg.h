@@ -39,17 +39,38 @@ typedef struct reg_par_s {
 } reg_par_t;
 
 /**
+ * @brief Struktur mit den Eingangswerten des Reglers
+ */
+typedef struct reg_in_s {
+	float ist;				/**< Istwert zum Zeitpunkt t  */
+	float soll;				/**< Sollwert zum Zeitpunkt t */
+} reg_in_t;
+
+/**
+ * @brief Struktur mit den Ausgangswerten des Reglers
+ */
+typedef struct reg_out_s {
+	float y;				/**< Stellgroesse y zum Zeitpunkt t */
+} reg_out_t;
+
+/** 
+ * @brief Interfacemethodentypen
+ */
+typedef reg_return_t (*reg_read_in_t)(reg_in_t *);
+typedef reg_return_t (*reg_write_out_t)(reg_out_t *);
+
+
+/**
  * @brief Klassendefinition des Reglers
  *
- * Die Eingangs- und Ausgangsgroessen sind als Pointer auf die Groessen der uebergeordneten,
+ * Die Eingangs- und Ausgangsgroessen werden ueber Interfacemethoden ermittelt.
  * den Regler anwendenden Komponente angelegt.
  */
 typedef struct reg_class_s {
-    reg_par_t   p;                    /**< Parametersatz des PI-Reglers   */
-    float       *y;                   /**< Pointer auf Stellgroesse zum Zeitpunkt t   */
-    float       *soll;                /**< Pointer auf Sollwert zum Zeitpunkt t       */
-    float       *ist;                 /**< Pointer auf Istwert zum Zeitpunkt t        */
-    float       x[REG_STATEVARS];     /**< Zustandsgroessen fuer Blockdarstellung des Anti Windup PI-Reglers */
+    reg_par_t   	p;                    /**< Parametersatz des PI-Reglers   */
+    float       	x[REG_STATEVARS];     /**< Zustandsgroessen fuer Blockdarstellung des Anti Windup PI-Reglers */
+	reg_read_in_t	read_in;
+	reg_write_out_t	write_out;
 } reg_class_t;
 
 /* <Typen> */
