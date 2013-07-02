@@ -9,8 +9,8 @@ import tkinter as tk
 class XtDiagram(tk.Frame):
     def __init__(self, 
                  master          = None,
-                 win_X           = 1200,         # Fensterbreite in Pixel
-                 win_Y           =  340,         # Fensterhoehe in Pixel
+                 win_X           =  800,         # Fensterbreite in Pixel
+                 win_Y           =  200,         # Fensterhoehe in Pixel
                  win_Xoffset     =   25,         # x-Achsenoffset in Pixel 
                  win_Yoffset     =   20,         # y-Achsenoffset in Pixel     
                  xTicks          =   24,         # Anzahl der x-Achsenabschnitte (am besten gerade!)

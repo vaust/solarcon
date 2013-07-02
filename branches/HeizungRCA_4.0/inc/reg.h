@@ -27,6 +27,11 @@
 
 /* <Typen> */
 /**
+ * @brief Rueckgabewert für Reglermethoden
+ */
+typedef enum reg_return_e { REG_OK, REG_NOK } reg_return_t;
+
+/**
  * @brief Struktur mit allen Parameter des Reglers
  */
 typedef struct reg_par_s {
@@ -54,11 +59,10 @@ typedef struct reg_out_s {
 } reg_out_t;
 
 /** 
- * @brief Interfacemethodentypen
+ * @brief Typendefinitionen f�r Interfacemethoden
  */
 typedef reg_return_t (*reg_read_in_t)(reg_in_t *);
 typedef reg_return_t (*reg_write_out_t)(reg_out_t *);
-
 
 /**
  * @brief Klassendefinition des Reglers

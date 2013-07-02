@@ -24,9 +24,9 @@ std_ret_t io_ll_read_Temperatur1( temperatur_t *data )
     return E_OK;
 }
 
+// #include <unistd.h>     /* Wird fuer sleep() Befehl benoetigt */
 std_ret_t io_ll_read_Temperatur2( temperatur_t *data )
 {
-    *data = (temperatur_t) pabIn_p->ain.temperatur2 / 10.0;
     return E_OK;
 }
 
