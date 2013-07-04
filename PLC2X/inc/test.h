@@ -12,7 +12,7 @@
     #define PUBLIC extern
 #endif
 
-PUBLIC block_class_t Block1;
+PUBLIC superblock_class_t Block1;
 
 /* Prototypen */
 void test_open( void );

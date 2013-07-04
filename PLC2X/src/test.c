@@ -9,6 +9,7 @@
 #include "io_hl.h"
 #include "test.h"
 #include "block.h"
+#include "superblock.h"
 
 
 #ifdef __WAGO__
@@ -46,7 +47,7 @@ void assert( void )
 }
 
 static
-std_ret_t test_block_read_u( block_in_t *u )
+std_ret_t test_block_read_u( superblock_in_t *u )
 {
     di_bitbyte_t a, b, c;
     std_ret_t    result = E_OK;
