@@ -80,6 +80,9 @@ std_ret_t test_block_write_y( block_out_t *y )
 void test_init( void )
 {
     block_Init( &Block1, test_block_read_u, test_block_write_y ); // Beschreibt prinzipell eine Netzliste
+    Block1.subblock1.par.a = 0;
+    Block1.subblock2.par.b = 1;
+
 
 }
 

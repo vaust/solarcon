@@ -25,8 +25,8 @@ std_ret_t superblock_Init( superblock_class_t*  self,
     self->Run   = superblock_Run;
     self->Close = superblock_Close;
 
-    block_Init( &(self->subblock1), 0, 0 );
-    block_Init( &(self->subblock2), 0, 0 );
+    block_Init( &(self->subblock1), subblock1_read_f, subblock1_write_f );
+    block_Init( &(self->subblock2), subblock2_read_f, subblock2_write_f );
 
     return E_OK;
 }
