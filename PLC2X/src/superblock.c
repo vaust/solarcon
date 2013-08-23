@@ -47,9 +47,10 @@ std_ret_t superblock_Run(superblock_class_t *self)
     block_out_t y;
 
     if( self->read_u(&u) == E_OK ) {
-        y.f = (self->par.a * u.a + self->par.b) * u.b;
-        self->st.y[0] = y.f;
-        if(self->write_y(&y) != E_OK) {
+        // y.f = (self->par.a * u.a + self->par.b) * u.b;
+        // self->st.y[0] = y.f;
+        
+		if(self->write_y(&y) != E_OK) {
             // irgendetwas ist faul
         }
     }
