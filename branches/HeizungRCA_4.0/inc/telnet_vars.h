@@ -20,6 +20,24 @@
 #define _TELNET_VARS_H_
 
 #ifdef _TELNET_C_
+static const telnet_HAND_DecisionTableEntry_t telnet_HAND_DecisionTable[] =
+{
+    { "SOL",   3, &(cntrl_mdl_aktiv.sol_aktiv    ), "\tSOL-Modul"   },
+    { "FB",    2, &(cntrl_mdl_aktiv.fb_aktiv     ), "\tFB-Modul"    },
+    { "HK",    2, &(cntrl_mdl_aktiv.hk_aktiv     ), "\tHK-Modul"    },
+    { "WW",    2, &(cntrl_mdl_aktiv.ww_aktiv     ), "\tWW-Modul"    },
+    { "KES",   3, &(cntrl_mdl_aktiv.kes_aktiv    ), "\tKES-Modul"   },
+    { "ERR",   3, &(cntrl_mdl_aktiv.err_aktiv    ), "\tERR-Modul"   },
+
+    { "INSOL", 5, &(cntrl_mdl_aktiv.inp_sol_aktiv), "\tSOL-Eingabe" },
+    { "INFB",  4, &(cntrl_mdl_aktiv.inp_fb_aktiv ), "\tFB-Eingabe"  },
+    { "INHK",  4, &(cntrl_mdl_aktiv.inp_hk_aktiv ), "\tHK-Eingabe"  },
+    { "INWW",  4, &(cntrl_mdl_aktiv.inp_ww_aktiv ), "\tWW-Eingabe"  },
+    { "INKES", 5, &(cntrl_mdl_aktiv.inp_kes_aktiv), "\tKES-Eingabe" },
+    { "INERR", 5, &(cntrl_mdl_aktiv.inp_err_aktiv), "\tERR-Eingabe" }
+};
+
+// static const telnet
 static const parse_set_t telnet_fb_Vars[] =
 {
     { "fb.reg.p.kp",           &(cntrl_fb.reg.p.kp),           "%f" },
