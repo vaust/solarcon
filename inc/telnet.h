@@ -23,6 +23,20 @@
 #ifndef _TELNET_H_
 #define _TELNET_H_
 
+/* Typen */
+#ifdef _TELNET_C_
+
+typedef struct telnet_HAND_DecisionTableEntry_s {
+	char*	modName;
+	int     modNameLen;
+	u8_t* 	flagp;
+	char*	statustext;
+} telnet_HAND_DecisionTableEntry_t;
+
+typedef struct telnet_
+#endif // _TELNET_C_
+	
+/* Prototpyen */
 void *telnet_Task( void *arg );
 
 #ifdef _TELNET_C_

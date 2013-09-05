@@ -36,18 +36,18 @@
  * @brief Zusammenfassung der Modul Aktiv Flags der einzelnen Tasks
  */
 typedef struct cntrl_enable_modul_s {
-    u16_t sol_aktiv       : 1;  /**< Statusbit Solarkollektor aktiv             */
-    u16_t fb_aktiv        : 1;  /**< Statusbit Fussbodenheizung aktiv           */
-    u16_t hk_aktiv        : 1;  /**< Statusbit Heizkoerperheizkreis aktiv       */
-    u16_t ww_aktiv        : 1;  /**< Statusbit Warmwassersteuerung aktiv        */
-    u16_t kes_aktiv       : 1;  /**< Statusbit Kesselsteuerung aktiv            */
-    u16_t err_aktiv       : 1;  /**< Statusbit Sammelstoermeldung aktiv         */
-    u16_t inp_sol_aktiv   : 1;  /**< Statusbit Solar-Eingabe aktiv              */
-    u16_t inp_fb_aktiv    : 1;  /**< Statusbit Fussbodenheizung-Eingabe aktiv   */
-    u16_t inp_hk_aktiv    : 1;  /**< Statusbit Heizkoerper-Eingabe aktiv        */
-    u16_t inp_ww_aktiv    : 1;  /**< Statusbit Warmwasser-Eingabe aktiv         */
-    u16_t inp_kes_aktiv   : 1;  /**< Statusbit Kessel-Eingabe aktiv             */
-    u16_t inp_err_aktiv   : 1;  /**< Statusbit Sammelstoermeldung Eingabe aktiv */
+    u8_t sol_aktiv    ;  /**< Statusbit Solarkollektor aktiv             */
+    u8_t fb_aktiv     ;  /**< Statusbit Fussbodenheizung aktiv           */
+    u8_t hk_aktiv     ;  /**< Statusbit Heizkoerperheizkreis aktiv       */
+    u8_t ww_aktiv     ;  /**< Statusbit Warmwassersteuerung aktiv        */
+    u8_t kes_aktiv    ;  /**< Statusbit Kesselsteuerung aktiv            */
+    u8_t err_aktiv    ;  /**< Statusbit Sammelstoermeldung aktiv         */
+    u8_t inp_sol_aktiv;  /**< Statusbit Solar-Eingabe aktiv              */
+    u8_t inp_fb_aktiv ;  /**< Statusbit Fussbodenheizung-Eingabe aktiv   */
+    u8_t inp_hk_aktiv ;  /**< Statusbit Heizkoerper-Eingabe aktiv        */
+    u8_t inp_ww_aktiv ;  /**< Statusbit Warmwasser-Eingabe aktiv         */
+    u8_t inp_kes_aktiv;  /**< Statusbit Kessel-Eingabe aktiv             */
+    u8_t inp_err_aktiv;  /**< Statusbit Sammelstoermeldung Eingabe aktiv */
 } cntrl_enable_modul_t;
 
 /* <Globals> Sichtbar in cntrl.c und telnet.c */
