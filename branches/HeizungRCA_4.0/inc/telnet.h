@@ -33,7 +33,13 @@ typedef struct telnet_HAND_DecisionTableEntry_s {
 	char*	statustext;
 } telnet_HAND_DecisionTableEntry_t;
 
-typedef struct telnet_
+typedef struct telnet_PUT_DecisionTableEntry_s {
+    char*           modName;
+    int             modNameLen;
+    parse_set_t*    modVarsp;
+} telnet_PUT_DecisionTableEntry_t;
+
+typedef struct telnet_;
 #endif // _TELNET_C_
 	
 /* Prototpyen */

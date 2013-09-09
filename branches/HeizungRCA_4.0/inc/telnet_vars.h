@@ -37,7 +37,18 @@ static const telnet_HAND_DecisionTableEntry_t telnet_HAND_DecisionTable[] =
     { "INERR", 5, &(cntrl_mdl_aktiv.inp_err_aktiv), "\tERR-Eingabe" }
 };
 
-// static const telnet
+static const telnet_PUT_DecisionTableEntry_t telnet_PUT_DecisionTable[] =
+{
+    { "VSOL", 4, telnet_sol_Vars },
+    { "VFB",  3, telnet_fb_Vars  },
+    { "VHK",  3, telnet_hk_Vars  },
+    { "VWW",  3, telnet_ww_Vars  },
+    { "VKES", 4, telnet_kes_Vars },
+    { "VERR", 4, telnet_err_Vars },
+    { "VDBG", 4, telnet_dbg_Vars }
+};
+
+    // static const telnet
 static const parse_set_t telnet_fb_Vars[] =
 {
     { "fb.reg.p.kp",           &(cntrl_fb.reg.p.kp),           "%f" },

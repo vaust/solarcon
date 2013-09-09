@@ -155,16 +155,6 @@ void *telnet_Task( void *arg )
                         token = strtok( NULL, "\n\r " );
                         table_is_finished = RESET;
                         if( NULL != token ) {
-                            for( i=0; i<(sizeof(telnet_HAND_DecisionTable)/sizeof(telnet_HAND_DecisionTableEntry_t)); i++) {
-                                if( strncasecmp( token, telnet_HAND_DecisionTable[i].modName,
-                                                        telnet_HAND_DecisionTable[i].modNameLen ) == 0 ) {
-                                    *telnet_HAND_DecisionTable[i].flagp = SET;
-                                    snprintf( bufout, BFLN, telnet_HAND_DecisionTable[i].statustext ); BFLSH();
-                                    snprintf( bufout, BFLN, "auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
-                                    table_is_finished = SET;
-                                    break;
-                                }
-                            }
                             if( strncasecmp( token, "ALL",   3 ) == 0 ) {
                                 cntrl_mdl_aktiv.sol_aktiv     = SET;
                                 cntrl_mdl_aktiv.fb_aktiv      = SET;
@@ -180,6 +170,18 @@ void *telnet_Task( void *arg )
                                 snprintf( bufout, BFLN, "\tAlle Module und Eingaben auf AUTOMATIK Betrieb!\n" ); BFLSH();
                                 table_is_finished = SET;
                             }
+                            else {
+                                for( i=0; i<(sizeof(telnet_HAND_DecisionTable)/sizeof(telnet_HAND_DecisionTableEntry_t)); i++) {
+                                    if( strncasecmp( token, telnet_HAND_DecisionTable[i].modName,
+                                                            telnet_HAND_DecisionTable[i].modNameLen ) == 0 ) {
+                                        *telnet_HAND_DecisionTable[i].flagp = SET;
+                                        snprintf( bufout, BFLN, telnet_HAND_DecisionTable[i].statustext ); BFLSH();
+                                        snprintf( bufout, BFLN, "auf AUTOMATIK Betrieb (Closed Loop)\n" ); BFLSH();
+                                        table_is_finished = SET;
+                                        break;
+                                    }
+                                }
+                            }
                             if( table_is_finished == RESET) {
                                 snprintf( bufout, BFLN, "FEHLER falscher Parameter fuer AUTO Befehl\n" ); BFLSH();
                             }
@@ -190,47 +192,33 @@ void *telnet_Task( void *arg )
                     }
                     else if( strncasecmp( "PUT",        token, 3 ) == 0 ) {
                         token = strtok( NULL, "0123456789 " );
+                        table_is_finished = RESET;
                         if( NULL != token ) {
-                            if(      strncasecmp( token, "VSOL", 4 ) == 0 ) {
-                                telnet_putVars( telnet_sol_Vars, sizeof(telnet_sol_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                if( Debug ) printf( "TELNET.C: PUT VSOL Befehl erhalten\n" );
-                            }
-                            else if( strncasecmp( token, "VFB",  3 ) == 0 ) {
-                                telnet_putVars( telnet_fb_Vars, sizeof(telnet_fb_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                if( Debug ) printf( "TELNET.C: PUT VFB Befehl erhalten\n" );
-                            }
-                            else if( strncasecmp( token, "VHK",  3 ) == 0 ) {
-                                telnet_putVars( telnet_hk_Vars, sizeof(telnet_hk_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                if( Debug ) printf( "TELNET.C: PUT VHK Befehl erhalten\n" );
-                            }
-                            else if( strncasecmp( token, "VWW",  3 ) == 0 ) {
-                                telnet_putVars( telnet_ww_Vars, sizeof(telnet_ww_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                if( Debug ) printf( "TELNET.C: PUT VWW Befehl erhalten\n" );
-                            }
-                            else if( strncasecmp( token, "VKES", 4 ) == 0 ) {
-                                telnet_putVars( telnet_kes_Vars, sizeof(telnet_kes_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                if( Debug ) printf( "TELNET.C: PUT VKES Befehl erhalten\n" );
-                            }
-                            else if( strncasecmp( token, "VERR", 4 ) == 0 ) {
-                                telnet_putVars( telnet_err_Vars, sizeof(telnet_err_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                if( Debug ) printf( "TELNET.C: PUT VERR Befehl erhalten\n" );
-                            }
-                            else if( strncasecmp( token, "VDBG", 4 ) == 0 ) {
-                                telnet_putVars( telnet_dbg_Vars, sizeof(telnet_dbg_Vars)/sizeof(parse_set_t), fdesc, bufout );
-                                if( Debug ) printf( "TELNET.C: PUT VDBG Befehl erhalten\n" );
-                            }
-                            else if( strncasecmp( token, "VPAR", 4 ) == 0 ) {
+                            if( strncasecmp( token, "VPAR", 4 ) == 0 ) {
                                 telnet_putVars( telnet_param_Vars, sizeof(telnet_param_Vars)/sizeof(parse_set_t), fdesc, bufout );
                                 telnet_InitModules();
                                 snprintf( bufout, BFLN, "\tModule neu initialisiert!" ); BFLSH();
                                 if( Debug ) printf( "TELNET.C: PUT VDBG Befehl erhalten\n" );
+                                table_is_finished = SET;
                             }
                             else {
+                                for( i=0; i<(sizeof(telnet_PUT_DecisionTable)/sizeof(telnet_PUT_DecisionTableEntry_t)); i++) {
+                                    if( strncasecmp( token, telnet_PUT_DecisionTable[i].modName,
+                                                            telnet_PUT_DecisionTable[i].modNameLen ) == 0 ) {
+                                        telnet_putVars( telnet_PUT_DecisionTable[i].modVarsp,
+                                                        sizeof(telnet_PUT_DecisionTable[i].modVarsp)/sizeof(parse_set_t), fdesc, bufout );
+                                        table_is_finished = SET;
+                                        break;
+                                    }
+                                }
+                            }
+                            if( table_is_finished == RESET) {
                                 snprintf( bufout, BFLN, "FEHLER (8) falscher erster Parameter fuer PUT Befehl\n" ); BFLSH();
                             }
                         }
                         else {
                             snprintf( bufout, BFLN, "FEHLER (4) in Befehlseingabe\n" ); BFLSH();
+
                         }
                     }
                     else if( strncasecmp( "INIT",       token, 4 ) == 0 ) {
