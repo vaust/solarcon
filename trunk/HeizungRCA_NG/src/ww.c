@@ -139,6 +139,10 @@ void ww_Init( ww_class_t *self, u16_t akt_wz )
         self->wz_history[n] = akt_wz;
     }
     self->ringzaehler = 0;
+
+    /* Warmwasserheizungspumpe immer ein! */
+    self->o.hzg_pu_sb = IO_EIN;
+
 }
 
 /**
@@ -178,6 +182,9 @@ void ww_calcDurchfluss( ww_class_t *self )
   */
 void ww_Run( ww_class_t *self )
 {
+    /* PI-Regler fuer WW Heizungspumpe */
+    reg_PI_Run( &(self->reg_pu) );
+
     /*
     Anforderungen an WW Heizungspumpe:
     1. Wenn 1 Minute (Parameter anlegen) kein Wasser verbraucht wurde,
@@ -195,7 +202,7 @@ void ww_Run( ww_class_t *self )
     if( self->p.wasserzaehler_aktiv == zEin ) {   /* Anstelle bedingter Kompilierung mit #ifdef */
         if(    (self->i.tww_mw < self->p.tww_min_sw )
             && (self->i.tau_mw < self->p.frostschutz) ) {
-            self->o.hzg_pu_sb = IO_EIN;
+        	self->o.hzg_pu_sb = IO_EIN;
         }
         else if( self->i.tww_mw > (self->p.tww_min_sw + self->p.tww_hyst_sw) ) {
             if( self->wz_diff != 0 ) {
@@ -211,14 +218,18 @@ void ww_Run( ww_class_t *self )
         self->o.hzg_pu_sb = IO_EIN;
     }
 
+    if( self->p.wasserzaehler_aktiv == zEin ) {
+    	if( self->wz_diff == 0 ) {
+    		self->reg_pu.y = 0.0;
+    	}
+    }
+
     /* Zirkulationspumpe ansteuern */
     if( (self->i.zirkzustand == zEin) || (self->i.tau_mw < self->p.frostschutz) )
         self->o.zirk_pu_sb = IO_EIN;
     else
         self->o.zirk_pu_sb = IO_AUS;
 
-    /* PI-Regler fuer WW Heizungspumpe */
-    reg_PI_Run( &(self->reg_pu) );
 
     /* Berechnung von WW_HZG_MV_Y aus den Temperaturen von Speicher und Ruecklauf */
     ww_MV_Steuerung( self );
