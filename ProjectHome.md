@@ -1,0 +1,1 @@
+Goal of the project is a modular control software running on a WAGO 750-860 Linux based Controller. The software is composed of independent components which control a solar collector panel, a heated floor system, shower warm water system and a radiator heating system.

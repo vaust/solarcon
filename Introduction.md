@@ -1,0 +1,8 @@
+# Introduction #
+
+The project aims to develop software components to control solar supported home heating systems.
+
+
+# Details #
+
+The current code base is intended to run on a Linux based WAGO 750-860 PLC system. The control algorithms themself are hardware independently designed components. The interface to the process image is encapsulated in C macros.
